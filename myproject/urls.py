@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from allauth.account.views import LoginView, SignupView
 from users import views as users_views
 
 admin.site.site_header = "Skilled MBA Administration"
@@ -27,6 +28,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("accounts/profile/", users_views.profile, name="account_profile"),
+    path("login/", LoginView.as_view(), name="custom_login"),
+    path("register/", SignupView.as_view(), name="custom_signup"),
+    path("student-registration/", SignupView.as_view(), name="student_signup"),
 ]
 
 if settings.DEBUG:
