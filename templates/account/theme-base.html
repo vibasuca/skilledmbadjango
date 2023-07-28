@@ -15,7 +15,7 @@
     />
 
     <!-- This site is optimized with the Yoast SEO plugin v20.12 - https://yoast.com/wordpress/plugins/seo/ -->
-    <title>Login - Skilled MBA</title>
+    <title>Student Registration - Skilled MBA</title>
     <link rel="canonical" href="/student-registration/" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
@@ -9606,7 +9606,7 @@
                     <a href="/">Home</a>
                   </li>
                   <li class="level-2 sub item-current tail current">
-                    <span>Login</span>
+                    <span>Student Registration</span>
                   </li>
                 </ul>
               </div>
@@ -9616,7 +9616,7 @@
               <div class="row row-xs-center">
                 <div class="col-md-12">
                   <div class="page-title-bar-heading">
-                    <h1 class="heading">Login</h1>
+                    <h1 class="heading">Student Registration</h1>
                   </div>
                 </div>
               </div>
@@ -9628,7 +9628,7 @@
             <div class="row">
               <div id="page-main-content" class="page-main-content">
                 <div class="rich-snippet display-none">
-                  <h1 class="entry-title">Login</h1>
+                  <h1 class="entry-title">Student Registration</h1>
                   <span class="published">June 5, 2020</span>
                   <span class="updated" data-time="2020-06-05 3:27"
                     >2020-06-05 3:27</span
@@ -9639,21 +9639,12 @@
                   id="post-5"
                   class="post-5 page type-page status-publish hentry pmpro-has-access post-no-thumbnail"
                 >
-                  <h2 class="screen-reader-text">Login</h2>
+                  <h2 class="screen-reader-text">Student Registration</h2>
 
                   <div class="user-form-wrap form-register-wrap">
-                    <h4 class="form-title">Login</h4>
-
-                    {% if form.non_field_errors %}
-                        <ul>
-                            {% for error in form.non_field_errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
+                    <h4 class="form-title">Student registration</h4>
 
                     <form method="post" enctype="multipart/form-data">
-                      {% csrf_token %}
                       <input
                         type="hidden"
                         id="_tutor_nonce"
@@ -9673,50 +9664,57 @@
                       <div class="tutor-form-row">
                         <div class="tutor-form-col-6">
                           <div class="tutor-form-group">
-                            <label>Username or Email Address</label>
-                            {% comment %} <input type="text" name="first_name" value="" /> {% endcomment %}
-                            {{ form.login }}
-                            {% if form.login.errors %}
-                                <ul>
-                                    {% for error in form.login.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
+                            <label>First Name</label>
+                            <input type="text" name="first_name" value="" />
+                          </div>
                         </div>
-                    </div>
-                    <div class="tutor-form-col-6">
-                        <div class="tutor-form-group">
-                            <label>Password</label>
-                            {% comment %} <input type="text" name="last_name" value="" /> {% endcomment %}
-                            {{ form.password }}
-                            {% if form.password.errors %}
-                                <ul>
-                                    {% for error in form.password.errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
+                        <div class="tutor-form-col-6">
+                          <div class="tutor-form-group">
+                            <label>Last Name</label>
+                            <input type="text" name="last_name" value="" />
                           </div>
                         </div>
                       </div>
 
-                      <div class="tutor-d-flex tutor-justify-between tutor-align-center tutor-mb-40">
-                        <div class="tutor-form-check">
-                            {% comment %} <input id="tutor-login-agmnt-1" type="checkbox" class="tutor-form-check-input tutor-bg-black-40" name="rememberme" value="forever"> {% endcomment %}
-                            {{form.remember}}
-                            <label for="id_remember" class="tutor-fs-7 tutor-color-muted">
-                                Keep me signed in			</label>
+                      <div class="tutor-form-row">
+                        <div class="tutor-form-col-6">
+                          <div class="tutor-form-group">
+                            <label>User Name</label>
+                            <input
+                              type="text"
+                              name="user_login"
+                              class="tutor_user_name"
+                              value=""
+                            />
+                          </div>
                         </div>
-                        <a href="{% url 'account_reset_password' %}" class="tutor-btn tutor-btn-ghost">
-                            Forgot?		</a>
-                    </div>
+                        <div class="tutor-form-col-6">
+                          <div class="tutor-form-group">
+                            <label>E-Mail</label>
+                            <input type="text" name="email" value="" />
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="tutor-form-row">
+                        <div class="tutor-form-col-6">
+                          <div class="tutor-form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" value="" />
+                          </div>
+                        </div>
 
-                    {% if redirect_field_value %}
-                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                    {% endif %}
-
+                        <div class="tutor-form-col-6">
+                          <div class="tutor-form-group">
+                            <label>Password confirmation</label>
+                            <input
+                              type="password"
+                              name="password_confirmation"
+                              value=""
+                            />
+                          </div>
+                        </div>
+                      </div>
 
                       <div class="tutor-form-row">
                         <div class="tutor-form-col-12">
@@ -9727,15 +9725,8 @@
                               value="register"
                               class="tutor-button form-submit"
                             >
-                              Sign In
+                              Register
                             </button>
-
-
-                            <div class="tutor-text-center tutor-fs-6 tutor-color-secondary tutor-mt-20">
-                                Don't have an account?&nbsp;
-                                <a href="{{ signup_url }}" class="tutor-btn tutor-btn-ghost">
-                                    Register Now			</a>
-                            </div>
                           </div>
                         </div>
                       </div>
@@ -9757,14 +9748,14 @@
         <footer class="w-100 flex-shrink-0" style="background: ">
           <div class="container py-4" style="background: ">
             <div class="row gy-4 gx-5" style="padding: 40px 0px">
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <center style="margin: 0px 0px 35px 0px">
                   <img
-                    src="/wp-content/uploads/2020/08/Logo-File-2-380x140.png"
+                    src="/wp-content/uploads/2020/08/Logo-File-2.png"
                     class="attachment-full size-full wp-image-6642"
                     alt=""
                     loading="lazy"
-                    {% comment %} srcset="
+                    srcset="
                       /wp-content/uploads/2020/08/Logo-File-2.png          3378w,
                       /wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
                       /wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
@@ -9773,7 +9764,7 @@
                       /wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
                       /wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
                       /wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-                    " {% endcomment %}
+                    "
                     sizes="(max-width: 3378px) 100vw, 3378px"
                     style="max-width: 200px; height: auto; margin: 20px"
                   />
@@ -9838,7 +9829,7 @@
                   </p>
                 </center>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <div class="row">
                   <div
                     class="col-lg-4 col-md-6"
