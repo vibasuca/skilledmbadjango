@@ -30,8 +30,6 @@ a {
 
 .header1 {
   background: #031f42;
-  background-size: cover;
-  background-position: bottom center;
 }
 
 .sticky-top {
@@ -39,14 +37,16 @@ a {
 }
 
 .navbar {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
+  padding: 2rem 0px !important;
 }
 
-/* style for when sitcky is applied */
 .stuck .navbar.sticky-top {
-  padding-top: 0.8rem !important;
-  padding-bottom: 0.8rem !important;
+  padding: 0.8rem 0rem !important;
+}
+
+.navbar .brandingLogo {
+  max-width: 190px;
+  height: auto;
 }
 
 .title-content {

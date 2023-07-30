@@ -13,248 +13,275 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <div class="header header1">
-        <div class="container text-white">header 1</div>
-        <!--container-->
-      </div>
-
-      <span class="position-absolute trigger">
-        <!-- hidden trigger to apply 'stuck' styles -->
-      </span>
-
-      <nav
-        class="navbar navbar-expand-sm sticky-top navbar-dark bg-white shadow"
-      >
-        <div class="container">header 2</div>
-      </nav>
-    </header>
-
-    <div class="title-content p-3">
-      <div class="container">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item">Student Registration</li>
-          </ol>
-        </nav>
-        <h1 class="text-center my-5">Student Registration</h1>
+    <div class="header header1 py-2">
+      <div class="container text-white d-flex justify-content-between">
+        <div>Left texts</div>
+        <div>Search</div>
+        <div>Right texts</div>
       </div>
     </div>
 
+    <span class="position-absolute trigger"></span>
+
+    <nav
+      class="navbar navbar-expand-sm sticky-top navbar-dark bg-white shadow-sm"
+    >
+      <div class="container flex justify-content-between">
+        <div>
+          <img
+            class="brandingLogo"
+            src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+            loading="lazy"
+            srcset="
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+            "
+          />
+        </div>
+        <div>Menu</div>
+      </div>
+    </nav>
+
     <div class="container-fluid">
-      <div class="main-content py-3">
-        <div class="row">
-          <div class="col-md-5 mx-auto">
-            <div class="card my-5 mx-3 p-3 p-md-5 shadow border-0">
-              <div class="card-header bg-white border-0">
-                <b>Student registration</b>
-              </div>
-              <form class="regForm">
-                <div class="card-body">
-                  <div class="mb-5">
-                    <label for="firstName" class="form-label">
-                      <small>First Name</small>
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="firstName"
-                      placeholder="Peter"
-                    />
-                  </div>
-                  <div class="my-5">
-                    <label for="lastName" class="form-label">
-                      <small>Last Name</small>
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="lastName"
-                      placeholder="England"
-                    />
-                  </div>
-                  <div class="my-5">
-                    <label for="email" class="form-label">
-                      <small>Email</small>
-                    </label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      placeholder="email@example.com"
-                    />
-                  </div>
-                  <div class="my-5">
-                    <label for="password" class="form-label">
-                      <small>Password</small>
-                    </label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      placeholder="Password"
-                    />
-                  </div>
-                  <div class="my-5">
-                    <label for="passwordConfirm" class="form-label">
-                      <small>Confirm Password</small>
-                    </label>
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="passwordConfirm"
-                      placeholder="Confirm Password"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+      <div class="title-content p-3">
+        <div class="container">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item">Student Registration</li>
+            </ol>
+          </nav>
+          <h1 class="text-center my-5">Student Registration</h1>
         </div>
       </div>
 
-      <footer
-        id="page-footer-wrapper"
-        class="page-footer-wrapper"
-        style="background: #f9f9fb"
-      >
-        <footer class="w-100 flex-shrink-0">
-          <div class="container py-4">
-            <div class="row gy-4 gx-5" style="padding: 40px 0px">
-              <div class="col-md-5">
-                <center style="margin: 0px 0px 35px 0px">
-                  <img
-                    src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-                    class="attachment-full size-full wp-image-6642"
-                    alt=""
-                    loading="lazy"
-                    srcset="
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-                      https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-                    "
-                    sizes="(max-width: 3378px) 100vw, 3378px"
-                    style="max-width: 200px; height: auto; margin: 20px"
-                  />
-                  <div
-                    class="tm-social-networks style-large-icons layout-inline"
-                  ></div>
-                  <p class="small text-muted mb-0">
-                    &copy; 2023 SKILLEDMBA. All rights reserved.
-                  </p>
-                  <p>
-                    <a class="text-primary" href="#">Terms of Use</a>
-                    -
-                    <a class="text-primary" href="#">Privacy Policy</a>
-                  </p>
-                </center>
+      <div class="container-fluid">
+        <div class="main-content py-3">
+          <div class="row">
+            <div class="col-md-5 mx-auto">
+              <div class="card my-5 mx-3 p-3 p-md-5 shadow border-0">
+                <div class="card-header bg-white border-0">
+                  <b>Student registration</b>
+                </div>
+                <form class="regForm">
+                  <div class="card-body">
+                    <div class="mb-5">
+                      <label for="firstName" class="form-label">
+                        <small>First Name</small>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="firstName"
+                        placeholder="Peter"
+                      />
+                    </div>
+                    <div class="my-5">
+                      <label for="lastName" class="form-label">
+                        <small>Last Name</small>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="lastName"
+                        placeholder="England"
+                      />
+                    </div>
+                    <div class="my-5">
+                      <label for="email" class="form-label">
+                        <small>Email</small>
+                      </label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        placeholder="email@example.com"
+                      />
+                    </div>
+                    <div class="my-5">
+                      <label for="password" class="form-label">
+                        <small>Password</small>
+                      </label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Password"
+                      />
+                    </div>
+                    <div class="my-5">
+                      <label for="passwordConfirm" class="form-label">
+                        <small>Confirm Password</small>
+                      </label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="passwordConfirm"
+                        placeholder="Confirm Password"
+                      />
+                    </div>
+                    <div class="my-5">
+                      <div class="d-grid gap-2">
+                        <button class="btn btn-primary py-3" type="button">
+                          <b>Register</b>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
-              <div class="col-md-7">
-                <div class="row">
-                  <div
-                    class="col-lg-4 col-md-6"
-                    style="margin: 0px 0px 35px 0px"
-                  >
-                    <h6
-                      style="
-                        font-size: 16px;
-                        font-weight: 700;
-                        line-height: 30px;
-                      "
-                    >
-                      About
-                    </h6>
-                    <ul
-                      style="
-                        list-style-type: none;
-                        padding: 0px;
-                        margin: 0px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        margin-bottom: 0;
-                        color: #999999 !important;
-                      "
-                    >
-                      <li><a href="#">About Us</a></li>
-                      <li><a href="#">Courses</a></li>
-                      <li><a href="#">Instructor</a></li>
-                      <li><a href="#">Events</a></li>
-                      <li><a href="#">Become A Teacher</a></li>
-                    </ul>
-                  </div>
+            </div>
+          </div>
+        </div>
 
-                  <div
-                    class="col-lg-4 col-md-6"
-                    style="margin: 0px 0px 35px 0px"
-                  >
-                    <h6
-                      style="
-                        font-size: 16px;
-                        font-weight: 700;
-                        line-height: 30px;
+        <footer
+          id="page-footer-wrapper"
+          class="page-footer-wrapper"
+          style="background: #f9f9fb"
+        >
+          <footer class="w-100 flex-shrink-0">
+            <div class="container py-4">
+              <div class="row gy-4 gx-5" style="padding: 40px 0px">
+                <div class="col-md-5">
+                  <center style="margin: 0px 0px 35px 0px">
+                    <img
+                      src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+                      class="attachment-full size-full wp-image-6642"
+                      alt=""
+                      loading="lazy"
+                      srcset="
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
                       "
+                      sizes="(max-width: 3378px) 100vw, 3378px"
+                      style="max-width: 200px; height: auto; margin: 20px"
+                    />
+                    <div
+                      class="tm-social-networks style-large-icons layout-inline"
+                    ></div>
+                    <p class="small text-muted mb-0">
+                      &copy; 2023 SKILLEDMBA. All rights reserved.
+                    </p>
+                    <p>
+                      <a class="text-primary" href="#">Terms of Use</a>
+                      -
+                      <a class="text-primary" href="#">Privacy Policy</a>
+                    </p>
+                  </center>
+                </div>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div
+                      class="col-lg-4 col-md-6"
+                      style="margin: 0px 0px 35px 0px"
                     >
-                      Links
-                    </h6>
-                    <ul
-                      style="
-                        list-style-type: none;
-                        padding: 0px;
-                        margin: 0px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        margin-bottom: 0;
-                        color: #b6c2c6;
-                      "
-                    >
-                      <li><a href="#">News & Blogs</a></li>
-                      <li><a href="#">Partners</a></li>
-                      <li><a href="#">Careers</a></li>
-                      <li><a href="#">Examination</a></li>
-                    </ul>
-                  </div>
+                      <h6
+                        style="
+                          font-size: 16px;
+                          font-weight: 700;
+                          line-height: 30px;
+                        "
+                      >
+                        About
+                      </h6>
+                      <ul
+                        style="
+                          list-style-type: none;
+                          padding: 0px;
+                          margin: 0px;
+                          font-size: 14px;
+                          font-weight: 500;
+                          margin-bottom: 0;
+                          color: #999999 !important;
+                        "
+                      >
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Courses</a></li>
+                        <li><a href="#">Instructor</a></li>
+                        <li><a href="#">Events</a></li>
+                        <li><a href="#">Become A Teacher</a></li>
+                      </ul>
+                    </div>
 
-                  <div
-                    class="col-lg-4 col-md-6"
-                    style="margin: 0px 0px 35px 0px"
-                  >
-                    <h6
-                      style="
-                        font-size: 16px;
-                        font-weight: 700;
-                        line-height: 30px;
-                      "
+                    <div
+                      class="col-lg-4 col-md-6"
+                      style="margin: 0px 0px 35px 0px"
                     >
-                      Support
-                    </h6>
-                    <ul
-                      style="
-                        list-style-type: none;
-                        padding: 0px;
-                        margin: 0px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        margin-bottom: 0;
-                        color: #b6c2c6;
-                      "
+                      <h6
+                        style="
+                          font-size: 16px;
+                          font-weight: 700;
+                          line-height: 30px;
+                        "
+                      >
+                        Links
+                      </h6>
+                      <ul
+                        style="
+                          list-style-type: none;
+                          padding: 0px;
+                          margin: 0px;
+                          font-size: 14px;
+                          font-weight: 500;
+                          margin-bottom: 0;
+                          color: #b6c2c6;
+                        "
+                      >
+                        <li><a href="#">News & Blogs</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Examination</a></li>
+                      </ul>
+                    </div>
+
+                    <div
+                      class="col-lg-4 col-md-6"
+                      style="margin: 0px 0px 35px 0px"
                     >
-                      <li><a href="#">FAQs</a></li>
-                      <li><a href="#">Contact Us</a></li>
-                      <li><a href="#">Membership</a></li>
-                    </ul>
+                      <h6
+                        style="
+                          font-size: 16px;
+                          font-weight: 700;
+                          line-height: 30px;
+                        "
+                      >
+                        Support
+                      </h6>
+                      <ul
+                        style="
+                          list-style-type: none;
+                          padding: 0px;
+                          margin: 0px;
+                          font-size: 14px;
+                          font-weight: 500;
+                          margin-bottom: 0;
+                          color: #b6c2c6;
+                        "
+                      >
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Membership</a></li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </footer>
         </footer>
-      </footer>
+      </div>
     </div>
 
     <script src="script.js"></script>
