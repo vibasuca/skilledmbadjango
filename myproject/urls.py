@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 from allauth.account.views import LoginView, SignupView
 from users import views as users_views
 
@@ -31,6 +32,12 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="custom_login"),
     path("register/", SignupView.as_view(), name="custom_signup"),
     path("student-registration/", SignupView.as_view(), name="student_signup"),
+    path(
+        "dashboard/",
+        TemplateView.as_view(template_name="dashboard.html"),
+        name="dashboard",
+    ),
+    path("media-library/", include("media_library.urls", namespace="media_library")),
 ]
 
 if settings.DEBUG:
