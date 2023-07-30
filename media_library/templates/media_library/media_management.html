@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Management</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Media Management</h2>
+        <!-- Upload Form -->
+        <form id="media-upload-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="file">Choose a file:</label>
+                <input type="file" class="form-control-file" id="file" name="file" required>
+            </div>
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="alt_text">Alt Text:</label>
+                <input type="text" class="form-control" id="alt_text" name="alt_text">
+            </div>
+            <div class="form-group">
+                <label for="caption">Caption:</label>
+                <input type="text" class="form-control" id="caption" name="caption">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+
+        <hr>
+
+        <!-- Search Inputs -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="month">Month:</label>
+                    <select class="form-control" id="month">
+                        <option value="">Select Month</option>
+                        <!-- Dynamically generate options for all months -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="year">Year:</label>
+                    <select class="form-control" id="year">
+                        <option value="">Select Year</option>
+                        <!-- Dynamically generate options for last 5 years -->
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="search">Search:</label>
+                    <input type="text" class="form-control" id="search" placeholder="Enter search keywords">
+                </div>
+            </div>
+        </div>
+
+        <!-- Media List -->
+        <div id="media-list">
+            <h3>Media List:</h3>
+            <div id="accordion">
+                <!-- Media items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+             // Dynamically generate options for all months
+             const monthSelect = $("#month");
+             for (let i = 1; i <= 12; i++) {
+                 const monthName = new Date(2000, i - 1, 1).toLocaleString('default', { month: 'long' });
+                 monthSelect.append(`<option value="${i}">${monthName}</option>`);
+             }
+ 
+             // Dynamically generate options for last 5 years
+             const yearSelect = $("#year");
+             const currentYear = new Date().getFullYear();
+             for (let i = currentYear; i > currentYear - 5; i--) {
+                 yearSelect.append(`<option value="${i}">${i}</option>`);
+             }
+
+             
+            // AJAX Upload Form
+            $("#media-upload-form").submit(function(e) {
+                e.preventDefault();
+                const form = $(this);
+                const url = "{% url 'media_library:upload_media' %}";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: new FormData(this),
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert(response.message);
+                        // Refresh media list after successful upload
+                        fetchMediaList();
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error: " + xhr.responseJSON.error);
+                        // Handle the error and update the UI accordingly
+                    },
+                });
+            });
+
+            // Function to fetch and display the media list
+            function fetchMediaList() {
+                const searchQuery = $("#search").val();
+                const month = $("#month").val();
+                const year = $("#year").val();
+                const url = "{% url 'media_library:list_media' %}";
+
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {
+                        month: month,
+                        year: year,
+                        q: searchQuery,
+                    },
+                    success: function(response) {
+                        const mediaList = response.media;
+                        const mediaListContainer = $("#media-list #accordion");
+                        mediaListContainer.empty();
+
+                        mediaList.forEach(function(media, index) {
+                            //const listItem = $("<li>").addClass("list-group-item");
+                            //const mediaLink = $("<a>").attr("href", media.file).text(media.title);
+                            //const mediaDate = $("<span>").text(new Date(media.created_at).toLocaleString());
+
+                            //listItem.append(mediaLink);
+                            //listItem.append(" - ");
+                            //listItem.append(mediaDate);
+                            //mediaListContainer.append(listItem);
+                            {% comment %}                         
+                            const listItem = $("<li>").addClass("list-group-item");
+                            const mediaLink = $("<a>").attr("href", media.file).text(media.file);
+        
+                            listItem.append(mediaLink);
+        
+                            if (media.title) {
+                                listItem.append("<br>");
+                                listItem.append(`Title: ${media.title}`);
+                            }
+                            if (media.description) {
+                                listItem.append("<br>");
+                                listItem.append(`Description: ${media.description}`);
+                            }
+                            if (media.alt_text) {
+                                listItem.append("<br>");
+                                listItem.append(`Alt Text: ${media.alt_text}`);
+                            }
+                            if (media.caption) {
+                                listItem.append("<br>");
+                                listItem.append(`Caption: ${media.caption}`);
+                            }
+                            if (media.created_at) {
+                                listItem.append("<br>");
+                                listItem.append(`Created At: ${new Date(media.created_at).toLocaleString()}`);
+                            }
+        
+                            mediaListContainer.append(listItem);
+                            {% endcomment %}
+
+                            const mediaItem = `
+                            <div class="card">
+                                <div class="card-header" id="heading${index}">
+                                  <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${index}" aria-expanded="true" aria-controls="collapse${index}">
+                                        <!-- <a href="${media.file}">${media.file}</a> -->
+                                        ${media.file}
+                                    </button>
+                                  </h5>
+                                </div>
+                          
+                                <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+                                  <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="title">Title:</label>
+                                        <input type="text" class="form-control" id="title-${media.id}" value="${media.title}" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description:</label>
+                                        <textarea class="form-control" id="description-${media.id}">${media.description}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="alt_text">Alt Text:</label>
+                                        <input type="text" class="form-control" id="alt_text-${media.id}" value="${media.alt_text}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="caption">Caption:</label>
+                                        <input type="text" class="form-control" id="caption-${media.id}" value="${media.caption}">
+                                    </div>
+                                    <button class="btn btn-primary update-media-btn" data-media-id="${media.id}">Update</button>
+                                  </div>
+                                </div>
+                              </div>
+                            `;
+                            mediaListContainer.append(mediaItem);
+
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Error fetching media list.");
+                    },
+                });
+            }
+
+            // Function to update media
+            function updateMedia(mediaId, newData) {
+                $.ajax({
+                    type: "POST",
+                    url: `/media-library/update-media/${mediaId}/`, // URL to the update_media view
+                    data: newData,
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        alert("Media updated successfully!");
+                        fetchMediaList(); // Refresh the media list after successful update
+                    },
+                    error: function(xhr, status, error) {
+                        alert("An error occurred while updating media.");
+                    },
+                });
+            }
+
+            // Event listener for updating media
+            $(document).on("click", ".update-media-btn", function() {
+                const mediaId = $(this).data("media-id");
+                const newData = {
+                    title: $(`#title-${mediaId}`).val(),
+                    description: $(`#description-${mediaId}`).val(),
+                    alt_text: $(`#alt_text-${mediaId}`).val(),
+                    caption: $(`#caption-${mediaId}`).val(),
+                };
+                updateMedia(mediaId, newData);
+            });
+
+            // Fetch the media list when the page loads
+            fetchMediaList();
+            $("#search, #month, #year").on("input", fetchMediaList);
+        });
+    </script>
+</body>
+</html>

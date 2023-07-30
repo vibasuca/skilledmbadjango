@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     # Local
     "users",
+    "media_library",
 ]
 
 SITE_ID = 1
