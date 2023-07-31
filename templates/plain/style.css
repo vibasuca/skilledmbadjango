@@ -32,6 +32,19 @@ a {
   background: #031f42;
 }
 
+.header a {
+  color: white;
+}
+
+.header1 a:hover {
+  color: #ffc107;
+}
+
+.top-search-bar-input {
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .sticky-top {
   transition: all 0.25s ease-in;
 }
@@ -47,6 +60,7 @@ a {
 .navbar .brandingLogo {
   max-width: 190px;
   height: auto;
+  transition: all 0.25s ease-in;
 }
 
 .title-content {
@@ -60,6 +74,5 @@ a {
 .regForm input {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
   box-sizing: border-box;
 }
