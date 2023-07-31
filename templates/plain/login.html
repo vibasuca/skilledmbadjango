@@ -10,14 +10,89 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link
+      rel="stylesheet"
+      id="custom-stylesheet-css"
+      type="text/css"
+      media="all"
+      href="./style.css"
+    />
   </head>
   <body>
-    <div class="header header1 py-2">
-      <div class="container text-white d-flex justify-content-between">
-        <div>Left texts</div>
-        <div>Search</div>
-        <div>Right texts</div>
+    <div class="header header1 py-1">
+      <div
+        class="container text-white d-flex justify-content-between align-items-center"
+      >
+        <div
+          class="d-flex justify-content-between gap-3"
+          style="font-size: 13px"
+        >
+          <div>
+            <b>
+              <i class="fa fa-phone text-warning"></i>
+              &nbsp;
+              <a href="#"> (+91) 87553 00795 </a>
+            </b>
+          </div>
+          <div>|</div>
+          <div>
+            <b>
+              <i class="fa fa-envelope text-warning"></i>
+              &nbsp;
+              <a href="#">skilledmba@gmail.com</a>
+            </b>
+          </div>
+        </div>
+        <div>
+          <form>
+            <div class="input-group" style="width: 350px">
+              <input
+                type="text"
+                class="form-control top-search-bar-input"
+                placeholder="Search..."
+                aria-label="Search"
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn text-dark top-search-bar-button"
+                type="button"
+              >
+                <b>
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </b>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="d-flex justify-content-between gap-4">
+          <div style="font-size: 13px">
+            <a href="#">Log in</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+            <a href="#">Register</a>
+          </div>
+          <div class="d-flex gap-4">
+            <div>
+              <a href=""><b>𝕏</b> </a>
+            </div>
+            <div>
+              <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            <div>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <div>
+              <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -27,7 +102,7 @@
       class="navbar navbar-expand-sm sticky-top navbar-dark bg-white shadow-sm"
     >
       <div class="container flex justify-content-between">
-        <div>
+        <div class="d-flex gap-4 align-items-center">
           <img
             class="brandingLogo"
             src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
@@ -43,8 +118,50 @@
               https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
             "
           />
+          <div style="width: 1.5px; height: 40px; background: lightgray"></div>
+          <a href="">
+            <div class="d-flex gap-3 align-items-center">
+              <svg
+                width="18px"
+                height="18px"
+                viewBox="0 0 18 18"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+              >
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                  <path
+                    d="M2,14 C3.1045695,14 4,14.8954305 4,16 C4,17.1045695 3.1045695,18 2,18 C0.8954305,18 0,17.1045695 0,16 C0,14.8954305 0.8954305,14 2,14 Z M9,14 C10.1045695,14 11,14.8954305 11,16 C11,17.1045695 10.1045695,18 9,18 C7.8954305,18 7,17.1045695 7,16 C7,14.8954305 7.8954305,14 9,14 Z M16,14 C17.1045695,14 18,14.8954305 18,16 C18,17.1045695 17.1045695,18 16,18 C14.8954305,18 14,17.1045695 14,16 C14,14.8954305 14.8954305,14 16,14 Z M2,7 C3.1045695,7 4,7.8954305 4,9 C4,10.1045695 3.1045695,11 2,11 C0.8954305,11 0,10.1045695 0,9 C0,7.8954305 0.8954305,7 2,7 Z M9,7 C10.1045695,7 11,7.8954305 11,9 C11,10.1045695 10.1045695,11 9,11 C7.8954305,11 7,10.1045695 7,9 C7,7.8954305 7.8954305,7 9,7 Z M16,7 C17.1045695,7 18,7.8954305 18,9 C18,10.1045695 17.1045695,11 16,11 C14.8954305,11 14,10.1045695 14,9 C14,7.8954305 14.8954305,7 16,7 Z M2,0 C3.1045695,0 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 0,3.1045695 0,2 C0,0.8954305 0.8954305,0 2,0 Z M9,0 C10.1045695,0 11,0.8954305 11,2 C11,3.1045695 10.1045695,4 9,4 C7.8954305,4 7,3.1045695 7,2 C7,0.8954305 7.8954305,0 9,0 Z M16,0 C17.1045695,0 18,0.8954305 18,2 C18,3.1045695 17.1045695,4 16,4 C14.8954305,4 14,3.1045695 14,2 C14,0.8954305 14.8954305,0 16,0 Z"
+                  ></path>
+                </g>
+              </svg>
+              Courses
+            </div>
+          </a>
         </div>
-        <div>Menu</div>
+        <div class="d-flex gap-4 fs-6">
+          <div>
+            <a class="hover-underline-animation" href="#">Examination (Q/A)</a>
+          </div>
+          <div><a class="hover-underline-animation" href="#">Research</a></div>
+          <div><a class="hover-underline-animation" href="#">Event</a></div>
+          <div>
+            <a class="hover-underline-animation" href="#">Contact Us</a>
+          </div>
+          <div>
+            <a href="#"> </a>
+            <a class="position-relative">
+              <i class="fa-solid fa-cart-shopping fs-5"></i>
+              <span
+                class="position-absolute translate-middle badge rounded-pill bg-primary"
+                style="top: -5px; left: 102%"
+              >
+                <small>0</small>
+                <span class="visually-hidden">Pending orders</span>
+              </span>
+            </a>
+          </div>
+        </div>
       </div>
     </nav>
 
@@ -53,7 +170,9 @@
         <div class="container">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item hover-underline-animation">
+                <a href="#">Home</a>
+              </li>
               <li class="breadcrumb-item">Student Registration</li>
             </ol>
           </nav>
@@ -71,41 +190,50 @@
                 </div>
                 <form class="regForm">
                   <div class="card-body">
-                    <div class="mb-5">
-                      <label for="firstName" class="form-label">
+                    <div class="mb-3 mb-md-5">
+                      <label
+                        for="firstName"
+                        class="form-label d-none d-md-block"
+                      >
                         <small>First Name</small>
                       </label>
                       <input
                         type="text"
                         class="form-control"
                         id="firstName"
-                        placeholder="Peter"
+                        placeholder="First Name"
                       />
                     </div>
-                    <div class="my-5">
-                      <label for="lastName" class="form-label">
+                    <div class="my-3 my-md-5">
+                      <label
+                        for="lastName"
+                        class="form-label d-none d-md-block"
+                      >
                         <small>Last Name</small>
                       </label>
                       <input
                         type="text"
                         class="form-control"
                         id="lastName"
-                        placeholder="England"
+                        placeholder="Last Name"
                       />
                     </div>
-                    <div class="my-5">
-                      <label for="email" class="form-label">
+                    <div class="my-3 my-md-5">
+                      <label for="email" class="form-label d-none d-md-block">
                         <small>Email</small>
                       </label>
                       <input
                         type="email"
                         class="form-control"
                         id="email"
-                        placeholder="email@example.com"
+                        placeholder="Email"
                       />
                     </div>
-                    <div class="my-5">
-                      <label for="password" class="form-label">
+                    <div class="my-3 my-md-5">
+                      <label
+                        for="password"
+                        class="form-label d-none d-md-block"
+                      >
                         <small>Password</small>
                       </label>
                       <input
@@ -115,8 +243,11 @@
                         placeholder="Password"
                       />
                     </div>
-                    <div class="my-5">
-                      <label for="passwordConfirm" class="form-label">
+                    <div class="my-3 my-md-5">
+                      <label
+                        for="passwordConfirm"
+                        class="form-label d-none d-md-block"
+                      >
                         <small>Confirm Password</small>
                       </label>
                       <input
@@ -126,7 +257,7 @@
                         placeholder="Confirm Password"
                       />
                     </div>
-                    <div class="my-5">
+                    <div class="my-3 my-md-5">
                       <div class="d-grid gap-2">
                         <button class="btn btn-primary py-3" type="button">
                           <b>Register</b>
@@ -139,150 +270,115 @@
             </div>
           </div>
         </div>
-
-        <footer
-          id="page-footer-wrapper"
-          class="page-footer-wrapper"
-          style="background: #f9f9fb"
-        >
-          <footer class="w-100 flex-shrink-0">
-            <div class="container py-4">
-              <div class="row gy-4 gx-5" style="padding: 40px 0px">
-                <div class="col-md-5">
-                  <center style="margin: 0px 0px 35px 0px">
-                    <img
-                      src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-                      class="attachment-full size-full wp-image-6642"
-                      alt=""
-                      loading="lazy"
-                      srcset="
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-                        https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-                      "
-                      sizes="(max-width: 3378px) 100vw, 3378px"
-                      style="max-width: 200px; height: auto; margin: 20px"
-                    />
-                    <div
-                      class="tm-social-networks style-large-icons layout-inline"
-                    ></div>
-                    <p class="small text-muted mb-0">
-                      &copy; 2023 SKILLEDMBA. All rights reserved.
-                    </p>
-                    <p>
-                      <a class="text-primary" href="#">Terms of Use</a>
-                      -
-                      <a class="text-primary" href="#">Privacy Policy</a>
-                    </p>
-                  </center>
-                </div>
-                <div class="col-md-7">
-                  <div class="row">
-                    <div
-                      class="col-lg-4 col-md-6"
-                      style="margin: 0px 0px 35px 0px"
-                    >
-                      <h6
-                        style="
-                          font-size: 16px;
-                          font-weight: 700;
-                          line-height: 30px;
-                        "
-                      >
-                        About
-                      </h6>
-                      <ul
-                        style="
-                          list-style-type: none;
-                          padding: 0px;
-                          margin: 0px;
-                          font-size: 14px;
-                          font-weight: 500;
-                          margin-bottom: 0;
-                          color: #999999 !important;
-                        "
-                      >
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Courses</a></li>
-                        <li><a href="#">Instructor</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Become A Teacher</a></li>
-                      </ul>
-                    </div>
-
-                    <div
-                      class="col-lg-4 col-md-6"
-                      style="margin: 0px 0px 35px 0px"
-                    >
-                      <h6
-                        style="
-                          font-size: 16px;
-                          font-weight: 700;
-                          line-height: 30px;
-                        "
-                      >
-                        Links
-                      </h6>
-                      <ul
-                        style="
-                          list-style-type: none;
-                          padding: 0px;
-                          margin: 0px;
-                          font-size: 14px;
-                          font-weight: 500;
-                          margin-bottom: 0;
-                          color: #b6c2c6;
-                        "
-                      >
-                        <li><a href="#">News & Blogs</a></li>
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Examination</a></li>
-                      </ul>
-                    </div>
-
-                    <div
-                      class="col-lg-4 col-md-6"
-                      style="margin: 0px 0px 35px 0px"
-                    >
-                      <h6
-                        style="
-                          font-size: 16px;
-                          font-weight: 700;
-                          line-height: 30px;
-                        "
-                      >
-                        Support
-                      </h6>
-                      <ul
-                        style="
-                          list-style-type: none;
-                          padding: 0px;
-                          margin: 0px;
-                          font-size: 14px;
-                          font-weight: 500;
-                          margin-bottom: 0;
-                          color: #b6c2c6;
-                        "
-                      >
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Membership</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </footer>
-        </footer>
       </div>
     </div>
+
+    <footer class="container-fluid p-md-5 footer" style="background: #f9f9fb">
+      <div class="row container mx-auto">
+        <div class="col-md-5">
+          <center class="my-5 my-md-0">
+            <img
+              src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+              class="attachment-full size-full wp-image-6642"
+              alt=""
+              loading="lazy"
+              srcset="
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+              "
+              sizes="(max-width: 3378px) 100vw, 3378px"
+              style="max-width: 200px; height: auto; margin: 20px"
+            />
+            <div
+              class="tm-social-networks style-large-icons layout-inline"
+            ></div>
+            <p class="small text-muted mb-0">
+              &copy; 2023 SKILLEDMBA. All rights reserved.
+            </p>
+            <p>
+              <a class="text-primary" href="#">Terms of Use</a>
+              -
+              <a class="text-primary" href="#">Privacy Policy</a>
+            </p>
+          </center>
+        </div>
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+              <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+                About
+              </h6>
+              <ul
+                style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #999999 !important;
+                "
+              >
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Instructor</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Become A Teacher</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+              <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+                Links
+              </h6>
+              <ul
+                style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #b6c2c6;
+                "
+              >
+                <li><a href="#">News & Blogs</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Examination</a></li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+              <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+                Support
+              </h6>
+              <ul
+                style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #b6c2c6;
+                "
+              >
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Membership</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
     <script

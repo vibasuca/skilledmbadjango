@@ -32,6 +32,33 @@ a {
   background: #031f42;
 }
 
+.header a {
+  color: white;
+}
+
+.header1 a:hover {
+  color: #ffc107;
+  transition: all 0.25s ease-in-out;
+}
+
+.top-search-bar-input {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.top-search-bar-button {
+  color: #0071dc;
+  background: #fff;
+}
+
+.top-search-bar-button:hover{
+  background: #0071dc;
+}
+
+.top-search-bar-button:hover b{
+  color: #fff; 
+}
+
 .sticky-top {
   transition: all 0.25s ease-in;
 }
@@ -47,10 +74,32 @@ a {
 .navbar .brandingLogo {
   max-width: 190px;
   height: auto;
+  transition: all 0.25s ease-in;
+}
+
+.navbar a{
+  color: black;
+}
+
+.navbar a:hover {
+  color: #0078b4;
+}
+
+.navbar a:hover svg{
+  fill: #0078b4;
 }
 
 .title-content {
   background: #f8f8f8;
+}
+
+.breadcrumb a {
+  color: rgb(163, 163, 163);
+}
+
+.breadcrumb a:hover {
+  color: #0071DC;
+  transition: all 0.25s ease-in-out;
 }
 
 .main-content {
@@ -60,6 +109,29 @@ a {
 .regForm input {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
   box-sizing: border-box;
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  color: #0071DC;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: #0071DC;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }
