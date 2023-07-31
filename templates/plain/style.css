@@ -139,6 +139,7 @@ a {
   width: 100%;
   padding: 12px 20px;
   box-sizing: border-box;
+  font-size: 16px;
 }
 
 .hover-underline-animation {
@@ -177,4 +178,8 @@ footer li {
 footer a:hover {
   color: #0071dc;
   transition: all 0.25s ease-in-out;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
 }
