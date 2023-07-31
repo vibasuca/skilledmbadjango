@@ -1,9 +1,54 @@
 import os
 import uuid
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import FileExtensionValidator
+from django.db import models
 
 User = get_user_model()
+
+
+def validate_file_extension(value):
+    valid_extensions = [
+        # Images
+        ".jpg",
+        ".jpeg",
+        ".png",
+        ".gif",
+        ".bmp",
+        # Videos
+        ".mp4",
+        ".avi",
+        ".mov",
+        ".mkv",
+        ".wmv",
+        # Audio
+        ".mp3",
+        ".wav",
+        ".ogg",
+        ".flac",
+        ".aac",
+        # Zip archives
+        ".zip",
+        ".rar",
+        # Text files
+        ".txt",
+        ".csv",
+        ".log",
+        ".md",
+        # PDF files
+        ".pdf",
+    ]
+
+    validator = FileExtensionValidator(allowed_extensions=valid_extensions)
+
+    try:
+        validator(value)
+    except ValidationError as e:
+        raise ValidationError(
+            "File type not supported. Allowed file types: "
+            + ", ".join(valid_extensions)
+        )
 
 
 def user_directory_path(instance, filename):
@@ -15,7 +60,9 @@ def user_directory_path(instance, filename):
 
 class Media(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=user_directory_path)
+    file = models.FileField(
+        upload_to=user_directory_path, validators=[validate_file_extension]
+    )
     title = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
     alt_text = models.CharField(max_length=255, blank=True)
