@@ -59,7 +59,7 @@ def user_directory_path(instance, filename):
 
 
 class Media(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="media")
     file = models.FileField(
         upload_to=user_directory_path, validators=[validate_file_extension]
     )
@@ -68,6 +68,9 @@ class Media(models.Model):
     alt_text = models.CharField(max_length=255, blank=True)
     caption = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
 
     def __str__(self):
         return f"{self.user.username}'s media: {self.file.name}"
