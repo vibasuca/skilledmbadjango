@@ -188,7 +188,8 @@ footer a:hover {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  margin: 30px auto;
+  margin: 35px auto 20px auto;
+  color: #888888;
 }
 
 #or::before,
@@ -197,7 +198,7 @@ footer a:hover {
   width: 45%;
   height: 1px;
   top: 24px;
-  background-color: #aaa;
+  background-color: #dddddd;
   content: "";
 }
 
