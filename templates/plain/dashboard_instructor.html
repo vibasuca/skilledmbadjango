@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Instructor Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="./fonts/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="./fonts/tutor-icons.css" />
+
+    <link rel="stylesheet" id="custom-stylesheet-css" type="text/css" media="all" href="./css/dashboard.css" />
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Sidebar Wrapper -->
+        <div id="sidebar-wrapper" class="shadow-sm">
+            <button type="button" class="btn position-absolute menu-toggle"
+                style="top: 60px; left: 15px; color: rgb(179, 179, 179);">
+                <i class="fal fa-times fs-1"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+            <div class="py-5 d-flex">
+                <img class="brandingLogo m-auto" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+                    loading="lazy" srcset="
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+                          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+                        " />
+            </div>
+            <nav id="sidebar">
+
+                <ul class="list-group p-3">
+                    <li class="list-group-item active d-flex align-items-center gap-3" aria-current="true">
+                        <i class="fal fa-layer-group fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/">Dashboard</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-user fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/my-profile">My Profile</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-book-open fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/enrolled-courses">Enrolled Courses</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-heart fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/wishlist">Wishlist</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-star fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/reviews">Reviews</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-question fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/my-quiz-attempts">My Quiz Attempts</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-shopping-cart fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/purchase_history">Order History</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-comments fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/question-answer">Question &amp; Answer</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-cog fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/settings">Settings</a>
+                    </li>
+                    <li class="list-group-item d-flex align-items-center gap-3">
+                        <i class="fal fa-sign-out fs-5"></i>
+                        <a href="https://skilledmba.com/dashboard/logout" data-no-instant="">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="overlay menu-toggle"></div>
+
+        <!-- Content Wrapper -->
+        <div id="page-content-wrapper">
+
+            <!-- Header -->
+            <header class="shadow-sm position-sticky top-0" style="z-index: 998;">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-3 gap-lg-4">
+                        <a href="#menu-toggle" class="btn btn-light menu-toggle">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                        <img class="user-photo"
+                            src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                            alt="user photo">
+                        <div class="d-flex flex-column">
+                            <b class="greet-text"><span style="color: #9b9b9b;" class="d-none d-lg-inline">Howdy,</span> Instructor</b>
+                            <span class="greet-text">
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px;"></i>
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px;"></i>
+                                <i class="fas fa-star fa-sm" style="color: #c2c2c2; font-size: 14px;"></i>
+                                <i class="fas fa-star fa-sm" style="color: #c2c2c2; font-size: 14px;"></i>
+                                <i class="fas fa-star fa-sm" style="color: #c2c2c2; font-size: 14px;"></i>
+                                <a class="badge text-bg-primary">2/5</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-3 gap-lg-4">
+                        <button class="btn bg-white border px-lg-4 px-3 py-2" style="color: #0071dc;">
+                            <i class="far fa-edit"></i>
+                            <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Add a new course</span>
+                        </button>
+                        <button class="btn bg-white border px-3 p-2">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!--Page Title-->
+            <div class="container-fluid title-content">
+                <div class="py-3" style="font-size: 14px;">
+                    <div class="container mt-2">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Parent page</a>
+                                </li>
+                                <li class="breadcrumb-item">Page title</li>
+                            </ol>
+                        </nav>
+                        <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Page title</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        Page content
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(".menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            $(".overlay").toggleClass("toggled");
+        });
+    </script>
+    <script src="./js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

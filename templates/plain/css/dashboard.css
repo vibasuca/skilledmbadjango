@@ -25,7 +25,7 @@
 *::-webkit-scrollbar {
   width: 4px;
 }
- 
+
 *::-webkit-scrollbar-thumb {
   background-color: lightgray;
   border-radius: 10px;
@@ -142,7 +142,7 @@ a {
 
 #page-content-wrapper header {
   background: white;
-  padding: 10px 0px;
+  padding: 15px 0px;
 }
 
 .user-photo {
@@ -178,7 +178,7 @@ a {
   }
 }
 
-#sidebar-wrapper .brandingLogo {
+.brandingLogo {
   max-width: 190px;
   height: auto;
   transition: all 0.25s ease-in;
@@ -190,19 +190,50 @@ a {
 }
 
 #sidebar > ul > li {
-    padding: 15px;
-    margin: 2px 0px;
-    border: 0px;
-    border-radius: 5px;
-    font-size: 13px;
+  padding: 15px;
+  margin: 2px 0px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+#sidebar > ul > li > i {
+  color: #0071dc;
 }
 
 #sidebar > ul > li:hover {
-    background: #dfdfdf;
-    cursor: pointer;
+  background: #dfdfdf;
+  cursor: pointer;
 }
 
 #sidebar > ul > li.active {
-    background: #0071dc;
-    border-radius: 5px;
+  background: #0071dc;
+  border-radius: 5px;
+}
+
+#sidebar > ul > li.active > i {
+  color: white;
+}
+
+.card {
+  border: 1px solid rgb(228, 228, 228);
+}
+
+.tips > ul > li {
+  margin: 20px 0px;
+  color: rgb(100, 100, 100);
+  list-style-type: none;
+  font-size: 14px;
+}
+
+.tips > ul > li::before {
+  content: "\2022";
+  color: #6cbd7e;
+  font-weight: bold;
+  display: inline-block;
+  width: 2em;
+  margin-left: -1.1em;
+  margin-right: -0.7em;
+  /* margin-top: -1em; */
+  font-size: 1.3rem;
 }
