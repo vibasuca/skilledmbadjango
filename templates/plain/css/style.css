@@ -1,20 +1,22 @@
+/************  Common styling  ****************/
+
 @charset "UTF-8";
 @font-face {
   font-family: Gordita;
-  src: url(./gordita/Gordita-Regular.ttf) format("truetype");
+  src: url(../fonts/gordita/Gordita-Regular.ttf) format("truetype");
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: Gordita;
-  src: url(./gordita/Gordita-Medium.ttf) format("truetype");
+  src: url(../fonts/gordita/Gordita-Medium.ttf) format("truetype");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 @font-face {
   font-family: Gordita;
-  src: url(./gordita/Gordita-Bold.ttf) format("truetype");
+  src: url(../fonts/gordita/Gordita-Bold.ttf) format("truetype");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -222,7 +224,7 @@ footer a:hover {
   font-size: 14px;
   border-radius: 5px;
   padding: 10px;
-} 
+}
 
 .dropdown-menu li {
   position: relative;
