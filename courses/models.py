@@ -137,7 +137,6 @@ class Course(models.Model):
     prerequisite_courses = models.ManyToManyField(
         "self", symmetrical=False, related_name="prerequisite_for_courses", blank=True
     )
-    is_draft = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     published_at = models.DateTimeField(null=True, blank=True)
@@ -155,9 +154,7 @@ class Course(models.Model):
 
 
 class Topic(models.Model):
-    course = models.ForeignKey(
-        Course, on_delete=models.CASCADE, related_name="topics", null=True, blank=True
-    )
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="topics")
     title = models.CharField(max_length=255)
     summary = models.TextField(blank=True)
     sort_order = models.PositiveIntegerField(default=0)
