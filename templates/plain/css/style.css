@@ -249,3 +249,20 @@ footer a:hover {
 .modal-backdrop {
   z-index: 1 !important;
 }
+
+.hero-banner h1 {
+  font-size: 48px;
+}
+.hero-banner .btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 9;
+}
+.hero-banner .btn-primary {
+  color: #2f2f41;
+  background-color: rgba(1, 164, 121, 0.1);
+  border-color: #01a479;
+}
+.hero-banner .btn:hover:before {
+  width: 100%;
+}

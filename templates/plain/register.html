@@ -243,7 +243,7 @@
             <li class="breadcrumb-item">Student Registration</li>
           </ol>
         </nav>
-        <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Student Registration</h3>
+        <h3 class="fw-normal mb-3 text-center" style="letter-spacing: 1px;">Student Registration</h3>
       </div>
     </div>
   </div>
@@ -276,57 +276,65 @@
             <div id="or">OR</div>
           -->
 
-            <form class="regForm" style="width: 100%;">
+            <div class="card">
+              <div class="card-body">
+                <h5>Register</h5>
+                <br>
 
-              <div class="row g-2">
-                <div class="col-md">
-                  <div class="form-outline mb-4">
-                    <label class="form-label my-2" for="fname">First Name</label>
-                    <input type="text" id="fname" class="form-control form-control-lg" placeholder="e.g. Peter" />
+                <form class="regForm" style="width: 100%;">
+
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="fname">First Name</label>
+                        <input type="text" id="fname" class="form-control form-control-lg" placeholder="e.g. Peter" />
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="lname">Last Name</label>
+                        <input type="text" id="lname" class="form-control form-control-lg" placeholder="e.g. Parker" />
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md">
+
                   <div class="form-outline mb-4">
-                    <label class="form-label my-2" for="lname">Last Name</label>
-                    <input type="text" id="lname" class="form-control form-control-lg" placeholder="e.g. Parker" />
+                    <label class="form-label my-2" for="uname">Username</label>
+                    <input type="text" id="uname" class="form-control form-control-lg" placeholder="parkerpeter" />
                   </div>
-                </div>
-              </div>
 
-              <div class="form-outline mb-4">
-                <label class="form-label my-2" for="uname">Username</label>
-                <input type="text" id="uname" class="form-control form-control-lg" placeholder="parkerpeter" />
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label my-2" for="email">Email Address</label>
-                <input type="email" id="email" class="form-control form-control-lg"
-                  placeholder="peterparker@email.com" />
-              </div>
-
-              <div class="row g-2">
-                <div class="col-md">
                   <div class="form-outline mb-4">
-                    <label class="form-label my-2" for="pass">Password</label>
-                    <input type="password" id="pass" class="form-control form-control-lg" placeholder="Password" />
+                    <label class="form-label my-2" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control form-control-lg"
+                      placeholder="peterparker@email.com" />
                   </div>
-                </div>
-                <div class="col-md">
-                  <div class="form-outline mb-4">
-                    <label class="form-label my-2" for="cpass">Confirm Password</label>
-                    <input type="password" id="cpass" class="form-control form-control-lg"
-                      placeholder="Confirm Password" />
+
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="pass">Password</label>
+                        <input type="password" id="pass" class="form-control form-control-lg" placeholder="Password" />
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="cpass">Confirm Password</label>
+                        <input type="password" id="cpass" class="form-control form-control-lg"
+                          placeholder="Confirm Password" />
+                      </div>
+                    </div>
                   </div>
-                </div>
+
+                  <div class="d-grid gap-2 my-5">
+                    <button class="btn btn-primary btn-lg" type="button">Register</button>
+                  </div>
+
+                  <p>Already have an account? <a href="#!">Login here</a></p>
+
+                </form>
               </div>
+            </div>
 
-              <div class="d-grid gap-2 my-5">
-                <button class="btn btn-primary btn-lg" type="button">Register</button>
-              </div>
-
-              <p>Already have an account? <a href="#!">Login here</a></p>
-
-            </form>
           </div>
         </div>
       </div>
