@@ -38,6 +38,7 @@ urlpatterns = [
         name="dashboard",
     ),
     path("media-library/", include("media_library.urls", namespace="media_library")),
+    path("courses/", include("courses.urls", namespace="courses")),
 ]
 
 if settings.DEBUG:

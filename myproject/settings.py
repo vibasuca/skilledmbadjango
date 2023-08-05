@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # Local
     "users",
     "media_library",
+    "courses",
 ]
 
 SITE_ID = 1
