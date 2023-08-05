@@ -249,3 +249,34 @@ footer a:hover {
 .modal-backdrop {
   z-index: 1 !important;
 }
+
+.hero-banner h1 {
+  font-size: 48px;
+}
+.hero-banner .btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 9;
+}
+.hero-banner .btn-primary {
+  color: #2f2f41;
+  background-color: rgba(1, 164, 121, 0.1);
+  border-color: #01a479;
+}
+.hero-banner .btn:hover:before {
+  width: 100%;
+}
+
+.mark::before {
+  content: "";
+  position: absolute;
+  width: 91px;
+  height: 12px;
+  bottom: 0;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-45px);
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  mask-image: url(../svg/headline-curve.svg);
+}
