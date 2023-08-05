@@ -33,9 +33,9 @@ urlpatterns = [
     path("register/", SignupView.as_view(), name="custom_signup"),
     path("student-registration/", SignupView.as_view(), name="student_signup"),
     path(
-        "dashboard/",
-        TemplateView.as_view(template_name="dashboard.html"),
-        name="dashboard",
+        "",
+        TemplateView.as_view(template_name="index.html"),
+        name="index",
     ),
     path("media-library/", include("media_library.urls", namespace="media_library")),
     path("courses/", include("courses.urls", namespace="courses")),
