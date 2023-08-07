@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="./fonts/fontawesome-all.min.css" />
+
+  <link rel="stylesheet" id="custom-stylesheet-css" type="text/css" media="all" href="./css/style.css" />
+</head>
+
+<body>
+  <!--header1-->
+  <div class="header header1 d-none d-lg-block">
+    <div class="container text-white d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between gap-3" style="font-size: 13px; font-weight: 500;">
+        <div>
+          <i class="fa fa-phone text-warning" style="font-size: 14px;"></i>
+          &nbsp;
+          <a href="tel:+918755300795"> (+91) 87553 00795 </a>
+        </div>
+        <div>|</div>
+        <div>
+          <i class="fa fa-envelope text-warning" style="font-size: 14px;"></i>
+          &nbsp;
+          <a href="mailto:skilledmba@gmail.com">skilledmba@gmail.com</a>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between gap-4">
+        <div style="font-size: 13px">
+          <a href="#">Log in</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+          <a href="#">Register</a>
+        </div>
+        <div class="d-flex gap-4">
+          <div>
+            <a href="https://twitter.com/skilledmba"><b>𝕏</b> </a>
+          </div>
+          <div>
+            <a href="https://www.facebook.com/profile.php?id=100091976817772"><i class="fab fa-facebook"></i></a>
+          </div>
+          <div>
+            <a href="https://www.youtube.com/channel/UCGqr85LlNy-Mq4ZGUYcMkOQ"><i class="fab fa-youtube"></i></a>
+          </div>
+          <div>
+            <a href="https://www.linkedin.com/company/93225539/admin/"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="position-absolute trigger"></span>
+
+  <!--navbar for pc-->
+  <nav class="navbar navbar-expand-sm sticky-top navbar-dark bg-white shadow-sm d-none d-lg-block">
+    <div class="container flex justify-content-between">
+      <div class="d-flex gap-4 align-items-center">
+        <img class="brandingLogo" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png" loading="lazy"
+          srcset="
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+            " />
+        <div class="" style="width: 1px; height: 40px; background: lightgray"></div>
+        <div class="dropdown d-block">
+          <a href="#" data-bs-toggle="dropdown">
+            <div class="d-flex gap-3 align-items-center">
+              <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g stroke="none" stroke-width="1" fill-rule="evenodd">
+                  <path
+                    d="M2,14 C3.1045695,14 4,14.8954305 4,16 C4,17.1045695 3.1045695,18 2,18 C0.8954305,18 0,17.1045695 0,16 C0,14.8954305 0.8954305,14 2,14 Z M9,14 C10.1045695,14 11,14.8954305 11,16 C11,17.1045695 10.1045695,18 9,18 C7.8954305,18 7,17.1045695 7,16 C7,14.8954305 7.8954305,14 9,14 Z M16,14 C17.1045695,14 18,14.8954305 18,16 C18,17.1045695 17.1045695,18 16,18 C14.8954305,18 14,17.1045695 14,16 C14,14.8954305 14.8954305,14 16,14 Z M2,7 C3.1045695,7 4,7.8954305 4,9 C4,10.1045695 3.1045695,11 2,11 C0.8954305,11 0,10.1045695 0,9 C0,7.8954305 0.8954305,7 2,7 Z M9,7 C10.1045695,7 11,7.8954305 11,9 C11,10.1045695 10.1045695,11 9,11 C7.8954305,11 7,10.1045695 7,9 C7,7.8954305 7.8954305,7 9,7 Z M16,7 C17.1045695,7 18,7.8954305 18,9 C18,10.1045695 17.1045695,11 16,11 C14.8954305,11 14,10.1045695 14,9 C14,7.8954305 14.8954305,7 16,7 Z M2,0 C3.1045695,0 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 0,3.1045695 0,2 C0,0.8954305 0.8954305,0 2,0 Z M9,0 C10.1045695,0 11,0.8954305 11,2 C11,3.1045695 10.1045695,4 9,4 C7.8954305,4 7,3.1045695 7,2 C7,0.8954305 7.8954305,0 9,0 Z M16,0 C17.1045695,0 18,0.8954305 18,2 C18,3.1045695 17.1045695,4 16,4 C14.8954305,4 14,3.1045695 14,2 C14,0.8954305 14.8954305,0 16,0 Z">
+                  </path>
+                </g>
+              </svg>
+              Categories
+            </div>
+          </a>
+          <ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li>
+              <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                Submenu &raquo;
+              </a>
+              <ul class="dropdown-menu dropdown-submenu">
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 1</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 2</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                  <ul class="dropdown-menu dropdown-submenu">
+                    <li>
+                      <a class="dropdown-item" href="#">Multi level 1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Multi level 2</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 4</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Submenu item 5</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gap-4 fs-6 d-flex">
+        <div>
+          <a class="hover-underline-animation" href="#">Examination (Q/A)</a>
+        </div>
+        <div><a class="hover-underline-animation" href="#">Research</a></div>
+        <div><a class="hover-underline-animation" href="#">Event</a></div>
+        <div>
+          <a class="hover-underline-animation" href="#">Contact Us</a>
+        </div>
+        <div class="dropdown">
+          <a class="position-relative" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="far fa-search fs-5"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-end mt-3 p-3">
+            <div>
+              <form>
+                <div class="input-group" style="width: 400px">
+                  <input type="text" class="form-control top-search-bar-input" placeholder="Search..."
+                    aria-label="Search" />
+                  <button class="btn text-dark top-search-bar-button border" type="button">
+                    <b>
+                      <i class="fas fa-search"></i>
+                    </b>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a class="position-relative">
+            <i class="far fa-shopping-cart fs-5"></i>
+            <span class="position-absolute translate-middle badge rounded-pill bg-primary"
+              style="top: -5px; left: 102%">
+              <small>0</small>
+              <span class="visually-hidden">Pending orders</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!--navbar for mobile-->
+  <nav class="navbar navbar-expand-sm sticky-top navbar-dark bg-white shadow-sm d-lg-none">
+    <div class="container flex justify-content-between">
+      <div class="d-flex gap-4 align-items-center">
+        <img class="brandingLogo" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png" loading="lazy"
+          srcset="
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+            " />
+      </div>
+      <div class="gap-4 d-flex px-3" style="color: #031f42;">
+        <div><i class="far fa-bars fs-4"></i></div>
+        <div><i class="far fa-ellipsis-h fs-4" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" style="top: 15%;">
+            <div class="modal-content p-3">
+              <div>
+                <form>
+                  <div class="input-group" style="width: 100%">
+                    <input type="text" class="form-control top-search-bar-input" placeholder="Search..."
+                      aria-label="Search" />
+                    <button class="btn text-dark top-search-bar-button border" type="button">
+                      <b>
+                        <i class="fas fa-search"></i>
+                      </b>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="d-flex mt-4 justify-content-between align-items-center">
+                <div style="width: 30%;">
+                  <a class="position-relative">
+                    <i class="far fa-shopping-cart fs-5"></i>
+                    <span class="position-absolute translate-middle badge rounded-pill bg-primary"
+                      style="top: -5px; left: 102%">
+                      <small>0</small>
+                      <span class="visually-hidden">Pending orders</span>
+                    </span>
+                  </a>
+                </div>
+                <div style="width: 1px; height: 40px; background: lightgray"></div>
+                <div>
+                  <button class="btn">
+                    Login
+                  </button>
+                  <button class="btn btn-primary">
+                    Register
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!--page title-->
+  <div class="container-fluid title-content">
+    <div class="py-3" style="font-size: 14px;">
+      <div class="container mt-2">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item hover-underline-animation">
+              <a href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item">Student Registration</li>
+          </ol>
+        </nav>
+        <h3 class="fw-normal mb-3 text-center" style="letter-spacing: 1px;">Student Registration</h3>
+      </div>
+    </div>
+  </div>
+
+  <!--main content-->
+  <div class="container-fluid">
+    <div class="main-content py-3">
+      <div class="row">
+        <div class="col-lg-4 mx-auto">
+          <div class="card mx-3 p-3 py-4 border-0">
+
+            <!--
+            <div class="row g-2">
+              <div class="col-md">
+                <a class="btn btn-primary btn-lg fs-6 w-100" href="#!" role="button">
+                  <i class="fab fa-google"></i>
+                  &nbsp;
+                  Login with Google
+                </a>
+              </div>
+              <div class="col-md">
+                <a class="btn btn-dark btn-lg fs-6 w-100" href="#!" role="button">
+                  <b>𝕏</b>
+                  &nbsp;
+                  Login with Twitter
+                </a>
+              </div>
+            </div>
+
+            <div id="or">OR</div>
+          -->
+
+            <div class="card">
+              <div class="card-body">
+                <h5>Register</h5>
+                <br>
+
+                <form class="regForm" style="width: 100%;">
+
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="fname">First Name</label>
+                        <input type="text" id="fname" class="form-control form-control-lg" placeholder="e.g. Peter" />
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="lname">Last Name</label>
+                        <input type="text" id="lname" class="form-control form-control-lg" placeholder="e.g. Parker" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label my-2" for="uname">Username</label>
+                    <input type="text" id="uname" class="form-control form-control-lg" placeholder="parkerpeter" />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label my-2" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control form-control-lg"
+                      placeholder="peterparker@email.com" />
+                  </div>
+
+                  <div class="row g-2">
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="pass">Password</label>
+                        <input type="password" id="pass" class="form-control form-control-lg" placeholder="Password" />
+                      </div>
+                    </div>
+                    <div class="col-md">
+                      <div class="form-outline mb-4">
+                        <label class="form-label my-2" for="cpass">Confirm Password</label>
+                        <input type="password" id="cpass" class="form-control form-control-lg"
+                          placeholder="Confirm Password" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-grid gap-2 my-5">
+                    <button class="btn btn-primary btn-lg" type="button">Register</button>
+                  </div>
+
+                  <p>Already have an account? <a href="#!">Login here</a></p>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="container-fluid p-lg-5 footer" style="background: #f9f9fb">
+    <div class="row container mx-auto">
+      <div class="col-lg-5 my-5 my-lg-0">
+        <div class="d-flex flex-column align-items-center">
+          <div>
+            <img src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+              class="attachment-full size-full wp-image-6642" alt="" loading="lazy" srcset="
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+                " sizes="(max-width: 3378px) 100vw, 3378px" style="max-width: 200px; height: auto; margin: 20px" />
+          </div>
+          <div class="mb-3">
+            <div class="d-flex gap-4" style="font-size: 20px; color: #96a1b1">
+              <div>
+                <a href="https://twitter.com/skilledmba"><b>𝕏</b> </a>
+              </div>
+              <div>
+                <a href="https://www.facebook.com/profile.php?id=100091976817772"><i class="fab fa-facebook"></i></a>
+              </div>
+              <div>
+                <a href="https://www.youtube.com/channel/UCGqr85LlNy-Mq4ZGUYcMkOQ"><i class="fab fa-youtube"></i></a>
+              </div>
+              <div>
+                <a href="https://www.linkedin.com/company/93225539/admin/"><i class="fab fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3 text-muted" style="font-size: 14px">
+            &copy; 2023 SKILLEDMBA. All rights reserved.
+          </div>
+          <div class="mb-3">
+            <a href="#">Terms of Use</a>
+            &nbsp;-&nbsp;
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+            <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+              About
+            </h6>
+            <ul style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #999999 !important;
+                ">
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Courses</a></li>
+              <li><a href="#">Instructor</a></li>
+              <li><a href="#">Events</a></li>
+              <li><a href="#">Become A Teacher</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+            <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+              Links
+            </h6>
+            <ul style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #b6c2c6;
+                ">
+              <li><a href="#">News & Blogs</a></li>
+              <li><a href="#">Partners</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Examination</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6" style="margin: 0px 0px 35px 0px">
+            <h6 style="font-size: 16px; font-weight: 700; line-height: 30px">
+              Support
+            </h6>
+            <ul style="
+                  list-style-type: none;
+                  padding: 0px;
+                  margin: 0px;
+                  font-size: 14px;
+                  font-weight: 500;
+                  margin-bottom: 0;
+                  color: #b6c2c6;
+                ">
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Membership</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
