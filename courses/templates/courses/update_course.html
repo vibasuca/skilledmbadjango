@@ -280,8 +280,42 @@
                         "X-CSRFToken": "{{ csrf_token }}",
                     },
                     success: function(response) {
-                        console.log(topic.id)
-                        console.log(response.data);
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("Error: " + xhr.responseJSON.error);
+                        // Handle the error and update the UI accordingly
+                    },
+                });
+            }
+
+
+            // Just for testing
+            function send() {
+              $.ajax({
+                    type: "POST",
+                    url: `/courses/update-assignment/2/`,
+                    data: JSON.stringify({
+                      title: "new title.....",
+                      summary: "new summary......",
+                      time_limit: "500:05:00",
+                      time_limit_unit: "W",
+                      total_points: 101,
+                      min_pass_points: 1,
+                      max_file_uploads: 11,
+                      file_size_limit: 1,
+                      attachments: [3],
+                      sort_order: 1,
+                    }),
+                    headers: {
+                        //"X-CSRFToken": "GIbkVUJyC7laepZpy8Fh4qR6KwNEMmxJaNANPB9ukHGtBKWUM1TVW0GxzV2khy7p",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        console.log(response);
                     },
                     error: function(xhr, status, error) {
                         console.log(xhr);

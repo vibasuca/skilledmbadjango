@@ -17,6 +17,9 @@ urlpatterns = [
     ),
     path("update-lesson/<int:pk>/", views.update_lesson, name="update_lesson"),
     path(
+        "update-assignment/<int:pk>/", views.update_assignment, name="update_assignment"
+    ),
+    path(
         "list-topic-item/<int:topic_pk>/",
         views.list_topic_items,
         name="list_topic_items",

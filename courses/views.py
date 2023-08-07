@@ -359,3 +359,76 @@ def create_assignment(request, topic_pk):
     except ValidationError as e:
         errors = dict(e)
         return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def update_assignment(request, pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    user = request.user
+    assignment = get_object_or_404(
+        Assignment, pk=pk, topic_item__topic__course__user=user
+    )
+    topic_item = assignment.topic_item
+    topic = topic_item.topic
+
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    summary = data.get("summary", "")
+    time_limit = data.get("time_limit")
+    time_limit_unit = data.get("time_limit_unit")
+    total_points = data.get("total_points")
+    min_pass_points = data.get("min_pass_points")
+    max_file_uploads = data.get("max_file_uploads")
+    file_size_limit = data.get("file_size_limit")
+
+    attachments = data.get("attachments")
+    if attachments:
+        attachments = Media.objects.filter(pk__in=attachments, user=user)
+
+    sort_order = data.get("sort_order")
+
+    assignment.title = title
+    assignment.summary = summary
+    assignment.time_limit = time_limit
+    assignment.time_limit_unit = time_limit_unit
+    assignment.total_points = total_points
+    assignment.min_pass_points = min_pass_points
+    assignment.max_file_uploads = max_file_uploads
+    assignment.file_size_limit = file_size_limit
+
+    # Validate the assignment instance before saving
+    try:
+        assignment.full_clean()
+        assignment.save()
+        assignment.attachments.set(attachments)
+
+        # Shift the sort_order of other topic items if needed
+        if sort_order > topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__gt=topic_item.sort_order, sort_order__lte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") - 1)
+
+        elif sort_order < topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__lt=topic_item.sort_order, sort_order__gte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") + 1)
+
+        topic_item.sort_order = sort_order
+        topic_item.save()
+
+        return JsonResponse({"message": "Assignment updated successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
