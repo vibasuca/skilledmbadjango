@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth.decorators import login_required
 from django.db.models import F
 from django.http import JsonResponse, Http404
@@ -138,3 +139,93 @@ def list_topics(request, course_pk):
     ]
 
     return JsonResponse({"topics": topic_list})
+
+
+@require_POST
+@login_required
+def create_lesson(request, topic_pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    content = data.get("content", "")
+    feature_image = data.get("feature_image")
+    if feature_image:
+        feature_image = Media.objects.get(pk=int(feature_image), user=request.user)
+    attachments = data.get("attachments")
+    if attachments:
+        attachments = Media.objects.filter(pk__in=attachments, user=request.user)
+    enable_preview = data.get("enable_preview")
+
+    lesson = Lesson(
+        title=title,
+        content=content,
+        feature_image=feature_image,
+        enable_preview=enable_preview,
+    )
+
+    # Validate the lesson instance before saving
+    try:
+        lesson.full_clean()
+        lesson.save()
+        if attachments:
+            lesson.attachments.set(attachments)
+        sort_order = topic.items.count() + 1
+        TopicItem.objects.create(topic=topic, lesson=lesson, sort_order=sort_order)
+        return JsonResponse({"message": "Lesson created successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@login_required
+def list_topic_items(request, topic_pk):
+    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    topic_items = topic.items.all()
+
+    # Convert topic queryset to a list of dictionaries
+    topic_items_list = []
+    for topic_item in topic_items:
+        item = {
+            "id": topic_item.id,
+            "type": topic_item.type,
+            "sort_order": topic_item.sort_order,
+        }
+        if topic_item.lesson:
+            item["lesson"] = {
+                "id": topic_item.lesson.id,
+                "title": topic_item.lesson.title,
+                "content": topic_item.lesson.content,
+                "feature_image": topic_item.lesson.feature_image.id,
+                "attachments": topic_item.lesson.attachments.values_list(
+                    "id", flat=True
+                ),
+                "enable_preview": topic_item.lesson.enable_preview,
+            }
+        elif topic_item.assignment:
+            item["lesson"] = {
+                "id": topic_item.assignment.id,
+                "title": topic_item.assignment.title,
+                "summary": topic_item.assignment.summary,
+                "attachments": topic_item.assignment.attachments.values_list(
+                    "id", flat=True
+                ),
+                "time_limit": topic_item.assignment.time_limit,
+                "time_limit_unit": topic_item.assignment.time_limit_unit,
+                "total_points": topic_item.assignment.total_points,
+                "min_pass_points": topic_item.assignment.min_pass_points,
+                "max_file_uploads": topic_item.assignment.max_file_uploads,
+                "file_size_limit": topic_item.assignment.file_size_limit,
+            }
+        topic_items_list.append(item)
+
+    return JsonResponse({"topic_items": topic_items_list})

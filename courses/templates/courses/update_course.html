@@ -17,24 +17,29 @@
         <button type="submit">Save as draft</button>
         <button type="submit" name="submit_for_review">Submit for review</button>
       </form>
-      <div id="topic-list">
-        <h2>Course builder</h2>
-        <form id="topic-create-form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" name="title">
-            </div>
-            <div class="form-group">
-                <label for="summary">Summary:</label>
-                <textarea class="form-control" id="summary" name="summary"></textarea>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Create Topic</button>
-        </form>
 
+      <hr>
+
+      <div id="topic-list">
+        <h2>Create topic</h2>
+        <form id="topic-create-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="summary">Summary:</label>
+            <textarea class="form-control" id="summary" name="summary"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Create Topic</button>
+        </form>
+        
         <hr>
-        <div id="accordion">
+
+        <h2>Topics</h2>
+        <div id="topics-accordion">
             <!-- Topics items will be dynamically added here -->
         </div>
 
@@ -75,6 +80,52 @@
             });
         });
 
+
+        $(document).on("click", ".create-lesson-btn", function(e) {
+          const topicId = $(this).data("topic-id");
+          const url = "/courses/create-lesson/" + topicId + "/";
+          let data = {
+            title: $(`#create-lesson-title-${topicId}`).val(),
+            content: $(`#create-lesson-content-${topicId}`).val(),
+            enable_preview: $(`#create-lesson-enable_preview-${topicId}`).prop('checked'),
+          }
+          let feature_image = $(`#create-lesson-feature_image-${topicId}`).val();
+          if (feature_image) {
+            data.feature_image = parseInt(feature_image);
+          }
+          let attachments = $(`#create-lesson-attachments-${topicId}`).val();
+          if (attachments) {
+            attachments = attachments.split(",");
+            attachments = attachments.map(function(attachment) {
+              return parseInt(attachment);
+            });
+            data.attachments = attachments;
+          }
+
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: JSON.stringify(data),
+              headers: {
+                  "X-CSRFToken": "{{ csrf_token }}",
+              },
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(response) {
+                  alert(response.message);
+                  // Refresh media list after successful upload
+                  fetchTopicsList();
+              },
+              error: function(xhr, status, error) {
+                  console.log(xhr);
+                  console.log(status);
+                  console.log(error);
+                  alert("Error: " + xhr.responseJSON.error);
+                  // Handle the error and update the UI accordingly
+              },
+          });
+      });
+
             // Function to fetch and display the topics list
             function fetchTopicsList() {
                 const url = "{% url 'courses:list_topics' course.pk %}";
@@ -84,7 +135,7 @@
                     url: url,
                     success: function(response) {
                         const topicList = response.topics;
-                        const topicListContainer = $("#topic-list #accordion");
+                        const topicListContainer = $("#topic-list #topics-accordion");
                         topicListContainer.empty();
 
                         topicList.forEach(function(topic, index) {
@@ -99,8 +150,9 @@
                                   </h5>
                                 </div>
                           
-                                <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+                                <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#topics-accordion">
                                   <div class="card-body">
+                                    <h4>Edit topic</h4>
                                     <div class="form-group">
                                         <label for="title">Title:</label>
                                         <input type="text" class="form-control" id="title-${topic.id}" value="${topic.title}" required>
@@ -114,6 +166,35 @@
                                         <input type="text" class="form-control" id="sort_order-${topic.id}" value="${topic.sort_order}">
                                     </div>
                                     <button class="btn btn-primary update-topic-btn" data-topic-id="${topic.id}">Update</button>
+                                  
+                                    <hr>
+
+                                    <h4>Create lesson</h4>
+                                    <div class="lesson-create-form">
+                                      <div class="form-group">
+                                          <label for="create-lesson-title-${topic.id}">Title:</label>
+                                          <input type="text" class="form-control" id="create-lesson-title-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-content-${topic.id}">Content:</label>
+                                        <input type="text" class="form-control" id="create-lesson-content-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-feature_image-${topic.id}">Feature image:</label>
+                                        <input type="number" class="form-control" id="create-lesson-feature_image-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-attachments-${topic.id}">Attachments:</label>
+                                        <input type="text" class="form-control" id="create-lesson-attachments-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-enable_preview-${topic.id}">enable_preview:</label>
+                                        <input type="checkbox" class="form-control" id="create-lesson-enable_preview-${topic.id}" required>
+                                      </div>
+
+                                      <button class="btn btn-primary create-lesson-btn" data-topic-id="${topic.id}">Create lesson</button>
+                                    </div>
+                                  
                                   </div>
                                 </div>
                               </div>
