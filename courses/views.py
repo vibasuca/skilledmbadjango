@@ -238,3 +238,66 @@ def list_topic_items(request, topic_pk):
         topic_items_list.append(item)
 
     return JsonResponse({"data": topic_items_list})
+
+
+@require_POST
+@login_required
+def update_lesson(request, pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    user = request.user
+    lesson = get_object_or_404(Lesson, pk=pk, topic_item__topic__course__user=user)
+    topic_item = lesson.topic_item
+    topic = topic_item.topic
+
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    content = data.get("content", "")
+    feature_image = data.get("feature_image")
+    if feature_image:
+        feature_image = Media.objects.get(pk=feature_image, user=user)
+    attachments = data.get("attachments")
+    if attachments:
+        attachments = Media.objects.filter(pk__in=attachments, user=user)
+    enable_preview = data.get("enable_preview")
+    sort_order = data.get("sort_order")
+
+    lesson.title = title
+    lesson.content = content
+    lesson.feature_image = feature_image
+    lesson.enable_preview = enable_preview
+
+    # Validate the lesson instance before saving
+    try:
+        lesson.full_clean()
+        lesson.save()
+        lesson.attachments.set(attachments)
+
+        # Shift the sort_order of other topic items if needed
+        if sort_order > topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__gt=topic_item.sort_order, sort_order__lte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") - 1)
+
+        elif sort_order < topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__lt=topic_item.sort_order, sort_order__gte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") + 1)
+
+        topic_item.sort_order = sort_order
+        topic_item.save()
+
+        return JsonResponse({"message": "Lesson updated successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)

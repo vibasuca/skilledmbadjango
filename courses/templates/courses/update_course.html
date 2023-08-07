@@ -261,6 +261,37 @@
 
             // Fetch the media list when the page loads
             fetchTopicsList();
+
+            // Just for testing
+            function send() {
+              $.ajax({
+                    type: "POST",
+                    url: `/courses/update-lesson/2/`,
+                    data: {
+                      title: "new title",
+                      content: "new content",
+                      feature_image: 1,
+                      attachments: [1,2],
+                      enable_preview: true,
+                      sort_order: 7
+                    },
+                    headers: {
+                        //"X-CSRFToken": "GIbkVUJyC7laepZpy8Fh4qR6KwNEMmxJaNANPB9ukHGtBKWUM1TVW0GxzV2khy7p",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        console.log(topic.id)
+                        console.log(response.data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("Error: " + xhr.responseJSON.error);
+                        // Handle the error and update the UI accordingly
+                    },
+                });
+
         });
 
     </script>
