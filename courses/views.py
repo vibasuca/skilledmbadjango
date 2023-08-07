@@ -221,20 +221,22 @@ def list_topic_items(request, topic_pk):
             item["lesson"] = lesson
 
         elif topic_item.assignment:
-            item["lesson"] = {
-                "id": topic_item.assignment.id,
-                "title": topic_item.assignment.title,
-                "summary": topic_item.assignment.summary,
-                "attachments": topic_item.assignment.attachments.values_list(
-                    "id", flat=True
-                ),
-                "time_limit": topic_item.assignment.time_limit,
-                "time_limit_unit": topic_item.assignment.time_limit_unit,
-                "total_points": topic_item.assignment.total_points,
-                "min_pass_points": topic_item.assignment.min_pass_points,
-                "max_file_uploads": topic_item.assignment.max_file_uploads,
-                "file_size_limit": topic_item.assignment.file_size_limit,
-            }
+            assignment = json.loads(
+                serializers.serialize("json", [topic_item.assignment])
+            )[0]["fields"]
+            assignment["id"] = topic_item.assignment.pk
+
+            attachments = topic_item.assignment.attachments.all()
+            attachments = json.loads(serializers.serialize("json", attachments))
+            attachments_serialized = []
+            for attachment in attachments:
+                att = attachment["fields"]
+                att["id"] = attachment["pk"]
+                attachments_serialized.append(att)
+            assignment["attachments"] = attachments_serialized
+
+            item["assignment"] = assignment
+
         topic_items_list.append(item)
 
     return JsonResponse({"data": topic_items_list})
