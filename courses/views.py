@@ -1,5 +1,6 @@
 import json
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.db.models import F
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -86,11 +87,8 @@ def update_topic(request, pk):
         }
     }
     """
-    topic = get_object_or_404(Topic, pk=pk)
+    topic = get_object_or_404(Topic, pk=pk, course__user=request.user)
     course = topic.course
-    if course.user != request.user:
-        raise Http404()
-
     title = request.POST.get("title", "")
     summary = request.POST.get("summary", "")
     sort_order = int(request.POST.get("sort_order"))
@@ -195,22 +193,33 @@ def list_topic_items(request, topic_pk):
     # Convert topic queryset to a list of dictionaries
     topic_items_list = []
     for topic_item in topic_items:
-        item = {
-            "id": topic_item.id,
-            "type": topic_item.type,
-            "sort_order": topic_item.sort_order,
-        }
+        item = json.loads(serializers.serialize("json", [topic_item]))[0]["fields"]
+        item["id"] = topic_item.pk
+
         if topic_item.lesson:
-            item["lesson"] = {
-                "id": topic_item.lesson.id,
-                "title": topic_item.lesson.title,
-                "content": topic_item.lesson.content,
-                "feature_image": topic_item.lesson.feature_image.id,
-                "attachments": topic_item.lesson.attachments.values_list(
-                    "id", flat=True
-                ),
-                "enable_preview": topic_item.lesson.enable_preview,
-            }
+            lesson = json.loads(serializers.serialize("json", [topic_item.lesson]))[0][
+                "fields"
+            ]
+            lesson["id"] = topic_item.lesson.pk
+
+            if topic_item.lesson.feature_image:
+                feature_image = json.loads(
+                    serializers.serialize("json", [topic_item.lesson.feature_image])
+                )[0]["fields"]
+                feature_image["id"] = topic_item.lesson.feature_image.pk
+                lesson["feature_image"] = feature_image
+
+            attachments = topic_item.lesson.attachments.all()
+            attachments = json.loads(serializers.serialize("json", attachments))
+            attachments_serialized = []
+            for attachment in attachments:
+                att = attachment["fields"]
+                att["id"] = attachment["pk"]
+                attachments_serialized.append(att)
+            lesson["attachments"] = attachments_serialized
+
+            item["lesson"] = lesson
+
         elif topic_item.assignment:
             item["lesson"] = {
                 "id": topic_item.assignment.id,
@@ -228,4 +237,4 @@ def list_topic_items(request, topic_pk):
             }
         topic_items_list.append(item)
 
-    return JsonResponse({"topic_items": topic_items_list})
+    return JsonResponse({"data": topic_items_list})

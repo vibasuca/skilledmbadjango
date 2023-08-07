@@ -201,6 +201,26 @@
                             `;
                             topicListContainer.append(topicElement);
 
+                            // Get topic items
+                            $.ajax({
+                              type: "GET",
+                              url: `/courses/list-topic-item/${topic.id}/`,
+                              headers: {
+                                  "X-CSRFToken": "{{ csrf_token }}",
+                              },
+                              success: function(response) {
+                                  console.log(topic.id)
+                                  console.log(response.data);
+                              },
+                              error: function(xhr, status, error) {
+                                  console.log(xhr);
+                                  console.log(status);
+                                  console.log(error);
+                                  alert("Error: " + xhr.responseJSON.error);
+                                  // Handle the error and update the UI accordingly
+                              },
+                          });
+
                         });
                     },
                     error: function(xhr, status, error) {
