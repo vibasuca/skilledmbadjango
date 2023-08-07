@@ -267,14 +267,14 @@
               $.ajax({
                     type: "POST",
                     url: `/courses/update-lesson/2/`,
-                    data: {
+                    data: JSON.stringify({
                       title: "new title",
                       content: "new content",
                       feature_image: 1,
                       attachments: [1,2],
                       enable_preview: true,
                       sort_order: 7
-                    },
+                    }),
                     headers: {
                         //"X-CSRFToken": "GIbkVUJyC7laepZpy8Fh4qR6KwNEMmxJaNANPB9ukHGtBKWUM1TVW0GxzV2khy7p",
                         "X-CSRFToken": "{{ csrf_token }}",
@@ -291,6 +291,42 @@
                         // Handle the error and update the UI accordingly
                     },
                 });
+            }
+
+                // Just for testing
+                function send() {
+                  $.ajax({
+                        type: "POST",
+                        url: `/courses/create-assignment/1/`,  // 1 is the topic id
+                        data: JSON.stringify({
+                          title: "new title",
+                          summary: "new summary",
+                          time_limit: "100:05:00",
+                          time_limit_unit: "H",
+                          total_points: 100,
+                          min_pass_points: 0,
+                          max_file_uploads: 10,
+                          file_size_limit: 5,
+                          attachments: [1,2],
+                        }),
+                        headers: {
+                            "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                            //"X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            alert("Error: " + xhr.responseJSON.error);
+                            // Handle the error and update the UI accordingly
+                        },
+                    });
+    
+    
+    }
 
         });
 

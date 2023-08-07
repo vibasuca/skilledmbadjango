@@ -301,3 +301,59 @@ def update_lesson(request, pk):
     except ValidationError as e:
         errors = dict(e)
         return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def create_assignment(request, topic_pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    summary = data.get("summary", "")
+    time_limit = data.get("time_limit")
+    time_limit_unit = data.get("time_limit_unit")
+    total_points = data.get("total_points")
+    min_pass_points = data.get("min_pass_points")
+    max_file_uploads = data.get("max_file_uploads")
+    file_size_limit = data.get("file_size_limit")
+
+    attachments = data.get("attachments")
+    if attachments:
+        attachments = Media.objects.filter(pk__in=attachments, user=request.user)
+
+    assignment = Assignment(
+        title=title,
+        summary=summary,
+        time_limit=time_limit,
+        time_limit_unit=time_limit_unit,
+        total_points=total_points,
+        min_pass_points=min_pass_points,
+        max_file_uploads=max_file_uploads,
+        file_size_limit=file_size_limit,
+    )
+
+    # Validate the assignment instance before saving
+    try:
+        assignment.full_clean()
+        assignment.save()
+        if attachments:
+            assignment.attachments.set(attachments)
+
+        sort_order = topic.items.count() + 1
+        TopicItem.objects.create(
+            topic=topic, assignment=assignment, sort_order=sort_order
+        )
+        return JsonResponse({"message": "Assignment created successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
