@@ -17,24 +17,29 @@
         <button type="submit">Save as draft</button>
         <button type="submit" name="submit_for_review">Submit for review</button>
       </form>
-      <div id="topic-list">
-        <h2>Course builder</h2>
-        <form id="topic-create-form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" class="form-control" id="title" name="title">
-            </div>
-            <div class="form-group">
-                <label for="summary">Summary:</label>
-                <textarea class="form-control" id="summary" name="summary"></textarea>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Create Topic</button>
-        </form>
 
+      <hr>
+
+      <div id="topic-list">
+        <h2>Create topic</h2>
+        <form id="topic-create-form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" name="title">
+          </div>
+          <div class="form-group">
+            <label for="summary">Summary:</label>
+            <textarea class="form-control" id="summary" name="summary"></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Create Topic</button>
+        </form>
+        
         <hr>
-        <div id="accordion">
+
+        <h2>Topics</h2>
+        <div id="topics-accordion">
             <!-- Topics items will be dynamically added here -->
         </div>
 
@@ -75,6 +80,52 @@
             });
         });
 
+
+        $(document).on("click", ".create-lesson-btn", function(e) {
+          const topicId = $(this).data("topic-id");
+          const url = "/courses/create-lesson/" + topicId + "/";
+          let data = {
+            title: $(`#create-lesson-title-${topicId}`).val(),
+            content: $(`#create-lesson-content-${topicId}`).val(),
+            enable_preview: $(`#create-lesson-enable_preview-${topicId}`).prop('checked'),
+          }
+          let feature_image = $(`#create-lesson-feature_image-${topicId}`).val();
+          if (feature_image) {
+            data.feature_image = parseInt(feature_image);
+          }
+          let attachments = $(`#create-lesson-attachments-${topicId}`).val();
+          if (attachments) {
+            attachments = attachments.split(",");
+            attachments = attachments.map(function(attachment) {
+              return parseInt(attachment);
+            });
+            data.attachments = attachments;
+          }
+
+          $.ajax({
+              type: "POST",
+              url: url,
+              data: JSON.stringify(data),
+              headers: {
+                  "X-CSRFToken": "{{ csrf_token }}",
+              },
+              contentType: "application/json; charset=utf-8",
+              dataType: "json",
+              success: function(response) {
+                  alert(response.message);
+                  // Refresh media list after successful upload
+                  fetchTopicsList();
+              },
+              error: function(xhr, status, error) {
+                  console.log(xhr);
+                  console.log(status);
+                  console.log(error);
+                  alert("Error: " + xhr.responseJSON.error);
+                  // Handle the error and update the UI accordingly
+              },
+          });
+      });
+
             // Function to fetch and display the topics list
             function fetchTopicsList() {
                 const url = "{% url 'courses:list_topics' course.pk %}";
@@ -84,7 +135,7 @@
                     url: url,
                     success: function(response) {
                         const topicList = response.topics;
-                        const topicListContainer = $("#topic-list #accordion");
+                        const topicListContainer = $("#topic-list #topics-accordion");
                         topicListContainer.empty();
 
                         topicList.forEach(function(topic, index) {
@@ -99,8 +150,9 @@
                                   </h5>
                                 </div>
                           
-                                <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#accordion">
+                                <div id="collapse${index}" class="collapse" aria-labelledby="heading${index}" data-parent="#topics-accordion">
                                   <div class="card-body">
+                                    <h4>Edit topic</h4>
                                     <div class="form-group">
                                         <label for="title">Title:</label>
                                         <input type="text" class="form-control" id="title-${topic.id}" value="${topic.title}" required>
@@ -114,11 +166,60 @@
                                         <input type="text" class="form-control" id="sort_order-${topic.id}" value="${topic.sort_order}">
                                     </div>
                                     <button class="btn btn-primary update-topic-btn" data-topic-id="${topic.id}">Update</button>
+                                  
+                                    <hr>
+
+                                    <h4>Create lesson</h4>
+                                    <div class="lesson-create-form">
+                                      <div class="form-group">
+                                          <label for="create-lesson-title-${topic.id}">Title:</label>
+                                          <input type="text" class="form-control" id="create-lesson-title-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-content-${topic.id}">Content:</label>
+                                        <input type="text" class="form-control" id="create-lesson-content-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-feature_image-${topic.id}">Feature image:</label>
+                                        <input type="number" class="form-control" id="create-lesson-feature_image-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-attachments-${topic.id}">Attachments:</label>
+                                        <input type="text" class="form-control" id="create-lesson-attachments-${topic.id}" required>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="create-lesson-enable_preview-${topic.id}">enable_preview:</label>
+                                        <input type="checkbox" class="form-control" id="create-lesson-enable_preview-${topic.id}" required>
+                                      </div>
+
+                                      <button class="btn btn-primary create-lesson-btn" data-topic-id="${topic.id}">Create lesson</button>
+                                    </div>
+                                  
                                   </div>
                                 </div>
                               </div>
                             `;
                             topicListContainer.append(topicElement);
+
+                            // Get topic items
+                            $.ajax({
+                              type: "GET",
+                              url: `/courses/list-topic-item/${topic.id}/`,
+                              headers: {
+                                  "X-CSRFToken": "{{ csrf_token }}",
+                              },
+                              success: function(response) {
+                                  console.log(topic.id)
+                                  console.log(response.data);
+                              },
+                              error: function(xhr, status, error) {
+                                  console.log(xhr);
+                                  console.log(status);
+                                  console.log(error);
+                                  alert("Error: " + xhr.responseJSON.error);
+                                  // Handle the error and update the UI accordingly
+                              },
+                          });
 
                         });
                     },
@@ -160,6 +261,107 @@
 
             // Fetch the media list when the page loads
             fetchTopicsList();
+
+            // Just for testing
+            function send() {
+              $.ajax({
+                    type: "POST",
+                    url: `/courses/update-lesson/2/`,
+                    data: JSON.stringify({
+                      title: "new title",
+                      content: "new content",
+                      feature_image: 1,
+                      attachments: [1,2],
+                      enable_preview: true,
+                      sort_order: 7
+                    }),
+                    headers: {
+                        //"X-CSRFToken": "GIbkVUJyC7laepZpy8Fh4qR6KwNEMmxJaNANPB9ukHGtBKWUM1TVW0GxzV2khy7p",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("Error: " + xhr.responseJSON.error);
+                        // Handle the error and update the UI accordingly
+                    },
+                });
+            }
+
+
+            // Just for testing
+            function send() {
+              $.ajax({
+                    type: "POST",
+                    url: `/courses/update-assignment/2/`,
+                    data: JSON.stringify({
+                      title: "new title.....",
+                      summary: "new summary......",
+                      time_limit: "500:05:00",
+                      time_limit_unit: "W",
+                      total_points: 101,
+                      min_pass_points: 1,
+                      max_file_uploads: 11,
+                      file_size_limit: 1,
+                      attachments: [3],
+                      sort_order: 1,
+                    }),
+                    headers: {
+                        //"X-CSRFToken": "GIbkVUJyC7laepZpy8Fh4qR6KwNEMmxJaNANPB9ukHGtBKWUM1TVW0GxzV2khy7p",
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                        alert("Error: " + xhr.responseJSON.error);
+                        // Handle the error and update the UI accordingly
+                    },
+                });
+            }
+
+                // Just for testing
+                function send() {
+                  $.ajax({
+                        type: "POST",
+                        url: `/courses/create-assignment/1/`,  // 1 is the topic id
+                        data: JSON.stringify({
+                          title: "new title",
+                          summary: "new summary",
+                          time_limit: "100:05:00",
+                          time_limit_unit: "H",
+                          total_points: 100,
+                          min_pass_points: 0,
+                          max_file_uploads: 10,
+                          file_size_limit: 5,
+                          attachments: [1,2],
+                        }),
+                        headers: {
+                            "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                            //"X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr);
+                            console.log(status);
+                            console.log(error);
+                            alert("Error: " + xhr.responseJSON.error);
+                            // Handle the error and update the UI accordingly
+                        },
+                    });
+    
+    
+    }
+
         });
 
     </script>
