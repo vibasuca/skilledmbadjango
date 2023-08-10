@@ -9,16 +9,6 @@
         <div class="collapse show" id="card1">
             <div class="m-4 mt-0">
 
-                <!--
-                course title: text input
-                course slug: text input
-                description: textarea
-                Maximum students: number input
-                difficulty level: select input
-                public course: radio button
-                q&a: radio button
-                -->
-
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold">Course Title</label>
                     <input type="text" id="title" name="title" value="{{ course.title }}" class="form-control p-3"
@@ -68,6 +58,8 @@
                                 <select class="form-select p-3 mb-2" id="difficulty_level" name="difficulty_level"
                                     aria-label="Select Difficulty Level">
                                     <option>{{ course.difficulty_level }}</option>
+                                    <option value="A" {% if course.difficulty_level == 'B' %} selected {% endif %}>
+                                        All Levels</option>
                                     <option value="B" {% if course.difficulty_level == 'B' %} selected {% endif %}>
                                         Beginner</option>
                                     <option value="I" {% if course.difficulty_level == 'I' %} selected {% endif %}>
@@ -84,8 +76,7 @@
                             <div class="form-outline mb-3">
                                 <label class="form-label my-2 fw-bold" for="is_public">Public Course</label>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="is_public" name="is_public"
-                                        {% if course.is_public %} checked {% endif %}>
+                                    <input class="form-check-input" type="checkbox" id="is_public" name="is_public" {% if course.is_public %} checked {% endif %}>
                                 </div>
                                 <small class="text-muted">
                                     <i class="fal fa-info-circle"></i> Make This Course Public.
@@ -97,8 +88,7 @@
                             <div class="form-outline mb-3">
                                 <label class="form-label my-2 fw-bold" for="enable_qa">Q&A</label>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="enable_qa" name="enable_qa"
-                                        {% if course.enable_qa %} checked {% endif %}>
+                                    <input class="form-check-input" type="checkbox" id="enable_qa" name="enable_qa" {% if course.enable_qa %} checked {% endif %}>
                                 </div>
                                 <small class="text-muted">
                                     <i class="fal fa-info-circle"></i> Enable Q&A section for your
@@ -127,7 +117,8 @@
                     <label class="form-label my-2 fw-bold" for="category">Choose a category</label>
                     <select class="form-select p-3 mb-2" id="category" name="category" aria-label="Select Category">
                         <option selected>Open this select menu</option>
-                        <option selected value="1" {% if course.category == '1' %} selected {% endif %}>Category 1</option>
+                        <option selected value="1" {% if course.category == '1' %} selected {% endif %}>Category 1
+                        </option>
                         <option value="2" {% if course.category == '2' %} selected {% endif %}>Category 2</option>
                         <option value="3" {% if course.category == '3' %} selected {% endif %}>Category 3</option>
                     </select>
@@ -138,15 +129,13 @@
                     <label class="form-label my-2 fw-bold">Course price</label>
                     <div class="d-flex gap-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="course_price" id="free" value="free"
-                                {% if not course.price %} checked {% endif %}>
+                            <input class="form-check-input" type="radio" name="course_price" id="free" value="free" {% if not course.price %} checked {% endif %}>
                             <label class="form-check-label" for="free">
                                 Free
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="course_price" id="paid" value="paid"
-                                {% if course.price %} checked {% endif %}>
+                            <input class="form-check-input" type="radio" name="course_price" id="paid" value="paid" {% if course.price %} checked {% endif %}>
                             <label class="form-check-label" for="paid">
                                 Paid
                             </label>
@@ -154,6 +143,78 @@
                     </div>
                 </div>
 
+
+                <p>
+                    <label for="id_language">Language:</label>
+                    <select name="language" id="id_language">
+                        <option value="E" selected="">English</option>
+
+                        <option value="F">French</option>
+
+                        <option value="G">German</option>
+
+                        <option value="I">Italian</option>
+
+                        <option value="J">Japanese</option>
+
+                        <option value="K">Korean</option>
+
+                        <option value="R">Russian</option>
+
+                        <option value="S">Spanish</option>
+
+                    </select>
+
+
+                </p>
+
+
+                <p>
+                    <label for="id_category">Category:</label>
+                    <select name="category" id="id_category">
+                        <option value="" selected="">---------</option>
+
+                        <option value="6">Five</option>
+
+                        <option value="5">Four</option>
+
+                        <option value="2">One</option>
+
+                        <option value="4">Three</option>
+
+                        <option value="3">Two</option>
+
+                    </select>
+
+
+                </p>
+
+
+                <p>
+                    <label for="id_price">Price:</label>
+                    <input type="number" name="price" step="0.01" id="id_price">
+
+
+                </p>
+
+
+                <p>
+                    <label for="id_discount_price">Discount price:</label>
+                    <input type="number" name="discount_price" step="0.01" id="id_discount_price">
+
+
+                </p>
+
+
+                <p>
+                    <label for="id_thumbnail">Thumbnail:</label>
+                    <select name="thumbnail" id="id_thumbnail">
+                        <option value="" selected="">---------</option>
+
+                    </select>
+
+
+                </p>
             </div>
         </div>
     </div>

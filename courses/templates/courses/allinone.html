@@ -1,223 +1,4 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
-<div class="card text-start mb-3">
-    <div class="card-body p-0">
-        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
-            <i class="fas fa-chevron-down text-primary"></i>
-            <span class="fs-4">&nbsp;&nbsp;Course Info</span>
-        </div>
-        <div class="collapse show" id="card1">
-            <div class="m-4 mt-0">
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold">Course Title</label>
-                    <input type="text" id="title" name="title" value="{{ course.title }}" class="form-control p-3"
-                        placeholder="New Course" />
-                </div>
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold">Course Slug</label>
-                    <input type="text" id="slug" name="slug" value="{{ course.slug }}" class="form-control p-3"
-                        placeholder="new-course" />
-                    <div class="py-2">Permalink: {{ request.get_full_path }}
-                    </div>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold">Description</label>
-                    <div id="editor">
-                        {{ course.description|safe }}
-                    </div>
-                    <textarea id="desc-data" name="description" style="display: none;"></textarea>
-                </div>
-
-                <b>Course Settings</b>
-                <div class="row p-2 mb-2">
-                    <div class="col-4 p-0 bg-light border rounded-start" style="border-right: none !important;">
-                        <div class="p-3 text-primary">
-                            <i class="fas fa-cog"></i> General
-                        </div>
-                    </div>
-                    <div class="col-8 border rounded-end">
-                        <div class="row px-3 py-2">
-                            <div class="form-outline mb-3">
-                                <label class="form-label my-2 fw-bold">Maximum Students</label>
-                                <input type="number" id="max_students" name="max_students"
-                                    value="{{ course.max_students }}" class="form-control p-3 mb-2"
-                                    placeholder="Maximum Students" />
-                                <small class="text-muted">
-                                    <i class="fal fa-info-circle"></i> Number of students that
-                                    can enrol in this course. Set 0 for no limits.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="row px-3 py-2">
-                            <div class="form-outline mb-3">
-                                <label class="form-label my-2 fw-bold" for="difficulty_level">Difficulty
-                                    Level</label>
-                                <select class="form-select p-3 mb-2" id="difficulty_level" name="difficulty_level"
-                                    aria-label="Select Difficulty Level">
-                                    <option>{{ course.difficulty_level }}</option>
-                                    <option value="A" {% if course.difficulty_level == 'B' %} selected {% endif %}>
-                                        All Levels</option>
-                                    <option value="B" {% if course.difficulty_level == 'B' %} selected {% endif %}>
-                                        Beginner</option>
-                                    <option value="I" {% if course.difficulty_level == 'I' %} selected {% endif %}>
-                                        Intermediate</option>
-                                    <option value="E" {% if course.difficulty_level == 'E' %} selected {% endif %}>
-                                        Expert</option>
-                                </select>
-                                <small class="text-muted">
-                                    <i class="fal fa-info-circle"></i> Course difficulty level.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="row px-3 py-2">
-                            <div class="form-outline mb-3">
-                                <label class="form-label my-2 fw-bold" for="is_public">Public Course</label>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="is_public" name="is_public" {% if course.is_public %} checked {% endif %}>
-                                </div>
-                                <small class="text-muted">
-                                    <i class="fal fa-info-circle"></i> Make This Course Public.
-                                    No enrollment required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="row px-3 py-2">
-                            <div class="form-outline mb-3">
-                                <label class="form-label my-2 fw-bold" for="enable_qa">Q&A</label>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="enable_qa" name="enable_qa" {% if course.enable_qa %} checked {% endif %}>
-                                </div>
-                                <small class="text-muted">
-                                    <i class="fal fa-info-circle"></i> Enable Q&A section for your
-                                    course.
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold" for="language">Choose a language</label>
-                    <select class="form-select p-3 mb-2" id="language" name="language" aria-label="Select Language">
-                        <option value="E" {% if course.language == 'E' %} selected {% endif %}>English</option>
-                        <option value="F" {% if course.language == 'F' %} selected {% endif %}>French</option>
-                        <option value="G" {% if course.language == 'G' %} selected {% endif %}>German</option>
-                        <option value="I" {% if course.language == 'I' %} selected {% endif %}>Italian</option>
-                        <option value="J" {% if course.language == 'J' %} selected {% endif %}>Japanese</option>
-                        <option value="K" {% if course.language == 'K' %} selected {% endif %}>Korean</option>
-                        <option value="R" {% if course.language == 'R' %} selected {% endif %}>Russian</option>
-                        <option value="S" {% if course.language == 'S' %} selected {% endif %}>Spanish</option>
-                    </select>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold" for="category">Choose a category</label>
-                    <select class="form-select p-3 mb-2" id="category" name="category" aria-label="Select Category">
-                        <option selected>Open this select menu</option>
-                        <option selected value="1" {% if course.category == '1' %} selected {% endif %}>Category 1
-                        </option>
-                        <option value="2" {% if course.category == '2' %} selected {% endif %}>Category 2</option>
-                        <option value="3" {% if course.category == '3' %} selected {% endif %}>Category 3</option>
-                    </select>
-                </div>
-
-
-                <div class="form-outline mb-4">
-                    <label class="form-label my-2 fw-bold">Course price</label>
-                    <div class="d-flex gap-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="course_price" id="free" value="free" {% if not course.price %} checked {% endif %}>
-                            <label class="form-check-label" for="free">
-                                Free
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="course_price" id="paid" value="paid" {% if course.price %} checked {% endif %}>
-                            <label class="form-check-label" for="paid">
-                                Paid
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-
-                <p>
-                    <label for="id_language">Language:</label>
-                    <select name="language" id="id_language">
-                        <option value="E" selected="">English</option>
-
-                        <option value="F">French</option>
-
-                        <option value="G">German</option>
-
-                        <option value="I">Italian</option>
-
-                        <option value="J">Japanese</option>
-
-                        <option value="K">Korean</option>
-
-                        <option value="R">Russian</option>
-
-                        <option value="S">Spanish</option>
-
-                    </select>
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_category">Category:</label>
-                    <select name="category" id="id_category">
-                        <option value="" selected="">---------</option>
-
-                        <option value="6">Five</option>
-
-                        <option value="5">Four</option>
-
-                        <option value="2">One</option>
-
-                        <option value="4">Three</option>
-
-                        <option value="3">Two</option>
-
-                    </select>
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_price">Price:</label>
-                    <input type="number" name="price" step="0.01" id="id_price">
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_discount_price">Discount price:</label>
-                    <input type="number" name="discount_price" step="0.01" id="id_discount_price">
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_thumbnail">Thumbnail:</label>
-                    <select name="thumbnail" id="id_thumbnail">
-                        <option value="" selected="">---------</option>
-
-                    </select>
-
-
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'courses/courseInfo.html' %}
 
 <div class="card text-start mb-3">
     <div class="card-body p-0">
@@ -305,54 +86,65 @@
         <div class="collapse show" id="card7">
             <div class="m-4 mt-0">
 
-                <p>
-                    <label for="id_what_will_i_learn">What will i learn:</label>
-                    <textarea name="what_will_i_learn" cols="40" rows="10" id="id_what_will_i_learn"></textarea>
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">What will I learn?</label>
+                    <textarea class="form-control" name="what_will_i_learn" placeholder="Write here the course benefits (One per line)"
+                        rows="3">{{ course.what_will_i_learn | safe }}</textarea>
+                </div>
 
-                    <span class="helptext">Write here the course benefits (One per line)</span>
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">Target Audience</label>
+                    <textarea class="form-control" name="target_audience"
+                        placeholder="Specify the target audience that will benefit the most from the course. (One line per target audience.)"
+                        rows="3">{{ course.target_audience | safe }}</textarea>
+                </div>
 
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">Course duration</label>
+                    <div class="d-flex gap-3">
+                        <div>
+                            <input type="number" class="form-control p-3 mb-2" placeholder="Hours" />
+                            <small class="text-muted">
+                                Hours
+                            </small>
+                        </div>
+                        <div>
+                            <input type="number" class="form-control p-3 mb-2" placeholder="Minutes" />
+                            <small class="text-muted">
+                                Minutes
+                            </small>
+                        </div>
+                    </div>
+                </div>
 
-                </p>
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">Materials Included</label>
+                    <textarea class="form-control" name="materials_included"
+                        placeholder="A list of assets you will be providing for the students in this course (One per line)"
+                        rows="3">{{ course.materials_included }}</textarea>
+                </div>
 
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
+                    <textarea class="form-control" name="requirements"
+                        placeholder="Additional requirements or special instructions for the students (One per line)"
+                        rows="3">{{ course.requirements }}</textarea>
+                </div>
 
-                <p>
-                    <label for="id_target_audience">Target audience:</label>
-                    <textarea name="target_audience" cols="40" rows="10" id="id_target_audience"></textarea>
-
-                    <span class="helptext">Specify the target audience that will benefit the most from the course. (One
-                        line per
-                        target audience.)</span>
-
-
-                </p>
+                <div class="form-outline mb-3">
+                    <label class="form-label my-2 fw-bold">Course tags</label>
+                    <select class="form-select p-3 mb-2" aria-label="Default select example">
+                        <option selected>Multiple select</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
 
 
                 <p>
                     <label for="id_duration">Duration:</label>
                     <input type="text" name="duration" value="00:00:00" required="" id="id_duration">
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_materials_included">Materials included:</label>
-                    <textarea name="materials_included" cols="40" rows="10" id="id_materials_included"></textarea>
-
-                    <span class="helptext">A list of assets you will be providing for the students in this course (One
-                        per
-                        line)</span>
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_requirements">Requirements:</label>
-                    <textarea name="requirements" cols="40" rows="10" id="id_requirements"></textarea>
-
-                    <span class="helptext">Additional requirements or special instructions for the students (One per
-                        line)</span>
 
 
                 </p>
