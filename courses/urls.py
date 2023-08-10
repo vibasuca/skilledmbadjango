@@ -10,6 +10,7 @@ urlpatterns = [
     path("update-topic/<int:pk>/", views.update_topic, name="update_topic"),
     path("create-topic/<int:course_pk>/", views.create_topic, name="create_topic"),
     path("create-lesson/<int:topic_pk>/", views.create_lesson, name="create_lesson"),
+    path("create-quiz/<int:topic_pk>/", views.create_quiz, name="create_quiz"),
     path(
         "create-assignment/<int:topic_pk>/",
         views.create_assignment,
@@ -19,6 +20,7 @@ urlpatterns = [
     path(
         "update-assignment/<int:pk>/", views.update_assignment, name="update_assignment"
     ),
+    path("update-quiz/<int:pk>/", views.update_quiz, name="update_quiz"),
     path(
         "list-topic-item/<int:topic_pk>/",
         views.list_topic_items,

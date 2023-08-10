@@ -89,3 +89,6 @@ class Quiz(models.Model):
         ordering = ("-created_at",)
         verbose_name = "quiz"
         verbose_name_plural = "quizzes"
+
+    def __str__(self):
+        return self.title

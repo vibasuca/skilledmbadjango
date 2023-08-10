@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from media_library.models import Media
+from quizzes.models import Quiz
 
 User = get_user_model()
 
@@ -228,6 +229,10 @@ class Assignment(models.Model):
 
 
 class TopicItem(models.Model):
+    """
+    This model is used to store the lesson, assignment, quiz for a topic and acts as a manager.
+    """
+
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="items")
     sort_order = models.PositiveIntegerField(default=0)
     lesson = models.OneToOneField(
@@ -244,6 +249,13 @@ class TopicItem(models.Model):
         null=True,
         blank=True,
     )
+    quiz = models.OneToOneField(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="topic_item",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         ordering = ("sort_order",)
@@ -253,4 +265,6 @@ class TopicItem(models.Model):
             return f"Lesson: {self.lesson.title}"
         elif self.assignment:
             return f"Assignment: {self.assignment.title}"
+        elif self.quiz:
+            return f"Quiz: {self.quiz.title}"
         return "Unknown Topic Item"
