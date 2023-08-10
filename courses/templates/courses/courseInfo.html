@@ -58,14 +58,6 @@
                                 <select class="form-select p-3 mb-2" id="difficulty_level" name="difficulty_level"
                                     aria-label="Select Difficulty Level">
                                     <option>{{ course.difficulty_level }}</option>
-                                    <option value="A" {% if course.difficulty_level == 'B' %} selected {% endif %}>
-                                        All Levels</option>
-                                    <option value="B" {% if course.difficulty_level == 'B' %} selected {% endif %}>
-                                        Beginner</option>
-                                    <option value="I" {% if course.difficulty_level == 'I' %} selected {% endif %}>
-                                        Intermediate</option>
-                                    <option value="E" {% if course.difficulty_level == 'E' %} selected {% endif %}>
-                                        Expert</option>
                                 </select>
                                 <small class="text-muted">
                                     <i class="fal fa-info-circle"></i> Course difficulty level.
@@ -102,28 +94,42 @@
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold" for="language">Choose a language</label>
                     <select class="form-select p-3 mb-2" id="language" name="language" aria-label="Select Language">
-                        <option value="E" {% if course.language == 'E' %} selected {% endif %}>English</option>
-                        <option value="F" {% if course.language == 'F' %} selected {% endif %}>French</option>
-                        <option value="G" {% if course.language == 'G' %} selected {% endif %}>German</option>
-                        <option value="I" {% if course.language == 'I' %} selected {% endif %}>Italian</option>
-                        <option value="J" {% if course.language == 'J' %} selected {% endif %}>Japanese</option>
-                        <option value="K" {% if course.language == 'K' %} selected {% endif %}>Korean</option>
-                        <option value="R" {% if course.language == 'R' %} selected {% endif %}>Russian</option>
-                        <option value="S" {% if course.language == 'S' %} selected {% endif %}>Spanish</option>
+                        <option value="E">English</option>
                     </select>
                 </div>
+
+                <p>
+                    <label for="id_language">Language:</label>
+                    <select name="language" id="id_language">
+                        <option value="E" selected="">English</option>
+                        <option value="F">French</option>
+                        <option value="G">German</option>
+                        <option value="I">Italian</option>
+                        <option value="J">Japanese</option>
+                        <option value="K">Korean</option>
+                        <option value="R">Russian</option>
+                        <option value="S">Spanish</option>
+                    </select>
+                </p>
 
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold" for="category">Choose a category</label>
                     <select class="form-select p-3 mb-2" id="category" name="category" aria-label="Select Category">
                         <option selected>Open this select menu</option>
-                        <option selected value="1" {% if course.category == '1' %} selected {% endif %}>Category 1
-                        </option>
-                        <option value="2" {% if course.category == '2' %} selected {% endif %}>Category 2</option>
-                        <option value="3" {% if course.category == '3' %} selected {% endif %}>Category 3</option>
                     </select>
                 </div>
 
+                <p>
+                    <label for="id_category">Category:</label>
+                    <select name="category" id="id_category">
+                        <option value="" selected="">---------</option>
+                        <option value="6">Five</option>
+                        <option value="5">Four</option>
+                        <option value="2">One</option>
+                        <option value="4">Three</option>
+                        <option value="3">Two</option>
+                    </select>
+                </p>
 
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold">Course price</label>
@@ -143,68 +149,30 @@
                     </div>
                 </div>
 
+                <div id="priceSection" class="mb-4" style="width: 500px;">
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <label class="form-check-label" for="free">
+                                Price
+                            </label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text p-3" id="basic-addon1">₹</span>
+                                <input type="number" id="price" name="price" value="{{ course.price }}" class="form-control" step="0.01" id="id_price">
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label" for="free">
+                                Discount Price
+                            </label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text p-3" id="basic-addon1">₹</span>
+                                <input type="number" name="discount_price" value="{{ course.discount_price }}" class="form-control" step="0.01" id="id_discount_price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <p>
-                    <label for="id_language">Language:</label>
-                    <select name="language" id="id_language">
-                        <option value="E" selected="">English</option>
-
-                        <option value="F">French</option>
-
-                        <option value="G">German</option>
-
-                        <option value="I">Italian</option>
-
-                        <option value="J">Japanese</option>
-
-                        <option value="K">Korean</option>
-
-                        <option value="R">Russian</option>
-
-                        <option value="S">Spanish</option>
-
-                    </select>
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_category">Category:</label>
-                    <select name="category" id="id_category">
-                        <option value="" selected="">---------</option>
-
-                        <option value="6">Five</option>
-
-                        <option value="5">Four</option>
-
-                        <option value="2">One</option>
-
-                        <option value="4">Three</option>
-
-                        <option value="3">Two</option>
-
-                    </select>
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_price">Price:</label>
-                    <input type="number" name="price" step="0.01" id="id_price">
-
-
-                </p>
-
-
-                <p>
-                    <label for="id_discount_price">Discount price:</label>
-                    <input type="number" name="discount_price" step="0.01" id="id_discount_price">
-
-
-                </p>
-
+                
 
                 <p>
                     <label for="id_thumbnail">Thumbnail:</label>
@@ -260,4 +228,21 @@
         .catch(error => {
             console.error(error);
         });
+
+    $(document).ready(function() {
+        var initialPrice = parseFloat($('#price').val());
+        if (initialPrice > 0) {
+            $('#priceSection').show();
+        } else {
+            $('#priceSection').hide();
+        }
+        
+        $('input[type="radio"]').change(function() {
+          if ($('#free').is(':checked') && $('#price').val() == 0) {
+            $('#priceSection').slideUp();
+          } else if ($('#paid').is(':checked')) {
+            $('#priceSection').slideDown();
+          }
+        });
+      });
 </script>
