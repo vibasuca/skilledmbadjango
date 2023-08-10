@@ -14,19 +14,7 @@
     </div>
 </div>
 
-<div class="card text-start mb-3">
-    <div class="card-body p-0">
-        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card3">
-            <i class="fas fa-chevron-down text-primary"></i>
-            <span class="fs-4">&nbsp;&nbsp;Course Builder</span>
-        </div>
-        <div class="collapse show" id="card3">
-            <div class="m-4 mt-0">
-
-            </div>
-        </div>
-    </div>
-</div>
+{% include 'courses/courseBuilder.html' %}
 
 <div class="card text-start mb-3">
     <div class="card-body p-0">
@@ -88,7 +76,8 @@
 
                 <div class="form-outline mb-3">
                     <label class="form-label my-2 fw-bold">What will I learn?</label>
-                    <textarea class="form-control" name="what_will_i_learn" placeholder="Write here the course benefits (One per line)"
+                    <textarea class="form-control" name="what_will_i_learn"
+                        placeholder="Write here the course benefits (One per line)"
                         rows="3">{{ course.what_will_i_learn | safe }}</textarea>
                 </div>
 
@@ -121,14 +110,14 @@
                     <label class="form-label my-2 fw-bold">Materials Included</label>
                     <textarea class="form-control" name="materials_included"
                         placeholder="A list of assets you will be providing for the students in this course (One per line)"
-                        rows="3">{{ course.materials_included }}</textarea>
+                        rows="3">{{ course.materials_included | safe }}</textarea>
                 </div>
 
                 <div class="form-outline mb-3">
                     <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
                     <textarea class="form-control" name="requirements"
                         placeholder="Additional requirements or special instructions for the students (One per line)"
-                        rows="3">{{ course.requirements }}</textarea>
+                        rows="3">{{ course.requirements | safe }}</textarea>
                 </div>
 
                 <div class="form-outline mb-3">
@@ -191,17 +180,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'))
-        .then(editor => {
-            const editorDataTextarea = document.querySelector('#desc-data');
-            editor.model.document.on('change', () => {
-                editorDataTextarea.value = editor.getData();
-            });
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>

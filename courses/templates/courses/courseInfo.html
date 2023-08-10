@@ -215,6 +215,32 @@
 
 
                 </p>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#builderModal">
+                    Upload Image
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="builderModal" tabindex="-1" aria-labelledby="builderModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-fullscreen">
+                        <div class="modal-content">
+                            <div class="modal-header border-0">
+                                <h1 class="modal-title fs-5" id="builderModalLabel">Media Management</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body p-0">
+                                {% include 'media_library/mediaManagement.html' %}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Select Media</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
