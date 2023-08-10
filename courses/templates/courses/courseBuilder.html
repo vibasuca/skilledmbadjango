@@ -6,8 +6,10 @@
         </div>
         <div class="collapse show" id="card3">
             <div class="m-4 mt-0">
-                <!--content in here-->
-                <button class="btn btn-primary p-3">
+                <div class="row">
+                    <div id="topicList"></div>
+                </div>
+                <button type="button" class="btn btn-primary p-3" data-bs-toggle="modal" data-bs-target="#topicModal">
                     <i class="fas fa-plus-square"></i>
                     <span>&nbsp;&nbsp;Add New Topic</span>
                 </button>
@@ -15,3 +17,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        updateTopicList()
+    });
+
+</script>

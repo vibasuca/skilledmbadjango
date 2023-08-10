@@ -1,3 +1,4 @@
+{% load static %}
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 
 <div class="card text-start mb-3">
@@ -99,7 +100,7 @@
                 </div>
 
                 <p>
-                    <label for="id_language">Language:</label>
+                    <label for="id_language" class="text-danger">Language:</label>
                     <select name="language" id="id_language">
                         <option value="E" selected="">English</option>
                         <option value="F">French</option>
@@ -120,7 +121,7 @@
                 </div>
 
                 <p>
-                    <label for="id_category">Category:</label>
+                    <label for="id_category" class="text-danger">Category:</label>
                     <select name="category" id="id_category">
                         <option value="" selected="">---------</option>
                         <option value="6">Five</option>
@@ -172,10 +173,32 @@
                     </div>
                 </div>
 
+                <div class="d-flex">
+                    <div class="p-3">
+                        <div class="thumbnail-preview mt-3" id="thumbnailPreview">
+                            <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                        </div>
+                    </div>
+                    <div class="p-3 d-flex align-items-center" style="width: 100%;">
+                        <span>
+                            <b id="imageDimensions">Allowed Size: 700x400 pixels</b>
+                            <p>File Support:</p>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input d-none" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)">
+                                <label class="btn btn-primary" for="thumbnail">Choose file</label>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                                    Media Library
+                                </button>
+                              </div>
+                        </span>
+                    </div>
+                </div>
+
                 
 
+
                 <p>
-                    <label for="id_thumbnail">Thumbnail:</label>
+                    <label for="id_thumbnail" class="text-danger">Thumbnail:</label>
                     <select name="thumbnail" id="id_thumbnail">
                         <option value="" selected="">---------</option>
 
@@ -183,34 +206,6 @@
 
 
                 </p>
-
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#builderModal">
-                    Upload Image
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="builderModal" tabindex="-1" aria-labelledby="builderModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content">
-                            <div class="modal-header border-0">
-                                <h1 class="modal-title fs-5" id="builderModalLabel">Media Management</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body p-0">
-                                {% comment %}
-                                {% include 'media_library/mediaManagement.html' %}
-                                {% endcomment %}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Select Media</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -244,5 +239,48 @@
             $('#priceSection').slideDown();
           }
         });
-      });
+
+        $(document).ready(function() {
+            $('#thumbnail').change(function(event) {
+              previewThumbnail(event);
+            });
+          });
+          
+          function previewThumbnail(event) {
+            const preview = $('#thumbnailPreview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+          
+            reader.onload = function() {
+              const image = $('<img>').attr('src', reader.result).css({
+                'min-height': '100px',
+                'max-width': '250px'
+              });
+              preview.empty().append(image);
+          
+              // Get image dimensions
+              getImageDimensions(reader.result, function(dimensions) {
+                const dimensionsText = `Dimensions: ${dimensions.width} x ${dimensions.height}`;
+                $('#imageDimensions').text(dimensionsText);
+              });
+            }
+          
+            if (file) {
+              reader.readAsDataURL(file);
+            }
+          }
+          
+          function getImageDimensions(src, callback) {
+            const image = new Image();
+            image.src = src;
+          
+            image.onload = function() {
+              const dimensions = {
+                width: this.width,
+                height: this.height
+              };
+              callback(dimensions);
+            };
+          }
+    });          
 </script>

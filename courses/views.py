@@ -58,6 +58,8 @@ def create_topic(request, course_pk):
     title = request.POST.get("title", "")
     summary = request.POST.get("summary", "")
 
+    print("title=", title)
+
     sort_order = course.topics.count() + 1
     topic = Topic(
         course=course,

@@ -1,47 +1,9 @@
 {% include 'courses/courseInfo.html' %}
-
-<div class="card text-start mb-3">
-    <div class="card-body p-0">
-        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card2">
-            <i class="fas fa-chevron-down text-primary"></i>
-            <span class="fs-4">&nbsp;&nbsp;Video</span>
-        </div>
-        <div class="collapse show" id="card2">
-            <div class="m-4 mt-0">
-
-            </div>
-        </div>
-    </div>
-</div>
-
+{% include 'courses/video.html' %}
 {% include 'courses/courseBuilder.html' %}
-
-<div class="card text-start mb-3">
-    <div class="card-body p-0">
-        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card4">
-            <i class="fas fa-chevron-down text-primary"></i>
-            <span class="fs-4">&nbsp;&nbsp;Instructor</span>
-        </div>
-        <div class="collapse show" id="card4">
-            <div class="m-4 mt-0">
-                <p>
-                    <label for="id_instructors">Instructors:</label>
-                    <select name="instructors" id="id_instructors" multiple="">
-                        <option value="1">a</option>
-
-                        <option value="2">admin</option>
-
-                        <option value="3">neerajadhav</option>
-
-                    </select>
+{% include 'courses/instructor.html' %}
 
 
-                </p>
-
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="card text-start mb-3">
     <div class="card-body p-0">
@@ -51,10 +13,8 @@
         </div>
         <div class="collapse show" id="card5">
             <div class="m-4 mt-0">
-
-
                 <p>
-                    <label for="id_attachments">Attachments:</label>
+                    <label for="id_attachments" class="text-danger">Attachments:</label>
                     <select name="attachments" id="id_attachments" multiple="">
                     </select>
 
@@ -132,7 +92,7 @@
 
 
                 <p>
-                    <label for="id_duration">Duration:</label>
+                    <label for="id_duration" class="text-danger">Duration:</label>
                     <input type="text" name="duration" value="00:00:00" required="" id="id_duration">
 
 
@@ -140,7 +100,7 @@
 
 
                 <p>
-                    <label for="id_tags">Tags:</label>
+                    <label for="id_tags" class="text-danger">Tags:</label>
                     <select name="tags" id="id_tags" multiple="">
                     </select>
 
@@ -166,7 +126,7 @@
 
 
                 <p>
-                    <label for="id_prerequisite_courses">Prerequisite courses:</label>
+                    <label for="id_prerequisite_courses" class="text-danger">Prerequisite courses:</label>
                     <select name="prerequisite_courses" id="id_prerequisite_courses" multiple="">
                         <option value="32">neerajadhav's course: New Course assd sdsd</option>
 
