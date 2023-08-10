@@ -50,7 +50,9 @@ class Quiz(models.Model):
         default=10,
         help_text="Restriction on the number of attempts a student is allowed to take for this quiz. 0 for no limit",
     )
-    passing_percentage = models.FloatField(default=80)
+    passing_percentage = models.FloatField(
+        default=80, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     max_questions = models.PositiveIntegerField(
         default=1,
         help_text="This amount of question will be available for students to answer, and question will comes randomly from all available questions belongs with a quiz, if this amount is greater than available question, then all questions will be available for a student to answer.",
@@ -70,6 +72,8 @@ class Quiz(models.Model):
         default=500,
         help_text="Students will place the answer in the Open-Ended/Essay question type within this character limit.",
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
@@ -82,3 +86,6 @@ class Quiz(models.Model):
                 check=models.Q(max_questions__gte=1), name="check_max_questions_range"
             ),
         ]
+        ordering = ("-created_at",)
+        verbose_name = "quiz"
+        verbose_name_plural = "quizzes"
