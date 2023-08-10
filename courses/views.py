@@ -14,7 +14,8 @@ from .models import *
 @login_required
 def create_course(request):
     course = Course.objects.create(user=request.user, title="New Course")
-    return redirect("courses:update_course", pk=course.pk)
+    redirect_url = f'/courses/update-course/{course.pk}/'
+    return JsonResponse({'success': True, 'redirect_url': redirect_url})
 
 
 @login_required
@@ -32,6 +33,7 @@ def update_course(request, pk):
             instance.save()
 
             return redirect("courses:update_course", pk=instance.pk)
+        print(form.errors)
     else:
         form = CourseForm(instance=course)
 
