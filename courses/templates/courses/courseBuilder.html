@@ -18,9 +18,17 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 <script>
     $(document).ready(function () {
         updateTopicList()
+    });
+    
+    const sortableList = new Sortable(document.getElementById('topicList'), {
+        animation: 150,
+        onEnd: function(evt) {
+            const item = evt.item;
+        }
     });
 
 </script>

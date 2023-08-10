@@ -264,11 +264,34 @@
                                 <div class="card-body p-0">
                                     <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
                                         style="cursor: pointer;" data-bs-toggle="collapse" href="#topic-${topics.topics[i].id}">
-                                        <span class="fs-6">&nbsp;&nbsp;${topics.topics[i].title}</span>
-                                        <i class="fas fa-chevron-up text-dark"></i>
+                                        <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topics.topics[i].title}</span>
+                                        <span class="d-flex gap-3 px-2">
+                                            <i class="fas fa-edit text-muted"></i>
+                                            <i class="fas fa-trash-alt text-muted"></i>
+                                        </span>
                                     </div>
                                     <div class="collapse" id="topic-${topics.topics[i].id}">
-                                        collapse
+                                        <div class="card card-body">
+                                            <div class="d-flex gap-3">
+                                                <!-- Button for Add Lesson -->
+                                                <button type="button" class="btn btn-outline-primary">
+                                                    <i class="fas fa-plus-square"></i>
+                                                    &nbsp;Lesson
+                                                </button>
+                                                
+                                                <!-- Button for Add Quiz -->
+                                                <button type="button" class="btn btn-outline-primary">
+                                                    <i class="fas fa-plus-square"></i>
+                                                    &nbsp;Quiz
+                                                </button>
+                                                
+                                                <!-- Button for Add Assignment -->
+                                                <button type="button" class="btn btn-outline-primary">
+                                                    <i class="fas fa-plus-square"></i>
+                                                    &nbsp;Assignment
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -306,6 +329,34 @@
                 }
             });
         });
+
+        function updateTopic() {
+            $("#topicForm").submit(function () {
+                event.preventDefault();
+                $("#saveTopic").html(
+                    '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
+                );
+                url = "{% url 'courses:create_topic' course.pk %}";
+                form = $('#topicForm').serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    data: form,
+                    success: function (data) {
+                        $("#saveTopic").html('<span><b>Save Topic</b></span>');
+                        $("#topicModal").modal('hide');
+                        updateTopicList();
+                    },
+                    error: function (xhr, status, error) {
+                        var errorMessage = JSON.parse(xhr.responseText).error_message;
+                        console.log(errorMessage);
+                    }
+                });
+            });
+        }
     </script>
 </body>
 
