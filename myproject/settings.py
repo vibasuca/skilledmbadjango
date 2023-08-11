@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "users",
     "media_library",
     "courses",
+    "quizzes",
 ]
 
 SITE_ID = 1
