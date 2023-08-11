@@ -58,8 +58,6 @@ def create_topic(request, course_pk):
     title = request.POST.get("title", "")
     summary = request.POST.get("summary", "")
 
-    print("title=", title)
-
     sort_order = course.topics.count() + 1
     topic = Topic(
         course=course,
@@ -118,7 +116,7 @@ def update_topic(request, pk):
     try:
         topic.full_clean()
         topic.save()
-        return JsonResponse({"message": "Topic created successfully."})
+        return JsonResponse({"message": "Topic updated successfully."})
     except ValidationError as e:
         errors = dict(e)
         return JsonResponse({"error": errors}, status=400)

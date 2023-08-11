@@ -23,11 +23,39 @@
     $(document).ready(function () {
         updateTopicList()
     });
-    
+
     const sortableList = new Sortable(document.getElementById('topicList'), {
         animation: 150,
-        onEnd: function(evt) {
+        onEnd: function (evt) {
             const item = evt.item;
+            const newIndex = evt.newIndex;
+            const topicId = $(item).find(".editTopicButton").attr('data-bs-topic-id');
+            const topicTitle = $(item).find(".editTopicButton").attr('data-bs-topic-title');
+            const topicSummary = $(item).find(".editTopicButton").attr('data-bs-topic-summary');
+
+            console.log(topicId);
+
+            url = `/courses/update-topic/${topicId}/`;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                data: {
+                    'sort_order': newIndex + 1,
+                    'title': topicTitle,
+                    'summary': topicSummary,
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = JSON.parse(xhr.responseText).error_message;
+                    console.log(errorMessage);
+                }
+            });
         }
     });
 
