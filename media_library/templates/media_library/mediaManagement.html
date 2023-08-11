@@ -1,3 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Management</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
 <div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs ps-3">
@@ -10,7 +22,7 @@
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content mt-4 p-3">
+    <div class="tab-content container-fluid">
         <div id="uploadTab" class="tab-pane">
             <form id="media-upload-form" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -38,46 +50,72 @@
             </form>
         </div>
         <div id="libraryTab" class="tab-pane active">
-            <!-- Tab panes -->
-            <!-- Search Inputs -->
             <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="month">Month:</label>
-                        <select class="form-control" id="month">
-                            <option value="">Select Month</option>
-                            <!-- Dynamically generate options for all months -->
-                        </select>
+                <div class="col-9">
+                    <!-- Media List -->
+                    <div id="media-list">
+                        <!-- Search Inputs -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="month">Month:</label>
+                                    <select class="form-control" id="month">
+                                        <option value="">Select Month</option>
+                                        <!-- Dynamically generate options for all months -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="year">Year:</label>
+                                    <select class="form-control" id="year">
+                                        <option value="">Select Year</option>
+                                        <!-- Dynamically generate options for last 5 years -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="search">Search:</label>
+                                    <input type="text" class="form-control" id="search"
+                                        placeholder="Enter search keywords">
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Media List:</h3>
+                        <div id="accordion">
+                            <!-- Media items will be dynamically added here -->
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="year">Year:</label>
-                        <select class="form-control" id="year">
-                            <option value="">Select Year</option>
-                            <!-- Dynamically generate options for last 5 years -->
-                        </select>
+                <div class="col-3 bg-light" style="height: 100vh;">
+                    <div>
+                        <b class="text-muted">Attachment Details</b>
+                        <div class="mt-3" id="thumbnailPreview">
+                            <img class="img-fluid" style="width: 100%;"
+                                src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="search">Search:</label>
-                        <input type="text" class="form-control" id="search" placeholder="Enter search keywords">
+                    <div class="d-flex align-items-center" style="width: 100%;">
+                        <span style="font-size: 13px;">
+                            <b>jordan-elliott-dO_XGqi0sxw-unsplash-scaled.jpg</b>
+                            <p>
+                                August 3, 2023 <br>
+                                305 KB <br>
+                                2560 by 1707 pixels <br>
+                                Original image: jordan-elliott-dO_XGqi0sxw-unsplash.jpg <br>
+                                Edit Image
+                            </p>
+                        </span>
                     </div>
-                </div>
-            </div>
-
-            <!-- Media List -->
-            <div id="media-list">
-                <h3>Media List:</h3>
-                <div id="accordion">
-                    <!-- Media items will be dynamically added here -->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -112,13 +150,11 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert(response.message);
-                    // Refresh media list after successful upload
                     fetchMediaList();
+                    $(".nav-tabs a[href='#libraryTab']").tab("show");
                 },
                 error: function (xhr, status, error) {
                     alert("Error: " + xhr.responseJSON.error);
-                    // Handle the error and update the UI accordingly
                 },
             });
         });
@@ -262,3 +298,5 @@
         $("#search, #month, #year").on("input", fetchMediaList);
     });
 </script>
+
+</html>
