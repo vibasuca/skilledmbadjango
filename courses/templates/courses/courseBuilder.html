@@ -33,8 +33,6 @@
             const topicTitle = $(item).find(".editTopicButton").attr('data-bs-topic-title');
             const topicSummary = $(item).find(".editTopicButton").attr('data-bs-topic-summary');
 
-            console.log(topicId);
-
             url = `/courses/update-topic/${topicId}/`;
 
             $.ajax({
@@ -49,7 +47,7 @@
                     'summary': topicSummary,
                 },
                 success: function (data) {
-                    console.log(data);
+                    console.log("Topic sort order updated");
                 },
                 error: function (xhr, status, error) {
                     var errorMessage = JSON.parse(xhr.responseText).error_message;
