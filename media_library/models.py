@@ -11,33 +11,33 @@ User = get_user_model()
 def validate_file_extension(value):
     valid_extensions = [
         # Images
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".gif",
-        ".bmp",
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "bmp",
         # Videos
-        ".mp4",
-        ".avi",
-        ".mov",
-        ".mkv",
-        ".wmv",
+        "mp4",
+        "avi",
+        "mov",
+        "mkv",
+        "wmv",
         # Audio
-        ".mp3",
-        ".wav",
-        ".ogg",
-        ".flac",
-        ".aac",
+        "mp3",
+        "wav",
+        "ogg",
+        "flac",
+        "aac",
         # Zip archives
-        ".zip",
-        ".rar",
+        "zip",
+        "rar",
         # Text files
-        ".txt",
-        ".csv",
-        ".log",
-        ".md",
+        "txt",
+        "csv",
+        "log",
+        "md",
         # PDF files
-        ".pdf",
+        "pdf",
     ]
 
     validator = FileExtensionValidator(allowed_extensions=valid_extensions)
