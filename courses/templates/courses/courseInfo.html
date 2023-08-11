@@ -228,12 +228,13 @@
         var initialPrice = parseFloat($('#price').val());
         if (initialPrice > 0) {
             $('#priceSection').show();
+            $('#free').attr('disabled', true);
         } else {
             $('#priceSection').hide();
         }
         
         $('input[type="radio"]').change(function() {
-          if ($('#free').is(':checked') && $('#price').val() == 0) {
+          if ($('#free').is(':checked')) {
             $('#priceSection').slideUp();
           } else if ($('#paid').is(':checked')) {
             $('#priceSection').slideDown();
