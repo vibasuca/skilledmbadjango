@@ -1,0 +1,60 @@
+<div class="card text-start mb-3">
+    <div class="card-body p-0">
+        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card3">
+            <i class="fas fa-chevron-down text-primary"></i>
+            <span class="fs-4">&nbsp;&nbsp;Course Builder</span>
+        </div>
+        <div class="collapse show" id="card3">
+            <div class="m-4 mt-0">
+                <div class="row">
+                    <div id="topicList"></div>
+                </div>
+                <button type="button" class="btn btn-primary p-3" data-bs-toggle="modal" data-bs-target="#topicModal">
+                    <i class="fas fa-plus-square"></i>
+                    <span>&nbsp;&nbsp;Add New Topic</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+<script>
+    $(document).ready(function () {
+        updateTopicList()
+    });
+
+    const sortableList = new Sortable(document.getElementById('topicList'), {
+        animation: 150,
+        onEnd: function (evt) {
+            const item = evt.item;
+            const newIndex = evt.newIndex;
+            const topicId = $(item).find(".editTopicButton").attr('data-bs-topic-id');
+            const topicTitle = $(item).find(".editTopicButton").attr('data-bs-topic-title');
+            const topicSummary = $(item).find(".editTopicButton").attr('data-bs-topic-summary');
+
+            url = `/courses/update-topic/${topicId}/`;
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                },
+                data: {
+                    'sort_order': newIndex + 1,
+                    'title': topicTitle,
+                    'summary': topicSummary,
+                },
+                success: function (data) {
+                    console.log("Topic sort order updated");
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = JSON.parse(xhr.responseText).error_message;
+                    console.log(errorMessage);
+                }
+            });
+        }
+    });
+
+</script>

@@ -1,0 +1,287 @@
+{% load static %}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+
+<div class="card text-start mb-3">
+    <div class="card-body p-0">
+        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+            <i class="fas fa-chevron-down text-primary"></i>
+            <span class="fs-4">&nbsp;&nbsp;Course Info</span>
+        </div>
+        <div class="collapse show" id="card1">
+            <div class="m-4 mt-0">
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold">Course Title</label>
+                    <input type="text" id="title" name="title" value="{{ course.title }}" class="form-control p-3"
+                        placeholder="New Course" />
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold">Course Slug</label>
+                    <input type="text" id="slug" name="slug" value="{{ course.slug }}" class="form-control p-3"
+                        placeholder="new-course" />
+                    <div class="py-2">Permalink: {{ request.get_full_path }}
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold">Description</label>
+                    <div id="editor">
+                        {{ course.description|safe }}
+                    </div>
+                    <textarea id="desc-data" name="description" style="display: none;"></textarea>
+                </div>
+
+                <b>Course Settings</b>
+                <div class="row p-2 mb-2">
+                    <div class="col-4 p-0 bg-light border rounded-start" style="border-right: none !important;">
+                        <div class="p-3 text-primary">
+                            <i class="fas fa-cog"></i> General
+                        </div>
+                    </div>
+                    <div class="col-8 border rounded-end">
+                        <div class="row px-3 py-2">
+                            <div class="form-outline mb-3">
+                                <label class="form-label my-2 fw-bold">Maximum Students</label>
+                                <input type="number" id="max_students" name="max_students"
+                                    value="{{ course.max_students }}" class="form-control p-3 mb-2"
+                                    placeholder="Maximum Students" />
+                                <small class="text-muted">
+                                    <i class="fal fa-info-circle"></i> Number of students that
+                                    can enrol in this course. Set 0 for no limits.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row px-3 py-2">
+                            <div class="form-outline mb-3">
+                                <label class="form-label my-2 fw-bold" for="difficulty_level">Difficulty
+                                    Level</label>
+                                <select class="form-select p-3 mb-2" id="difficulty_level" name="difficulty_level"
+                                    aria-label="Select Difficulty Level">
+                                    <option>{{ course.difficulty_level }}</option>
+                                </select>
+                                <small class="text-muted">
+                                    <i class="fal fa-info-circle"></i> Course difficulty level.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row px-3 py-2">
+                            <div class="form-outline mb-3">
+                                <label class="form-label my-2 fw-bold" for="is_public">Public Course</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="is_public" name="is_public" {% if course.is_public %} checked {% endif %}>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fal fa-info-circle"></i> Make This Course Public.
+                                    No enrollment required.
+                                </small>
+                            </div>
+                        </div>
+                        <div class="row px-3 py-2">
+                            <div class="form-outline mb-3">
+                                <label class="form-label my-2 fw-bold" for="enable_qa">Q&A</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="enable_qa" name="enable_qa" {% if course.enable_qa %} checked {% endif %}>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="fal fa-info-circle"></i> Enable Q&A section for your
+                                    course.
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold" for="language">Choose a language</label>
+                    <select class="form-select p-3 mb-2" id="language" name="language" aria-label="Select Language">
+                        <option value="E">English</option>
+                    </select>
+                </div>
+
+                <p>
+                    <label for="id_language" class="text-danger">Language:</label>
+                    <select name="language" id="id_language">
+                        <option value="E" selected="">English</option>
+                        <option value="F">French</option>
+                        <option value="G">German</option>
+                        <option value="I">Italian</option>
+                        <option value="J">Japanese</option>
+                        <option value="K">Korean</option>
+                        <option value="R">Russian</option>
+                        <option value="S">Spanish</option>
+                    </select>
+                </p>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold" for="category">Choose a category</label>
+                    <select class="form-select p-3 mb-2" id="category" name="category" aria-label="Select Category">
+                        <option selected>Open this select menu</option>
+                    </select>
+                </div>
+
+                <p>
+                    <label for="id_category" class="text-danger">Category:</label>
+                    <select name="category" id="id_category">
+                        <option value="" selected="">---------</option>
+                        <option value="6">Five</option>
+                        <option value="5">Four</option>
+                        <option value="2">One</option>
+                        <option value="4">Three</option>
+                        <option value="3">Two</option>
+                    </select>
+                </p>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label my-2 fw-bold">Course price</label>
+                    <div class="d-flex gap-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="course_price" id="free" value="free" {% if not course.price %} checked {% endif %}>
+                            <label class="form-check-label" for="free">
+                                Free
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="course_price" id="paid" value="paid" {% if course.price %} checked {% endif %}>
+                            <label class="form-check-label" for="paid">
+                                Paid
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="priceSection" class="mb-4" style="width: 100%;">
+                    <div class="d-flex gap-3">
+                        <div class="form-check p-0">
+                            <label class="form-check-label" for="free">
+                                Price
+                            </label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text p-3" id="basic-addon1">₹</span>
+                                <input type="number" id="price" name="price" value="{{ course.price }}" class="form-control" step="0.01" id="id_price">
+                            </div>
+                        </div>
+                        <div class="form-check p-0">
+                            <label class="form-check-label" for="free">
+                                Discount Price
+                            </label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text p-3" id="basic-addon1">₹</span>
+                                <input type="number" name="discount_price" value="{{ course.discount_price }}" class="form-control" step="0.01" id="id_discount_price">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="p-3">
+                        <div class="thumbnail-preview mt-3" id="thumbnailPreview">
+                            <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                        </div>
+                    </div>
+                    <div class="p-3 d-flex align-items-center" style="width: 100%;">
+                        <span>
+                            <b id="imageDimensions">Allowed Size: 700x400 pixels</b>
+                            <p>File Support:</p>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input d-none" id="thumbnail" name="thumbnail" accept="image/*" onchange="previewThumbnail(event)">
+                                <label class="btn btn-primary" for="thumbnail">Choose file</label>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                                    Media Library
+                                </button>
+                              </div>
+                        </span>
+                    </div>
+                </div>
+
+                
+
+
+                <p>
+                    <label for="id_thumbnail" class="text-danger">Thumbnail:</label>
+                    <select name="thumbnail" id="id_thumbnail">
+                        <option value="" selected="">---------</option>
+
+                    </select>
+
+
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            const editorDataTextarea = document.querySelector('#desc-data');
+            editor.model.document.on('change', () => {
+                editorDataTextarea.value = editor.getData();
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    $(document).ready(function() {
+        var initialPrice = parseFloat($('#price').val());
+        if (initialPrice > 0) {
+            $('#priceSection').show();
+            $('#free').attr('disabled', true);
+        } else {
+            $('#priceSection').hide();
+        }
+        
+        $('input[type="radio"]').change(function() {
+          if ($('#free').is(':checked')) {
+            $('#priceSection').slideUp();
+          } else if ($('#paid').is(':checked')) {
+            $('#priceSection').slideDown();
+          }
+        });
+
+        $(document).ready(function() {
+            $('#thumbnail').change(function(event) {
+              previewThumbnail(event);
+            });
+          });
+          
+          function previewThumbnail(event) {
+            const preview = $('#thumbnailPreview');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+          
+            reader.onload = function() {
+              const image = $('<img>').attr('src', reader.result).css({
+                'min-height': '100px',
+                'max-width': '250px'
+              });
+              preview.empty().append(image);
+          
+              // Get image dimensions
+              getImageDimensions(reader.result, function(dimensions) {
+                const dimensionsText = `Dimensions: ${dimensions.width} x ${dimensions.height}`;
+                $('#imageDimensions').text(dimensionsText);
+              });
+            }
+          
+            if (file) {
+              reader.readAsDataURL(file);
+            }
+          }
+          
+          function getImageDimensions(src, callback) {
+            const image = new Image();
+            image.src = src;
+          
+            image.onload = function() {
+              const dimensions = {
+                width: this.width,
+                height: this.height
+              };
+              callback(dimensions);
+            };
+          }
+    });          
+</script>

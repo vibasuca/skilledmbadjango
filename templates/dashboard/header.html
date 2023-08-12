@@ -6,15 +6,14 @@
                 <i class="fas fa-bars"></i>
             </a>
             <img class="user-photo"
-                src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
-                alt="user photo">
+                src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm" alt="user photo">
             <b class="greet-text"><span style="color: #9b9b9b;" class="d-none d-lg-inline">Howdy,</span> Om
                 Dahale</b>
         </div>
         <div class="d-flex align-items-center gap-3 gap-lg-4">
-            <button class="btn bg-white border px-lg-4 px-3 py-2" style="color: #0071dc;">
-                <i class="far fa-user-tie"></i>
-                <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Become and Instructor</span>
+            <button id="createCourse" class="btn bg-white border px-lg-4 px-3 py-2" style="color: #0071dc;">
+                <i class="far fa-edit"></i>
+                <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Add a new course</span>
             </button>
             <button class="btn bg-white border px-3 p-2">
                 <i class="fas fa-bars"></i>
@@ -22,3 +21,32 @@
         </div>
     </div>
 </header>
+
+<script>
+    // Create Course button
+    $("#createCourse").click(function (e) {
+        e.preventDefault();
+
+        let url = "{% url 'courses:create_course' %}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            dataType: 'json',
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            success: function (response) {
+                if (response.success) {
+                    window.location.href = response.redirect_url;
+                } else {
+                    alert('Failed to create course.');
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Error: " + xhr.responseJSON.error);
+                // Handle the error and update the UI accordingly
+            },
+        });
+    });
+</script>
