@@ -144,7 +144,7 @@ class Course(models.Model):
     approved_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        ordering = ("-updated_at",)
+        ordering = ("-created_at",)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -163,7 +163,7 @@ class Topic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ("sort_order",)
+        ordering = ("course", "sort_order")
 
     def __str__(self):
         return self.title
@@ -222,7 +222,7 @@ class Assignment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ("created_at",)
+        ordering = ("-created_at",)
 
     def __str__(self):
         return self.title
@@ -258,7 +258,7 @@ class TopicItem(models.Model):
     )
 
     class Meta:
-        ordering = ("sort_order",)
+        ordering = ("topic", "sort_order")
 
     def __str__(self):
         if self.lesson:
