@@ -45,6 +45,7 @@ def validate_file_extension(value):
     try:
         validator(value)
     except ValidationError as e:
+        print(e)
         raise ValidationError(
             "File type not supported. Allowed file types: "
             + ", ".join(valid_extensions)
