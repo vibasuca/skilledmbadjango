@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from media_library.models import Media
+from quizzes.models import Quiz
 
 User = get_user_model()
 
@@ -143,7 +144,7 @@ class Course(models.Model):
     approved_at = models.DateTimeField(null=True, blank=True)
 
     class Meta:
-        ordering = ("-updated_at",)
+        ordering = ("-created_at",)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -162,7 +163,7 @@ class Topic(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ("sort_order",)
+        ordering = ("course", "sort_order")
 
     def __str__(self):
         return self.title
@@ -221,13 +222,17 @@ class Assignment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ("created_at",)
+        ordering = ("-created_at",)
 
     def __str__(self):
         return self.title
 
 
 class TopicItem(models.Model):
+    """
+    This model is used to store the lesson, assignment, quiz for a topic and acts as a manager.
+    """
+
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="items")
     sort_order = models.PositiveIntegerField(default=0)
     lesson = models.OneToOneField(
@@ -244,13 +249,22 @@ class TopicItem(models.Model):
         null=True,
         blank=True,
     )
+    quiz = models.OneToOneField(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name="topic_item",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
-        ordering = ("sort_order",)
+        ordering = ("topic", "sort_order")
 
     def __str__(self):
         if self.lesson:
             return f"Lesson: {self.lesson.title}"
         elif self.assignment:
             return f"Assignment: {self.assignment.title}"
+        elif self.quiz:
+            return f"Quiz: {self.quiz.title}"
         return "Unknown Topic Item"

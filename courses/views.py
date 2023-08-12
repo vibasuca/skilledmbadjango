@@ -6,6 +6,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views.decorators.http import require_POST
+from quizzes.models import Quiz
 from .forms import CourseForm
 from .models import *
 
@@ -14,8 +15,8 @@ from .models import *
 @login_required
 def create_course(request):
     course = Course.objects.create(user=request.user, title="New Course")
-    redirect_url = f'/courses/update-course/{course.pk}/'
-    return JsonResponse({'success': True, 'redirect_url': redirect_url})
+    redirect_url = f"/courses/update-course/{course.pk}/"
+    return JsonResponse({"success": True, "redirect_url": redirect_url})
 
 
 @login_required
@@ -239,6 +240,14 @@ def list_topic_items(request, topic_pk):
 
             item["assignment"] = assignment
 
+        elif topic_item.quiz:
+            quiz = json.loads(serializers.serialize("json", [topic_item.quiz]))[0][
+                "fields"
+            ]
+            quiz["id"] = topic_item.quiz.pk
+
+            item["quiz"] = quiz
+
         topic_items_list.append(item)
 
     return JsonResponse({"data": topic_items_list})
@@ -431,6 +440,140 @@ def update_assignment(request, pk):
         topic_item.save()
 
         return JsonResponse({"message": "Assignment updated successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def create_quiz(request, topic_pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    summary = data.get("summary", "")
+    time_limit = data.get("time_limit")
+    time_limit_unit = data.get("time_limit_unit")
+    hide_time_display = data.get("hide_time_display")
+    feedback_mode = data.get("feedback_mode")
+    max_attempts_allowed = data.get("max_attempts_allowed")
+    passing_percentage = data.get("passing_percentage")
+    max_questions = data.get("max_questions")
+    auto_start = data.get("auto_start")
+    hide_question_no = data.get("hide_question_no")
+    short_ans_char_limit = data.get("short_ans_char_limit")
+    long_ans_char_limit = data.get("long_ans_char_limit")
+
+    quiz = Quiz(
+        title=title,
+        summary=summary,
+        time_limit=time_limit,
+        time_limit_unit=time_limit_unit,
+        hide_time_display=hide_time_display,
+        feedback_mode=feedback_mode,
+        max_attempts_allowed=max_attempts_allowed,
+        passing_percentage=passing_percentage,
+        max_questions=max_questions,
+        auto_start=auto_start,
+        hide_question_no=hide_question_no,
+        short_ans_char_limit=short_ans_char_limit,
+        long_ans_char_limit=long_ans_char_limit,
+    )
+
+    # Validate the assignment instance before saving
+    try:
+        quiz.full_clean()
+        quiz.save()
+
+        sort_order = topic.items.count() + 1
+        TopicItem.objects.create(topic=topic, quiz=quiz, sort_order=sort_order)
+        return JsonResponse({"message": "Quiz created successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def update_quiz(request, pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    user = request.user
+    quiz = get_object_or_404(Quiz, pk=pk, topic_item__topic__course__user=user)
+    topic_item = quiz.topic_item
+    topic = topic_item.topic
+
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    summary = data.get("summary", "")
+    time_limit = data.get("time_limit")
+    time_limit_unit = data.get("time_limit_unit")
+    hide_time_display = data.get("hide_time_display")
+    feedback_mode = data.get("feedback_mode")
+    max_attempts_allowed = data.get("max_attempts_allowed")
+    passing_percentage = data.get("passing_percentage")
+    max_questions = data.get("max_questions")
+    auto_start = data.get("auto_start")
+    hide_question_no = data.get("hide_question_no")
+    short_ans_char_limit = data.get("short_ans_char_limit")
+    long_ans_char_limit = data.get("long_ans_char_limit")
+
+    sort_order = data.get("sort_order")
+
+    quiz.title = title
+    quiz.summary = summary
+    quiz.time_limit = time_limit
+    quiz.time_limit_unit = time_limit_unit
+    quiz.hide_time_display = hide_time_display
+    quiz.feedback_mode = feedback_mode
+    quiz.max_attempts_allowed = max_attempts_allowed
+    quiz.passing_percentage = passing_percentage
+    quiz.max_questions = max_questions
+    quiz.auto_start = auto_start
+    quiz.hide_question_no = hide_question_no
+    quiz.short_ans_char_limit = short_ans_char_limit
+    quiz.long_ans_char_limit = long_ans_char_limit
+
+    # Validate the quiz instance before saving
+    try:
+        quiz.full_clean()
+        quiz.save()
+
+        # Shift the sort_order of other topic items if needed
+        if sort_order > topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__gt=topic_item.sort_order, sort_order__lte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") - 1)
+
+        elif sort_order < topic_item.sort_order:
+            topic_items = topic.items.filter(
+                sort_order__lt=topic_item.sort_order, sort_order__gte=sort_order
+            )
+            topic_items.update(sort_order=F("sort_order") + 1)
+
+        topic_item.sort_order = sort_order
+        topic_item.save()
+
+        return JsonResponse({"message": "Quiz updated successfully."})
     except ValidationError as e:
         errors = dict(e)
         return JsonResponse({"error": errors}, status=400)
