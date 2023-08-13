@@ -130,6 +130,7 @@ a {
 
 .navbar {
   padding: 1.6rem 0px !important;
+  z-index: 0 !important;
 }
 
 .stuck .navbar {
@@ -310,5 +311,5 @@ footer a:hover {
   transform: translate(-45px);
   mask-repeat: no-repeat;
   mask-size: contain;
-  mask-image: url(../svg/headline-curve.svg);
+  mask-image: url("../svg/headline-curve.svg");
 }
