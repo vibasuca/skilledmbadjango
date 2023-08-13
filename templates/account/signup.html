@@ -30,7 +30,7 @@
   <div class="main-content py-3">
     <div class="row">
       <div class="col-lg-4 mx-auto">
-        <div class="card mx-3 p-3 py-4 border-0">
+        <div class="card mx-3 py-4 border-0">
 
           <!--
           <div class="row g-2">
@@ -53,13 +53,11 @@
           <div id="or">OR</div>
         -->
 
-          <div class="card">
-            <div class="card-body">
-              <h5>Register</h5>
+          <div class="card shadow-sm" style="border-color: rgb(228, 228, 228);">
+            <div class="card-body p-5">
+              <h5>Student Registration</h5>
               <br>
-
               <form class="regForm" style="width: 100%;" method="POST">
-
 
                 {% if form.non_field_errors %}
                 <ul>
@@ -68,7 +66,6 @@
                   {% endfor %}
                 </ul>
                 {% endif %}
-
 
                 {% csrf_token %}
 
@@ -81,38 +78,32 @@
                 {{ form.password2 }}
                 {% endcomment %}
 
+                <div class="form-outline mb-4">
+                  <label class="form-label my-2" for="fname">First Name</label>
+                  <input type="text" id="fname" name="first_name" class="form-control form-control-lg"
+                    placeholder="e.g. Peter" />
 
-                <div class="row g-2">
-                  <div class="col-md">
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2" for="fname">First Name</label>
-                      <input type="text" id="fname" name="first_name" class="form-control form-control-lg"
-                        placeholder="e.g. Peter" />
+                  {% if form.first_name.errors %}
+                  <ul>
+                    {% for error in form.first_name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
 
-                      {% if form.first_name.errors %}
-                      <ul>
-                        {% for error in form.first_name.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2" for="lname">Last Name</label>
-                      <input type="text" id="lname" name="last_name" class="form-control form-control-lg"
-                        placeholder="e.g. Parker" />
+                <div class="form-outline mb-4">
+                  <label class="form-label my-2" for="lname">Last Name</label>
+                  <input type="text" id="lname" name="last_name" class="form-control form-control-lg"
+                    placeholder="e.g. Parker" />
 
-                      {% if form.last_name.errors %}
-                      <ul>
-                        {% for error in form.last_name.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
-                    </div>
-                  </div>
+                  {% if form.last_name.errors %}
+                  <ul>
+                    {% for error in form.last_name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
                 </div>
 
                 <div class="form-outline mb-4">
@@ -142,35 +133,30 @@
                   {% endif %}
                 </div>
 
-                <div class="row g-2">
-                  <div class="col-md">
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2" for="pass">Password</label>
-                      <input type="password" id="pass" name="password1" class="form-control form-control-lg"
-                        placeholder="Password" />
-                      {% if form.password1.errors %}
-                      <ul>
-                        {% for error in form.password1.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
-                    </div>
-                  </div>
-                  <div class="col-md">
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2" for="cpass">Confirm Password</label>
-                      <input type="password" id="cpass" name="password2" class="form-control form-control-lg"
-                        placeholder="Confirm Password" />
-                      {% if form.password2.errors %}
-                      <ul>
-                        {% for error in form.password2.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                      </ul>
-                      {% endif %}
-                    </div>
-                  </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label my-2" for="pass">Password</label>
+                  <input type="password" id="pass" name="password1" class="form-control form-control-lg"
+                    placeholder="Password" />
+                  {% if form.password1.errors %}
+                  <ul>
+                    {% for error in form.password1.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label my-2" for="cpass">Confirm Password</label>
+                  <input type="password" id="cpass" name="password2" class="form-control form-control-lg"
+                    placeholder="Confirm Password" />
+                  {% if form.password2.errors %}
+                  <ul>
+                    {% for error in form.password2.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
                 </div>
 
                 <div class="d-grid gap-2 my-5">
