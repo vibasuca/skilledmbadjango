@@ -1,8 +1,12 @@
 from datetime import timedelta
+import random
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from media_library.models import Media
+
+User = get_user_model()
 
 TIME_LIMIT_UNIT_CHOICES = (
     ("W", "Weeks"),
@@ -183,3 +187,25 @@ class Option(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Attempt(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="attempts")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="quiz_attempts"
+    )
+    seed = models.PositiveIntegerField()
+    is_completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    submitted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ("-submitted_at", "-created_at")
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.seed = random.randrange(10000)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.quiz.title} - {self.user.username}"
