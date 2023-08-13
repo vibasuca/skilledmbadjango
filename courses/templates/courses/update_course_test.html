@@ -433,7 +433,175 @@
                               // Handle the error and update the UI accordingly
                           },
                       });
-      }
+                    }
+
+
+                    function send() {
+                      $.ajax({
+                            type: "POST",
+                            url: `/courses/create-question/1/`,  // 1 is the quiz id
+                            data: JSON.stringify({
+                              title: "tf question",
+                              description: "some description...",
+                              type: "TF",
+                              answer_required: false,
+                              randomize_options: false,
+                              points: 10,
+                              display_points: false,
+                              tf_correct_answer: true,
+                              tf_true_first: true,
+                              fb_question_title: "",
+                              fb_correct_answer: "",
+                            }),
+                            headers: {
+                                "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                                //"X-CSRFToken": "{{ csrf_token }}",
+                            },
+                            success: function(response) {
+                                console.log(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(xhr);
+                                console.log(status);
+                                console.log(error);
+                                alert("Error: " + xhr.responseJSON.error);
+                                // Handle the error and update the UI accordingly
+                            },
+                        });
+                      }
+
+
+                      function send() {
+                        $.ajax({
+                              type: "POST",
+                              url: `/courses/update-question/1/`,  // 1 is the question id
+                              data: JSON.stringify({
+                                title: "tf question",
+                                description: "some description...",
+                                type: "TF",
+                                answer_required: false,
+                                randomize_options: false,
+                                points: 10,
+                                display_points: false,
+                                tf_correct_answer: true,
+                                tf_true_first: true,
+                                fb_question_title: "",
+                                fb_correct_answer: "",
+                                sort_order: 2,
+                              }),
+                              headers: {
+                                  "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                                  //"X-CSRFToken": "{{ csrf_token }}",
+                              },
+                              success: function(response) {
+                                  console.log(response);
+                              },
+                              error: function(xhr, status, error) {
+                                  console.log(xhr);
+                                  console.log(status);
+                                  console.log(error);
+                                  alert("Error: " + xhr.responseJSON.error);
+                                  // Handle the error and update the UI accordingly
+                              },
+                          });
+                        }
+
+                        function send() {
+                          $.ajax({
+                                type: "GET",
+                                url: `/courses/list-questions/1/`,  // 1 is the quiz id
+                                success: function(response) {
+                                    console.log(response);
+                                },
+                                error: function(xhr, status, error) {
+                                    console.log(xhr);
+                                    console.log(status);
+                                    console.log(error);
+                                    alert("Error: " + xhr.responseJSON.error);
+                                    // Handle the error and update the UI accordingly
+                                },
+                            });
+                          }
+
+
+
+                          function send() {
+                            $.ajax({
+                                  type: "POST",
+                                  url: `/courses/create-option/1/`,  // 1 is the question id
+                                  data: JSON.stringify({
+                                    title: "option 1",
+                                    image: null,
+                                    display_format: "T",
+                                    o_correct_order: 0,
+                                    m_matched_ans_title: "",
+                                    is_correct: false,
+                                  }),
+                                  headers: {
+                                      "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                                      //"X-CSRFToken": "{{ csrf_token }}",
+                                  },
+                                  success: function(response) {
+                                      console.log(response);
+                                  },
+                                  error: function(xhr, status, error) {
+                                      console.log(xhr);
+                                      console.log(status);
+                                      console.log(error);
+                                      alert("Error: " + xhr.responseJSON.error);
+                                      // Handle the error and update the UI accordingly
+                                  },
+                              });
+                            }
+
+
+                            function send() {
+                              $.ajax({
+                                    type: "POST",
+                                    url: `/courses/update-option/1/`,  // 1 is the option id
+                                    data: JSON.stringify({
+                                      title: "option 1",
+                                      image: null,
+                                      display_format: "T",
+                                      o_correct_order: 0,
+                                      m_matched_ans_title: "",
+                                      is_correct: false,
+                                      sort_order: 2, // new
+                                    }),
+                                    headers: {
+                                        "X-CSRFToken": "5zzXIsITn8LUfjiwVwISXpcSOVi6MYSgzEYqC98P5I6dCEf19pWwPZ1jDkxMhasW",
+                                        //"X-CSRFToken": "{{ csrf_token }}",
+                                    },
+                                    success: function(response) {
+                                        console.log(response);
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.log(xhr);
+                                        console.log(status);
+                                        console.log(error);
+                                        alert("Error: " + xhr.responseJSON.error);
+                                        // Handle the error and update the UI accordingly
+                                    },
+                                });
+                              }
+
+
+                              function send() {
+                                $.ajax({
+                                      type: "GET",
+                                      url: `/courses/list-options/1/`,  // 1 is the question id
+                                      success: function(response) {
+                                          console.log(response);
+                                      },
+                                      error: function(xhr, status, error) {
+                                          console.log(xhr);
+                                          console.log(status);
+                                          console.log(error);
+                                          alert("Error: " + xhr.responseJSON.error);
+                                          // Handle the error and update the UI accordingly
+                                      },
+                                  });
+                                }
 
         });
 
