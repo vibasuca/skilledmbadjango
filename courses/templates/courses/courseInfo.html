@@ -96,9 +96,17 @@
                     <label class="form-label my-2 fw-bold" for="language">Choose a language</label>
                     <select class="form-select p-3 mb-2" id="language" name="language" aria-label="Select Language">
                         <option value="E">English</option>
+                        <option value="F">French</option>
+                        <option value="G">German</option>
+                        <option value="I">Italian</option>
+                        <option value="J">Japanese</option>
+                        <option value="K">Korean</option>
+                        <option value="R">Russian</option>
+                        <option value="S">Spanish</option>
                     </select>
                 </div>
 
+                {% comment %} 
                 <p>
                     <label for="id_language" class="text-danger">Language:</label>
                     <select name="language" id="id_language">
@@ -111,15 +119,20 @@
                         <option value="R">Russian</option>
                         <option value="S">Spanish</option>
                     </select>
-                </p>
+                </p> 
+                {% endcomment %}
 
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold" for="category">Choose a category</label>
                     <select class="form-select p-3 mb-2" id="category" name="category" aria-label="Select Category">
                         <option selected>Open this select menu</option>
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.title }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
+                {% comment %} 
                 <p>
                     <label for="id_category" class="text-danger">Category:</label>
                     <select name="category" id="id_category">
@@ -130,7 +143,8 @@
                         <option value="4">Three</option>
                         <option value="3">Two</option>
                     </select>
-                </p>
+                </p> 
+                {% endcomment %}
 
                 <div class="form-outline mb-4">
                     <label class="form-label my-2 fw-bold">Course price</label>

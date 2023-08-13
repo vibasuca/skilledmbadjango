@@ -53,9 +53,13 @@
                 <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline">
                     <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
                 </button>
-                <button class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline">
-                    <span class="d-lg-inline">Exit</span>
-                </button>
+                <a href="{% url 'account_profile' %}">
+                    <button class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline">
+                        <span class="d-lg-inline">
+                            Exit
+                        </span>
+                    </button>
+                </a>
                 <button class="btn btn-light border px-3 py-2 d-lg-none" data-bs-toggle="modal"
                     data-bs-target="#navModal">
                     <i class="far fa-bars fs-5"></i>

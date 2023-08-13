@@ -1,7 +1,12 @@
 from datetime import timedelta
+import random
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from media_library.models import Media
+
+User = get_user_model()
 
 TIME_LIMIT_UNIT_CHOICES = (
     ("W", "Weeks"),
@@ -18,6 +23,25 @@ FEEDBACK_MODE_CHOICES = (
         "T",
         "Retry Mode",
     ),  # Reattempt quiz any number of times. Define Attempts Allowed below.
+)
+
+QUESTION_TYPE_CHOICES = (
+    ("TF", "True/False"),
+    ("SC", "Single Choice"),
+    ("MC", "Multiple Choice"),
+    ("OE", "Open Ended"),
+    ("FB", "Fill in the Blanks"),
+    ("SA", "Short Answer"),
+    ("M", "Matching"),
+    ("IM", "Image Matching"),
+    ("IA", "Image Answering"),
+    ("O", "Ordering"),
+)
+
+DISPLAY_FORMAT_CHOICES = (
+    ("T", "Only Text"),
+    ("I", "Only Image"),
+    ("B", "Text & Image both"),
 )
 
 
@@ -50,7 +74,9 @@ class Quiz(models.Model):
         default=10,
         help_text="Restriction on the number of attempts a student is allowed to take for this quiz. 0 for no limit",
     )
-    passing_percentage = models.FloatField(default=80)
+    passing_percentage = models.FloatField(
+        default=80, validators=[MinValueValidator(0), MaxValueValidator(100)]
+    )
     max_questions = models.PositiveIntegerField(
         default=1,
         help_text="This amount of question will be available for students to answer, and question will comes randomly from all available questions belongs with a quiz, if this amount is greater than available question, then all questions will be available for a student to answer.",
@@ -70,6 +96,8 @@ class Quiz(models.Model):
         default=500,
         help_text="Students will place the answer in the Open-Ended/Essay question type within this character limit.",
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
@@ -82,3 +110,102 @@ class Quiz(models.Model):
                 check=models.Q(max_questions__gte=1), name="check_max_questions_range"
             ),
         ]
+        ordering = ("-created_at",)
+        verbose_name = "quiz"
+        verbose_name_plural = "quizzes"
+
+    def __str__(self):
+        return self.title
+
+
+class Question(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    type = models.CharField(
+        max_length=2,
+        choices=QUESTION_TYPE_CHOICES,
+        default="TF",
+    )
+    answer_required = models.BooleanField(default=False)
+    randomize_options = models.BooleanField(default=False)
+    points = models.FloatField(default=1)
+    display_points = models.BooleanField(default=False)
+    sort_order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # For True/False Question Type
+    tf_correct_answer = models.BooleanField(default=True)
+    tf_true_first = models.BooleanField(default=True)  # Show True first or False first
+    # For Fill in the Blanks Question Type
+    fb_question_title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.",
+    )
+    fb_correct_answer = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text="Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange",
+    )
+
+    class Meta:
+        ordering = ("quiz", "sort_order")
+
+    def __str__(self):
+        return self.title
+
+
+class Option(models.Model):
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="options"
+    )
+    title = models.CharField(max_length=255)  # Used by SC, MC, IM, IA Question Types
+    image = models.ForeignKey(
+        Media,
+        on_delete=models.CASCADE,
+        related_name="image_for_options",
+        null=True,
+        blank=True,
+    )
+    display_format = models.CharField(
+        max_length=1,
+        choices=DISPLAY_FORMAT_CHOICES,
+        default="T",
+    )
+    is_correct = models.BooleanField(default=False)
+    sort_order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # For Ordering Question Type
+    o_correct_order = models.PositiveIntegerField(default=0)
+    # For Matching Question Type
+    m_matched_ans_title = models.CharField(max_length=255, blank=True)
+
+    class Meta:
+        ordering = ("question", "sort_order")
+
+    def __str__(self):
+        return self.title
+
+
+class Attempt(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="attempts")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="quiz_attempts"
+    )
+    seed = models.PositiveIntegerField()
+    is_completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    submitted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ("-submitted_at", "-created_at")
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.seed = random.randrange(10000)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.quiz.title} - {self.user.username}"

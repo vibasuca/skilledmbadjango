@@ -84,13 +84,13 @@
                     <label class="form-label my-2 fw-bold">Course tags</label>
                     <select class="form-select p-3 mb-2" aria-label="Default select example">
                         <option selected>Multiple select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        {% for tag in tags %}
+                        <option value="{{ tag.id }}">{{ tag.title }}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
-
+                {% comment %} 
                 <p>
                     <label for="id_duration" class="text-danger">Duration:</label>
                     <input type="text" name="duration" value="00:00:00" required="" id="id_duration">
@@ -105,7 +105,8 @@
                     </select>
 
 
-                </p>
+                </p> 
+                {% endcomment %}
             </div>
         </div>
     </div>

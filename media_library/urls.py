@@ -13,4 +13,5 @@ urlpatterns = [
     path("upload-media/", views.upload_media, name="upload_media"),
     path("list-media/", views.list_media, name="list_media"),
     path("update-media/<int:media_id>/", views.update_media, name="update_media"),
+    path("read-media/<int:media_id>/", views.read_media, name="read_media"),
 ]

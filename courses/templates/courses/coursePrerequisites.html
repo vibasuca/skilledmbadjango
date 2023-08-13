@@ -18,3 +18,9 @@
         </div>
     </div>
 </div>
+
+{% comment %} 
+{% for pr_course in user.courses.all %}
+    <option value="{{ pr_course.id }}">{{ pr_course.title }}</option>
+{% endfor %}
+{% endcomment %}

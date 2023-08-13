@@ -117,4 +117,17 @@ def update_media(request, media_id):
     )
 
 
-#30
+@login_required
+def read_media(request, media_id):
+    media = get_object_or_404(Media, id=media_id, user=request.user)
+    return JsonResponse(
+        {
+            "id": media.id,
+            "file": media.file.url,
+            "title": media.title,
+            "description": media.description,
+            "alt_text": media.alt_text,
+            "caption": media.caption,
+            "created_at": media.created_at,
+        }
+    )
