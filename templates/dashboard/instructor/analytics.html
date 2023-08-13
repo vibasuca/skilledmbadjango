@@ -1,0 +1,82 @@
+{% extends "dashboard/base.html" %}
+
+{% load static %}
+{% block content %}
+<div>
+    <!--Page Title-->
+    <div class="container-fluid title-content">
+        <div class="py-3">
+            <div class="container mt-4">
+                <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Analytics</h3>
+                <div class="d-flex gap-4 border-bottom my-3" style="overflow-x: auto;">
+                    <a href="#" class="flex-1 text-primary border-bottom border-2 px-4 py-2"
+                        style="border-color: #0071dc !important;">
+                        Overview
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Courses
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Earnings
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Statements
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Students
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Export
+                    </a>
+                </div>
+                <div class="card my-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <div class="card">
+                                    <div
+                                        class="card-body p-5 d-flex flex-column gap-3 justify-content-center align-items-center">
+                                        <div style="width: 60px; height: 60px; font-size: 28px; background: #f1f3f8;"
+                                            class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <b class="text-muted fs-1">6</b>
+                                        <p>Total courses</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <div class="card">
+                                    <div
+                                        class="card-body p-5 d-flex flex-column gap-3 justify-content-center align-items-center">
+                                        <div style="width: 60px; height: 60px; font-size: 28px; background: #f1f3f8;"
+                                            class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                            <i class="fas fa-users-medical"></i>
+                                        </div>
+                                        <b class="text-muted fs-1">6</b>
+                                        <p>Total students</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <div class="card">
+                                    <div
+                                        class="card-body p-5 d-flex flex-column gap-3 justify-content-center align-items-center">
+                                        <div style="width: 60px; height: 60px; font-size: 28px; background: #f1f3f8;"
+                                            class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                        <b class="text-muted fs-1">6</b>
+                                        <p>Reviews</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Earnings Graph</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

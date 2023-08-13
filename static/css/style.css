@@ -72,15 +72,30 @@ a {
   transition: all 0.25s ease-in-out;
 }
 
+.top-search-input-group {
+  /* background-color: #F2F2F2; */
+}
+
 .top-search-bar-input {
   font-size: 16px;
   font-weight: 400;
   padding: 10px;
+  background-color: transparent;
+}
+
+.top-search-bar-input:focus {
+  outline: none;
+  box-shadow: 0 0 2px #fff;
+}
+
+.top-search-bar-input:focus .top-search-input-group {
+  display: none;
 }
 
 .top-search-bar-button {
   color: #0071dc !important;
-  background: #fff;
+  background: transparent;
+  z-index: 0 !important;
 }
 
 .top-search-bar-button:hover {
@@ -91,17 +106,35 @@ a {
   color: #fff;
 }
 
-.sticky-top {
-  transition: all 0.25s ease-in;
+.sticky {
+  position: fixed;
+  top: 0;
+  animation: dropDown 0.7s ease-in-out;
+  top: 0;
+  z-index: 10 !important;
+  width: 100%;
+}
+
+.modal {
+  z-index: 101 !important;
+}
+
+@keyframes dropDown {
+  from {
+    top: -150px;
+  }
+  to {
+    top: 0;
+  }
 }
 
 .navbar {
   padding: 1.6rem 0px !important;
-  /* z-index: ; */
+  z-index: 0 !important;
 }
 
-.stuck .navbar.sticky-top {
-  padding: 0.8rem 0rem !important;
+.stuck .navbar {
+  padding: 0.4rem 0rem;
 }
 
 .navbar .brandingLogo {
@@ -278,5 +311,5 @@ footer a:hover {
   transform: translate(-45px);
   mask-repeat: no-repeat;
   mask-size: contain;
-  mask-image: url(../svg/headline-curve.svg);
+  mask-image: url("../svg/headline-curve.svg");
 }

@@ -1,0 +1,31 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block content %}
+<div>
+    <!--Page Title-->
+    <div class="container-fluid title-content">
+        <div class="py-3" style="font-size: 14px;">
+            <div class="container mt-3">
+                <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">My Profile</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                {{user.date_joined}}<br>
+                {{user.first_name}}<br>
+                {{user.last_name}}<br>
+                {{user.username}}<br>
+                {{user.email}}<br>
+                {{user.phone}}<br>
+                {{user.job_title}}<br>
+                {{user.bio}}<br>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

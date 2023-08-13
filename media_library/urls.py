@@ -7,7 +7,7 @@ app_name = "media_library"
 urlpatterns = [
     path(
         "",
-        TemplateView.as_view(template_name="media_library/media_management.html"),
+        TemplateView.as_view(template_name="media_library/mediaManagement.html"),
         name="management",
     ),
     path("upload-media/", views.upload_media, name="upload_media"),
