@@ -12,6 +12,10 @@ urlpatterns = [
     path("create-lesson/<int:topic_pk>/", views.create_lesson, name="create_lesson"),
     path("create-quiz/<int:topic_pk>/", views.create_quiz, name="create_quiz"),
     path(
+        "create-question/<int:quiz_pk>/", views.create_question, name="create_question"
+    ),
+    path("create-option/<int:question_pk>/", views.create_option, name="create_option"),
+    path(
         "create-assignment/<int:topic_pk>/",
         views.create_assignment,
         name="create_assignment",
@@ -21,9 +25,21 @@ urlpatterns = [
         "update-assignment/<int:pk>/", views.update_assignment, name="update_assignment"
     ),
     path("update-quiz/<int:pk>/", views.update_quiz, name="update_quiz"),
+    path("update-question/<int:pk>/", views.update_question, name="update_question"),
+    path("update-option/<int:pk>/", views.update_option, name="update_option"),
     path(
         "list-topic-item/<int:topic_pk>/",
         views.list_topic_items,
         name="list_topic_items",
+    ),
+    path(
+        "list-questions/<int:quiz_pk>/",
+        views.list_questions,
+        name="list_questions",
+    ),
+    path(
+        "list-options/<int:question_pk>/",
+        views.list_options,
+        name="list_options",
     ),
 ]

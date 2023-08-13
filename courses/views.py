@@ -6,7 +6,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from quizzes.models import Quiz
+from quizzes.models import Quiz, Question, Option
 from .forms import CourseForm
 from .models import *
 
@@ -39,7 +39,7 @@ def update_course(request, pk):
         form = CourseForm(instance=course)
 
     context = {"form": form, "course": course}
-    return render(request, "courses/update_course.html", context)
+    return render(request, "courses/update_course_test.html", context)
 
 
 @require_POST
@@ -577,3 +577,284 @@ def update_quiz(request, pk):
     except ValidationError as e:
         errors = dict(e)
         return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def create_question(request, quiz_pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    quiz = get_object_or_404(
+        Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
+    )
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    description = data.get("description", "")
+    type = data.get("type")
+    answer_required = data.get("answer_required")
+    randomize_options = data.get("randomize_options")
+    points = data.get("points")
+    display_points = data.get("display_points")
+    tf_correct_answer = data.get("tf_correct_answer")
+    tf_true_first = data.get("tf_true_first")
+    fb_question_title = data.get("fb_question_title", "")
+    fb_correct_answer = data.get("fb_correct_answer", "")
+
+    sort_order = quiz.questions.count() + 1
+    question = Question(
+        quiz=quiz,
+        title=title,
+        description=description,
+        type=type,
+        answer_required=answer_required,
+        randomize_options=randomize_options,
+        points=points,
+        display_points=display_points,
+        tf_correct_answer=tf_correct_answer,
+        tf_true_first=tf_true_first,
+        fb_question_title=fb_question_title,
+        fb_correct_answer=fb_correct_answer,
+        sort_order=sort_order,
+    )
+
+    # Validate the assignment instance before saving
+    try:
+        question.full_clean()
+        question.save()
+
+        return JsonResponse({"message": "Question created successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def update_question(request, pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    question = get_object_or_404(
+        Question, pk=pk, quiz__topic_item__topic__course__user=request.user
+    )
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    description = data.get("description", "")
+    type = data.get("type")
+    answer_required = data.get("answer_required")
+    randomize_options = data.get("randomize_options")
+    points = data.get("points")
+    display_points = data.get("display_points")
+    tf_correct_answer = data.get("tf_correct_answer")
+    tf_true_first = data.get("tf_true_first")
+    fb_question_title = data.get("fb_question_title", "")
+    fb_correct_answer = data.get("fb_correct_answer", "")
+
+    sort_order = data.get("sort_order")
+
+    question.title = title
+    question.description = description
+    question.type = type
+    question.answer_required = answer_required
+    question.randomize_options = randomize_options
+    question.points = points
+    question.display_points = display_points
+    question.tf_correct_answer = tf_correct_answer
+    question.tf_true_first = tf_true_first
+    question.fb_question_title = fb_question_title
+    question.fb_correct_answer = fb_correct_answer
+
+    # Validate the question instance before saving
+    try:
+        question.full_clean()
+        question.save()
+
+        # Shift the sort_order of other questions if needed
+        if sort_order > question.sort_order:
+            questions = question.quiz.questions.filter(
+                sort_order__gt=question.sort_order, sort_order__lte=sort_order
+            )
+            questions.update(sort_order=F("sort_order") - 1)
+
+        elif sort_order < question.sort_order:
+            questions = question.quiz.questions.filter(
+                sort_order__lt=question.sort_order, sort_order__gte=sort_order
+            )
+            questions.update(sort_order=F("sort_order") + 1)
+
+        question.sort_order = sort_order
+        question.save()
+
+        return JsonResponse({"message": "Question updated successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@login_required
+def list_questions(request, quiz_pk):
+    quiz = get_object_or_404(
+        Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
+    )
+    questions = quiz.questions.all()
+    questions = questions.values(
+        "id",
+        "title",
+        "description",
+        "type",
+        "answer_required",
+        "randomize_options",
+        "points",
+        "display_points",
+        "tf_correct_answer",
+        "tf_true_first",
+        "fb_question_title",
+        "fb_correct_answer",
+        "sort_order",
+    )
+    return JsonResponse({"data": list(questions)})
+
+
+@require_POST
+@login_required
+def create_option(request, question_pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    question = get_object_or_404(
+        Question, pk=question_pk, quiz__topic_item__topic__course__user=request.user
+    )
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    image = data.get("image")
+    if image:
+        image = Media.objects.get(pk=image, user=request.user)
+    display_format = data.get("display_format")
+    o_correct_order = data.get("o_correct_order")
+    m_matched_ans_title = data.get("m_matched_ans_title", "")
+    is_correct = data.get("is_correct")
+
+    sort_order = question.options.count() + 1
+    option = Option(
+        question=question,
+        title=title,
+        image=image,
+        display_format=display_format,
+        o_correct_order=o_correct_order,
+        m_matched_ans_title=m_matched_ans_title,
+        is_correct=is_correct,
+        sort_order=sort_order,
+    )
+
+    # Validate the assignment instance before saving
+    try:
+        option.full_clean()
+        option.save()
+
+        return JsonResponse({"message": "Option created successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@require_POST
+@login_required
+def update_option(request, pk):
+    """
+    Returns following error on failure:
+    {
+        "error": {
+            "title": [
+                "This field is required."
+            ]
+        }
+    }
+    """
+    option = get_object_or_404(
+        Option, pk=pk, question__quiz__topic_item__topic__course__user=request.user
+    )
+    data = json.loads(request.body)
+    title = data.get("title", "")
+    image = data.get("image")
+    if image:
+        image = Media.objects.get(pk=image, user=request.user)
+    display_format = data.get("display_format")
+    o_correct_order = data.get("o_correct_order")
+    m_matched_ans_title = data.get("m_matched_ans_title", "")
+    is_correct = data.get("is_correct")
+
+    sort_order = data.get("sort_order")
+
+    option.title = title
+    option.image = image
+    option.display_format = display_format
+    option.o_correct_order = o_correct_order
+    option.m_matched_ans_title = m_matched_ans_title
+    option.is_correct = is_correct
+
+    # Validate the option instance before saving
+    try:
+        option.full_clean()
+        option.save()
+
+        # Shift the sort_order of other options if needed
+        if sort_order > option.sort_order:
+            options = option.question.options.filter(
+                sort_order__gt=option.sort_order, sort_order__lte=sort_order
+            )
+            options.update(sort_order=F("sort_order") - 1)
+
+        elif sort_order < option.sort_order:
+            options = option.question.options.filter(
+                sort_order__lt=option.sort_order, sort_order__gte=sort_order
+            )
+            options.update(sort_order=F("sort_order") + 1)
+
+        option.sort_order = sort_order
+        option.save()
+
+        return JsonResponse({"message": "Option updated successfully."})
+    except ValidationError as e:
+        errors = dict(e)
+        return JsonResponse({"error": errors}, status=400)
+
+
+@login_required
+def list_options(request, question_pk):
+    question = get_object_or_404(
+        Question, pk=question_pk, quiz__topic_item__topic__course__user=request.user
+    )
+    options = question.options.all()
+    options = options.values(
+        "id",
+        "title",
+        "image",
+        "display_format",
+        "o_correct_order",
+        "m_matched_ans_title",
+        "is_correct",
+        "sort_order",
+    )
+    return JsonResponse({"data": list(options)})
