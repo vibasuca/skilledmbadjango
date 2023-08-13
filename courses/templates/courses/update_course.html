@@ -40,7 +40,7 @@
                               https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
                             " />
                 </div>
-                <button class="saveDraft btn btn-outline-primary px-lg-4 px-3 py-2">
+                <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2">
                     <i class="fal fa-save"></i>
                     <span>&nbsp;&nbsp;Save</span>
                 </button>
@@ -161,7 +161,7 @@
 
     <!-- Media Managerment -->
     <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header border-0">
                     <h1 class="modal-title fs-5" id="mediaModalLabel">Media Management</h1>
@@ -279,7 +279,7 @@
             $(this).children('.fas').toggleClass('fa-chevron-up fa-chevron-down');
         });
         $(".saveDraft").click(function () {
-            $("#saveDraft").html(
+            $(".saveDraft").html(
                 '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
             );
             url = "{% url 'courses:update_course' course.pk %}";
@@ -292,7 +292,7 @@
                 },
                 data: form,
                 success: function (data) {
-                    $("#saveDraft").html('<span><b>Save course as draft</b></span>');
+                    $(".saveDraft").html('<span><i class="fal fa-save"></i><span>&nbsp;&nbsp;Save</span></span>');
                 }
             });
         });
