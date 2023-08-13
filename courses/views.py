@@ -38,8 +38,13 @@ def update_course(request, pk):
     else:
         form = CourseForm(instance=course)
 
-    context = {"form": form, "course": course}
-    return render(request, "courses/update_course_test.html", context)
+    context = {
+        "form": form,
+        "course": course,
+        "categories": CourseCategory.objects.all(),
+        "tags": CourseTag.objects.all(),
+    }
+    return render(request, "courses/update_course.html", context)
 
 
 @require_POST
