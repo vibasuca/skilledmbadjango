@@ -156,8 +156,7 @@ class Option(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name="options"
     )
-    title = models.CharField(max_length=255)  # Used by SC, MC, IM Question Types
-    # description = models.TextField(blank=True)
+    title = models.CharField(max_length=255)  # Used by SC, MC, IM, IA Question Types
     image = models.ForeignKey(
         Media,
         on_delete=models.CASCADE,
@@ -178,7 +177,6 @@ class Option(models.Model):
     o_correct_order = models.PositiveIntegerField(default=0)
     # For Matching Question Type
     m_matched_ans_title = models.CharField(max_length=255, blank=True)
-    # For Image Matching Question Type
 
     class Meta:
         ordering = ("question", "sort_order")
