@@ -1,0 +1,113 @@
+{% extends "dashboard/base.html" %}
+
+
+{% block content %}
+<div>
+    <!--Page Title-->
+    <div class="container-fluid title-content">
+        <div class="py-3" style="font-size: 14px;">
+            <div class="container mt-4">
+                <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Quiz Attempts</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td scope="col">Course Info</td>
+                            <td scope="col">Student</td>
+                            <td scope="col">Correct Answers</td>
+                            <td scope="col">Incorrect Answers</td>
+                            <td scope="col">Earned Marks</td>
+                            <td scope="col">Result</td>
+                            <td scope="col"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#" class="fw-bold">Course Name</a><br>
+                                <small>Date Question Total Marks</small>
+                            </td>
+                            <td>
+                                <a href="#" class="fw-bold">Student Name</a><br>
+                                <small>Student Email</small>
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                1.00 (80%)
+                            </td>
+                            <td>
+                                <span class="badge bg-success">Pass</span>
+                            </td>
+                            <td>
+                                <a href="#" class="text-primary">Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="fw-bold">Course Name</a><br>
+                                <small>Date Question Total Marks</small>
+                            </td>
+                            <td>
+                                <a href="#" class="fw-bold">Student Name</a><br>
+                                <small>Student Email</small>
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                1.00 (80%)
+                            </td>
+                            <td>
+                                <span class="badge bg-success">Pass</span>
+                            </td>
+                            <td>
+                                <a href="#" class="text-primary">Details</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#" class="fw-bold">Course Name</a><br>
+                                <small>Date Question Total Marks</small>
+                            </td>
+                            <td>
+                                <a href="#" class="fw-bold">Student Name</a><br>
+                                <small>Student Email</small>
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                0
+                            </td>
+                            <td>
+                                1.00 (80%)
+                            </td>
+                            <td>
+                                <span class="badge bg-danger">Fail</span>
+                            </td>
+                            <td>
+                                <a href="#" class="text-primary">Details</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

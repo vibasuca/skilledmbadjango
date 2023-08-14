@@ -24,7 +24,7 @@
 
 <body style="background: #f8f8f8;">
     <!-- Header -->
-    <header class="shadow-sm bg-white position-sticky top-0" style="z-index: 998;">
+    <header id="myNavbar" class="shadow-sm bg-white position-sticky top-0" style="z-index: 998;">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center gap-3 gap-lg-4">
                 <div class="p-3 d-flex">
@@ -40,7 +40,7 @@
                               https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
                             " />
                 </div>
-                <button class="saveDraft btn btn-outline-primary px-lg-4 px-3 py-2">
+                <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2">
                     <i class="fal fa-save"></i>
                     <span>&nbsp;&nbsp;Save</span>
                 </button>
@@ -283,7 +283,7 @@
             $(this).children('.fas').toggleClass('fa-chevron-up fa-chevron-down');
         });
         $(".saveDraft").click(function () {
-            $("#saveDraft").html(
+            $(".saveDraft").html(
                 '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
             );
             url = "{% url 'courses:update_course' course.pk %}";
@@ -296,7 +296,7 @@
                 },
                 data: form,
                 success: function (data) {
-                    $("#saveDraft").html('<span><b>Save course as draft</b></span>');
+                    $(".saveDraft").html('<span><i class="fal fa-save"></i><span>&nbsp;&nbsp;Save</span></span>');
                 }
             });
         });
