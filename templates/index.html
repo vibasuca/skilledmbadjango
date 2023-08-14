@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
@@ -76,8 +76,364 @@
 <!--main content-->
 <div class="container-fluid bg-white">
     <div class="main-content py-3">
+        <div class="container py-5">
+            <h3>Top Categories</h3>
+            <div class="row py-4">
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-torii-gate text-primary" style="font-size: 2.9em;"></i>
+                        <span>Business Analytics</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-ankh text-primary" style="font-size: 2.9em;"></i>
+                        <span>Consulting</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-arrow-from-left text-primary" style="font-size: 2.9em;"></i>
+                        <span>Healthcare Management</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-asterisk text-primary" style="font-size: 2.9em;"></i>
+                        <span>Entrepreneurship</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-axe-battle text-primary" style="font-size: 2.9em;"></i>
+                        <span>Information Technology Management</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-bell-on text-primary" style="font-size: 2.9em;"></i>
+                        <span>International Business</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-battery-empty text-primary" style="font-size: 2.9em;"></i>
+                        <span>Operation Management</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-bolt text-primary" style="font-size: 2.9em;"></i>
+                        <span>Human Resourse Management</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-border-right text-primary" style="font-size: 2.9em;"></i>
+                        <span>Marketing</span>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
+                        style="background: #f1f3f8;">
+                        <i class="fal fa-cloud-rain text-primary" style="font-size: 2.9em;"></i>
+                        <span>Finanace</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <h3 style="width: 50%;">Courses</h3>
+                <div class="d-flex gap-2 overflow-auto pb-3 ps-5" style="max-width: 50%;">
+                    <button style="font-size: 14px;" class="btn shadow-sm text-primary">
+                        New
+                    </button>
+                    <button style="font-size: 14px;" class="btn text-muted">
+                        Trending
+                    </button>
+                    <button style="font-size: 14px;" class="btn text-muted">
+                        Popularity
+                    </button>
+                    <button style="font-size: 14px;" class="btn text-muted">
+                        Featured
+                    </button>
+                </div>
+            </div>
+            <div class="row py-4">
+                <div class="col-lg-3 mb-4">
+                    <div class="card mb-4 border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <div class="thumbnail-preview">
+                                        <img class="img-fluid" style="width: 100%;"
+                                            src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                                    </div>
+                                </div>
+                                <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2">
+                                            <span class="alert alert-success py-1 px-2 "
+                                                style="font-size: 12px;">Success</span>
+                                        </div>
+                                        <div class="my-1">
+                                            <b>New Course</b>
+                                        </div>
+                                        <small>
+                                            <span class="text-primary">Author</span>
+                                        </small>
+                                        <br>
+                                        <small>
+                                            <b class="text-muted">Free</b>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card mb-4 border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <div class="thumbnail-preview">
+                                        <img class="img-fluid" style="width: 100%;"
+                                            src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                                    </div>
+                                </div>
+                                <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2">
+                                            <span class="alert alert-danger py-1 px-2 "
+                                                style="font-size: 12px;">Success</span>
+                                        </div>
+                                        <div class="my-1">
+                                            <b>New Course</b>
+                                        </div>
+                                        <small>
+                                            <span class="text-primary">Author</span>
+                                        </small>
+                                        <br>
+                                        <small>
+                                            <b class="text-muted">Free</b>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card mb-4 border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <div class="thumbnail-preview">
+                                        <img class="img-fluid" style="width: 100%;"
+                                            src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                                    </div>
+                                </div>
+                                <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2">
+                                            <span class="alert alert-info py-1 px-2 "
+                                                style="font-size: 12px;">Success</span>
+                                        </div>
+                                        <div class="my-1">
+                                            <b>New Course</b>
+                                        </div>
+                                        <small>
+                                            <span class="text-primary">Author</span>
+                                        </small>
+                                        <br>
+                                        <small>
+                                            <b class="text-muted">Free</b>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <div class="card mb-4 border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <div class="thumbnail-preview">
+                                        <img class="img-fluid" style="width: 100%;"
+                                            src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail">
+                                    </div>
+                                </div>
+                                <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2">
+                                            <span class="alert alert-warning py-1 px-2 "
+                                                style="font-size: 12px;">Success</span>
+                                        </div>
+                                        <div class="my-1">
+                                            <b>New Course</b>
+                                        </div>
+                                        <small>
+                                            <span class="text-primary">Author</span>
+                                        </small>
+                                        <br>
+                                        <small>
+                                            <b class="text-muted">Free</b>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
+
+<div class="container-fluid bg-white">
+    <div class="main-content py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0" style="background: #F6F3ED;">
+                        <div class="row g-0">
+                            <div class="col-md-6 p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">Become An Instructor</h5>
+                                    <small class="card-text">Top instructors from around the world teach millions of
+                                        students on SkilledMBA.</small><br>
+                                    <a href="#" class="btn btn-primary mt-3">Join as Instructor</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-center">
+                                <img src="https://skilledmba.com/wp-content/uploads/2020/08/banner-image-group-teachers.png"
+                                    alt="Instructor Image" class="img-fluid mt-md-5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card border-0" style="background: #EEF0F4;">
+                        <div class="row g-0">
+                            <div class="col-md-6 p-4">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">Transform Access To Education</h5>
+                                    <small class="card-text">Create an account to receive our newsletter, course
+                                        recommendations and promotions.</small><br>
+                                    <a href="#" class="btn btn-primary mt-3">Register for free</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-center">
+                                <img src="https://skilledmba.com/wp-content/uploads/2020/08/banner-image-laptop.png"
+                                    alt="Instructor Image" class="img-fluid mt-md-5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="testimonials">
+    <div class="container">
+        <div class="d-flex justify-content-between mb-4">
+            <h3>People Say About SKILLEDMBA</h3>
+        </div>
+        <div id="testimonials-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container mt-4">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Become An Instructor</h5>
+                                        <p class="card-text">Top instructors from around the world teach millions of
+                                            students on SkilledMBA.</p>
+                                        <a href="#" class="btn btn-primary">Join as Instructor</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container mt-4">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Become An Instructor 2</h5>
+                                        <p class="card-text">Top instructors from around the world teach millions of
+                                            students on SkilledMBA.</p>
+                                        <a href="#" class="btn btn-primary">Join as Instructor</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var $testimonialsCarousel = $('#testimonials-carousel');
+        var timer;
+
+        function startCarouselTimer() {
+            timer = setInterval(function () {
+                $testimonialsCarousel.carousel('next');
+            }, 1000);
+        }
+
+        function pauseCarouselTimer() {
+            clearInterval(timer);
+        }
+
+        function resumeCarouselTimer() {
+            startCarouselTimer();
+        }
+
+        startCarouselTimer();
+
+        $testimonialsCarousel.on('slide.bs.carousel', function () {
+            pauseCarouselTimer();
+            resumeCarouselTimer();
+        });
+
+        $testimonialsCarousel.hover(
+            function () { // Hover in
+                pauseCarouselTimer();
+            },
+            function () { // Hover out
+                resumeCarouselTimer();
+            }
+        );
+    });
+</script>
 
 {% endblock content %}
