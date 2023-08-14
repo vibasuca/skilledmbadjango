@@ -5,7 +5,7 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
     dependencies = [
-        # ('courses', '0005_alter_course_discount_price_alter_course_price'),
+        ("courses", "0005_alter_course_discount_price_alter_course_price"),
         ("courses", "0006_alter_assignment_options_alter_course_options_and_more"),
     ]
 
