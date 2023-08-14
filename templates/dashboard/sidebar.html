@@ -67,9 +67,9 @@
             Instructor
         </span>
         <ul class="list-group p-3">
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'my_courses' %}active{% endif %}">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name in "list_courses_published,list_courses_pending,list_courses_draft" %}active{% endif %}">
                 <i class="fal fa-tv-alt fs-5"></i>
-                <a href="{% url 'my_courses' %}">My Courses</a>
+                <a href="{% url 'courses:list_courses_published' %}">My Courses</a>
             </li>
             <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'announcements' %}active{% endif %}">
                 <i class="fal fa-bullhorn fs-5"></i>
