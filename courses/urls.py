@@ -4,6 +4,15 @@ from . import views
 app_name = "courses"
 
 urlpatterns = [
+    path("my-courses/", views.list_courses_published, name="list_courses_published"),
+    path(
+        "my-courses/pending-courses/",
+        views.list_courses_pending,
+        name="list_courses_pending",
+    ),
+    path(
+        "my-courses/draft-courses/", views.list_courses_draft, name="list_courses_draft"
+    ),
     path("create-course/", views.create_course, name="create_course"),
     path("update-course/<int:pk>/", views.update_course, name="update_course"),
     path("list-topics/<int:course_pk>/", views.list_topics, name="list_topics"),
