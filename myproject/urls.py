@@ -37,6 +37,31 @@ urlpatterns = [
         TemplateView.as_view(template_name="index.html"),
         name="index",
     ),
+    path(
+        "dashboard/analytics/",
+        TemplateView.as_view(template_name="dashboard/instructor/analytics.html"),
+        name="analytics",
+    ),
+    path(
+        "dashboard/announcements/",
+        TemplateView.as_view(template_name="dashboard/instructor/announcements.html"),
+        name="announcements",
+    ),
+    path(
+        "dashboard/my-courses/",
+        TemplateView.as_view(template_name="dashboard/instructor/myCourses.html"),
+        name="my_courses",
+    ),
+    path(
+        "dashboard/quiz-attempts/",
+        TemplateView.as_view(template_name="dashboard/instructor/quizAttempts.html"),
+        name="quiz_attempts",
+    ),
+    path(
+        "dashboard/withdrawals/",
+        TemplateView.as_view(template_name="dashboard/instructor/withdrawals.html"),
+        name="withdrawals",
+    ),
     path("media-library/", include("media_library.urls", namespace="media_library")),
     path("courses/", include("courses.urls", namespace="courses")),
 ]
