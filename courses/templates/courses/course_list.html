@@ -73,11 +73,11 @@
                                 {% endif %}
                             </div>
                             <div class="flex-1 d-flex align-items-center gap-3">
-                                <button class="btn btn-light border text-muted">
+                                <a href="{% url 'courses:update_course' course.pk %}" class="btn btn-light border text-muted">
                                     <small>
                                         <i class="fal fa-pencil-alt text-primary"></i>&nbsp;&nbsp;Edit
                                     </small>
-                                </button>
+                                </a>
                                 <div class="dropdown">
                                     <button class="btn btn-outline-primary border rounded-circle dropdown-toggl"
                                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
