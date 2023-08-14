@@ -209,3 +209,32 @@ class Attempt(models.Model):
 
     def __str__(self):
         return f"{self.quiz.title} - {self.user.username}"
+
+
+class Answer(models.Model):
+    attempt = models.ForeignKey(
+        Attempt, on_delete=models.CASCADE, related_name="answers"
+    )
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
+    option = models.ForeignKey(
+        Option,
+        on_delete=models.CASCADE,
+        related_name="answers",
+        null=True,
+        blank=True,
+    )
+    # For True/False Question Type
+    tf_answer = models.BooleanField(default=True)
+    # For FB, SA, OE, M, IM Question Type
+    answer_text = models.TextField(blank=True)
+    # For Ordering Question Type
+    o_answer_order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("attempt", "o_answer_order")
+
+    def __str__(self):
+        return f"{self.question.title} - {self.attempt.user.username}"
