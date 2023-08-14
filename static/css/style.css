@@ -305,7 +305,6 @@ footer a:hover {
 
 .hero-banner {
   position: relative;
-  /* z-index: 10; */
 }
 
 .svg-container {
@@ -317,7 +316,6 @@ footer a:hover {
   display: flex;
   justify-content: end;
   align-items: center;
-  z-index: 9 !important;
 }
 
 .svg-container img {
@@ -327,4 +325,16 @@ footer a:hover {
 
 .hero-svg-bg-2 {
   right: 50%;
+}
+
+.animate-me {
+  opacity: 0; /* Initially hidden */
+  transform: translateY(100px); /* Initially moved down */
+  transition: opacity 0.8s ease, transform 0.8s ease; /* Apply transition */
+}
+
+/* Define animation when the element is in view */
+.animate-me.animate {
+  opacity: 1;
+  transform: translateY(0);
 }

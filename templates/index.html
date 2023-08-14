@@ -3,11 +3,11 @@
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
-<!--page title-->
+
+<!-- Hero Banner Section -->
 <div class="container-fluid title-content">
     <div class="py-3" style="font-size: 14px;">
-        <!-- Hero Banner Section -->
-        <section class="hero-banner bg-light py-5">
+        <section class="hero-banner bg-light py-5 animate-me">
             <div class="svg-container">
                 <img class="hero-svg-bg-2" src="{% static 'images/hero-bg-2.png' %}" alt="SVG Image 2">
                 <img class="hero-svg-bg-1" src="{% static 'images/hero-bg-1.png' %}" alt="SVG Image 1">
@@ -47,7 +47,8 @@
     </div>
 </div>
 
-<div class="text-white" style="background: #0071dc;">
+<!--blue bar-->
+<div class="text-white animate-me" style="background: #0071dc;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -81,7 +82,8 @@
 <!--main content-->
 <div class="container-fluid bg-white">
     <div class="main-content py-3">
-        <div class="container py-5">
+        <!--top categories-->
+        <div class="container py-5 animate-me">
             <h3>Top Categories</h3>
             <div class="row py-4">
                 <div class="col-lg-3 mb-4">
@@ -156,7 +158,8 @@
                 </div>
             </div>
         </div>
-        <div class="container">
+        <!--courses-->
+        <div class="container animate-me">
             <div class="d-flex justify-content-between">
                 <h3 style="width: 50%;">Courses</h3>
                 <div class="d-flex gap-2 overflow-auto pb-3 ps-5" style="max-width: 50%;">
@@ -305,13 +308,8 @@
                 </div>
             </div>
         </div>
-
-    </div>
-</div>
-
-<div class="container-fluid bg-white">
-    <div class="main-content py-3">
-        <div class="container">
+        <!--CTA-->
+        <div class="container animate-me">
             <div class="row">
                 <div class="col-lg-6 mb-4">
                     <div class="card border-0" style="background: #F6F3ED;">
@@ -351,12 +349,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="container-fluid bg-white">
-    <div class="main-content py-3">
-        <div class="container py-5">
+        <!--Partners-->
+        <div class="container py-5 animate-me">
             <div class="row">
                 <div class="col-lg-3">
                     <h3 class="mb-4">Our Partners</h3>
@@ -383,58 +377,61 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-
-<section id="testimonials">
-    <div class="container">
-        <div class="d-flex justify-content-between mb-4">
-            <h3>People Say About SKILLEDMBA</h3>
-        </div>
-        <div id="testimonials-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="container mt-4">
-                        <div class="card">
-                            <div class="row g-0">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Become An Instructor</h5>
-                                        <p class="card-text">Top instructors from around the world teach millions of
-                                            students on SkilledMBA.</p>
-                                        <a href="#" class="btn btn-primary">Join as Instructor</a>
+        <!--testimonial-->
+        <section id="testimonials animate-me">
+            <div class="container">
+                <div class="d-flex justify-content-between mb-4">
+                    <h3>People Say About SKILLEDMBA</h3>
+                </div>
+                <div id="testimonials-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div class="container mt-4">
+                                <div class="card">
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Become An Instructor</h5>
+                                                <p class="card-text">Top instructors from around the world teach
+                                                    millions of
+                                                    students on SkilledMBA.</p>
+                                                <a href="#" class="btn btn-primary">Join as Instructor</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="container mt-4">
-                        <div class="card">
-                            <div class="row g-0">
-                                <div class="col-md-8">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Become An Instructor 2</h5>
-                                        <p class="card-text">Top instructors from around the world teach millions of
-                                            students on SkilledMBA.</p>
-                                        <a href="#" class="btn btn-primary">Join as Instructor</a>
+                        <div class="carousel-item">
+                            <div class="container mt-4">
+                                <div class="card">
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Become An Instructor 2</h5>
+                                                <p class="card-text">Top instructors from around the world teach
+                                                    millions of
+                                                    students on SkilledMBA.</p>
+                                                <a href="#" class="btn btn-primary">Join as Instructor</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <img src="your_image_url_here.jpg" alt="Instructor Image" class="img-fluid">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -471,6 +468,25 @@
             }
         );
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var animateElements = document.querySelectorAll(".animate-me");
+
+        function checkAnimation() {
+            animateElements.forEach(function (element) {
+                var elementPosition = element.getBoundingClientRect().top;
+                var windowHeight = window.innerHeight;
+
+                if (elementPosition < windowHeight - 100) { // Adjust threshold as needed
+                    element.classList.add("animate");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", checkAnimation);
+        checkAnimation(); // Check on page load
+    });
+
 </script>
 
 {% endblock content %}
