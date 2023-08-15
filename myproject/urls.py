@@ -29,9 +29,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("accounts/profile/", users_views.profile, name="account_profile"),
-    path("login/", LoginView.as_view(), name="custom_login"),
-    path("register/", SignupView.as_view(), name="custom_signup"),
-    path("student-registration/", SignupView.as_view(), name="student_signup"),
+    # path("student-registration/", SignupView.as_view(), name="student_signup"),
     path(
         "",
         TemplateView.as_view(template_name="index.html"),
@@ -64,6 +62,8 @@ urlpatterns = [
     ),
     path("media-library/", include("media_library.urls", namespace="media_library")),
     path("courses/", include("courses.urls", namespace="courses")),
+    path("", include("users.urls", namespace="users")),
+    path("quizzes/", include("quizzes.urls", namespace="quizzes")),
 ]
 
 if settings.DEBUG:

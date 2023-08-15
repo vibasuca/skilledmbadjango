@@ -11,6 +11,45 @@ from .forms import CourseForm
 from .models import *
 
 
+def list_courses_published(request):
+    published = request.user.courses.exclude(approved_at=None)
+    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
+    draft = request.user.courses.filter(published_at=None)
+    context = {
+        "courses": published,
+        "publish_count": published.count(),
+        "pending_count": pending.count(),
+        "draft_count": draft.count(),
+    }
+    return render(request, "courses/course_list.html", context)
+
+
+def list_courses_pending(request):
+    published = request.user.courses.exclude(approved_at=None)
+    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
+    draft = request.user.courses.filter(published_at=None)
+    context = {
+        "courses": pending,
+        "publish_count": published.count(),
+        "pending_count": pending.count(),
+        "draft_count": draft.count(),
+    }
+    return render(request, "courses/course_list.html", context)
+
+
+def list_courses_draft(request):
+    published = request.user.courses.exclude(approved_at=None)
+    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
+    draft = request.user.courses.filter(published_at=None)
+    context = {
+        "courses": draft,
+        "publish_count": published.count(),
+        "pending_count": pending.count(),
+        "draft_count": draft.count(),
+    }
+    return render(request, "courses/course_list.html", context)
+
+
 @require_POST
 @login_required
 def create_course(request):
