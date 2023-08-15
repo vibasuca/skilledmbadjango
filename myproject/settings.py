@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import json
+
+
+with open("settings.json") as file:
+    config = json.load(file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # 3rd Party
+    "captcha",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -162,22 +168,27 @@ MEDIA_URL = "/media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
-# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = config["EMAIL_HOST_PASSWORD"]
 
 
 ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_LOGOUT_ON_GET = True
 
 ACCOUNT_FORMS = {
     "signup": "users.forms.CustomSignupForm",
+    "login": "users.forms.CustomLoginForm",
 }
 
 # LOGIN_REDIRECT_URL = "shop:home"
+
+RECAPTCHA_PUBLIC_KEY = "6LfJoaonAAAAANVTb-VHlxjtKzP_qQVxhonXsNrt"
+RECAPTCHA_PRIVATE_KEY = "6LfJoaonAAAAAJ_8J6wMcvkpG9DyYwKOP3HVdFEH"

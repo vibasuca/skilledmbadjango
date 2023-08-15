@@ -1,4 +1,6 @@
-from allauth.account.forms import SignupForm
+from allauth.account.forms import SignupForm, LoginForm
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 from django import forms
 from .models import User
 
@@ -20,6 +22,7 @@ class CustomSignupForm(SignupForm):
     )
     account_type = forms.CharField(widget=forms.HiddenInput(), required=False)
     email = forms.EmailField(widget=EmailAsTextInput(attrs={"placeholder": "E-Mail"}))
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     def save(self, request):
         user = super().save(request)
@@ -27,6 +30,10 @@ class CustomSignupForm(SignupForm):
             user.is_instructor = True
             user.save()
         return user
+
+
+class CustomLoginForm(LoginForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 
 class UserUpdateForm(forms.ModelForm):
