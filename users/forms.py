@@ -18,12 +18,14 @@ class CustomSignupForm(SignupForm):
         label="Last Name",
         widget=forms.TextInput(attrs={"placeholder": "Last Name"}),
     )
+    account_type = forms.CharField(widget=forms.HiddenInput(), required=False)
     email = forms.EmailField(widget=EmailAsTextInput(attrs={"placeholder": "E-Mail"}))
 
-    def signup(self, request, user):
-        user.first_name = self.cleaned_data["first_name"]
-        user.last_name = self.cleaned_data["last_name"]
-        user.save()
+    def save(self, request):
+        user = super().save(request)
+        if self.cleaned_data["account_type"] == "instructor":
+            user.is_instructor = True
+            user.save()
         return user
 
 
