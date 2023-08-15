@@ -54,15 +54,18 @@
                 <i class="fal fa-comments fs-5"></i>
                 <a href="https://skilledmba.com/dashboard/question-answer">Question &amp; Answer</a>
             </li>
+            {% if not user.is_instructor %}
             <li class="list-group-item d-flex align-items-center gap-3">
                 <i class="fal fa-cog fs-5"></i>
                 <a href="https://skilledmba.com/dashboard/settings">Settings</a>
             </li>
             <li class="list-group-item d-flex align-items-center gap-3">
                 <i class="fal fa-sign-out fs-5"></i>
-                <a href="https://skilledmba.com/dashboard/logout" data-no-instant="">Logout</a>
+                <a href="{% url 'account_logout' %}" data-no-instant="">Logout</a>
             </li>
+            {% endif %}
         </ul>
+        {% if user.is_instructor %}
         <span class="p-3">
             Instructor
         </span>
@@ -108,6 +111,7 @@
                 <a href="{% url 'account_logout' %}" data-no-instant="">Logout</a>
             </li>
         </ul>
+        {% endif %}
         {% endwith %}
     </nav>
 </div>

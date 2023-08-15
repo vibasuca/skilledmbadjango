@@ -29,11 +29,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("accounts/profile/", users_views.profile, name="account_profile"),
-    path(
-        "instructor-registration/",
-        users_views.InstructorSignupView.as_view(),
-        name="instructor_signup",
-    ),
     # path("student-registration/", SignupView.as_view(), name="student_signup"),
     path(
         "",
@@ -67,6 +62,7 @@ urlpatterns = [
     ),
     path("media-library/", include("media_library.urls", namespace="media_library")),
     path("courses/", include("courses.urls", namespace="courses")),
+    path("", include("users.urls", namespace="users")),
 ]
 
 if settings.DEBUG:
