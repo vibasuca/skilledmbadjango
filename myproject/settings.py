@@ -14,12 +14,11 @@ from pathlib import Path
 import json
 
 
-with open("settings.json") as file:
-    config = json.load(file)
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+with open(BASE_DIR / "settings.json") as file:
+    config = json.load(file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,7 +29,7 @@ SECRET_KEY = "django-insecure-_f876@%w!i+^^*@*7q=chm)oxbn^@a=wa^&x*%)fn2#$8r*w&%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -191,5 +190,5 @@ ACCOUNT_FORMS = {
 
 # LOGIN_REDIRECT_URL = "shop:home"
 
-RECAPTCHA_PUBLIC_KEY = "6LfJoaonAAAAANVTb-VHlxjtKzP_qQVxhonXsNrt"
-RECAPTCHA_PRIVATE_KEY = "6LfJoaonAAAAAJ_8J6wMcvkpG9DyYwKOP3HVdFEH"
+RECAPTCHA_PUBLIC_KEY = config["RECAPTCHA_PUBLIC_KEY"]
+RECAPTCHA_PRIVATE_KEY = config["RECAPTCHA_PRIVATE_KEY"]
