@@ -97,71 +97,61 @@
             <h3>Top Categories</h3>
             <div class="row py-4">
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-torii-gate text-primary" style="font-size: 2.9em;"></i>
                         <span>Business Analytics</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-ankh text-primary" style="font-size: 2.9em;"></i>
                         <span>Consulting</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-arrow-from-left text-primary" style="font-size: 2.9em;"></i>
                         <span>Healthcare Management</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-asterisk text-primary" style="font-size: 2.9em;"></i>
                         <span>Entrepreneurship</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-axe-battle text-primary" style="font-size: 2.9em;"></i>
                         <span>Information Technology Management</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-bell-on text-primary" style="font-size: 2.9em;"></i>
                         <span>International Business</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-battery-empty text-primary" style="font-size: 2.9em;"></i>
                         <span>Operation Management</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-bolt text-primary" style="font-size: 2.9em;"></i>
                         <span>Human Resourse Management</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-border-right text-primary" style="font-size: 2.9em;"></i>
                         <span>Marketing</span>
                     </div>
                 </div>
                 <div class="col-lg-3 mb-4">
-                    <div class="d-flex gap-3 align-items-center p-3 justify-content-start rounded border"
-                        style="background: #f1f3f8;">
+                    <div class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                         <i class="fal fa-cloud-rain text-primary" style="font-size: 2.9em;"></i>
                         <span>Finanace</span>
                     </div>
@@ -459,8 +449,9 @@
     </div>
 </div>
 
+<!--Floating Login-CTA, show this only when user is not logged in-->
 <div class="position-fixed bottom-0 login-cta p-4" style="right: 0px;">
-    <div class="card" style="height: 100%;">
+    <div class="card border-0 shadow-sm" style="height: 100%;">
         <div class="card-body d-flex flex-column align-items-center gap-3">
             <div class="py-4">
                 <h4>Login & try Skilledmba</h4>
@@ -468,22 +459,22 @@
             </div>
             <div style="width: 80%;">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-primary py-3" type="button">
-                        Login as Student
+                    <button class="btn btn-primary py-3" type="button" style="background: #0071dc;">
+                        <b>Login as Student</b>
                     </button>
                 </div>
             </div>
             <div style="width: 80%;">
                 <div class="d-grid gap-2">
-                    <button class="btn btn-warning py-3" type="button">
-                        Login as Instructor
+                    <button class="btn py-3" type="button" style="background: #ffc221;">
+                        <b>Login as Instructor</b>
                     </button>
                 </div>
             </div>
         </div>
     </div>
     <div id="close-login-cta"
-        class="position-absolute translate-middle rounded-circle border p-3 d-flex justify-content-center align-items-center"
+        class="position-absolute translate-middle rounded-circle border p-3 d-flex justify-content-center align-items-center shadow"
         style="top: 25px; right: -5px; background: #fff; width: 10px; height: 10px; cursor: pointer;">
         <i class="far fa-times"></i>
     </div>
