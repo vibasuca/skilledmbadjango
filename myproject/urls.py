@@ -63,6 +63,7 @@ urlpatterns = [
     path("media-library/", include("media_library.urls", namespace="media_library")),
     path("courses/", include("courses.urls", namespace="courses")),
     path("", include("users.urls", namespace="users")),
+    path("quizzes/", include("quizzes.urls", namespace="quizzes")),
 ]
 
 if settings.DEBUG:
