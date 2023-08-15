@@ -6,6 +6,9 @@
 
 {% block content %}
 <div class="container my-4">
+  Code: {{ auth_error.code }}<br> 
+  Error: {{ auth_error.exception }}<br> 
+  Exception: {{ auth_error.exception }}, extra context: {{ auth_error.extra_context }}
   <h1>{% trans "Social Network Login Failure" %}</h1>
 
   <p>{% trans "An error occurred while attempting to login via your social network account." %}</p>
