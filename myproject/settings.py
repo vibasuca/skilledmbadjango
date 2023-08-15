@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    # Social Login
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.twitter_oauth2",
     # Local
     "users",
     "media_library",
@@ -50,6 +53,18 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+    }
+}
 
 AUTH_USER_MODEL = "users.User"
 
@@ -164,3 +179,5 @@ ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_FORMS = {
     "signup": "users.forms.CustomSignupForm",
 }
+
+# LOGIN_REDIRECT_URL = "shop:home"

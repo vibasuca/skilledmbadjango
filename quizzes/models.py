@@ -25,6 +25,12 @@ FEEDBACK_MODE_CHOICES = (
     ),  # Reattempt quiz any number of times. Define Attempts Allowed below.
 )
 
+ANSWER_STATUS_CHOICES = (
+    ("C", "Correct"),
+    ("I", "Incorrect"),
+    ("P", "Pending"),
+)
+
 QUESTION_TYPE_CHOICES = (
     ("TF", "True/False"),
     ("SC", "Single Choice"),
@@ -196,6 +202,7 @@ class Attempt(models.Model):
     )
     seed = models.PositiveIntegerField()
     is_completed = models.BooleanField(default=False)
+    instructor_feedback = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     submitted_at = models.DateTimeField(null=True, blank=True)
 
@@ -231,6 +238,11 @@ class Answer(models.Model):
     answer_text = models.TextField(blank=True)
     # For Ordering Question Type
     o_answer_order = models.PositiveIntegerField(default=0)
+    status = models.CharField(
+        max_length=1,
+        choices=ANSWER_STATUS_CHOICES,
+        default="P",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
