@@ -72,10 +72,6 @@ a {
   transition: all 0.25s ease-in-out;
 }
 
-.top-search-input-group {
-  /* background-color: #F2F2F2; */
-}
-
 .top-search-bar-input {
   font-size: 16px;
   font-weight: 400;
@@ -115,8 +111,12 @@ a {
   width: 100%;
 }
 
-.modal {
-  z-index: 101 !important;
+.modal-backdrop {
+  z-index: 99 !important;
+}
+
+.modal-dialog {
+  z-index: 999 !important;
 }
 
 @keyframes dropDown {
@@ -129,8 +129,7 @@ a {
 }
 
 .navbar {
-  padding: 1.6rem 0px !important;
-  z-index: 0 !important;
+  padding: 1.4rem 0px !important;
 }
 
 .stuck .navbar {
@@ -312,28 +311,47 @@ footer a:hover {
   right: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: end;
-  align-items: center;
+  z-index: -1;
 }
 
 .svg-container img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.hero-svg-bg-2 {
-  right: 50%;
+  position: relative;
 }
 
 .animate-me {
-  opacity: 0; /* Initially hidden */
-  transform: translateY(100px); /* Initially moved down */
-  transition: opacity 0.8s ease, transform 0.8s ease; /* Apply transition */
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-/* Define animation when the element is in view */
 .animate-me.animate {
   opacity: 1;
   transform: translateY(0);
+}
+
+.login-cta {
+  max-width: 500px;
+  width: 100%;
+  height: 370px;
+}
+
+.top-category {
+  background: #f1f3f8;
+}
+
+.top-category span {
+  color: black;
+}
+
+.top-category:hover {
+  background: #0071dc;
+  transition: all 0.25s ease-in-out;
+}
+
+.top-category:hover > i {
+  color: white !important;
+}
+
+.top-category:hover > span {
+  color: white;
 }
