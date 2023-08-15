@@ -338,3 +338,20 @@ footer a:hover {
 .top-category {
   background: #f1f3f8;
 }
+
+.top-category span{
+  color: black;
+}
+
+.top-category:hover {
+  background: #0071dc;
+  transition: all 0.25s ease-in-out;
+}
+
+.top-category:hover > i {
+  color: white !important;
+}
+
+.top-category:hover > span{
+  color: white;
+}
