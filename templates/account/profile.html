@@ -16,39 +16,39 @@
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <table class="table">
+                <table class="table table-borderless table-sm">
                     <thead>
                         <tr>
-                            <th style="width: 150px;">Date Joined</th>
-                            <td>{{user.date_joined}}</th>
+                            <td class="text-secondary" style="width: 150px;">Date Joined</td>
+                            <td>{{user.date_joined}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">First Name</th>
-                            <td>{{user.first_name}}</th>
+                            <td class="text-secondary" style="width: 150px;">First Name</td>
+                            <td>{{user.first_name}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">Last Name</th>
-                            <td>{{user.last_name}}</th>
+                            <td class="text-secondary" style="width: 150px;">Last Name</td>
+                            <td>{{user.last_name}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">Username</th>
-                            <td>{{user.username}}</th>
+                            <td class="text-secondary" style="width: 150px;">Username</td>
+                            <td>{{user.username}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">Email</th>
-                            <td>{{user.email}}</th>
+                            <td class="text-secondary" style="width: 150px;">Email</td>
+                            <td>{{user.email}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">Phone</th>
-                            <td>{{user.phone}}</th>
+                            <td class="text-secondary" style="width: 150px;">Phone</td>
+                            <td>{{user.phone|default:"________"}}</td>
                         </tr>
                         <tr>
-                            <th style="width: 150px;">Job Title</th>
-                            <td>{{user.job_title}}</th>
+                            <td class="text-secondary" style="width: 150px;">Job Title</td>
+                            <td>{{user.job_title|default:"________"}}</td>
                         </tr>
                         <tr>
-                            <th>Bio</th>
-                            <td>{{user.bio}}</th>
+                            <td class="text-secondary" style="width: 150px;">Bio</td>
+                            <td>{{user.bio|default:"________"}}</td>
                         </tr>
                     </thead>
                 </table>

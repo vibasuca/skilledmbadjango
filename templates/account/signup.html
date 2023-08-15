@@ -159,6 +159,16 @@
                   {% endif %}
                 </div>
 
+                {{form.captcha}}
+
+                {% if form.captcha.errors %}
+                <ul>
+                  {% for error in form.captcha.errors %}
+                  <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
+
                 {% comment %} <input type="hidden" name="account_type" value="instructor" /> {% endcomment %}
 
                 <div class="d-grid gap-2 my-5">
