@@ -3,14 +3,24 @@
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
-
 <!-- Hero Banner Section -->
 <div class="container-fluid title-content">
     <div class="py-3" style="font-size: 14px;">
-        <section class="hero-banner bg-light py-5 animate-me">
-            <div class="svg-container">
-                <img class="hero-svg-bg-2" src="{% static 'images/hero-bg-2.png' %}" alt="SVG Image 2">
-                <img class="hero-svg-bg-1" src="{% static 'images/hero-bg-1.png' %}" alt="SVG Image 1">
+        <section class="hero-banner py-5 animate-me position-relative">
+            <div class="svg-container"
+                style="display: block; background-image: url({% static 'images/hero-bg-2.png' %}); background-size: 400px, cover; background-position: 63.43% 85%; background-repeat: no-repeat, no-repeat;">
+            </div>
+            <div class="svg-container"
+                style="display: block; background-image: url({% static 'images/hero-bg-1.png' %}); background-size: 17 0px, cover; background-position: 85% 70%; background-repeat: no-repeat, no-repeat;">
+            </div>
+            <div class="position-absolute shadow-sm bg-white rounded-4 p-4"
+                style="width: 275px; right: 30%; bottom:30px;">
+                Unlocking the <b>"secrets" to thriving in the corporate world!</b>
+                <div class="position-absolute translate-middle rounded-circle p-3 d-flex justify-content-center align-items-center"
+                    style="top: 0px; right: 80%; background: #FFC221; width: 60px; height: 60px;">
+                    <i class="far fa-bell-on fs-3 text-white"></i>
+                    <span class="visually-hidden">Pending orders</span>
+                </div>
             </div>
             <div class="container">
                 <div class="row row align-items-center">
@@ -24,7 +34,7 @@
                             fuels success</p>
                         <div>
                             <form>
-                                <div class="input-group shadow" style="width: 100%">
+                                <div class="input-group shadow bg-white rounded" style="width: 100%">
                                     <input type="text" class="form-control top-search-bar-input" placeholder="Search..."
                                         aria-label="Search" />
                                     <button class="btn text-dark top-search-bar-button border" style="padding: 20px;"
@@ -48,7 +58,7 @@
 </div>
 
 <!--blue bar-->
-<div class="text-white animate-me" style="background: #0071dc;">
+<div class="text-white" style="background: #0071dc;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -449,6 +459,36 @@
     </div>
 </div>
 
+<div class="position-fixed bottom-0 login-cta p-4" style="right: 0px;">
+    <div class="card" style="height: 100%;">
+        <div class="card-body d-flex flex-column align-items-center gap-3">
+            <div class="py-4">
+                <h4>Login & try Skilledmba</h4>
+                without sign up any accounts
+            </div>
+            <div style="width: 80%;">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary py-3" type="button">
+                        Login as Student
+                    </button>
+                </div>
+            </div>
+            <div style="width: 80%;">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-warning py-3" type="button">
+                        Login as Instructor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="close-login-cta"
+        class="position-absolute translate-middle rounded-circle border p-3 d-flex justify-content-center align-items-center"
+        style="top: 25px; right: -5px; background: #fff; width: 10px; height: 10px; cursor: pointer;">
+        <i class="far fa-times"></i>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script>
     $(document).ready(function () {
@@ -502,6 +542,12 @@
 
         window.addEventListener("scroll", checkAnimation);
         checkAnimation(); // Check on page load
+    });
+
+    $(document).ready(function () {
+        $("#close-login-cta").click(function () {
+            $(".login-cta").hide();
+        });
     });
 
 </script>

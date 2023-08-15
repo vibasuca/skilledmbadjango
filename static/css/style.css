@@ -115,8 +115,12 @@ a {
   width: 100%;
 }
 
-.modal {
-  z-index: 101 !important;
+.modal-backdrop {
+  z-index: 99 !important;
+}
+
+.modal-dialog {
+  z-index: 999 !important;
 }
 
 @keyframes dropDown {
@@ -130,7 +134,6 @@ a {
 
 .navbar {
   padding: 1.6rem 0px !important;
-  z-index: 0 !important;
 }
 
 .stuck .navbar {
@@ -312,18 +315,11 @@ footer a:hover {
   right: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: end;
-  align-items: center;
+  z-index: -1;
 }
 
 .svg-container img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.hero-svg-bg-2 {
-  right: 50%;
+  position: relative;
 }
 
 .animate-me {
@@ -336,4 +332,10 @@ footer a:hover {
 .animate-me.animate {
   opacity: 1;
   transform: translateY(0);
+}
+
+.login-cta {
+  max-width: 500px;
+  width: 100%;
+  height: 370px;
 }
