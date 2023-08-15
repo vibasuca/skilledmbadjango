@@ -129,7 +129,7 @@ a {
 }
 
 .navbar {
-  padding: 1.6rem 0px !important;
+  padding: 1.4rem 0px !important;
 }
 
 .stuck .navbar {
@@ -339,7 +339,7 @@ footer a:hover {
   background: #f1f3f8;
 }
 
-.top-category span{
+.top-category span {
   color: black;
 }
 
@@ -352,6 +352,6 @@ footer a:hover {
   color: white !important;
 }
 
-.top-category:hover > span{
+.top-category:hover > span {
   color: white;
 }
