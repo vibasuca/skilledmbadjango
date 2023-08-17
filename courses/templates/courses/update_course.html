@@ -2,314 +2,490 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard - Skilled MBA</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
 
-    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'fonts/fontawesome-all.min.css' %}"
+    />
     <link rel="stylesheet" href="{% static 'fonts/tutor-icons.css' %}" />
 
-    <link rel="stylesheet" id="custom-stylesheet-css" type="text/css" media="all"
-        href="{% static 'css/dashboard.css' %}" />
+    <link
+      rel="stylesheet"
+      id="custom-stylesheet-css"
+      type="text/css"
+      media="all"
+      href="{% static 'css/dashboard.css' %}"
+    />
 
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
+    <!-- ✅ Load CSS file for Select2 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
 
-<body style="background: #f8f8f8;">
+    <!-- ✅ load jQuery ✅ -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- ✅ load JS for Select2 ✅ -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+      integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+  </head>
+
+  <body style="background: #f8f8f8">
     <!-- Header -->
-    <header id="myNavbar" class="shadow-sm bg-white position-sticky top-0" style="z-index: 9999;">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center gap-3 gap-lg-4">
-                <div class="p-3 d-flex">
-                    <img class="brandingLogo m-auto"
-                        src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png" loading="lazy" srcset="
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-                              https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-                            " />
-                </div>
-                <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2">
-                    <i class="fal fa-save"></i>
-                    <span>&nbsp;&nbsp;Save</span>
-                </button>
-            </div>
-            <div class="d-flex align-items-center gap-2 gap-lg-4">
-                <button class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline">
-                    <i class="fal fa-glasses"></i>
-                    <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Preview</span>
-                </button>
-                <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline">
-                    <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
-                </button>
-                <a href="{% url 'account_profile' %}">
-                    <button class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline">
-                        <span class="d-lg-inline">
-                            Exit
-                        </span>
-                    </button>
-                </a>
-                <button class="btn btn-light border px-3 py-2 d-lg-none" data-bs-toggle="modal"
-                    data-bs-target="#navModal">
-                    <i class="far fa-bars fs-5"></i>
-                </button>
-            </div>
+    <header
+      id="myNavbar"
+      class="shadow-sm bg-white position-sticky top-0"
+      style="z-index: 10"
+    >
+      <div class="container d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3 gap-lg-4">
+          <div class="p-3 d-flex">
+            <img
+              class="brandingLogo m-auto"
+              src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+              loading="lazy"
+              srcset="
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
+                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
+              "
+            />
+          </div>
+          <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2">
+            <i class="fal fa-save"></i>
+            <span>&nbsp;&nbsp;Save</span>
+          </button>
         </div>
+        <div class="d-flex align-items-center gap-2 gap-lg-4">
+          <button
+            class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline"
+          >
+            <i class="fal fa-glasses"></i>
+            <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Preview</span>
+          </button>
+          <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline">
+            <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
+          </button>
+          <a href="{% url 'account_profile' %}">
+            <button
+              class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline"
+            >
+              <span class="d-lg-inline"> Exit </span>
+            </button>
+          </a>
+          <button
+            class="btn btn-light border px-3 py-2 d-lg-none"
+            data-bs-toggle="modal"
+            data-bs-target="#navModal"
+          >
+            <i class="far fa-bars fs-5"></i>
+          </button>
+        </div>
+      </div>
     </header>
 
     <span class="position-absolute trigger"></span>
 
-
-    <div class="modal fade" id="navModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" style="bottom: 0%;">
-            <div class="modal-content p-3">
-                <div class="d-flex flex-column gap-3">
-                    <button class="btn btn-light border border-2 text-muted px-3 py-2">
-                        <i class="fal fa-glasses"></i>
-                        <span>&nbsp;&nbsp;&nbsp;Preview</span>
-                    </button>
-                    <button class="btn btn-primary px-3 py-2">
-                        <span><b>Submit for Review</b></span>
-                    </button>
-                    <button class="btn btn-outline-danger px-3 py-2">
-                        <span>Discard and Exit</span>
-                    </button>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="navModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" style="bottom: 0%">
+        <div class="modal-content p-3">
+          <div class="d-flex flex-column gap-3">
+            <button class="btn btn-light border border-2 text-muted px-3 py-2">
+              <i class="fal fa-glasses"></i>
+              <span>&nbsp;&nbsp;&nbsp;Preview</span>
+            </button>
+            <button class="btn btn-primary px-3 py-2">
+              <span><b>Submit for Review</b></span>
+            </button>
+            <button class="btn btn-outline-danger px-3 py-2">
+              <span>Discard and Exit</span>
+            </button>
+          </div>
         </div>
+      </div>
     </div>
 
     <div class="container py-4">
-        <div class="row">
-            <div class="col-lg-8 pt-3">
+      <div class="row">
+        <div class="col-lg-8 pt-3">
+          <form method="post" id="courseForm" enctype="multipart/form-data">
+            {% csrf_token %} {% include 'courses/allinone.html' %}
+          </form>
+          {% comment %} {% include 'courses/video.html' %} {% include
+          'courses/courseBuilder.html' %} {% include 'courses/instructor.html'
+          %} {% include 'courses/courseAttachments.html' %} {% include
+          'courses/additionalDetails.html' %} {% include
+          'courses/coursePrerequisites.html' %} {% endcomment %}
 
-                <form method="post" id="courseForm" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% include 'courses/allinone.html' %}
-
-                </form>
-                {% comment %}
-
-                {% include 'courses/video.html' %}
-                {% include 'courses/courseBuilder.html' %}
-                {% include 'courses/instructor.html' %}
-                {% include 'courses/courseAttachments.html' %}
-                {% include 'courses/additionalDetails.html' %}
-                {% include 'courses/coursePrerequisites.html' %}
-                {% endcomment %}
-
-                <div class="d-flex py-3 justify-content-between">
-                    <button type="submit" class="saveDraft btn bg-white border border-2 text-primary px-3 py-2">
-                        <span><b>Save course as draft</b></span>
-                    </button>
-                    <button type="submit" name="submit_for_review" class="btn btn-primary px-3 py-2">
-                        <span><b>Submit for Review</b></span>
-                    </button>
-                </div>
-
-            </div>
-            <div class="col-lg-4 pt-3">
-                <div class="card text-start sticky-top bg-white" style="top: 12.5%; z-index: 10;">
-                    <div class="card-body tips p-4">
-                        <span class="fs-4">
-                            <i class="far fa-lg fa-lightbulb-on text-primary"></i>
-                            &nbsp;&nbsp;Course Prerequisites
-                        </span>
-                        <ul>
-                            <li>
-                                Set the Course Price option or make it free.
-                            </li>
-                            <li>
-                                Standard size for course thumbnail is 700x430.
-                            </li>
-                            <li>
-                                Video section controls the course overview video.
-                            </li>
-                            <li>
-                                Course Builder is where you create & organize a course.
-                            </li>
-                            <li>
-                                Add Topics in the Course Builder section to create lessons, quizzes, and assignments.
-                            </li>
-                            <li>
-                                Prerequisites refers to the fundamental courses to complete before taking this
-                                particular
-                                course.
-                            </li>
-                            <li>
-                                Information from the Additional Data section shows up on the course single page.
-                            </li>
-                            <li>
-                                Make Announcements to notify any important notes to all enrolled students at once.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+          <div class="d-flex py-3 justify-content-between">
+            <button
+              type="submit"
+              class="saveDraft btn bg-white border border-2 text-primary px-3 py-2"
+            >
+              <span><b>Save course as draft</b></span>
+            </button>
+            <button
+              type="submit"
+              name="submit_for_review"
+              class="btn btn-primary px-3 py-2"
+            >
+              <span><b>Submit for Review</b></span>
+            </button>
+          </div>
         </div>
+        <div class="col-lg-4 pt-3">
+          <div
+            class="card text-start sticky-top bg-white"
+            style="top: 12.5%; z-index: 10"
+          >
+            <div class="card-body tips p-4">
+              <span class="fs-4">
+                <i class="far fa-lg fa-lightbulb-on text-primary"></i>
+                &nbsp;&nbsp;Course Prerequisites
+              </span>
+              <ul>
+                <li>Set the Course Price option or make it free.</li>
+                <li>Standard size for course thumbnail is 700x430.</li>
+                <li>Video section controls the course overview video.</li>
+                <li>Course Builder is where you create & organize a course.</li>
+                <li>
+                  Add Topics in the Course Builder section to create lessons,
+                  quizzes, and assignments.
+                </li>
+                <li>
+                  Prerequisites refers to the fundamental courses to complete
+                  before taking this particular course.
+                </li>
+                <li>
+                  Information from the Additional Data section shows up on the
+                  course single page.
+                </li>
+                <li>
+                  Make Announcements to notify any important notes to all
+                  enrolled students at once.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
 
     <!---------------- Modals ---------------->
 
     <!-- Media Managerment -->
-    <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h1 class="modal-title fs-5" id="mediaModalLabel">Media Management</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-0">
-                    {% include 'media_library/mediaManagement.html' %}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Select Media</button>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="mediaModal"
+      tabindex="-1"
+      aria-labelledby="mediaModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h1 class="modal-title fs-5" id="mediaModalLabel">
+              Media Management
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            {% include 'media_library/mediaManagement.html' %}
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Select Media</button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Add Topic -->
-    <div class="modal fade" id="topicModal" tabindex="-1" aria-labelledby="topicModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="topicModalLabel">Add Topic</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="topicForm" method="POST">
-                    <div class="modal-body px-4">
+    <div
+      class="modal fade"
+      id="topicModal"
+      tabindex="-1"
+      aria-labelledby="topicModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="topicModalLabel">Add Topic</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="topicForm" method="POST">
+            <div class="modal-body px-4">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Topic Name</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control p-3 mb-2"
+                  placeholder="Topic Name"
+                  required
+                />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Topic titles are displayed
+                  publicly wherever required. Each topic may contain one or more
+                  lessons, quiz and assignments.
+                </small>
+              </div>
 
-                        <div class="form-outline mb-3">
-                            <label class="form-label my-2 fw-bold">Topic Name</label>
-                            <input type="text" name="title" class="form-control p-3 mb-2" placeholder="Topic Name" required />
-                            <small class="text-muted">
-                                <i class="fal fa-info-circle"></i> Topic titles are displayed publicly wherever
-                                required.
-                                Each topic may contain one or more lessons, quiz and assignments.
-                            </small>
-                        </div>
-
-                        <div class="form-outline mb-3">
-                            <label class="form-label my-2 fw-bold">Topic Summary</label>
-                            <textarea name="summary" class="form-control p-3 mb-2" rows="3"></textarea>
-                            <small class="text-muted" required>
-                                <i class="fal fa-info-circle"></i> Add a summary of short text to prepare students for
-                                the
-                                activities for the topic. The text is shown on the course page beside the tooltip beside
-                                the
-                                topic name.
-                            </small>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="saveTopic" type="submit" class="btn btn-primary">Save Topic</button>
-                    </div>
-                </form>
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Topic Summary</label>
+                <textarea
+                  name="summary"
+                  class="form-control p-3 mb-2"
+                  rows="3"
+                ></textarea>
+                <small class="text-muted" required>
+                  <i class="fal fa-info-circle"></i> Add a summary of short text
+                  to prepare students for the activities for the topic. The text
+                  is shown on the course page beside the tooltip beside the
+                  topic name.
+                </small>
+              </div>
             </div>
+            <div class="modal-footer d-flex justify-content-between">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="saveTopic" type="submit" class="btn btn-primary">
+                Save Topic
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
 
     <!-- Update Topic -->
-    <div class="modal fade" id="updateTopicModal" tabindex="-1" aria-labelledby="updateTopicModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="updateTopicModalLabel">Edit Topic</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="updateTopicForm" method="POST">
-                    
-                    <input class="d-none" type="text" name="topicId">
-                    <input class="d-none" type="text" name="sort_order">
+    <div
+      class="modal fade"
+      id="updateTopicModal"
+      tabindex="-1"
+      aria-labelledby="updateTopicModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="updateTopicModalLabel">
+              Edit Topic
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="updateTopicForm" method="POST">
+            <input class="d-none" type="text" name="topicId" />
+            <input class="d-none" type="text" name="sort_order" />
 
-                    <div class="modal-body px-4">
+            <div class="modal-body px-4">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Topic Name</label>
+                <input
+                  type="text"
+                  name="title"
+                  class="form-control p-3 mb-2"
+                  placeholder="Topic Name"
+                  required
+                />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Topic titles are displayed
+                  publicly wherever required. Each topic may contain one or more
+                  lessons, quiz and assignments.
+                </small>
+              </div>
 
-                        <div class="form-outline mb-3">
-                            <label class="form-label my-2 fw-bold">Topic Name</label>
-                            <input type="text" name="title" class="form-control p-3 mb-2" placeholder="Topic Name"
-                                required />
-                            <small class="text-muted">
-                                <i class="fal fa-info-circle"></i> Topic titles are displayed publicly wherever
-                                required.
-                                Each topic may contain one or more lessons, quiz and assignments.
-                            </small>
-                        </div>
-
-                        <div class="form-outline mb-3">
-                            <label class="form-label my-2 fw-bold">Topic Summary</label>
-                            <textarea name="summary" class="form-control p-3 mb-2" rows="3"></textarea>
-                            <small class="text-muted" required>
-                                <i class="fal fa-info-circle"></i> Add a summary of short text to prepare students for
-                                the
-                                activities for the topic. The text is shown on the course page beside the tooltip beside
-                                the
-                                topic name.
-                            </small>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="saveUpdateTopic" type="submit" class="btn btn-primary">Save Topic</button>
-                    </div>
-                </form>
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Topic Summary</label>
+                <textarea
+                  name="summary"
+                  class="form-control p-3 mb-2"
+                  rows="3"
+                ></textarea>
+                <small class="text-muted" required>
+                  <i class="fal fa-info-circle"></i> Add a summary of short text
+                  to prepare students for the activities for the topic. The text
+                  is shown on the course page beside the tooltip beside the
+                  topic name.
+                </small>
+              </div>
             </div>
+            <div class="modal-footer d-flex justify-content-between">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                id="saveUpdateTopic"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Save Topic
+              </button>
+            </div>
+          </form>
         </div>
+      </div>
+    </div>
+
+    <!-- Add Instructor -->
+    <div
+      class="modal fade"
+      id="instructorModal"
+      tabindex="-1"
+      aria-labelledby="instructorModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="instructorModalLabel">
+              Add Instructor
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input
+              type="text"
+              class="form-control searchInstructorInput mb-3"
+              placeholder="Search instructors..."
+            />
+            <div class="card mb-3" style="max-width: 350px">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3 gap-lg-4">
+                  <img
+                    style="width: 48px; border-radius: 100%"
+                    src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                    alt="user photo"
+                  />
+                  <div class="d-flex flex-column">
+                    <b>Instructor 3 </b>
+                    <b style="color: #9e9e9e"> email@examole.com </b>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"
+    ></script>
     <script>
-        $(".section").click(function () {
-            $(this).children('.fas').toggleClass('fa-chevron-up fa-chevron-down');
-        });
-        $(".saveDraft").click(function () {
+      $(".section").click(function () {
+        $(this).children(".fas").toggleClass("fa-chevron-up fa-chevron-down");
+      });
+      $(".saveDraft").click(function () {
+        $(".saveDraft").html(
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
+        );
+        url = "{% url 'courses:update_course' course.pk %}";
+        form = $("#courseForm").serialize();
+        $.ajax({
+          type: "POST",
+          url: url,
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          data: form,
+          success: function (data) {
             $(".saveDraft").html(
-                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
+              '<span><i class="fal fa-save"></i><span>&nbsp;&nbsp;Save</span></span>'
             );
-            url = "{% url 'courses:update_course' course.pk %}";
-            form = $('#courseForm').serialize();
-            $.ajax({
-                type: 'POST',
-                url: url,
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}",
-                },
-                data: form,
-                success: function (data) {
-                    $(".saveDraft").html('<span><i class="fal fa-save"></i><span>&nbsp;&nbsp;Save</span></span>');
-                }
-            });
+          },
         });
+      });
 
-        function updateTopicList() {
-            url = "{% url 'courses:list_topics' course.pk %}";
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function (topics) {
-                    $('#topicList').empty();
-                    for (i in topics.topics) {
-                        $('#topicList').append(`
+      function updateTopicList() {
+        url = "{% url 'courses:list_topics' course.pk %}";
+        $.ajax({
+          type: "GET",
+          url: url,
+          success: function (topics) {
+            $("#topicList").empty();
+            for (i in topics.topics) {
+              $("#topicList").append(`
                             <div class="card bg-light text-start mb-3" data-topic-id="${topics.topics[i].id}">
                                 <div class="card-body p-0">
                                     <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
@@ -347,90 +523,88 @@
                                 </div>
                             </div>
                         `);
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        }
-
-        $("#topicForm").submit(function () {
-            event.preventDefault();
-            $("#saveTopic").html(
-                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
-            );
-            url = "{% url 'courses:create_topic' course.pk %}";
-            form = $('#topicForm').serialize();
-            $.ajax({
-                type: 'POST',
-                url: url,
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}",
-                },
-                data: form,
-                success: function (data) {
-                    $("#saveTopic").html('<span><b>Save Topic</b></span>');
-                    $("#topicModal").modal('hide');
-                    updateTopicList();
-                },
-                error: function (xhr, status, error) {
-                    var errorMessage = JSON.parse(xhr.responseText).error_message;
-                    console.log(errorMessage);
-                }
-            });
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error(error);
+          },
         });
+      }
 
-        $("#updateTopicForm").submit(function (event) {
-            event.preventDefault();
-
-            $("#saveUpdateTopic").html(
-                '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
-            );
-
-            topicId = $("#updateTopicForm input[name='topicId']").val()
-            url = `/courses/update-topic/${topicId}/`;
-            form = $('#updateTopicForm').serialize();
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                headers: {
-                    "X-CSRFToken": "{{ csrf_token }}",
-                },
-                data: form,
-                success: function (data) {
-                    $("#saveUpdateTopic").html('<span><b>Save Topic</b></span>');
-                    $("#updateTopicModal").modal('hide');
-                    updateTopicList();
-                },
-                error: function (xhr, status, error) {
-                    var errorMessage = JSON.parse(xhr.responseText).error_message;
-                    console.log(errorMessage);
-                }
-            });
+      $("#topicForm").submit(function () {
+        event.preventDefault();
+        $("#saveTopic").html(
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
+        );
+        url = "{% url 'courses:create_topic' course.pk %}";
+        form = $("#topicForm").serialize();
+        $.ajax({
+          type: "POST",
+          url: url,
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          data: form,
+          success: function (data) {
+            $("#saveTopic").html("<span><b>Save Topic</b></span>");
+            $("#topicModal").modal("hide");
+            updateTopicList();
+          },
+          error: function (xhr, status, error) {
+            var errorMessage = JSON.parse(xhr.responseText).error_message;
+            console.log(errorMessage);
+          },
         });
+      });
 
+      $("#updateTopicForm").submit(function (event) {
+        event.preventDefault();
 
-        const updateTopicModal = document.getElementById('updateTopicModal')
-        if (updateTopicModal) {
-            updateTopicModal.addEventListener('show.bs.modal', event => {
-                const button = event.relatedTarget
-                const topicId = button.getAttribute('data-bs-topic-id')
-                const topicTitle = button.getAttribute('data-bs-topic-title')
-                const topicSummary = button.getAttribute('data-bs-topic-summary')
-                const topicSortOrder = button.getAttribute('data-bs-topic-sort')
+        $("#saveUpdateTopic").html(
+          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
+        );
 
-                const modalTitle = updateTopicModal.querySelector('.modal-title')
-                modalTitle.textContent = `Edit: ${topicTitle}`
+        topicId = $("#updateTopicForm input[name='topicId']").val();
+        url = `/courses/update-topic/${topicId}/`;
+        form = $("#updateTopicForm").serialize();
 
-                $("#updateTopicForm input[name='title']").val(topicTitle)
-                $("#updateTopicForm input[name='topicId']").val(topicId)
-                $("#updateTopicForm textarea[name='summary']").val(topicSummary)
-                $("#updateTopicForm input[name='sort_order']").val(topicSortOrder)
-            })
-        }
+        $.ajax({
+          type: "POST",
+          url: url,
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+          },
+          data: form,
+          success: function (data) {
+            $("#saveUpdateTopic").html("<span><b>Save Topic</b></span>");
+            $("#updateTopicModal").modal("hide");
+            updateTopicList();
+          },
+          error: function (xhr, status, error) {
+            var errorMessage = JSON.parse(xhr.responseText).error_message;
+            console.log(errorMessage);
+          },
+        });
+      });
+
+      const updateTopicModal = document.getElementById("updateTopicModal");
+      if (updateTopicModal) {
+        updateTopicModal.addEventListener("show.bs.modal", (event) => {
+          const button = event.relatedTarget;
+          const topicId = button.getAttribute("data-bs-topic-id");
+          const topicTitle = button.getAttribute("data-bs-topic-title");
+          const topicSummary = button.getAttribute("data-bs-topic-summary");
+          const topicSortOrder = button.getAttribute("data-bs-topic-sort");
+
+          const modalTitle = updateTopicModal.querySelector(".modal-title");
+          modalTitle.textContent = `Edit: ${topicTitle}`;
+
+          $("#updateTopicForm input[name='title']").val(topicTitle);
+          $("#updateTopicForm input[name='topicId']").val(topicId);
+          $("#updateTopicForm textarea[name='summary']").val(topicSummary);
+          $("#updateTopicForm input[name='sort_order']").val(topicSortOrder);
+        });
+      }
     </script>
-</body>
-
+  </body>
 </html>
