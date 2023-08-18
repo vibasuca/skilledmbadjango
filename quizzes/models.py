@@ -200,7 +200,7 @@ class Attempt(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="quiz_attempts"
     )
-    seed = models.PositiveIntegerField()
+    seed = models.PositiveIntegerField(default=0)
     is_completed = models.BooleanField(default=False)
     instructor_feedback = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
