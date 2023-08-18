@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     # 3rd Party
+    "rest_framework",
     "captcha",
     "allauth",
     "allauth.account",
