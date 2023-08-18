@@ -166,7 +166,8 @@
           <select
             name="prerequisite_courses"
             id="id_prerequisite_courses"
-            multiple=""
+            multiple="multiple"
+            class="course-prerequisites-multiple"
           >
             <option value="32">
               neerajadhav's course: New Course assd sdsd
@@ -181,5 +182,6 @@
 <script>
   $(document).ready(function () {
     $(".course-tags-multiple").select2();
+    $(".course-prerequisites-multiple").select2();
   });
 </script>
