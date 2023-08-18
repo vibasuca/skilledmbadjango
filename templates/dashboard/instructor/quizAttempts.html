@@ -1,113 +1,94 @@
-{% extends "dashboard/base.html" %}
-
-
-{% block content %}
+{% extends "dashboard/base.html" %} {% block content %}
 <div>
-    <!--Page Title-->
-    <div class="container-fluid title-content">
-        <div class="py-3" style="font-size: 14px;">
-            <div class="container mt-4">
-                <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Quiz Attempts</h3>
-            </div>
-        </div>
+  <!--Page Title-->
+  <div class="container-fluid title-content">
+    <div class="py-3" style="font-size: 14px">
+      <div class="container mt-4">
+        <h3 class="fw-normal mb-3" style="letter-spacing: 1px">
+          Quiz Attempts
+        </h3>
+      </div>
     </div>
+  </div>
 
-    <!-- Page Content -->
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <td scope="col">Course Info</td>
-                            <td scope="col">Student</td>
-                            <td scope="col">Correct Answers</td>
-                            <td scope="col">Incorrect Answers</td>
-                            <td scope="col">Earned Marks</td>
-                            <td scope="col">Result</td>
-                            <td scope="col"></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="#" class="fw-bold">Course Name</a><br>
-                                <small>Date Question Total Marks</small>
-                            </td>
-                            <td>
-                                <a href="#" class="fw-bold">Student Name</a><br>
-                                <small>Student Email</small>
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1.00 (80%)
-                            </td>
-                            <td>
-                                <span class="badge bg-success">Pass</span>
-                            </td>
-                            <td>
-                                <a href="#" class="text-primary">Details</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="fw-bold">Course Name</a><br>
-                                <small>Date Question Total Marks</small>
-                            </td>
-                            <td>
-                                <a href="#" class="fw-bold">Student Name</a><br>
-                                <small>Student Email</small>
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1.00 (80%)
-                            </td>
-                            <td>
-                                <span class="badge bg-success">Pass</span>
-                            </td>
-                            <td>
-                                <a href="#" class="text-primary">Details</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="#" class="fw-bold">Course Name</a><br>
-                                <small>Date Question Total Marks</small>
-                            </td>
-                            <td>
-                                <a href="#" class="fw-bold">Student Name</a><br>
-                                <small>Student Email</small>
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                0
-                            </td>
-                            <td>
-                                1.00 (80%)
-                            </td>
-                            <td>
-                                <span class="badge bg-danger">Fail</span>
-                            </td>
-                            <td>
-                                <a href="#" class="text-primary">Details</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+  <!-- Page Content -->
+  <div class="container">
+    <div class="card bg-transparent border-0">
+      <div class="card-body p-0 table-responsive border rounded">
+        <table class="table m-0 align-middle">
+          <thead>
+            <tr>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Course Info
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Student
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Correct&nbsp;Answers
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Incorrect&nbsp;Answers
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Earned&nbsp;Marks
+              </td>
+              <td colspan="2" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Result
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-4" style="font-size: 15px;">
+                <a href="#">Course Name</a><br />
+                <div class="d-flex gap-3 pt-2">
+                    <div class="text-muted">August 8, 2023 7:40 am</div>
+                    <div><span style="color: #9aa5b3;">Question:</span> <span style="font-weight: 300;">1</span></div>
+                    <div><span style="color: #9aa5b3;">Total Marks:</span> <span style="font-weight: 300;">1.00</span><div>
+                </div>
+              </td>
+              <td class="p-4 text-muted" style="font-size: 15px;">
+                <a href="#">Student Name</a><br />
+                <small>Stud4nt Email</small>
+              </td>
+              <td class="p-4" style="font-size: 15px;">1</td>
+              <td class="p-4" style="font-size: 15px;">0</td>
+              <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+              <td class="p-4" style="font-size: 15px;">
+                <div class="alert alert-danger py-1 px-2 mb-0 text-center" style="font-size: 12px; width: 80px;">Fail</div>
+              </td>
+              <td class="p-4" style="font-size: 15px;">
+                <a href="#" class="text-primary">Details</a>
+              </td>
+            </tr>
+            <tr>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="#">Course Name</a><br />
+                  <div class="d-flex gap-3 pt-2">
+                      <div class="text-muted">August 8, 2023 7:40 am</div>
+                      <div><span style="color: #9aa5b3;">Question:</span> <span style="font-weight: 300;">1</span></div>
+                      <div><span style="color: #9aa5b3;">Total Marks:</span> <span style="font-weight: 300;">1.00</span><div>
+                  </div>
+                </td>
+                <td class="p-4 text-muted" style="font-size: 15px;">
+                  <a href="#">Student Name</a><br />
+                  <small>Stud4nt Email</small>
+                </td>
+                <td class="p-4" style="font-size: 15px;">1</td>
+                <td class="p-4" style="font-size: 15px;">0</td>
+                <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+                <td class="p-4" style="font-size: 15px;">
+                  <div class="alert alert-success py-1 px-2 mb-0 text-center" style="font-size: 12px; width: 80px;">Pass</div>
+                </td>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="#" class="text-primary">Details</a>
+                </td>
+              </tr>
+        </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock content %}

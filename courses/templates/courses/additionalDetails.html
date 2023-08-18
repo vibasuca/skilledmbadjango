@@ -1,67 +1,111 @@
 <div class="card text-start mb-3">
-    <div class="card-body p-0">
-        <div class="section p-4" style="cursor: pointer;" data-bs-toggle="collapse" href="#card6">
-            <i class="fas fa-chevron-down text-primary"></i>
-            <span class="fs-4">&nbsp;&nbsp;Additional Details</span>
-        </div>
-        <div class="collapse show" id="card6">
-            <div class="m-4 mt-0">
-                <!--content in here-->
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">What will I learn?</label>
-                    <textarea class="form-control" placeholder="Write here the course benefits (One per line)"
-                        rows="3"></textarea>
-                </div>
-
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">Target Audience</label>
-                    <textarea class="form-control"
-                        placeholder="Specify the target audience that will benefit the most from the course. (One line per target audience.)"
-                        rows="3"></textarea>
-                </div>
-
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">Course duration</label>
-                    <div class="d-flex gap-3">
-                        <div>
-                            <input type="number" class="form-control p-3 mb-2" placeholder="Hours" />
-                            <small class="text-muted">
-                                Hours
-                            </small>
-                        </div>
-                        <div>
-                            <input type="number" class="form-control p-3 mb-2" placeholder="Minutes" />
-                            <small class="text-muted">
-                                Minutes
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">Materials Included</label>
-                    <textarea class="form-control"
-                        placeholder="A list of assets you will be providing for the students in this course (One per line)"
-                        rows="3"></textarea>
-                </div>
-
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
-                    <textarea class="form-control"
-                        placeholder="Additional requirements or special instructions for the students (One per line)"
-                        rows="3"></textarea>
-                </div>
-
-                <div class="form-outline mb-3">
-                    <label class="form-label my-2 fw-bold">Course tags</label>
-                    <select class="form-select p-3 mb-2" aria-label="Default select example">
-                        <option selected>Multiple select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
-            </div>
-        </div>
+  <div class="card-body p-0">
+    <div
+      class="section p-4"
+      style="cursor: pointer"
+      data-bs-toggle="collapse"
+      href="#card6"
+    >
+      <i class="fas fa-chevron-down text-primary"></i>
+      <span class="fs-4">&nbsp;&nbsp;Additional Details</span>
     </div>
+    <div class="collapse show" id="card6">
+      <div class="m-4 mt-0">
+        <!--content in here-->
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">What will I learn?</label>
+          <textarea
+            class="form-control"
+            placeholder="Write here the course benefits (One per line)"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">Target Audience</label>
+          <textarea
+            class="form-control"
+            placeholder="Specify the target audience that will benefit the most from the course. (One line per target audience.)"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">Course duration</label>
+          <div class="d-flex gap-3">
+            <div>
+              <input
+                type="number"
+                class="form-control p-3 mb-2"
+                placeholder="Hours"
+              />
+              <small class="text-muted"> Hours </small>
+            </div>
+            <div>
+              <input
+                type="number"
+                class="form-control p-3 mb-2"
+                placeholder="Minutes"
+              />
+              <small class="text-muted"> Minutes </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">Materials Included</label>
+          <textarea
+            class="form-control"
+            placeholder="A list of assets you will be providing for the students in this course (One per line)"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold"
+            >Requirements/Instructions</label
+          >
+          <textarea
+            class="form-control"
+            placeholder="Additional requirements or special instructions for the students (One per line)"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">Course tags</label>
+          <select
+            class="course-tags-multiple form-select p-3 mb-2"
+            aria-label="Default select example"
+            multiple="multiple"
+          >
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+          <select
+            class="language-select-single form-select p-3 mb-2"
+            id="language"
+            name="language"
+            aria-label="Select Language"
+          >
+            <option value="E">English</option>
+            <option value="F">French</option>
+            <option value="G">German</option>
+            <option value="I">Italian</option>
+            <option value="J">Japanese</option>
+            <option value="K">Korean</option>
+            <option value="R">Russian</option>
+            <option value="S">Spanish</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $(".course-tags-multiple").select2();
+  });
+</script>
