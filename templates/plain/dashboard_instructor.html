@@ -17,6 +17,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
         integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
 </head>
 
 <body>
@@ -151,7 +154,8 @@
                             src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
                             alt="user photo">
                         <div class="d-flex flex-column">
-                            <b class="greet-text"><span style="color: #9b9b9b;" class="d-none d-lg-inline">Howdy,</span> Instructor</b>
+                            <b class="greet-text"><span style="color: #9b9b9b;" class="d-none d-lg-inline">Howdy,</span>
+                                Instructor</b>
                             <span class="greet-text">
                                 <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px;"></i>
                                 <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px;"></i>
@@ -174,29 +178,181 @@
                 </div>
             </header>
 
-            <!--Page Title-->
-            <div class="container-fluid title-content">
-                <div class="py-3" style="font-size: 14px;">
-                    <div class="container mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="#">Parent page</a>
-                                </li>
-                                <li class="breadcrumb-item">Page title</li>
-                            </ol>
-                        </nav>
-                        <h3 class="fw-normal mb-3" style="letter-spacing: 1px;">Page title</h3>
+            <!-- Page Content -->
+            <div>
+                <!--Page Title-->
+                <div class="container-fluid title-content">
+                    <div class="py-3" style="font-size: 14px">
+                        <div class="container mt-4">
+                            <p>
+                                <a href="#"><i class="fas fa-long-arrow-left"></i> Back</a>
+                            </p>
+                            <p>Course: New Course</p>
+                            <h4>Demo Quiz</h4>
+                            <p>
+                                Student: <b>Om Dahale</b>&nbsp;&nbsp;&nbsp;
+                                Quiz Time: <b>0 Minutes</b>&nbsp;&nbsp;&nbsp;
+                                Attempt Time: <b>16 Seconds</b>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Page Content -->
-            <div class="container">
-                <div class="card">
-                    <div class="card-body">
-                        Page content
+                <!-- main Content -->
+                <div class="container">
+                    <div class="card bg-transparent border-0 mb-5">
+                        <div class="card-body p-0 table-responsive border rounded">
+                            <table class="table m-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Date</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Question</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Total&nbsp;Marks</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Pass&nbsp;Marks</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Correct&nbsp;Answer</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Incorrect&nbsp;Answer</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Earned&nbsp;Marks</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Result</b>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">August 8, 2023 7:40 am</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold">1</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold">1.0</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold">0.80 (80%)</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold">1</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold">August 8, 2023 7:40 am</div>
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            <div class="fw-bold"> 1.00 (100%)</div>
+                                        </td>
+                                        <td>
+                                            <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                                style="font-size: 12px; width: 80px;">
+                                                Fail
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
+                    <h6>Quiz Overview</h6>
+                    <div class="card bg-transparent border-0 mb-5">
+                        <div class="card-body p-0 table-responsive border rounded">
+                            <table class="table m-0 align-middle">
+                                <thead>
+
+                                    <tr>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>No</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Type</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Questions</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Given&nbsp;Answer</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Correct&nbsp;Answer</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Result</b>
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            <b>Review</b>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">1</div>
+                                        </td>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">type</div>
+                                        </td>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">Question 66</div>
+                                        </td>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">True</div>
+                                        </td>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="fw-bold">False</div>
+                                        </td>
+                                        <td>
+                                            <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                                style="font-size: 12px; width: 80px;">
+                                                Fail
+                                            </div>
+                                        </td>
+                                        <td class="p-4" style="font-size: 16px;">
+                                            <div class="d-flex gap-3">
+                                                <button class="btn btn-outline-success">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                                <button class="btn btn-outline-danger">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <h6>Instructor Feedback</h6>
+                    <div id="instructorFeedback"></div>
+                    <button class="btn btn-primary p-3 my-4">
+                        Update
+                    </button>
                 </div>
             </div>
 
@@ -209,6 +365,8 @@
             $("#wrapper").toggleClass("toggled");
             $(".overlay").toggleClass("toggled");
         });
+
+        ClassicEditor.create(document.querySelector("#instructorFeedback"));
     </script>
     <script src="./js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

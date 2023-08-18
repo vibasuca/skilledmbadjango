@@ -1,0 +1,184 @@
+{% extends "dashboard/base.html" %} {% block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+<!-- Page Content -->
+<div>
+    <!--Page Title-->
+    <div class="container-fluid title-content">
+        <div class="py-3" style="font-size: 14px">
+            <div class="container mt-4">
+                <p>
+                    <a href="#"><i class="fas fa-long-arrow-left"></i> Back</a>
+                </p>
+                <p>Course: New Course</p>
+                <h4>Demo Quiz</h4>
+                <p>
+                    Student: <b>Om Dahale</b>&nbsp;&nbsp;&nbsp;
+                    Quiz Time: <b>0 Minutes</b>&nbsp;&nbsp;&nbsp;
+                    Attempt Time: <b>16 Seconds</b>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- main Content -->
+    <div class="container">
+        <div class="card bg-transparent border-0 mb-5">
+            <div class="card-body p-0 table-responsive border rounded">
+                <table class="table m-0 align-middle">
+                    <thead>
+                        <tr>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Date</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Question</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Total&nbsp;Marks</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Pass&nbsp;Marks</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Correct&nbsp;Answer</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Incorrect&nbsp;Answer</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Earned&nbsp;Marks</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Result</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">August 8, 2023 7:40 am</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold">1</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold">1.0</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold">0.80 (80%)</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold">1</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold">August 8, 2023 7:40 am</div>
+                            </td>
+                            <td class="p-4 text-muted" style="font-size: 15px;">
+                                <div class="fw-bold"> 1.00 (100%)</div>
+                            </td>
+                            <td>
+                                <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                    style="font-size: 12px; width: 80px;">
+                                    Fail
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h6>Quiz Overview</h6>
+        <div class="card bg-transparent border-0 mb-5">
+            <div class="card-body p-0 table-responsive border rounded">
+                <table class="table m-0 align-middle">
+                    <thead>
+
+                        <tr>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>No</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Type</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Questions</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Given&nbsp;Answer</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Correct&nbsp;Answer</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Result</b>
+                            </td>
+                            <td scope="col" class="py-3 px-4 text-muted"
+                                style="font-size: 15px; background: #f4f9ff;">
+                                <b>Review</b>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">1</div>
+                            </td>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">type</div>
+                            </td>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">Question 66</div>
+                            </td>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">True</div>
+                            </td>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="fw-bold">False</div>
+                            </td>
+                            <td>
+                                <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                    style="font-size: 12px; width: 80px;">
+                                    Fail
+                                </div>
+                            </td>
+                            <td class="p-4" style="font-size: 16px;">
+                                <div class="d-flex gap-3">
+                                    <button class="btn btn-outline-success">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-outline-danger">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h6>Instructor Feedback</h6>
+        <div id="instructorFeedback"></div>
+        <button class="btn btn-primary p-3 my-4">
+            Update
+        </button>
+    </div>
+</div>
+
+<script>
+    ClassicEditor.create(document.querySelector("#instructorFeedback"));
+</script>
+{% endblock content %}
