@@ -1,0 +1,98 @@
+{% extends "dashboard/base.html" %} {% block content %}
+<div>
+  <!--Page Title-->
+  <div class="container-fluid title-content">
+    <div class="py-3" style="font-size: 14px">
+      <div class="container mt-4">
+        <h3 class="fw-normal mb-3" style="letter-spacing: 1px">
+          Quiz Attempts
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="card bg-transparent border-0">
+      <div class="card-body p-0 table-responsive border rounded">
+        <table class="table m-0 align-middle">
+          <thead>
+            <tr>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Course Info
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Student
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Correct&nbsp;Answers
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Incorrect&nbsp;Answers
+              </td>
+              <td scope="col" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Earned&nbsp;Marks
+              </td>
+              <td colspan="2" class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                Result
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for attempt in attempts %}
+              <tr>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="#" style="font-weight: bolder">{{attempt.quiz.topic_item.topic.course.title}}</a><br />
+                  <div class="d-flex gap-3 pt-2">
+                      <small class="text-muted">{{attempt.created_at}}</small>
+                      <small><span style="color: #9aa5b3;">Question:</span> <span style="font-weight: 300;">1</span></small>
+                      <small><span style="color: #9aa5b3;">Total Marks:</span> <span style="font-weight: 300;">1.00</span><small>
+                  </div>
+                </td>
+                <td class="p-4 text-muted" style="font-size: 15px;">
+                  <small href="#">{{attempt.user.first_name}} {{attempt.user.last_name}}</small><br />
+                  <small>{{attempt.user.email}}</small>
+                </td>
+                <td class="p-4" style="font-size: 15px;">1</td>
+                <td class="p-4" style="font-size: 15px;">0</td>
+                <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+                <td class="p-4" style="font-size: 15px;">
+                  <div class="alert alert-danger py-1 px-2 mb-0 text-center" style="font-size: 12px; width: 80px;">Fail</div>
+                </td>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="{% url 'quizzes:quiz_attempt_detail' attempt.pk %}" class="text-primary">Details</a>
+                </td>
+              </tr>
+            {% endfor %}
+            {% comment %} 
+            <tr>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="#">Course Name</a><br />
+                  <div class="d-flex gap-3 pt-2">
+                      <div class="text-muted">August 8, 2023 7:40 am</div>
+                      <div><span style="color: #9aa5b3;">Question:</span> <span style="font-weight: 300;">1</span></div>
+                      <div><span style="color: #9aa5b3;">Total Marks:</span> <span style="font-weight: 300;">1.00</span><div>
+                  </div>
+                </td>
+                <td class="p-4 text-muted" style="font-size: 15px;">
+                  <a href="#">Student Name</a><br />
+                  <small>Stud4nt Email</small>
+                </td>
+                <td class="p-4" style="font-size: 15px;">1</td>
+                <td class="p-4" style="font-size: 15px;">0</td>
+                <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+                <td class="p-4" style="font-size: 15px;">
+                  <div class="alert alert-success py-1 px-2 mb-0 text-center" style="font-size: 12px; width: 80px;">Pass</div>
+                </td>
+                <td class="p-4" style="font-size: 15px;">
+                  <a href="#" class="text-primary">Details</a>
+                </td>
+            </tr> 
+            {% endcomment %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
