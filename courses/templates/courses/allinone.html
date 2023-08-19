@@ -2,20 +2,25 @@
 
 {% include 'courses/courseInfo.html' %}
 <!--do not remove-->
-{% include 'courses/video.html' %} 
+{% include 'courses/video.html' %}
 <!--do not remove-->
-{%include 'courses/courseBuilder.html' %} 
+{%include 'courses/courseBuilder.html' %}
 <!--do not remove-->
 {% include 'courses/instructor.html' %}
 
+<style>
+  .select2-container--default .select2-selection--multiple {
+    padding: 10px;
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    cursor: text;
+    position: relative;
+}
+</style>
+
 <div class="card text-start mb-3">
   <div class="card-body p-0">
-    <div
-      class="section p-4"
-      style="cursor: pointer"
-      data-bs-toggle="collapse"
-      href="#card5"
-    >
+    <div class="section p-4" style="cursor: pointer" data-bs-toggle="collapse" href="#card5">
       <i class="fas fa-chevron-down text-primary"></i>
       <span class="fs-4">&nbsp;&nbsp;Course Attachments</span>
     </div>
@@ -25,7 +30,8 @@
           <label for="id_attachments" class="text-danger">Attachments:</label>
           <select name="attachments" id="id_attachments" multiple=""></select>
         </p> {% endcomment %}
-        <button type="button" data-bs-toggle="modal" data-bs-target="#attachmentModal" class="btn btn-outline-primary p-3">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#attachmentModal"
+          class="btn btn-outline-primary p-3">
           <i class="fas fa-paperclip"></i>
           <span>&nbsp;&nbsp;Upload Attachment</span>
         </button>
@@ -36,12 +42,7 @@
 
 <div class="card text-start mb-3">
   <div class="card-body p-0">
-    <div
-      class="section p-4"
-      style="cursor: pointer"
-      data-bs-toggle="collapse"
-      href="#card7"
-    >
+    <div class="section p-4" style="cursor: pointer" data-bs-toggle="collapse" href="#card7">
       <i class="fas fa-chevron-down text-primary"></i>
       <span class="fs-4">&nbsp;&nbsp;Additional Data</span>
     </div>
@@ -49,110 +50,65 @@
       <div class="m-4 mt-0">
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">What will I learn?</label>
-          <textarea
-            class="form-control"
-            name="what_will_i_learn"
-            placeholder="Write here the course benefits (One per line)"
-            rows="3"
-          >
-{{ course.what_will_i_learn | safe }}</textarea
-          >
+          <textarea class="form-control" name="what_will_i_learn"
+            placeholder="Write here the course benefits (One per line)" rows="3">
+{{ course.what_will_i_learn | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Target Audience</label>
-          <textarea
-            class="form-control"
-            name="target_audience"
+          <textarea class="form-control" name="target_audience"
             placeholder="Specify the target audience that will benefit the most from the course. (One line per target audience.)"
-            rows="3"
-          >
-{{ course.target_audience | safe }}</textarea
-          >
+            rows="3">
+{{ course.target_audience | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Course duration</label>
           <div class="d-flex gap-3">
             <div>
-              <input
-              id="hour-js"
-                type="number"
-                class="form-control p-3 mb-2"
-                placeholder="Hours"
-                value="{{course.duration|get_timedelta_hours}}"
-              />
+              <input id="hour-js" type="number" class="form-control p-3 mb-2" placeholder="Hours"
+                value="{{course.duration|get_timedelta_hours}}" />
               <small class="text-muted"> Hours </small>
             </div>
             <div>
-              <input
-              id="minute-js"
-                type="number"
-                class="form-control p-3 mb-2"
-                placeholder="Minutes"
-                value="{{course.duration|get_timedelta_minutes}}"
-              />
+              <input id="minute-js" type="number" class="form-control p-3 mb-2" placeholder="Minutes"
+                value="{{course.duration|get_timedelta_minutes}}" />
               <small class="text-muted"> Minutes </small>
             </div>
           </div>
         </div>
-        
+
         <input type="hidden" name="duration" id="duration-js">
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Materials Included</label>
-          <textarea
-            class="form-control"
-            name="materials_included"
+          <textarea class="form-control" name="materials_included"
             placeholder="A list of assets you will be providing for the students in this course (One per line)"
-            rows="3"
-          >
-{{ course.materials_included | safe }}</textarea
-          >
+            rows="3">
+{{ course.materials_included | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
-          <label class="form-label my-2 fw-bold"
-            >Requirements/Instructions</label
-          >
-          <textarea
-            class="form-control"
-            name="requirements"
-            placeholder="Additional requirements or special instructions for the students (One per line)"
-            rows="3"
-          >
-{{ course.requirements | safe }}</textarea
-          >
+          <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
+          <textarea class="form-control" name="requirements"
+            placeholder="Additional requirements or special instructions for the students (One per line)" rows="3">
+{{ course.requirements | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Course tags</label>
-          <select
-            class="course-tags-multiple form-select p-3 mb-2"
-            aria-label="Default select example"
-            multiple="multiple"
-            name="tags"
-          >
+          <select class="course-tags-multiple form-select p-3 mb-2" aria-label="Default select example"
+            multiple="multiple" name="tags">
             {% for tag in tags %}
-            <option
-             value={{ tag.id }}
-              {% if tag in course.tags.all %}
-              selected
-              {% endif %}
-            >{{ tag.title }}</option>
+            <option value={{ tag.id }} {% if tag in course.tags.all %} selected {% endif %}>{{ tag.title }}</option>
             {% endfor %}
           </select>
         </div>
 
         {% comment %} <p>
           <label for="id_duration" class="text-danger">Duration:</label>
-          <input
-            type="text"
-            name="duration"
-            value="00:00:00"
-            required=""
-            id="id_duration"
-          />
+          <input type="text" name="duration" value="00:00:00" required="" id="id_duration" />
         </p>
 
         <p>
@@ -166,35 +122,20 @@
 
 <div class="card text-start mb-3">
   <div class="card-body p-0">
-    <div
-      class="section p-4"
-      style="cursor: pointer"
-      data-bs-toggle="collapse"
-      href="#card6"
-    >
+    <div class="section p-4" style="cursor: pointer" data-bs-toggle="collapse" href="#card6">
       <i class="fas fa-chevron-down text-primary"></i>
       <span class="fs-4">&nbsp;&nbsp;Course Prerequisites</span>
     </div>
     <div class="collapse show" id="card6">
       <div class="m-4 mt-0">
         <p>
-          <label for="id_prerequisite_courses" class="form-label my-2 fw-bold"
-            >Select course</label
-          ><br>
-          <select
-            name="prerequisite_courses"
-            id="id_prerequisite_courses"
-            multiple="multiple"
-            class="course-prerequisites-multiple form-select"
-          >
-          {% for pr_course in user.courses.all %}
-            <option 
-              value={{ pr_course.id }}
-              {% if pr_course in course.prerequisite_courses.all %}
-              selected
-              {% endif %}
-              >{{ pr_course.title }}</option>
-          {% endfor %}
+          <label for="id_prerequisite_courses" class="form-label my-2 fw-bold">Select course</label><br>
+          <select name="prerequisite_courses" id="id_prerequisite_courses" multiple="multiple"
+            class="course-prerequisites-multiple form-select" style="width: 50%;">
+            {% for pr_course in user.courses.all %}
+            <option value={{ pr_course.id }} {% if pr_course in course.prerequisite_courses.all %} selected {% endif %}>
+              {{ pr_course.title }}</option>
+            {% endfor %}
           </select>
         </p>
       </div>
@@ -204,7 +145,14 @@
 
 <script>
   $(document).ready(function () {
-    $(".course-tags-multiple").select2();
-    $(".course-prerequisites-multiple").select2();
+    $(".course-tags-multiple").select2({
+      placeholder: 'Select multiple tags',
+    });
+    $(".course-prerequisites-multiple").select2({
+      placeholder: 'Select multiple courses',
+      backgroundColor: 'red',
+      width: 'resolve',
+      padding: '100px',
+    });
   });
 </script>

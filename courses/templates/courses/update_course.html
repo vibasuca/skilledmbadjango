@@ -448,6 +448,341 @@
       </div>
     </div>
 
+    <!-- Add Lesson -->
+    <div
+      class="modal fade"
+      id="lessonModal"
+      tabindex="-1"
+      aria-labelledby="lessonModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="lessonModalLabel">Lesson</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="lesson-form">
+            {% csrf_token %}
+            <div class="modal-body px-4">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Lesson Name</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  class="form-control p-3 mb-2"
+                  value="test title"
+                  required
+                />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Lesson titles are displayed
+                  publicly wherever required.
+                </small>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label my-2 fw-bold">Lesson Content</label>
+                <div id="lesson-content-editor">
+                  {{ course.description|safe }}
+                </div>
+                <br />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> The idea of a summary is a
+                  short text to prepare students for the activities within the
+                  topic or week. The text is shown on the course page under the
+                  topic name.
+                </small>
+              </div>
+
+              <div class="d-flex border rounded">
+                <div class="p-3">
+                  <div class="thumbnail-preview" id="thumbnailPreview">
+                    <img
+                      class="img-fluid"
+                      src="{% static 'images/thumbnail-placeholder.svg' %}"
+                      alt="thumbnail"
+                    />
+                  </div>
+                </div>
+                <div class="p-3 d-flex align-items-center" style="width: 100%">
+                  <span>
+                    <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                    <p>File Support:</p>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#mediaModal"
+                    >
+                      Media Library
+                    </button>
+                  </span>
+                </div>
+              </div>
+
+              <div class="my-4">
+                <div class="card border-0">
+                  <div class="card-body border border-warning rounded">
+                    <i class="far fa-exclamation-circle text-warning fa-lg"></i
+                    >&nbsp;&nbsp;No video source selected from settings!
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label my-2 fw-bold"
+                  >Upload exercise files to the Lesson</label
+                >
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary p-3">
+                  <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
+                    >Upload Attachments</span
+                  >
+                </button>
+              </div>
+
+              <div class="d-flex align-items-center gap-3 mb-4">
+                <input
+                  type="checkbox"
+                  id="enable_preview"
+                  name="enable_preview"
+                  class="form-check-input"
+                  style="padding: 10px"
+                />
+                <label for="enable_preview">Enable Course Preview:</label>
+              </div>
+              <small class="text-muted">
+                <i class="fal fa-info-circle"></i> If checked, any users/guest
+                can view this lesson without enroll course
+              </small>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Assignment -->
+    <div
+      class="modal fade"
+      id="assignmentModal"
+      tabindex="-1"
+      aria-labelledby="assignmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="assignmentModalLabel">
+              Assignment
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="assignment-form">
+            {% csrf_token %}
+            <div class="modal-body">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Assignment Name</label>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  class="form-control p-3 mb-2"
+                  value="test title"
+                  required
+                />
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label my-2 fw-bold">Summary</label>
+                <div id="assignment-summary-editor">
+                  {{ course.description|safe }}
+                </div>
+              </div>
+
+              <div class="form-outline mb-4">
+                <label class="form-label my-2 fw-bold"
+                  >Upload exercise files to the Lesson</label
+                >
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="card my-3" style="max-width: 350px">
+                  <div class="card-body">
+                    <div class="d-flex flex-column">
+                      <b style="font-weight: 500">File name</b>
+                      <span style="color: #9e9e9e"> File size </span>
+                    </div>
+                  </div>
+                </div>
+                <button class="btn btn-primary p-3">
+                  <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
+                    >Upload Attachments</span
+                  >
+                </button>
+              </div>
+
+              <div class="py-2" style="max-width: 350px">
+                <div class="form-outline mb-3">
+                  <label class="form-label my-2 fw-bold">Time Limit</label>
+                  <input
+                    type="number"
+                    id="time_limit"
+                    name="time_limit"
+                    class="form-control p-3 mb-2"
+                    placeholder="Time Limit"
+                  />
+                  <small class="text-muted">
+                    <i class="fal fa-info-circle"></i> Maximum points a student
+                    can score
+                  </small>
+                </div>
+              </div>
+
+              <div class="py-2" style="max-width: 350px">
+                <div class="form-outline mb-3">
+                  <label class="form-label my-2 fw-bold">Total Points</label>
+                  <input
+                    type="number"
+                    id="time_limit"
+                    name="time_limit"
+                    class="form-control p-3 mb-2"
+                    placeholder="Time Limit"
+                  />
+                  <small class="text-muted">
+                    <i class="fal fa-info-circle"></i> Maximum points a student
+                    can score
+                  </small>
+                </div>
+              </div>
+
+              <div class="py-2" style="max-width: 350px">
+                <div class="form-outline mb-3">
+                  <label class="form-label my-2 fw-bold"
+                    >Minimum Passing Points</label
+                  >
+                  <input
+                    type="number"
+                    id="time_limit"
+                    name="time_limit"
+                    class="form-control p-3 mb-2"
+                    placeholder="Time Limit"
+                  />
+                  <small class="text-muted">
+                    <i class="fal fa-info-circle"></i> Minimum points required
+                    for the student to pass this assignment.
+                  </small>
+                </div>
+              </div>
+
+              <div class="py-2" style="max-width: 350px">
+                <div class="form-outline mb-3">
+                  <label class="form-label my-2 fw-bold"
+                    >Maximum File Uploads</label
+                  >
+                  <input
+                    type="number"
+                    id="time_limit"
+                    name="time_limit"
+                    class="form-control p-3 mb-2"
+                    placeholder="Time Limit"
+                  />
+                  <small class="text-muted">
+                    <i class="fal fa-info-circle"></i> Define the number of
+                    files that a student can upload in this assignment. Input 0
+                    to disable the option to upload.
+                  </small>
+                </div>
+              </div>
+
+              <div class="py-2" style="max-width: 350px">
+                <div class="form-outline mb-3">
+                  <label class="form-label my-2 fw-bold">File Size Limit</label>
+                  <input
+                    type="number"
+                    id="time_limit"
+                    name="time_limit"
+                    class="form-control p-3 mb-2"
+                    placeholder="Time Limit"
+                  />
+                  <small class="text-muted">
+                    <i class="fal fa-info-circle"></i> Define maximum file size
+                    attachment in MB
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="{% static 'js/script.js' %}"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -570,43 +905,43 @@
             $("#topicList").empty();
             for (i in topics.topics) {
               $("#topicList").append(`
-                            <div class="card bg-light text-start mb-3" data-topic-id="${topics.topics[i].id}">
-                                <div class="card-body p-0">
-                                    <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
-                                        style="cursor: pointer;">
-                                        <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topics.topics[i].title}</span>
-                                        <span class="d-flex gap-2 px-2">
-                                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal" data-bs-topic-sort="${topics.topics[i].sort_order}" data-bs-topic-id="${topics.topics[i].id}" data-bs-topic-title="${topics.topics[i].title}" data-bs-topic-summary="${topics.topics[i].summary}"><i class="fas fa-edit text-muted"></i></button>
-                                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                                            <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#topic-${topics.topics[i].id}"><i class="fas fa-chevron-down text-muted"></i></button>
-                                        </span>
-                                    </div>
-                                    <div class="collapse" id="topic-${topics.topics[i].id}">
-                                        <div class="card card-body">
-                                            <div class="d-flex gap-3">
-                                                <!-- Button for Add Lesson -->
-                                                <button type="button" class="btn btn-outline-primary">
+                              <div class="card bg-light text-start mb-3" data-topic-id="${topics.topics[i].id}">
+                                  <div class="card-body p-0">
+                                      <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
+                                          style="cursor: pointer;">
+                                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topics.topics[i].title}</span>
+                                          <span class="d-flex gap-2 px-2">
+                                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal" data-bs-topic-sort="${topics.topics[i].sort_order}" data-bs-topic-id="${topics.topics[i].id}" data-bs-topic-title="${topics.topics[i].title}" data-bs-topic-summary="${topics.topics[i].summary}"><i class="fas fa-edit text-muted"></i></button>
+                                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                                              <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#topic-${topics.topics[i].id}"><i class="fas fa-chevron-down text-muted"></i></button>
+                                          </span>
+                                      </div>
+                                      <div class="collapse show" id="topic-${topics.topics[i].id}">
+                                          <div class="card card-body">
+                                              <div class="d-flex gap-3">
+                                                  <!-- Button for Add Lesson -->
+                                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topics.topics[i].id}">
                                                     <i class="fas fa-plus-square"></i>
-                                                    &nbsp;Lesson
-                                                </button>
-                                                
-                                                <!-- Button for Add Quiz -->
-                                                <button type="button" class="btn btn-outline-primary">
+                                                      &nbsp;Lesson
+                                                  </button>
+
+                                                  <!-- Button for Add Quiz -->
+                                                  <button type="button" class="btn btn-outline-primary">
+                                                      <i class="fas fa-plus-square"></i>
+                                                      &nbsp;Quiz
+                                                  </button>
+
+                                                  <!-- Button for Add Assignment -->
+                                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topics.topics[i].id}">
                                                     <i class="fas fa-plus-square"></i>
-                                                    &nbsp;Quiz
-                                                </button>
-                                                
-                                                <!-- Button for Add Assignment -->
-                                                <button type="button" class="btn btn-outline-primary">
-                                                    <i class="fas fa-plus-square"></i>
-                                                    &nbsp;Assignment
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `);
+                                                      &nbsp;Assignment
+                                                  </button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          `);
             }
           },
           error: function (xhr, status, error) {
@@ -687,6 +1022,54 @@
           $("#updateTopicForm input[name='topicId']").val(topicId);
           $("#updateTopicForm textarea[name='summary']").val(topicSummary);
           $("#updateTopicForm input[name='sort_order']").val(topicSortOrder);
+        });
+      }
+
+      const lessonModal = document.getElementById("lessonModal");
+      if (lessonModal) {
+        ClassicEditor.create(document.querySelector("#lesson-content-editor"));
+
+        lessonTopicId = "";
+        lessonModal.addEventListener("show.bs.modal", (event) => {
+          const button = event.relatedTarget;
+          const selectedTopicId = button.getAttribute("data-topic-id");
+          lessonTopicId = selectedTopicId;
+        });
+
+        $("#lesson-form").submit(function () {
+          event.preventDefault();
+          url = `/courses/create-lesson/${lessonTopicId}/`;
+          form = JSON.stringify($("#lesson-form").serialize());
+          console.log(form);
+
+          $.ajax({
+            type: "POST",
+            url: url,
+            headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+            data: form,
+            success: function (data) {
+              console.log(data);
+            },
+            error: function (xhr, status, error) {
+              var errorMessage = JSON.parse(xhr.responseText).error_message;
+              console.log(errorMessage);
+            },
+          });
+        });
+      }
+
+      const assignmentModal = document.getElementById("assignmentModal");
+      if (assignmentModal) {
+        ClassicEditor.create(
+          document.querySelector("#assignment-summary-editor")
+        );
+
+        assignmentModal.addEventListener("show.bs.modal", (event) => {
+          const button = event.relatedTarget;
+          const selectedTopicId = button.getAttribute("data-topic-id");
+          console.log(selectedTopicId);
         });
       }
     </script>
