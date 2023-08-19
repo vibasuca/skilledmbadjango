@@ -12,4 +12,9 @@ urlpatterns = [
         views.InstructorSignupView.as_view(),
         name="instructor_signup",
     ),
+    path(
+        "search-instructors/<int:course_pk>/",
+        views.search_instructors,
+        name="search_instructors",
+    ),
 ]

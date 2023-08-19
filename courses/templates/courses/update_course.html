@@ -142,11 +142,6 @@
           <form method="post" id="courseForm" enctype="multipart/form-data">
             {% csrf_token %} {% include 'courses/allinone.html' %}
           </form>
-          {% comment %} {% include 'courses/video.html' %} {% include
-          'courses/courseBuilder.html' %} {% include 'courses/instructor.html'
-          %} {% include 'courses/courseAttachments.html' %} {% include
-          'courses/additionalDetails.html' %} {% include
-          'courses/coursePrerequisites.html' %} {% endcomment %}
 
           <div class="d-flex py-3 justify-content-between">
             <button
@@ -412,38 +407,28 @@
               aria-label="Close"
             ></button>
           </div>
-          <div id="instructor-list-js" class="modal-body">
+          <div  class="modal-body">
             <input
+              id="search-instructor-js"
               type="text"
               class="form-control searchInstructorInput mb-3"
               placeholder="Search instructors..."
             />
-            <div class="card mb-3" style="max-width: 350px">
-              <div class="card-body">
-                <div class="d-flex align-items-center gap-3 gap-lg-4">
-                  <img
-                    style="width: 48px; border-radius: 100%"
-                    src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
-                    alt="user photo"
-                  />
-                  <div class="d-flex flex-column">
-                    <b>Instructor 3 </b>
-                    <b style="color: #9e9e9e"> email@examole.com </b>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card mb-3" style="max-width: 350px">
-              <div class="card-body">
-                <div class="d-flex align-items-center gap-3 gap-lg-4">
-                  <img
-                    style="width: 48px; border-radius: 100%"
-                    src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
-                    alt="user photo"
-                  />
-                  <div class="d-flex flex-column">
-                    <b>Instructor 3 </b>
-                    <b style="color: #9e9e9e"> email@examole.com </b>
+            <div id="instructor-list-js">
+
+              
+              <div class="card mb-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex align-items-center gap-3 gap-lg-4">
+                    <img
+                      style="width: 48px; border-radius: 100%"
+                      src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                      alt="user photo"
+                    />
+                    <div class="d-flex flex-column">
+                      <b>Instructor 3 </b>
+                      <b style="color: #9e9e9e"> email@examole.com </b>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -805,6 +790,92 @@
       crossorigin="anonymous"
     ></script>
     <script>
+
+      $("#search-instructor-js").keyup(function(event) {
+        if (event.key === "Enter") {
+          $.ajax({
+            type: "GET",
+            url: "{% url 'users:search_instructors' course.pk %}",
+            data: {
+              'q': $("#search-instructor-js").val()
+            },
+            success: function(data) {
+              $("#instructor-list-js").empty();
+              console.log(data)
+              for (const i of data.data) {
+                console.log("instructor", i)
+                $("#instructor-list-js").append(`
+                <div 
+                  class="card mb-3 instructor-item-js" 
+                  style="max-width: 350px" 
+                  data-user-id="${i.id}"
+                  data-user-first-name="${i.first_name}"
+                  data-user-last-name="${i.last_name}"
+                  data-user-email="${i.email}" 
+                >
+                  <div class="card-body">
+                    <div class="d-flex align-items-center gap-3 gap-lg-4">
+                      <img
+                        style="width: 48px; border-radius: 100%"
+                        src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                        alt="user photo"
+                      />
+                      <div class="d-flex flex-column">
+                        <b>${i.first_name} ${i.last_name} </b>
+                        <b style="color: #9e9e9e"> ${i.email} </b>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                `);
+              }
+              $(".instructor-item-js").click(function() {
+                // Select the select element by its ID
+                var selectElement = $('#instructors-js');
+                
+                // Create a new option element and set the selected attribute
+                var newOption = $('<option>', {
+                  value: $(this).attr("data-user-id"),
+                  text: "",
+                  selected: true // Set the selected attribute to keep it selected
+                });
+                
+                // Append the new option element to the select element
+                selectElement.append(newOption);
+
+                $("#display-instructors-list-js").append(`
+                <div class="col-lg-6">
+                  <div class="card mb-4">
+                      <div class="card-body">
+                          <div class="d-flex align-items-center gap-3 gap-lg-4">
+                              <img style="width: 48px; border-radius: 100%;"
+                                  src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                                  alt="user photo">
+                              <div class="d-flex flex-column">
+                                  <b class="greet-text">${$(this).attr("data-user-first-name")} ${$(this).attr("data-user-last-name")}
+                                  </b>
+                                  <b style="color: #9e9e9e;">
+                                      ${$(this).attr("data-user-email")}
+                                  </b>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+                `);
+
+                $("#instructor-list-js").empty();
+                $("#search-instructor-js").val("");
+                $('#instructorModal').modal('hide');
+              });
+            },
+            error: function(xhr, status, error) {
+              console.error(error);
+            }
+          });
+
+        }
+      });
 
       $("#courseForm").on("submit", function(event) {
         const hourInput = $("#hour-js");
