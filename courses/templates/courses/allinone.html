@@ -1,3 +1,5 @@
+{% load my_extras %}
+
 {% include 'courses/courseInfo.html' %}
 <!--do not remove-->
 {% include 'courses/video.html' %} 
@@ -19,10 +21,14 @@
     </div>
     <div class="collapse show" id="card5">
       <div class="m-4 mt-0">
-        <p>
+        {% comment %} <p>
           <label for="id_attachments" class="text-danger">Attachments:</label>
           <select name="attachments" id="id_attachments" multiple=""></select>
-        </p>
+        </p> {% endcomment %}
+        <button type="button" data-bs-toggle="modal" data-bs-target="#attachmentModal" class="btn btn-outline-primary p-3">
+          <i class="fas fa-paperclip"></i>
+          <span>&nbsp;&nbsp;Upload Attachment</span>
+        </button>
       </div>
     </div>
   </div>
@@ -70,22 +76,28 @@
           <div class="d-flex gap-3">
             <div>
               <input
+              id="hour-js"
                 type="number"
                 class="form-control p-3 mb-2"
                 placeholder="Hours"
+                value="{{course.duration|get_timedelta_hours}}"
               />
               <small class="text-muted"> Hours </small>
             </div>
             <div>
               <input
+              id="minute-js"
                 type="number"
                 class="form-control p-3 mb-2"
                 placeholder="Minutes"
+                value="{{course.duration|get_timedelta_minutes}}"
               />
               <small class="text-muted"> Minutes </small>
             </div>
           </div>
         </div>
+        
+        <input type="hidden" name="duration" id="duration-js">
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Materials Included</label>
@@ -119,14 +131,20 @@
             class="course-tags-multiple form-select p-3 mb-2"
             aria-label="Default select example"
             multiple="multiple"
+            name="tags"
           >
             {% for tag in tags %}
-            <option value="{{ tag.id }}">{{ tag.title }}</option>
+            <option
+             value={{ tag.id }}
+              {% if tag in course.tags.all %}
+              selected
+              {% endif %}
+            >{{ tag.title }}</option>
             {% endfor %}
           </select>
         </div>
 
-        <p>
+        {% comment %} <p>
           <label for="id_duration" class="text-danger">Duration:</label>
           <input
             type="text"
@@ -140,7 +158,7 @@
         <p>
           <label for="id_tags" class="text-danger">Tags:</label>
           <select name="tags" id="id_tags" multiple="multiple"></select>
-        </p>
+        </p> {% endcomment %}
       </div>
     </div>
   </div>
@@ -160,18 +178,23 @@
     <div class="collapse show" id="card6">
       <div class="m-4 mt-0">
         <p>
-          <label for="id_prerequisite_courses" class="text-danger"
-            >Prerequisite courses:</label
-          >
+          <label for="id_prerequisite_courses" class="form-label my-2 fw-bold"
+            >Select course</label
+          ><br>
           <select
             name="prerequisite_courses"
             id="id_prerequisite_courses"
             multiple="multiple"
-            class="course-prerequisites-multiple"
+            class="course-prerequisites-multiple form-select"
           >
-            <option value="32">
-              neerajadhav's course: New Course assd sdsd
-            </option>
+          {% for pr_course in user.courses.all %}
+            <option 
+              value={{ pr_course.id }}
+              {% if pr_course in course.prerequisite_courses.all %}
+              selected
+              {% endif %}
+              >{{ pr_course.title }}</option>
+          {% endfor %}
           </select>
         </p>
       </div>

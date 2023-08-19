@@ -49,6 +49,12 @@
           ></textarea>
         </div>
 
+        <style>
+          .ck-editor__editable_inline {
+              min-height: 250px;
+          }
+          </style>
+
         <b>Course Settings</b>
         <div class="row p-2 mb-2">
           <div
@@ -88,7 +94,10 @@
                   name="difficulty_level"
                   aria-label="Select Difficulty Level"
                 >
-                  <option selected>{{ course.difficulty_level }}</option>
+                  <option value="A" {% if course.difficulty_level == "A" %}selected{% endif %}>All Levels</option>
+                  <option value="B" {% if course.difficulty_level == "B" %}selected{% endif %}>Beginner</option>
+                  <option value="I" {% if course.difficulty_level == "I" %}selected{% endif %}>Intermediate</option>
+                  <option value="E" {% if course.difficulty_level == "E" %}selected{% endif %}>Expert</option>
                 </select>
                 </select>
                 <small class="text-muted">
@@ -107,14 +116,9 @@
                     type="checkbox"
                     id="is_public"
                     name="is_public"
-                    {%
-                    if
-                    course.is_public
-                    %}
+                    {% if course.is_public %}
                     checked
-                    {%
-                    endif
-                    %}
+                    {% endif %}
                   />
                 </div>
                 <small class="text-muted">
@@ -134,14 +138,9 @@
                     type="checkbox"
                     id="enable_qa"
                     name="enable_qa"
-                    {%
-                    if
-                    course.enable_qa
-                    %}
+                    {% if course.enable_qa %}
                     checked
-                    {%
-                    endif
-                    %}
+                    {% endif %}
                   />
                 </div>
                 <small class="text-muted">
@@ -163,14 +162,14 @@
             name="language"
             aria-label="Select Language"
           >
-            <option value="E">English</option>
-            <option value="F">French</option>
-            <option value="G">German</option>
-            <option value="I">Italian</option>
-            <option value="J">Japanese</option>
-            <option value="K">Korean</option>
-            <option value="R">Russian</option>
-            <option value="S">Spanish</option>
+            <option value="E" {% if course.language == "E" %}selected{% endif %}>English</option>
+            <option value="F" {% if course.language == "F" %}selected{% endif %}>French</option>
+            <option value="G" {% if course.language == "G" %}selected{% endif %}>German</option>
+            <option value="I" {% if course.language == "I" %}selected{% endif %}>Italian</option>
+            <option value="J" {% if course.language == "J" %}selected{% endif %}>Japanese</option>
+            <option value="K" {% if course.language == "K" %}selected{% endif %}>Korean</option>
+            <option value="R" {% if course.language == "R" %}selected{% endif %}>Russian</option>
+            <option value="S" {% if course.language == "S" %}selected{% endif %}>Spanish</option>
           </select>
         </div>
 
@@ -200,9 +199,13 @@
             name="category"
             aria-label="Select Category"
           >
-            <option selected>Open this select menu</option>
             {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.title }}</option>
+            <option 
+              value="{{ category.id }}"
+              {% if category == course.category %}
+              selected
+              {% endif %}
+              >{{ category.title }}</option>
             {% endfor %}
           </select>
         </div>
@@ -231,15 +234,9 @@
                 name="course_price"
                 id="free"
                 value="free"
-                {%
-                if
-                not
-                course.price
-                %}
+                {% if not course.price %}
                 checked
-                {%
-                endif
-                %}
+                {% endif %}
               />
               <label class="form-check-label" for="free"> Free </label>
             </div>
@@ -250,14 +247,9 @@
                 name="course_price"
                 id="paid"
                 value="paid"
-                {%
-                if
-                course.price
-                %}
+                {% if course.price %}
                 checked
-                {%
-                endif
-                %}
+                {% endif %}
               />
               <label class="form-check-label" for="paid"> Paid </label>
             </div>
@@ -305,7 +297,7 @@
             <div class="thumbnail-preview mt-3" id="thumbnailPreview">
               <img
                 class="img-fluid"
-                src="{% static 'images/thumbnail-placeholder.svg' %}"
+                src="{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}"
                 alt="thumbnail"
               />
             </div>
@@ -315,7 +307,7 @@
               <b id="imageDimensions">Allowed Size: 700x400 pixels</b>
               <p>File Support:</p>
               <div class="custom-file">
-                <input
+                {% comment %} <input
                   type="file"
                   class="custom-file-input d-none"
                   id="thumbnail"
@@ -324,26 +316,26 @@
                 />
                 <label class="btn btn-primary" for="thumbnail"
                   >Choose file</label
-                >
+                > {% endcomment %}
                 <button
                   type="button"
                   class="btn btn-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#mediaModal"
                 >
-                  Media Library
+                  Upload Image
                 </button>
               </div>
             </span>
           </div>
         </div>
 
-        <p>
+        {% comment %} <p>
           <label for="id_thumbnail" class="text-danger">Thumbnail:</label>
           <select name="thumbnail" id="id_thumbnail">
             <option value="" selected="">---------</option>
           </select>
-        </p>
+        </p> {% endcomment %}
       </div>
     </div>
   </div>
@@ -423,8 +415,6 @@
   });
 
   $(document).ready(function () {
-    $(".course-difficulty-single").select2();
-    $(".language-select-single").select2();
-    $(".category-select-single").select2();
+    {% comment %} $(".category-select-single").select2(); {% endcomment %}
   });
 </script>
