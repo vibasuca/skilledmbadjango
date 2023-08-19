@@ -298,6 +298,7 @@
           <div class="p-3">
             <div class="thumbnail-preview mt-3" id="thumbnailPreview">
               <img
+                id="thumbnailInputPreviewJS"
                 class="img-fluid"
                 src="{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}"
                 alt="thumbnail"
@@ -309,21 +310,12 @@
               <b id="imageDimensions">Allowed Size: 700x400 pixels</b>
               <p>File Support:</p>
               <div class="custom-file">
-                {% comment %} <input
-                  type="file"
-                  class="custom-file-input d-none"
-                  id="thumbnail"
-                  name="thumbnail"
-                  accept="image/*"
-                />
-                <label class="btn btn-primary" for="thumbnail"
-                  >Choose file</label
-                > {% endcomment %}
                 <button
                   type="button"
                   class="btn btn-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#mediaModal"
+                  id="thumbnail-btn-js"
                 >
                   Upload Image
                 </button>
@@ -332,18 +324,22 @@
           </div>
         </div>
 
-        {% comment %} <p>
+        <p class="d-none">
           <label for="id_thumbnail" class="text-danger">Thumbnail:</label>
-          <select name="thumbnail" id="id_thumbnail">
-            <option value="" selected="">---------</option>
+          <select name="thumbnail" id="thumbnail-input-js">
           </select>
-        </p> {% endcomment %}
+        </p>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+
+  $("#thumbnail-btn-js").click(function () {
+    $("#mediaModal").data("target", "thumbnail");
+  });
+
   ClassicEditor.create(document.querySelector("#editor"))
     .then((editor) => {
       const editorDataTextarea = document.querySelector("#desc-data");
