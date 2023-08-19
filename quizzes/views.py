@@ -98,3 +98,19 @@ def submit_answer(request, attempt_pk):
 #         else:
 #             answers.append(None)
 #     return JsonResponse({"answers": answers})
+
+
+@login_required
+def quiz_attempts(request):
+    attempts = Attempt.objects.filter(
+        quiz__topic_item__topic__course__user=request.user
+    )
+    return render(request, "quizzes/quiz_attempts.html", {"attempts": attempts})
+
+
+@login_required
+def quiz_attempt_detail(request, pk):
+    attempt = get_object_or_404(
+        Attempt, pk=pk, quiz__topic_item__topic__course__user=request.user
+    )
+    return render(request, "quizzes/quiz_attempt_detail.html", {"attempt": attempt})

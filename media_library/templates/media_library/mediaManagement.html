@@ -106,7 +106,7 @@
                         <div class="image-grid"></div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3 bg-light" style="height: ;">
+                <div id="media-form-container-js" class="d-none col-6 col-lg-3 bg-light" style="height: ;">
                     <div class="sticky-top" style="top: 1%; z-index: 10;">
                         <div class="py-3">
                             <b class="text-muted">Attachment Details</b>
@@ -140,6 +140,10 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        let selectedMediaID = null;
+
+
         // Dynamically generate options for all months
         const monthSelect = $("#month");
         for (let i = 1; i <= 12; i++) {
@@ -286,6 +290,7 @@
         $(document).on("click", ".image-grid-item", function () {
             const mediaId = $(this).data("media-id");
             console.log(mediaId);
+            $("#media-form-container-js").removeClass("d-none");
             $("#sidebar-form").html(generateFormHtml);
         });
 
