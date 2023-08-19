@@ -7,7 +7,7 @@
         <div class="collapse show" id="card4">
             <div class="m-4 mt-0">
                 <!--content in here-->
-                <div class="row">
+                <div class="row" id="display-instructors-list-js">
                     <div class="col-lg-6">
                         <div class="card mb-4">
                             <div class="card-body">
@@ -64,22 +64,19 @@
                     <span>&nbsp;&nbsp;Add Instructor</span>
                 </button>
             </div>
-            {% comment %} <div class="m-4 mt-0">
+             <div class="m-4 mt-0 d-none">
                 <p>
                     <label for="id_instructors" class="text-danger">Instructors:</label>
-                    <select name="instructors" id="id_instructors" multiple="">
-                        <option value="1">a</option>
-
-                        <option value="2">admin</option>
-
-                        <option value="3">neerajadhav</option>
-
+                    <select name="instructors" id="instructors-js" multiple="">
+                        {% for instructor in course.instructors.all %}
+                        <option value="{{instructor.id}}" selected="">{{instructor.first_name}} {{instructor.last_name}}</option>
+                        {% endfor %}
                     </select>
 
 
                 </p>
 
-            </div> {% endcomment %}
+            </div> 
         </div>
     </div>
 </div>

@@ -46,7 +46,9 @@
             id="desc-data"
             name="description"
             style="display: none"
-          ></textarea>
+          >
+          {{ course.description|safe }}
+        </textarea>
         </div>
 
         <style>
