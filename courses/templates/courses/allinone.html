@@ -15,17 +15,19 @@
     border-radius: 5px;
     cursor: text;
     position: relative;
+    background: #f8f8f8;
   }
 
   .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #e4e4e4;
+    background-color: #fff;
+    box-shadow: 0px 7px 29px 0px rgba(129, 129, 139, 0.2) !important;
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
     display: inline-block;
     margin-left: 5px;
     margin-top: 5px;
-    padding: 10px 20px;
+    padding: 5px 20px;
     padding-left: 40px;
     position: relative;
     max-width: 100%;
@@ -36,20 +38,19 @@
   }
 
   .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    background-color: transparent;
     border: none;
-    border-right: 1px solid #c7c7c7;
+    border-right: 1px solid #f1f1f1;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     color: #999;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 14px;
     font-weight: bold;
     padding: 0 10px;
     position: absolute;
     left: 0;
     top: 0;
-    line-height: 42px;
+    line-height: 35px;
   }
 </style>
 
@@ -166,7 +167,7 @@
         <p>
           <label for="id_prerequisite_courses" class="form-label my-2 fw-bold">Select course</label><br>
           <select name="prerequisite_courses" id="id_prerequisite_courses" multiple="multiple"
-            class="course-prerequisites-multiple form-select" style="width: 50%;">
+            class="course-prerequisites-multiple form-select">
             {% for pr_course in user.courses.all %}
             <option value={{ pr_course.id }} {% if pr_course in course.prerequisite_courses.all %} selected {% endif %}>
               {{ pr_course.title }}</option>
@@ -186,7 +187,6 @@
     $(".course-prerequisites-multiple").select2({
       placeholder: 'Select multiple courses',
       backgroundColor: 'red',
-      width: 'resolve',
       padding: '100px',
     });
   });
