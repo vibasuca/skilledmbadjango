@@ -2,69 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dashboard - Skilled MBA</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
 
-    <link
-      rel="stylesheet"
-      href="{% static 'fonts/fontawesome-all.min.css' %}"
-    />
-    <link rel="stylesheet" href="{% static 'fonts/tutor-icons.css' %}" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - Skilled MBA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
 
-    <link
-      rel="stylesheet"
-      id="custom-stylesheet-css"
-      type="text/css"
-      media="all"
-      href="{% static 'css/dashboard.css' %}"
-    />
+  <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'fonts/tutor-icons.css' %}" />
 
-    <!-- ✅ Load CSS file for Select2 -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" id="custom-stylesheet-css" type="text/css" media="all"
+    href="{% static 'css/dashboard.css' %}" />
 
-    <!-- ✅ load jQuery ✅ -->
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
+  <!-- ✅ Load CSS file for Select2 -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-    <!-- ✅ load JS for Select2 ✅ -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
-      integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      defer
-    ></script>
-  </head>
+  <!-- ✅ load jQuery ✅ -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-  <body style="background: #f8f8f8">
-    <!-- Header -->
-    <header
-      id="myNavbar"
-      class="shadow-sm bg-white position-sticky top-0"
-      style="z-index: 10"
-    >
-      <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-3 gap-lg-4">
-          <div class="p-3 d-flex">
-            <img
-              class="brandingLogo m-auto"
-              src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-              loading="lazy"
-              srcset="
+  <!-- ✅ load JS for Select2 ✅ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+    integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+</head>
+
+<body style="background: #f8f8f8">
+  <!-- Header -->
+  <header id="myNavbar" class="shadow-sm bg-white position-sticky top-0" style="z-index: 10">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center gap-3 gap-lg-4">
+        <div class="p-3 d-flex">
+          <img class="brandingLogo m-auto" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
+            loading="lazy" srcset="
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
@@ -73,742 +45,483 @@
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
                 https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-              "
-            />
-          </div>
-          <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2" type="submit" form="courseForm">
-            <i class="fal fa-save"></i>
-            <span>&nbsp;&nbsp;Save</span>
-          </button>
+              " />
         </div>
-        <div class="d-flex align-items-center gap-2 gap-lg-4">
-          <button
-            class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline"
-          >
+        <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2" type="submit" form="courseForm">
+          <i class="fal fa-save"></i>
+          <span>&nbsp;&nbsp;Save</span>
+        </button>
+      </div>
+      <div class="d-flex align-items-center gap-2 gap-lg-4">
+        <button class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline">
+          <i class="fal fa-glasses"></i>
+          <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Preview</span>
+        </button>
+        <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline" type="submit" form="courseForm"
+          name="submit_for_review">
+          <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
+        </button>
+        <a href="{% url 'account_profile' %}">
+          <button class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline">
+            <span class="d-lg-inline"> Exit </span>
+          </button>
+        </a>
+        <button class="btn btn-light border px-3 py-2 d-lg-none" data-bs-toggle="modal" data-bs-target="#navModal">
+          <i class="far fa-bars fs-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <span class="position-absolute trigger"></span>
+
+  <div class="modal fade" id="navModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="bottom: 0%">
+      <div class="modal-content p-3">
+        <div class="d-flex flex-column gap-3">
+          <button class="btn btn-light border border-2 text-muted px-3 py-2">
             <i class="fal fa-glasses"></i>
-            <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Preview</span>
+            <span>&nbsp;&nbsp;&nbsp;Preview</span>
           </button>
-          <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline" type="submit" form="courseForm" name="submit_for_review">
-            <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
+          <button class="btn btn-primary px-3 py-2">
+            <span><b>Submit for Review</b></span>
           </button>
-          <a href="{% url 'account_profile' %}">
-            <button
-              class="btn btn-outline-danger px-lg-4 px-3 py-2 d-none d-lg-inline"
-            >
-              <span class="d-lg-inline"> Exit </span>
-            </button>
-          </a>
-          <button
-            class="btn btn-light border px-3 py-2 d-lg-none"
-            data-bs-toggle="modal"
-            data-bs-target="#navModal"
-          >
-            <i class="far fa-bars fs-5"></i>
+          <button class="btn btn-outline-danger px-3 py-2">
+            <span>Discard and Exit</span>
           </button>
         </div>
       </div>
-    </header>
+    </div>
+  </div>
 
-    <span class="position-absolute trigger"></span>
+  <div class="container py-4">
+    <div class="row">
+      <div class="col-lg-8 pt-3">
+        <form method="post" id="courseForm" enctype="multipart/form-data">
+          {% csrf_token %} {% include 'courses/allinone.html' %}
+        </form>
 
-    <div
-      class="modal fade"
-      id="navModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" style="bottom: 0%">
-        <div class="modal-content p-3">
-          <div class="d-flex flex-column gap-3">
-            <button class="btn btn-light border border-2 text-muted px-3 py-2">
-              <i class="fal fa-glasses"></i>
-              <span>&nbsp;&nbsp;&nbsp;Preview</span>
-            </button>
-            <button class="btn btn-primary px-3 py-2">
-              <span><b>Submit for Review</b></span>
-            </button>
-            <button class="btn btn-outline-danger px-3 py-2">
-              <span>Discard and Exit</span>
-            </button>
+        <div class="d-flex py-3 justify-content-between">
+          <button form="courseForm" type="submit" class="saveDraft btn bg-white border border-2 text-primary px-3 py-2">
+            <span><b>Save course as draft</b></span>
+          </button>
+          <button form="courseForm" type="submit" name="submit_for_review" class="btn btn-primary px-3 py-2">
+            <span><b>Submit for Review</b></span>
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-4 pt-3">
+        <div class="card text-start sticky-top bg-white" style="top: 12.5%; z-index: 10">
+          <div class="card-body tips p-4">
+            <span class="fs-4">
+              <i class="far fa-lg fa-lightbulb-on text-primary"></i>
+              &nbsp;&nbsp;Course Prerequisites
+            </span>
+            <ul>
+              <li>Set the Course Price option or make it free.</li>
+              <li>Standard size for course thumbnail is 700x430.</li>
+              <li>Video section controls the course overview video.</li>
+              <li>Course Builder is where you create & organize a course.</li>
+              <li>
+                Add Topics in the Course Builder section to create lessons,
+                quizzes, and assignments.
+              </li>
+              <li>
+                Prerequisites refers to the fundamental courses to complete
+                before taking this particular course.
+              </li>
+              <li>
+                Information from the Additional Data section shows up on the
+                course single page.
+              </li>
+              <li>
+                Make Announcements to notify any important notes to all
+                enrolled students at once.
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="container py-4">
-      <div class="row">
-        <div class="col-lg-8 pt-3">
-          <form method="post" id="courseForm" enctype="multipart/form-data">
-            {% csrf_token %} {% include 'courses/allinone.html' %}
-          </form>
+  <!---------------- Modals ---------------->
 
-          <div class="d-flex py-3 justify-content-between">
-            <button
-            form="courseForm"
-              type="submit"
-              class="saveDraft btn bg-white border border-2 text-primary px-3 py-2"
-            >
-              <span><b>Save course as draft</b></span>
-            </button>
-            <button
-            form="courseForm"
-              type="submit"
-              name="submit_for_review"
-              class="btn btn-primary px-3 py-2"
-            >
-              <span><b>Submit for Review</b></span>
-            </button>
-          </div>
+  <!-- Media Managerment -->
+  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h1 class="modal-title fs-5" id="mediaModalLabel">
+            Media Management
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="col-lg-4 pt-3">
-          <div
-            class="card text-start sticky-top bg-white"
-            style="top: 12.5%; z-index: 10"
-          >
-            <div class="card-body tips p-4">
-              <span class="fs-4">
-                <i class="far fa-lg fa-lightbulb-on text-primary"></i>
-                &nbsp;&nbsp;Course Prerequisites
-              </span>
-              <ul>
-                <li>Set the Course Price option or make it free.</li>
-                <li>Standard size for course thumbnail is 700x430.</li>
-                <li>Video section controls the course overview video.</li>
-                <li>Course Builder is where you create & organize a course.</li>
-                <li>
-                  Add Topics in the Course Builder section to create lessons,
-                  quizzes, and assignments.
-                </li>
-                <li>
-                  Prerequisites refers to the fundamental courses to complete
-                  before taking this particular course.
-                </li>
-                <li>
-                  Information from the Additional Data section shows up on the
-                  course single page.
-                </li>
-                <li>
-                  Make Announcements to notify any important notes to all
-                  enrolled students at once.
-                </li>
-              </ul>
+        <div class="modal-body p-0">
+          {% include 'media_library/mediaManagement.html' %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button id="use-media-btn-js" type="button" class="btn btn-primary">Select Media</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'courses/modals.html' %}
+
+  <!-- Update Topic -->
+  <div class="modal fade" id="updateTopicModal" tabindex="-1" aria-labelledby="updateTopicModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="updateTopicModalLabel">
+            Edit Topic
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="updateTopicForm" method="POST">
+          <input class="d-none" type="text" name="topicId" />
+          <input class="d-none" type="text" name="sort_order" />
+
+          <div class="modal-body px-4">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Topic Name</label>
+              <input type="text" name="title" class="form-control p-3 mb-2" placeholder="Topic Name" required />
+              <small class="text-muted">
+                <i class="fal fa-info-circle"></i> Topic titles are displayed
+                publicly wherever required. Each topic may contain one or more
+                lessons, quiz and assignments.
+              </small>
+            </div>
+
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Topic Summary</label>
+              <textarea name="summary" class="form-control p-3 mb-2" rows="3"></textarea>
+              <small class="text-muted" required>
+                <i class="fal fa-info-circle"></i> Add a summary of short text
+                to prepare students for the activities for the topic. The text
+                is shown on the course page beside the tooltip beside the
+                topic name.
+              </small>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!---------------- Modals ---------------->
-
-    <!-- Media Managerment -->
-    <div
-      class="modal fade"
-      id="mediaModal"
-      tabindex="-1"
-      aria-labelledby="mediaModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <div class="modal-header border-0">
-            <h1 class="modal-title fs-5" id="mediaModalLabel">
-              Media Management
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body p-0">
-            {% include 'media_library/mediaManagement.html' %}
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
-            <button 
-              id="use-media-btn-js" 
-              type="button" 
-              class="btn btn-primary" 
-            >Select Media</button>
+            <button id="saveUpdateTopic" type="submit" class="btn btn-primary">
+              Save Topic
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Add Topic -->
-    <div
-      class="modal fade"
-      id="topicModal"
-      tabindex="-1"
-      aria-labelledby="topicModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="topicModalLabel">Add Topic</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form id="topicForm" method="POST">
-            <div class="modal-body px-4">
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Topic Name</label>
-                <input
-                  type="text"
-                  name="title"
-                  class="form-control p-3 mb-2"
-                  placeholder="Topic Name"
-                  required
-                />
-                <small class="text-muted">
-                  <i class="fal fa-info-circle"></i> Topic titles are displayed
-                  publicly wherever required. Each topic may contain one or more
-                  lessons, quiz and assignments.
-                </small>
-              </div>
-
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Topic Summary</label>
-                <textarea
-                  name="summary"
-                  class="form-control p-3 mb-2"
-                  rows="3"
-                ></textarea>
-                <small class="text-muted" required>
-                  <i class="fal fa-info-circle"></i> Add a summary of short text
-                  to prepare students for the activities for the topic. The text
-                  is shown on the course page beside the tooltip beside the
-                  topic name.
-                </small>
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-between">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button id="saveTopic" type="submit" class="btn btn-primary">
-                Save Topic
-              </button>
-            </div>
-          </form>
+  <!-- Add Instructor -->
+  <div class="modal fade" id="instructorModal" tabindex="-1" aria-labelledby="instructorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="instructorModalLabel">
+            Add Instructor
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-      </div>
-    </div>
+        <div class="modal-body">
+          <input id="search-instructor-js" type="text" class="form-control searchInstructorInput mb-3"
+            placeholder="Search instructors..." />
+          <div id="instructor-list-js">
 
-    <!-- Update Topic -->
-    <div
-      class="modal fade"
-      id="updateTopicModal"
-      tabindex="-1"
-      aria-labelledby="updateTopicModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="updateTopicModalLabel">
-              Edit Topic
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form id="updateTopicForm" method="POST">
-            <input class="d-none" type="text" name="topicId" />
-            <input class="d-none" type="text" name="sort_order" />
 
-            <div class="modal-body px-4">
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Topic Name</label>
-                <input
-                  type="text"
-                  name="title"
-                  class="form-control p-3 mb-2"
-                  placeholder="Topic Name"
-                  required
-                />
-                <small class="text-muted">
-                  <i class="fal fa-info-circle"></i> Topic titles are displayed
-                  publicly wherever required. Each topic may contain one or more
-                  lessons, quiz and assignments.
-                </small>
-              </div>
-
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Topic Summary</label>
-                <textarea
-                  name="summary"
-                  class="form-control p-3 mb-2"
-                  rows="3"
-                ></textarea>
-                <small class="text-muted" required>
-                  <i class="fal fa-info-circle"></i> Add a summary of short text
-                  to prepare students for the activities for the topic. The text
-                  is shown on the course page beside the tooltip beside the
-                  topic name.
-                </small>
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-between">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                id="saveUpdateTopic"
-                type="submit"
-                class="btn btn-primary"
-              >
-                Save Topic
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add Instructor -->
-    <div
-      class="modal fade"
-      id="instructorModal"
-      tabindex="-1"
-      aria-labelledby="instructorModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="instructorModalLabel">
-              Add Instructor
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div  class="modal-body">
-            <input
-              id="search-instructor-js"
-              type="text"
-              class="form-control searchInstructorInput mb-3"
-              placeholder="Search instructors..."
-            />
-            <div id="instructor-list-js">
-
-              
-              <div class="card mb-3" style="max-width: 350px">
-                <div class="card-body">
-                  <div class="d-flex align-items-center gap-3 gap-lg-4">
-                    <img
-                      style="width: 48px; border-radius: 100%"
-                      src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
-                      alt="user photo"
-                    />
-                    <div class="d-flex flex-column">
-                      <b>Instructor 3 </b>
-                      <b style="color: #9e9e9e"> email@examole.com </b>
-                    </div>
+            <div class="card mb-3" style="max-width: 350px">
+              <div class="card-body">
+                <div class="d-flex align-items-center gap-3 gap-lg-4">
+                  <img style="width: 48px; border-radius: 100%"
+                    src="https://www.gravatar.com/avatar/cd935c35ae34731f14609bc53055aec6?s=150&r=g&d=mm"
+                    alt="user photo" />
+                  <div class="d-flex flex-column">
+                    <b>Instructor 3 </b>
+                    <b style="color: #9e9e9e"> email@examole.com </b>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Lesson -->
+  <div class="modal fade" id="lessonModal" tabindex="-1" aria-labelledby="lessonModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="lessonModalLabel">Lesson</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="lesson-form">
+          {% csrf_token %}
+          <div class="modal-body px-4">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Lesson Name</label>
+              <input type="text" id="title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <small class="text-muted">
+                <i class="fal fa-info-circle"></i> Lesson titles are displayed
+                publicly wherever required.
+              </small>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label my-2 fw-bold">Lesson Content</label>
+              <div id="lesson-content-editor">
+                {{ course.description|safe }}
+              </div>
+              <br />
+              <small class="text-muted">
+                <i class="fal fa-info-circle"></i> The idea of a summary is a
+                short text to prepare students for the activities within the
+                topic or week. The text is shown on the course page under the
+                topic name.
+              </small>
+            </div>
+
+            <div class="d-flex border rounded">
+              <div class="p-3">
+                <div class="thumbnail-preview" id="thumbnailPreview">
+                  <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                </div>
+              </div>
+              <div class="p-3 d-flex align-items-center" style="width: 100%">
+                <span>
+                  <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                  <p>File Support:</p>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                    Media Library
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div class="my-4">
+              <div class="card border-0">
+                <div class="card-body border border-warning rounded">
+                  <i class="far fa-exclamation-circle text-warning fa-lg"></i>&nbsp;&nbsp;No video source selected from
+                  settings!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary p-3">
+                <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
+              </button>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <input type="checkbox" id="enable_preview" name="enable_preview" class="form-check-input"
+                style="padding: 10px" />
+              <label for="enable_preview">Enable Course Preview:</label>
+            </div>
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> If checked, any users/guest
+              can view this lesson without enroll course
+            </small>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Assignment -->
+  <div class="modal fade" id="assignmentModal" tabindex="-1" aria-labelledby="assignmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="assignmentModalLabel">
+            Assignment
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id="assignment-form">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Assignment Name</label>
+              <input type="text" id="title" name="title" class="form-control p-3 mb-2" value="test title" required />
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label my-2 fw-bold">Summary</label>
+              <div id="assignment-summary-editor">
+                {{ course.description|safe }}
+              </div>
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <div class="card my-3" style="max-width: 350px">
+                <div class="card-body">
+                  <div class="d-flex flex-column">
+                    <b style="font-weight: 500">File name</b>
+                    <span style="color: #9e9e9e"> File size </span>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary p-3">
+                <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
+              </button>
+            </div>
+
+            <div class="py-2" style="max-width: 350px">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Time Limit</label>
+                <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Maximum points a student
+                  can score
+                </small>
+              </div>
+            </div>
+
+            <div class="py-2" style="max-width: 350px">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Total Points</label>
+                <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Maximum points a student
+                  can score
+                </small>
+              </div>
+            </div>
+
+            <div class="py-2" style="max-width: 350px">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Minimum Passing Points</label>
+                <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Minimum points required
+                  for the student to pass this assignment.
+                </small>
+              </div>
+            </div>
+
+            <div class="py-2" style="max-width: 350px">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">Maximum File Uploads</label>
+                <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Define the number of
+                  files that a student can upload in this assignment. Input 0
+                  to disable the option to upload.
+                </small>
+              </div>
+            </div>
+
+            <div class="py-2" style="max-width: 350px">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold">File Size Limit</label>
+                <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Define maximum file size
+                  attachment in MB
+                </small>
               </div>
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-between">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               Close
             </button>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <!-- Add Lesson -->
-    <div
-      class="modal fade"
-      id="lessonModal"
-      tabindex="-1"
-      aria-labelledby="lessonModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="lessonModalLabel">Lesson</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form id="lesson-form">
-            {% csrf_token %}
-            <div class="modal-body px-4">
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Lesson Name</label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  class="form-control p-3 mb-2"
-                  value="test title"
-                  required
-                />
-                <small class="text-muted">
-                  <i class="fal fa-info-circle"></i> Lesson titles are displayed
-                  publicly wherever required.
-                </small>
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label my-2 fw-bold">Lesson Content</label>
-                <div id="lesson-content-editor">
-                  {{ course.description|safe }}
-                </div>
-                <br />
-                <small class="text-muted">
-                  <i class="fal fa-info-circle"></i> The idea of a summary is a
-                  short text to prepare students for the activities within the
-                  topic or week. The text is shown on the course page under the
-                  topic name.
-                </small>
-              </div>
-
-              <div class="d-flex border rounded">
-                <div class="p-3">
-                  <div class="thumbnail-preview" id="thumbnailPreview">
-                    <img
-                      class="img-fluid"
-                      src="{% static 'images/thumbnail-placeholder.svg' %}"
-                      alt="thumbnail"
-                    />
-                  </div>
-                </div>
-                <div class="p-3 d-flex align-items-center" style="width: 100%">
-                  <span>
-                    <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
-                    <p>File Support:</p>
-                    <button
-                      type="button"
-                      class="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#mediaModal"
-                    >
-                      Media Library
-                    </button>
-                  </span>
-                </div>
-              </div>
-
-              <div class="my-4">
-                <div class="card border-0">
-                  <div class="card-body border border-warning rounded">
-                    <i class="far fa-exclamation-circle text-warning fa-lg"></i
-                    >&nbsp;&nbsp;No video source selected from settings!
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label my-2 fw-bold"
-                  >Upload exercise files to the Lesson</label
-                >
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="btn btn-primary p-3">
-                  <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
-                    >Upload Attachments</span
-                  >
-                </button>
-              </div>
-
-              <div class="d-flex align-items-center gap-3 mb-4">
-                <input
-                  type="checkbox"
-                  id="enable_preview"
-                  name="enable_preview"
-                  class="form-check-input"
-                  style="padding: 10px"
-                />
-                <label for="enable_preview">Enable Course Preview:</label>
-              </div>
-              <small class="text-muted">
-                <i class="fal fa-info-circle"></i> If checked, any users/guest
-                can view this lesson without enroll course
-              </small>
-            </div>
-            <div class="modal-footer d-flex justify-content-between">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- Add Assignment -->
-    <div
-      class="modal fade"
-      id="assignmentModal"
-      tabindex="-1"
-      aria-labelledby="assignmentModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="assignmentModalLabel">
-              Assignment
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <form id="assignment-form">
-            {% csrf_token %}
-            <div class="modal-body">
-              <div class="form-outline mb-3">
-                <label class="form-label my-2 fw-bold">Assignment Name</label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  class="form-control p-3 mb-2"
-                  value="test title"
-                  required
-                />
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label my-2 fw-bold">Summary</label>
-                <div id="assignment-summary-editor">
-                  {{ course.description|safe }}
-                </div>
-              </div>
-
-              <div class="form-outline mb-4">
-                <label class="form-label my-2 fw-bold"
-                  >Upload exercise files to the Lesson</label
-                >
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="card my-3" style="max-width: 350px">
-                  <div class="card-body">
-                    <div class="d-flex flex-column">
-                      <b style="font-weight: 500">File name</b>
-                      <span style="color: #9e9e9e"> File size </span>
-                    </div>
-                  </div>
-                </div>
-                <button class="btn btn-primary p-3">
-                  <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
-                    >Upload Attachments</span
-                  >
-                </button>
-              </div>
-
-              <div class="py-2" style="max-width: 350px">
-                <div class="form-outline mb-3">
-                  <label class="form-label my-2 fw-bold">Time Limit</label>
-                  <input
-                    type="number"
-                    id="time_limit"
-                    name="time_limit"
-                    class="form-control p-3 mb-2"
-                    placeholder="Time Limit"
-                  />
-                  <small class="text-muted">
-                    <i class="fal fa-info-circle"></i> Maximum points a student
-                    can score
-                  </small>
-                </div>
-              </div>
-
-              <div class="py-2" style="max-width: 350px">
-                <div class="form-outline mb-3">
-                  <label class="form-label my-2 fw-bold">Total Points</label>
-                  <input
-                    type="number"
-                    id="time_limit"
-                    name="time_limit"
-                    class="form-control p-3 mb-2"
-                    placeholder="Time Limit"
-                  />
-                  <small class="text-muted">
-                    <i class="fal fa-info-circle"></i> Maximum points a student
-                    can score
-                  </small>
-                </div>
-              </div>
-
-              <div class="py-2" style="max-width: 350px">
-                <div class="form-outline mb-3">
-                  <label class="form-label my-2 fw-bold"
-                    >Minimum Passing Points</label
-                  >
-                  <input
-                    type="number"
-                    id="time_limit"
-                    name="time_limit"
-                    class="form-control p-3 mb-2"
-                    placeholder="Time Limit"
-                  />
-                  <small class="text-muted">
-                    <i class="fal fa-info-circle"></i> Minimum points required
-                    for the student to pass this assignment.
-                  </small>
-                </div>
-              </div>
-
-              <div class="py-2" style="max-width: 350px">
-                <div class="form-outline mb-3">
-                  <label class="form-label my-2 fw-bold"
-                    >Maximum File Uploads</label
-                  >
-                  <input
-                    type="number"
-                    id="time_limit"
-                    name="time_limit"
-                    class="form-control p-3 mb-2"
-                    placeholder="Time Limit"
-                  />
-                  <small class="text-muted">
-                    <i class="fal fa-info-circle"></i> Define the number of
-                    files that a student can upload in this assignment. Input 0
-                    to disable the option to upload.
-                  </small>
-                </div>
-              </div>
-
-              <div class="py-2" style="max-width: 350px">
-                <div class="form-outline mb-3">
-                  <label class="form-label my-2 fw-bold">File Size Limit</label>
-                  <input
-                    type="number"
-                    id="time_limit"
-                    name="time_limit"
-                    class="form-control p-3 mb-2"
-                    placeholder="Time Limit"
-                  />
-                  <small class="text-muted">
-                    <i class="fal fa-info-circle"></i> Define maximum file size
-                    attachment in MB
-                  </small>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-between">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="submit" class="btn btn-primary">Save</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <script src="{% static 'js/script.js' %}"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-
-      $("#search-instructor-js").keyup(function(event) {
-        if (event.key === "Enter") {
-          $.ajax({
-            type: "GET",
-            url: "{% url 'users:search_instructors' course.pk %}",
-            data: {
-              'q': $("#search-instructor-js").val()
-            },
-            success: function(data) {
-              $("#instructor-list-js").empty();
-              console.log(data)
-              for (const i of data.data) {
-                console.log("instructor", i)
-                $("#instructor-list-js").append(`
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <script>
+    $("#search-instructor-js").keyup(function (event) {
+      if (event.key === "Enter") {
+        $.ajax({
+          type: "GET",
+          url: "{% url 'users:search_instructors' course.pk %}",
+          data: {
+            'q': $("#search-instructor-js").val()
+          },
+          success: function (data) {
+            $("#instructor-list-js").empty();
+            console.log(data)
+            for (const i of data.data) {
+              console.log("instructor", i)
+              $("#instructor-list-js").append(`
                 <div 
                   class="card mb-3 instructor-item-js" 
                   style="max-width: 350px" 
@@ -832,22 +545,22 @@
                   </div>
                 </div>
                 `);
-              }
-              $(".instructor-item-js").click(function() {
-                // Select the select element by its ID
-                var selectElement = $('#instructors-js');
-                
-                // Create a new option element and set the selected attribute
-                var newOption = $('<option>', {
-                  value: $(this).attr("data-user-id"),
-                  text: "",
-                  selected: true // Set the selected attribute to keep it selected
-                });
-                
-                // Append the new option element to the select element
-                selectElement.append(newOption);
+            }
+            $(".instructor-item-js").click(function () {
+              // Select the select element by its ID
+              var selectElement = $('#instructors-js');
 
-                $("#display-instructors-list-js").append(`
+              // Create a new option element and set the selected attribute
+              var newOption = $('<option>', {
+                value: $(this).attr("data-user-id"),
+                text: "",
+                selected: true // Set the selected attribute to keep it selected
+              });
+
+              // Append the new option element to the select element
+              selectElement.append(newOption);
+
+              $("#display-instructors-list-js").append(`
                 <div class="col-lg-6">
                   <div class="card mb-4">
                       <div class="card-body">
@@ -868,99 +581,55 @@
               </div>
                 `);
 
-                $("#instructor-list-js").empty();
-                $("#search-instructor-js").val("");
-                $('#instructorModal').modal('hide');
-              });
-            },
-            error: function(xhr, status, error) {
-              console.error(error);
-            }
-          });
-
-        }
-      });
-
-      $("#courseForm").on("submit", function(event) {
-        const hourInput = $("#hour-js");
-        const minuteInput = $("#minute-js");
-        const durationInput = $("#duration-js");
-        
-        const hour = parseInt(hourInput.val() || 0);
-        const minute = parseInt(minuteInput.val() || 0);
-        
-        const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
-        console.log(formattedTime);
-        
-        durationInput.val(formattedTime);
-      });
-
-
-      $(".section").click(function () {
-        $(this).children(".fas").toggleClass("fa-chevron-up fa-chevron-down");
-      });
-
-      function updateTopicList() {
-        url = "{% url 'courses:list_topics' course.pk %}";
-        $.ajax({
-          type: "GET",
-          url: url,
-          success: function (topics) {
-            $("#topicList").empty();
-            for (i in topics.topics) {
-              $("#topicList").append(`
-                              <div class="card bg-light text-start mb-3" data-topic-id="${topics.topics[i].id}">
-                                  <div class="card-body p-0">
-                                      <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
-                                          style="cursor: pointer;">
-                                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topics.topics[i].title}</span>
-                                          <span class="d-flex gap-2 px-2">
-                                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal" data-bs-topic-sort="${topics.topics[i].sort_order}" data-bs-topic-id="${topics.topics[i].id}" data-bs-topic-title="${topics.topics[i].title}" data-bs-topic-summary="${topics.topics[i].summary}"><i class="fas fa-edit text-muted"></i></button>
-                                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                                              <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#topic-${topics.topics[i].id}"><i class="fas fa-chevron-down text-muted"></i></button>
-                                          </span>
-                                      </div>
-                                      <div class="collapse show" id="topic-${topics.topics[i].id}">
-                                          <div class="card card-body">
-                                              <div class="d-flex gap-3">
-                                                  <!-- Button for Add Lesson -->
-                                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topics.topics[i].id}">
-                                                    <i class="fas fa-plus-square"></i>
-                                                      &nbsp;Lesson
-                                                  </button>
-
-                                                  <!-- Button for Add Quiz -->
-                                                  <button type="button" class="btn btn-outline-primary">
-                                                      <i class="fas fa-plus-square"></i>
-                                                      &nbsp;Quiz
-                                                  </button>
-
-                                                  <!-- Button for Add Assignment -->
-                                                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topics.topics[i].id}">
-                                                    <i class="fas fa-plus-square"></i>
-                                                      &nbsp;Assignment
-                                                  </button>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          `);
-            }
+              $("#instructor-list-js").empty();
+              $("#search-instructor-js").val("");
+              $('#instructorModal').modal('hide');
+            });
           },
           error: function (xhr, status, error) {
             console.error(error);
-          },
+          }
         });
-      }
 
-      $("#topicForm").submit(function () {
+      }
+    });
+
+    $("#courseForm").on("submit", function (event) {
+      const hourInput = $("#hour-js");
+      const minuteInput = $("#minute-js");
+      const durationInput = $("#duration-js");
+
+      const hour = parseInt(hourInput.val() || 0);
+      const minute = parseInt(minuteInput.val() || 0);
+
+      const formattedTime = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:00`;
+      console.log(formattedTime);
+
+      durationInput.val(formattedTime);
+    });
+
+
+    $(".section").click(function () {
+      $(this).children(".fas").toggleClass("fa-chevron-up fa-chevron-down");
+    });
+
+    const lessonModal = document.getElementById("lessonModal");
+    if (lessonModal) {
+      ClassicEditor.create(document.querySelector("#lesson-content-editor"));
+
+      lessonTopicId = "";
+      lessonModal.addEventListener("show.bs.modal", (event) => {
+        const button = event.relatedTarget;
+        const selectedTopicId = button.getAttribute("data-topic-id");
+        lessonTopicId = selectedTopicId;
+      });
+
+      $("#lesson-form").submit(function () {
         event.preventDefault();
-        $("#saveTopic").html(
-          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
-        );
-        url = "{% url 'courses:create_topic' course.pk %}";
-        form = $("#topicForm").serialize();
+        url = `/courses/create-lesson/${lessonTopicId}/`;
+        form = JSON.stringify($("#lesson-form").serialize());
+        console.log(form);
+
         $.ajax({
           type: "POST",
           url: url,
@@ -969,9 +638,7 @@
           },
           data: form,
           success: function (data) {
-            $("#saveTopic").html("<span><b>Save Topic</b></span>");
-            $("#topicModal").modal("hide");
-            updateTopicList();
+            console.log(data);
           },
           error: function (xhr, status, error) {
             var errorMessage = JSON.parse(xhr.responseText).error_message;
@@ -979,103 +646,21 @@
           },
         });
       });
+    }
 
-      $("#updateTopicForm").submit(function (event) {
-        event.preventDefault();
+    const assignmentModal = document.getElementById("assignmentModal");
+    if (assignmentModal) {
+      ClassicEditor.create(
+        document.querySelector("#assignment-summary-editor")
+      );
 
-        $("#saveUpdateTopic").html(
-          '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <b>Saving...</b>'
-        );
-
-        topicId = $("#updateTopicForm input[name='topicId']").val();
-        url = `/courses/update-topic/${topicId}/`;
-        form = $("#updateTopicForm").serialize();
-
-        $.ajax({
-          type: "POST",
-          url: url,
-          headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-          },
-          data: form,
-          success: function (data) {
-            $("#saveUpdateTopic").html("<span><b>Save Topic</b></span>");
-            $("#updateTopicModal").modal("hide");
-            updateTopicList();
-          },
-          error: function (xhr, status, error) {
-            var errorMessage = JSON.parse(xhr.responseText).error_message;
-            console.log(errorMessage);
-          },
-        });
+      assignmentModal.addEventListener("show.bs.modal", (event) => {
+        const button = event.relatedTarget;
+        const selectedTopicId = button.getAttribute("data-topic-id");
+        console.log(selectedTopicId);
       });
+    }
+  </script>
+</body>
 
-      const updateTopicModal = document.getElementById("updateTopicModal");
-      if (updateTopicModal) {
-        updateTopicModal.addEventListener("show.bs.modal", (event) => {
-          const button = event.relatedTarget;
-          const topicId = button.getAttribute("data-bs-topic-id");
-          const topicTitle = button.getAttribute("data-bs-topic-title");
-          const topicSummary = button.getAttribute("data-bs-topic-summary");
-          const topicSortOrder = button.getAttribute("data-bs-topic-sort");
-
-          const modalTitle = updateTopicModal.querySelector(".modal-title");
-          modalTitle.textContent = `Edit: ${topicTitle}`;
-
-          $("#updateTopicForm input[name='title']").val(topicTitle);
-          $("#updateTopicForm input[name='topicId']").val(topicId);
-          $("#updateTopicForm textarea[name='summary']").val(topicSummary);
-          $("#updateTopicForm input[name='sort_order']").val(topicSortOrder);
-        });
-      }
-
-      const lessonModal = document.getElementById("lessonModal");
-      if (lessonModal) {
-        ClassicEditor.create(document.querySelector("#lesson-content-editor"));
-
-        lessonTopicId = "";
-        lessonModal.addEventListener("show.bs.modal", (event) => {
-          const button = event.relatedTarget;
-          const selectedTopicId = button.getAttribute("data-topic-id");
-          lessonTopicId = selectedTopicId;
-        });
-
-        $("#lesson-form").submit(function () {
-          event.preventDefault();
-          url = `/courses/create-lesson/${lessonTopicId}/`;
-          form = JSON.stringify($("#lesson-form").serialize());
-          console.log(form);
-
-          $.ajax({
-            type: "POST",
-            url: url,
-            headers: {
-              "X-CSRFToken": "{{ csrf_token }}",
-            },
-            data: form,
-            success: function (data) {
-              console.log(data);
-            },
-            error: function (xhr, status, error) {
-              var errorMessage = JSON.parse(xhr.responseText).error_message;
-              console.log(errorMessage);
-            },
-          });
-        });
-      }
-
-      const assignmentModal = document.getElementById("assignmentModal");
-      if (assignmentModal) {
-        ClassicEditor.create(
-          document.querySelector("#assignment-summary-editor")
-        );
-
-        assignmentModal.addEventListener("show.bs.modal", (event) => {
-          const button = event.relatedTarget;
-          const selectedTopicId = button.getAttribute("data-topic-id");
-          console.log(selectedTopicId);
-        });
-      }
-    </script>
-  </body>
 </html>
