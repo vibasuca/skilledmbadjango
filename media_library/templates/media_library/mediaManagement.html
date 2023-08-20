@@ -32,6 +32,28 @@
         background-size: cover;
         background-position: center;
     }
+
+    .selection-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 7px #2271b1;
+    }
+
+    .tick-mark {
+        position: absolute;
+        top: 0;
+        right: 0px;
+        width: 30px;
+        height: 30px;
+        background-color: white;
+        font-size: 30px;
+        border-radius: 4px;
+        border: 1px solid #2271b1;
+        color: #2271b1;
+    }
 </style>
 
 <div>
@@ -46,7 +68,7 @@
     <div class="tab-content container-fluid">
         <div id="libraryTab" class="tab-pane active">
             <div class="row">
-                <div class="col-6 col-lg-9">
+                <div class="col-12 col-lg-9">
                     <!-- Media List -->
                     <div id="media-list">
                         <!-- Search Inputs -->
@@ -79,9 +101,10 @@
                         </div>
                         <style>
                             div#text {
-                                margin-top:48px;
-                                text-align:center;
+                                margin-top: 48px;
+                                text-align: center;
                             }
+
                             div#dropzone {
                                 position: fixed;
                                 top: 0;
@@ -97,6 +120,7 @@
                                 background: rgba(0, 0, 0, 0.45);
                                 font: bold 42px;
                             }
+
                             div#textnode {
                                 display: table-cell;
                                 text-align: center;
@@ -108,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="media-form-container-js" class="d-none col-6 col-lg-3 bg-light" style="height: ;">
+                <div id="media-form-container-js" class="d-none col-6 col-lg-3 bg-light">
                     <div class="sticky-top" style="top: 1%; z-index: 10;">
                         <div class="py-3">
                             <b class="text-muted">Attachment Details</b>
@@ -283,6 +307,12 @@
                                 >
                                     <div class="image-background"
                                         style="background-image: url('${media.file}');">
+
+                                        <div class="selection-overlay">
+                                            <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                                <i class="fal fa-check-square m-0"></i>
+                                            </div>
+                                        </div>
                                     </div>
                                     ${media.file}
                                 </div>
@@ -313,7 +343,7 @@
                 selectedMedia.push(media);
                 $("#use-media-btn-js").prop("disabled", false);
             }
-            
+
             $("#media-form-container-js").removeClass("d-none");
             $("#sidebar-form").html(generateFormHtml(media));
             $("#thumbnailPreviewJS").attr("src", media.file);
@@ -381,7 +411,7 @@
 
 
 
-        
+
         // Drag and drop media upload
 
         var lastTarget = null;
@@ -405,7 +435,7 @@
                 $("#textnode").css("fontSize", "48px");
             }
         }
-    
+
         function dragLeaveHandler(e) {
             e.preventDefault();
             if (e.target === lastTarget || e.target === document) {
@@ -414,26 +444,26 @@
                 $("#textnode").css("fontSize", "42px");
             }
         }
-    
+
         function dragOverHandler(e) {
             e.preventDefault();
         }
-    
+
         function dropHandler(e) {
             e.preventDefault();
             $("#dropzone").css("visibility", "hidden");
             $("#dropzone").css("opacity", 0);
             $("#textnode").css("fontSize", "42px");
-    
+
             var files = e.originalEvent.dataTransfer.files;
             if (files.length > 0) {
                 var formData = new FormData();
-    
+
                 for (var i = 0; i < files.length; i++) {
                     let file = files[i];
                     var formData = new FormData();
                     formData.append("file", file);
-    
+
                     $.ajax({
                         url: "{% url 'media_library:upload_media' %}",
                         type: "POST",
@@ -452,7 +482,7 @@
                         }
                     });
                 }
-    
+
             }
         }
 
@@ -462,7 +492,7 @@
             $(document).on("dragleave", dragLeaveHandler);
             $(document).on("dragover", dragOverHandler);
             $(document).on("drop", dropHandler);
-          });
+        });
 
         $("#mediaModal").on("hidden.bs.modal", function (e) {
             // do something...
@@ -488,14 +518,14 @@
             if (target == "thumbnail") {
                 var selectElement = $('#thumbnail-input-js');
                 selectElement.empty(); // Remove all child nodes
-                
+
                 // Create a new option element and set the selected attribute
                 var newOption = $('<option>', {
-                  value: selectedMedia[0].id,
-                  text: "",
-                  selected: true // Set the selected attribute to keep it selected
+                    value: selectedMedia[0].id,
+                    text: "",
+                    selected: true // Set the selected attribute to keep it selected
                 });
-                
+
                 // Append the new option element to the select element
                 selectElement.append(newOption);
                 $("#thumbnailInputPreviewJS").attr("src", selectedMedia[0].file);
