@@ -271,13 +271,7 @@
 
             console.log("Target", $("#mediaModal").data("target"))
             if ($("#mediaModal").data("target") == "thumbnail") {
-                for (let i = 0; i < selectedMedia.length; i++) {
-                    const element = selectedMedia[i];
-                    if (element.id != media.id) {
-                        $(`.image-grid-item[data-media-id=${element.id}]`).find(".selection-overlay").remove();
-                    }
-                }
-                selectedMedia.length = 0;  //clear array
+                clearSelection();
                 selectedMedia.push(media);
                 $(this).append(`
                 <div class="selection-overlay">
@@ -441,10 +435,7 @@
 
         $("#mediaModal").on("hidden.bs.modal", function (e) {
             // do something...
-            selectedMedia.length = 0;
-            $("#media-form-container-js").addClass("d-none");
-            $("#mediaModal").modal("hide");
-            $("#use-media-btn-js").prop("disabled", true);
+            clearSelection();
             $(document).off("dragenter", dragEnterHandler);
             $(document).off("dragleave", dragLeaveHandler);
             $(document).off("dragover", dragOverHandler);
@@ -475,16 +466,22 @@
                 selectElement.append(newOption);
                 $("#thumbnailInputPreviewJS").attr("src", selectedMedia[0].file);
 
-                selectedMedia.length = 0;
-                $("#media-form-container-js").addClass("d-none");
+                clearSelection();
                 $("#mediaModal").modal("hide");
-                $("#use-media-btn-js").prop("disabled", true);
             }
         });
-
-
-
-
+        
+        
+        
+        function clearSelection() {
+            for (let i = 0; i < selectedMedia.length; i++) {
+                const element = selectedMedia[i];
+                $(`.image-grid-item[data-media-id=${element.id}]`).find(".selection-overlay").remove();
+            }
+            selectedMedia.length = 0;  //clear array
+            $("#media-form-container-js").addClass("d-none");
+            $("#use-media-btn-js").prop("disabled", true);
+        }
 
 
     });
