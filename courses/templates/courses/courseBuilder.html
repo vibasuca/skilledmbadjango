@@ -117,7 +117,7 @@
 
                             <div class="d-flex gap-3">
                                 <!-- Button for Add Lesson -->
-                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#lessonModal-${topic.id}" data-topic-id="${topic.id}">
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}">
                                   <i class="fas fa-plus-square"></i>
                                     &nbsp;Lesson
                                 </button>
@@ -166,8 +166,7 @@
       
                     <div class="form-outline mb-4">
                       <label class="form-label my-2 fw-bold">Lesson Content</label>
-                      <div id="lesson-content-editor">
-                        {{ course.description|safe }}
+                      <div id="lesson-content-editor-${topic.id}">
                       </div>
                       <input type="text" class="form-control" id="create-lesson-content-${topic.id}" required>
                       <br />
@@ -178,7 +177,8 @@
                         topic name.
                       </small>
                     </div>
-      
+                    
+                    <label class="form-label my-2 fw-bold">Feature Image</label>
                     <div class="d-flex border rounded">
                       <div class="p-3">
                         <div class="thumbnail-preview" id="thumbnailPreview">
@@ -205,7 +205,7 @@
                       </div>
                     </div>
 
-                    <input type="number" class="form-control" id="create-lesson-feature_image-${topic.id}" required>
+                    <!-- <input type="number" class="form-control" id="create-lesson-feature_image-${topic.id}" required> -->
       
                     <div class="my-4">
                       <div class="card border-0">
@@ -219,7 +219,10 @@
                     <div class="form-outline mb-4">
                       <label class="form-label my-2 fw-bold"
                         >Upload exercise files to the Lesson</label
-                      >
+                      ><br>
+
+
+                      {% comment %} 
                       <div class="card my-3" style="max-width: 350px">
                         <div class="card-body">
                           <div class="d-flex flex-column">
@@ -243,23 +246,27 @@
                             <span style="color: #9e9e9e"> File size </span>
                           </div>
                         </div>
-                      </div>
-                      <button class="btn btn-primary p-3">
+                      </div> 
+                      {% endcomment %}
+
+
+
+                      <button class="btn btn-outline-primary p-3">
                         <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
                           >Upload Attachments</span
                         >
                       </button>
-                      <input type="text" class="form-control" id="create-lesson-attachments-${topic.id}" required>
+                      <!-- <input type="text" class="form-control" id="create-lesson-attachments-${topic.id}" required> -->
                     </div>
       
                     <div class="d-flex align-items-center gap-3 mb-4">
-                      <label for="enable_preview">Enable Course Preview:</label>
                       <input
                         type="checkbox"
                         id="create-lesson-enable_preview-${topic.id}" required
                         class="form-check-input"
                         style="padding: 10px"
                       />
+                      <label for="enable_preview">Enable Course Preview:</label>
                     </div>
                     <small class="text-muted">
                       <i class="fal fa-info-circle"></i> If checked, any users/guest
@@ -305,7 +312,7 @@
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson ${item.lesson}</span>
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson ${item.lesson_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
