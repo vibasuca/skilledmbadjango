@@ -560,8 +560,6 @@
             }
             else if (target == "attachments") {
                 var selectElement = $('#attachments-input-js');
-                selectElement.empty(); // Remove all child nodes
-                $("#attachmentsPreviewContainer").empty();
 
                 // Create a new option element and set the selected attribute
                 for (let i = 0; i < selectedMedia.length; i++) {
