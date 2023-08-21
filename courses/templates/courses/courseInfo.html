@@ -302,6 +302,7 @@
                 class="img-fluid"
                 src="{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}"
                 alt="thumbnail"
+                style="min-height: 100px; max-width: 250px"
               />
             </div>
           </div>
