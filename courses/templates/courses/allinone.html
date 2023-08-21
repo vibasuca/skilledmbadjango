@@ -62,11 +62,11 @@
     </div>
     <div class="collapse show" id="card5">
       <div class="m-4 mt-0">
-        {% comment %} <p>
-          <label for="id_attachments" class="text-danger">Attachments:</label>
-          <select name="attachments" id="id_attachments" multiple=""></select>
-        </p> {% endcomment %}
-        <button type="button" data-bs-toggle="modal" data-bs-target="#attachmentModal"
+        <p class="d-none">
+          <select name="attachments" id="attachments-input-js" multiple=""></select>
+        </p>
+        <div id="attachmentsPreviewContainer"></div>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#mediaModal" id="attachments-btn-js"
           class="btn btn-outline-primary p-3">
           <i class="fas fa-paperclip"></i>
           <span>&nbsp;&nbsp;Upload Attachment</span>
@@ -187,5 +187,13 @@
       backgroundColor: 'red',
       padding: '100px',
     });
+
+
+    $("#attachments-btn-js").click(function () {
+      $("#mediaModal").data("target", "attachments");
+    });
+
+
+
   });
 </script>
