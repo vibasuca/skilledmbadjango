@@ -243,11 +243,7 @@
                                     <div class="image-background"
                                         style="background-image: url('${media.file}');">
 
-                                        <div class="selection-overlay">
-                                            <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                                                <i class="fal fa-check-square m-0"></i>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                     ${media.file}
                                 </div>
@@ -262,6 +258,7 @@
             });
         }
 
+        // On selecting image
         $(document).on("click", ".image-grid-item", function () {
             const media = {
                 id: $(this).data("media-id"),
@@ -274,8 +271,21 @@
 
             console.log("Target", $("#mediaModal").data("target"))
             if ($("#mediaModal").data("target") == "thumbnail") {
-                selectedMedia.length = 0;
+                for (let i = 0; i < selectedMedia.length; i++) {
+                    const element = selectedMedia[i];
+                    if (element.id != media.id) {
+                        $(`.image-grid-item[data-media-id=${element.id}]`).find(".selection-overlay").remove();
+                    }
+                }
+                selectedMedia.length = 0;  //clear array
                 selectedMedia.push(media);
+                $(this).append(`
+                <div class="selection-overlay">
+                    <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                        <i class="fal fa-check-square m-0"></i>
+                    </div>
+                </div>
+                `)
                 $("#use-media-btn-js").prop("disabled", false);
             }
 
