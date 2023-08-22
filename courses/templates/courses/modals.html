@@ -379,13 +379,17 @@
               <div class="card-body p-0">
                 <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
                   data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
-                  <div class="d-flex gap-2 align-items-center">
-                    <button class="btn btn-outline-primary border rounded" type="button"
-                      style="background-color: rgb(209, 242, 255);" aria-expanded="false">
-                      <i class="fas fa-cog text-primary"></i>
-                    </button>
-                    <span class="fw-bold text-muted">True / False</span>
+
+                  <div id="selectedTypeJS" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
+                    <div class="d-flex gap-3 align-items-center">
+                      <button class="btn btn-outline-primary border rounded" type="button"
+                        style="background-color:#3e64de; color: white;" aria-expanded="false">
+                        <i class="far fa-adjust"></i>
+                      </button>
+                      <small class="fw-bold text-muted">True / False</small>
+                    </div>
                   </div>
+
                   <span class="d-flex gap-2 px-2">
                     <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
                   </span>
@@ -394,105 +398,7 @@
                   <div class="card card-body">
                     <div class="row">
 
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #3e64de; color: white;" aria-expanded="false">
-                            <i class="far fa-adjust"></i>
-                          </button>
-                          <small class="fw-bold text-muted">True / False</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #00b890; color: white;" aria-expanded="false">
-                            <i class="far fa-check"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Single Choice</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #9034a9; color: white;" aria-expanded="false">
-                            <i class="far fa-check-double"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Multiple Choice</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #fe3129; color: white;" aria-expanded="false">
-                            <i class="far fa-text-width"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Open Ended</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #ffbf00; color: white;" aria-expanded="false">
-                            <i class="far fa-hourglass-end"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Fill In The Blanks</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #f37512; color: white;" aria-expanded="false">
-                            <i class="far fa-compress"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Short Answer</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #8a4a1b; color: white;" aria-expanded="false">
-                            <i class="far fa-exchange-alt"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Matching</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #f37512; color: white;" aria-expanded="false">
-                            <i class="far fa-images"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Image Matching</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #a322f9; color: white;" aria-expanded="false">
-                            <i class="fas fa-camera"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Image Answering</small>
-                        </div>
-                      </div>
-
-                      <div class="col-6 col-lg-4 mb-2">
-                        <div class="d-flex gap-3 align-items-center rounded border p-2">
-                          <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: #1b52d8; color: white;" aria-expanded="false">
-                            <i class="far fa-sort-alpha-up"></i>
-                          </button>
-                          <small class="fw-bold text-muted">Ordering</small>
-                        </div>
-                      </div>
+                      <div class="d-flex flex-wrap gap-3" id="questionTypesContainer"></div>
 
                     </div>
                   </div>
@@ -749,6 +655,103 @@
 </div>
 
 <script>
+
+  $('#questionModal').on('shown.bs.modal', function () {
+    const questionTypes = {
+      "true_false": {
+        "icon": "far fa-adjust",
+        "title": "True / False",
+        "color": "#3e64de"
+      },
+      "single_choice": {
+        "icon": "far fa-check",
+        "title": "Single Choice",
+        "color": "#00b890"
+      },
+      "multiple_choice": {
+        "icon": "far fa-check-double",
+        "title": "Multiple Choice",
+        "color": "#9034a9"
+      },
+      "open_ended": {
+        "icon": "far fa-text-width",
+        "title": "Open Ended",
+        "color": "#fe3129"
+      },
+      "fill_in_the_blanks": {
+        "icon": "far fa-hourglass-end",
+        "title": "Fill In The Blanks",
+        "color": "#ffbf00"
+      },
+      "short_answer": {
+        "icon": "far fa-compress",
+        "title": "Short Answer",
+        "color": "#f37512"
+      },
+      "matching": {
+        "icon": "far fa-exchange-alt",
+        "title": "Matching",
+        "color": "#8a4a1b"
+      },
+      "image_matching": {
+        "icon": "far fa-images",
+        "title": "Image Matching",
+        "color": "#f37512"
+      },
+      "image_answering": {
+        "icon": "fas fa-camera",
+        "title": "Image Answering",
+        "color": "#a322f9"
+      },
+      "ordering": {
+        "icon": "far fa-sort-alpha-up",
+        "title": "Ordering",
+        "color": "#1b52d8"
+      },
+
+    };
+
+    $.each(questionTypes, function (key, value) {
+      const icon = value.icon;
+      const title = value.title;
+      const color = value.color;
+      const type = title.toLowerCase().replace(/\s+/g, '_');
+
+      const questionTypeDiv = $("<div>").html(
+        `<div style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
+          <div class="d-flex gap-3 align-items-center rounded border p-2">
+            <button class="btn btn-outline-primary border rounded" type="button"
+              style="background-color: ${color}; color: white;" aria-expanded="false">
+              <i class="${icon}"></i>
+            </button>
+            <small class="fw-bold text-muted">${title}</small>
+          </div>
+        </div>`
+      );
+
+      $("#questionTypesContainer").append(questionTypeDiv);
+    });
+
+    $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
+      const questionType = $(this).data("question-type");
+      const singleChoiceQuestionType = questionTypes[questionType];
+      console.log(singleChoiceQuestionType)
+      var newHtmlContent =
+        `<div style="width: 200px; cursor: pointer;" data-question-type="${questionType}" class="questionTypeJS">
+        <div class="d-flex gap-3 align-items-center">
+          <button class="btn btn-outline-primary border rounded" type="button"
+            style="background-color: ${singleChoiceQuestionType.color}; color: white;" aria-expanded="false">
+            <i class="${singleChoiceQuestionType.icon}"></i>
+          </button>
+          <small class="fw-bold text-muted">${singleChoiceQuestionType.title}</small>
+        </div>
+      </div>`;
+
+      $("#selectedTypeJS").html(newHtmlContent);
+    });
+
+  });
+
   // Get the slider and percentage label elements
   const slider = document.getElementById("slider");
   const percentageLabel = document.getElementById("percentage-label");
