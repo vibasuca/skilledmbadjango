@@ -274,7 +274,6 @@
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Lesson Content</label>
               <div id="lesson-content-editor">
-                {{ course.description|safe }}
               </div>
               <br />
               <small class="text-muted">
@@ -284,7 +283,8 @@
                 topic name.
               </small>
             </div>
-
+            
+            <label class="form-label my-2 fw-bold">Feature Image</label>
             <div class="d-flex border rounded">
               <div class="p-3">
                 <div class="thumbnail-preview" id="thumbnailPreview">
@@ -296,7 +296,7 @@
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
-                    Media Library
+                    Upload Image
                   </button>
                 </span>
               </div>
@@ -313,6 +313,9 @@
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
+              <br>
+              
+              {% comment %} 
               <div class="card my-3" style="max-width: 350px">
                 <div class="card-body">
                   <div class="d-flex flex-column">
@@ -336,8 +339,10 @@
                     <span style="color: #9e9e9e"> File size </span>
                   </div>
                 </div>
-              </div>
-              <button class="btn btn-primary p-3">
+              </div> 
+              {% endcomment %}
+              
+              <button class="btn btn-outline-primary p-3">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
@@ -375,7 +380,7 @@
         </div>
         <form id="assignment-form">
           {% csrf_token %}
-          <div class="modal-body">
+          <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Assignment Name</label>
               <input type="text" id="title" name="title" class="form-control p-3 mb-2" value="test title" required />
@@ -384,13 +389,14 @@
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Summary</label>
               <div id="assignment-summary-editor">
-                {{ course.description|safe }}
               </div>
             </div>
 
             <div class="form-outline mb-4">
-              <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
-              <div class="card my-3" style="max-width: 350px">
+              <label class="form-label my-2 fw-bold">Attachments</label>
+              <br>
+
+              {% comment %} <div class="card my-3" style="max-width: 350px">
                 <div class="card-body">
                   <div class="d-flex flex-column">
                     <b style="font-weight: 500">File name</b>
@@ -413,8 +419,9 @@
                     <span style="color: #9e9e9e"> File size </span>
                   </div>
                 </div>
-              </div>
-              <button class="btn btn-primary p-3">
+              </div> {% endcomment %}
+              
+              <button class="btn btn-outline-primary p-3" type="button">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
@@ -424,10 +431,17 @@
                 <label class="form-label my-2 fw-bold">Time Limit</label>
                 <input type="number" id="time_limit" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" />
-                <small class="text-muted">
-                  <i class="fal fa-info-circle"></i> Maximum points a student
-                  can score
-                </small>
+
+                <select
+                  class="course-difficulty-single form-select p-3 mb-2"
+                  id="difficulty_level"
+                  name="difficulty_level"
+                  aria-label="Select Difficulty Level"
+                >
+                  <option value="W" selected>Weeks</option>
+                  <option value="D">Days</option>
+                  <option value="H">Hours</option>
+                </select>
               </div>
             </div>
 
