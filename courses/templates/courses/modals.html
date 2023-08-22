@@ -200,7 +200,7 @@
 
 <!-- quiz Modal Step1 -->
 <div class="modal fade" id="quizModalStep1" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="quizModalStep1Label">Quiz</h1>
@@ -244,7 +244,7 @@
 
 <!-- quiz Modal Step2 -->
 <div class="modal fade" id="quizModalStep2" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="quizModalStep1Label">Quiz</h1>
@@ -349,7 +349,7 @@
 
 <!-- question Modal -->
 <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="questionModalLabel">Quiz</h1>
@@ -390,29 +390,110 @@
                     <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
                   </span>
                 </div>
-                <div class="collapse" id="questionTypeSelect">
+                <div class="collapse show" id="questionTypeSelect">
                   <div class="card card-body">
                     <div class="row">
 
-                      <div class="col-4 mb-2">
-                        <div class="d-flex gap-2 align-items-center rounded border p-1">
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
                           <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: rgb(209, 242, 255);" aria-expanded="false">
-                            <i class="fas fa-cog text-primary"></i>
+                            style="background-color: #3e64de; color: white;" aria-expanded="false">
+                            <i class="far fa-adjust"></i>
                           </button>
-                          <span class="fw-bold text-muted">Single Choice</span>
+                          <small class="fw-bold text-muted">True / False</small>
                         </div>
                       </div>
 
-                      <div class="col-4 mb-2">
-                        <div class="d-flex gap-2 align-items-center rounded border p-1">
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
                           <button class="btn btn-outline-primary border rounded" type="button"
-                            style="background-color: rgb(209, 242, 255);" aria-expanded="false">
-                            <i class="fas fa-cog text-primary"></i>
+                            style="background-color: #00b890; color: white;" aria-expanded="false">
+                            <i class="far fa-check"></i>
                           </button>
-                          <span class="fw-bold text-muted">True / False</span>
+                          <small class="fw-bold text-muted">Single Choice</small>
                         </div>
                       </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #9034a9; color: white;" aria-expanded="false">
+                            <i class="far fa-check-double"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Multiple Choice</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #fe3129; color: white;" aria-expanded="false">
+                            <i class="far fa-text-width"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Open Ended</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #ffbf00; color: white;" aria-expanded="false">
+                            <i class="far fa-hourglass-end"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Fill In The Blanks</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #f37512; color: white;" aria-expanded="false">
+                            <i class="far fa-compress"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Short Answer</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #8a4a1b; color: white;" aria-expanded="false">
+                            <i class="far fa-exchange-alt"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Matching</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #f37512; color: white;" aria-expanded="false">
+                            <i class="far fa-images"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Image Matching</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #a322f9; color: white;" aria-expanded="false">
+                            <i class="fas fa-camera"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Image Answering</small>
+                        </div>
+                      </div>
+
+                      <div class="col-6 col-lg-4 mb-2">
+                        <div class="d-flex gap-3 align-items-center rounded border p-2">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: #1b52d8; color: white;" aria-expanded="false">
+                            <i class="far fa-sort-alpha-up"></i>
+                          </button>
+                          <small class="fw-bold text-muted">Ordering</small>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -455,12 +536,12 @@
 
 <!-- quiz Modal Step3 -->
 <div class="modal fade" id="quizModalStep3" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
     <div class=" mb-3">
     </div>
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="quizModalStep1Label">Modal title</h1>
+        <h1 class="modal-title fs-5" id="quizModalStep1Label">Quiz</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-5">
