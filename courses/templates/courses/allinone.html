@@ -95,7 +95,7 @@
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">What will I learn?</label>
           <textarea class="form-control" name="what_will_i_learn"
-            placeholder="Write here the course benefits (One per line)" rows="3">
+            placeholder="Write here the course benefits (One per line)" rows="3" style="background: #f8f8f8;">
 {{ course.what_will_i_learn | safe }}</textarea>
         </div>
 
@@ -103,7 +103,7 @@
           <label class="form-label my-2 fw-bold">Target Audience</label>
           <textarea class="form-control" name="target_audience"
             placeholder="Specify the target audience that will benefit the most from the course. (One line per target audience.)"
-            rows="3">
+            rows="3" style="background: #f8f8f8;">
 {{ course.target_audience | safe }}</textarea>
         </div>
 
@@ -112,12 +112,12 @@
           <div class="d-flex gap-3">
             <div>
               <input id="hour-js" type="number" class="form-control p-3 mb-2" placeholder="Hours"
-                value="{{course.duration|get_timedelta_hours}}" />
+                value="{{course.duration|get_timedelta_hours}}" style="background: #f8f8f8;" />
               <small class="text-muted"> Hours </small>
             </div>
             <div>
               <input id="minute-js" type="number" class="form-control p-3 mb-2" placeholder="Minutes"
-                value="{{course.duration|get_timedelta_minutes}}" />
+                value="{{course.duration|get_timedelta_minutes}}" style="background: #f8f8f8;" />
               <small class="text-muted"> Minutes </small>
             </div>
           </div>
@@ -129,14 +129,14 @@
           <label class="form-label my-2 fw-bold">Materials Included</label>
           <textarea class="form-control" name="materials_included"
             placeholder="A list of assets you will be providing for the students in this course (One per line)"
-            rows="3">
+            rows="3" style="background: #f8f8f8;">
 {{ course.materials_included | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
           <textarea class="form-control" name="requirements"
-            placeholder="Additional requirements or special instructions for the students (One per line)" rows="3">
+            placeholder="Additional requirements or special instructions for the students (One per line)" rows="3" style="background: #f8f8f8;">
 {{ course.requirements | safe }}</textarea>
         </div>
 

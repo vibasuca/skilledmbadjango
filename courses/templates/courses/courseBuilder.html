@@ -117,13 +117,13 @@
 
                             <div class="d-flex gap-3">
                                 <!-- Button for Add Lesson -->
-                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}">
+                                <button type="button" class="btn btn-outline-primary create-lesson-button" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}">
                                   <i class="fas fa-plus-square"></i>
                                     &nbsp;Lesson
                                 </button>
 
                                 <!-- Button for Add Quiz -->
-                                <button type="button" class="btn btn-outline-primary">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#questionModal" class="btn btn-outline-primary">
                                     <i class="fas fa-plus-square"></i>
                                     &nbsp;Quiz
                                 </button>
@@ -491,6 +491,19 @@
 
     // Fetch the media list when the page loads
     fetchTopicsList();
+
+
+
+
+
+
+    $(".create-lesson-button").click()
+
+
+
+
+
+
 
     // Just for testing
     function send() {
