@@ -207,7 +207,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-5">
-        <div>
+        <div class="mb-5">
           <div class="form-progress">
             <progress class="form-progress-bar" min="0" max="100" value="0" step="33"
               aria-labelledby="form-progress-completion"></progress>
@@ -220,7 +220,7 @@
             </p>
           </div>
         </div>
-        <div class="mt-5">
+        <div>
           <div class="form-outline mb-3">
             <label class="form-label my-2 fw-bold">Quiz Title</label>
             <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
@@ -255,11 +255,9 @@
           <div class="form-progress">
             <progress class="form-progress-bar" min="0" max="100" value="50" step="33"
               aria-labelledby="form-progress-completion"></progress>
-
             <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
             <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
             <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
-
             <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
             </p>
           </div>
@@ -331,7 +329,7 @@
           </span>
         </div>
         <button type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
-          data-bs-target="#topicModal">
+          data-bs-target="#questionModal">
           <i class="fas fa-plus-square"></i>
           <span>&nbsp;&nbsp;Add Question</span>
         </button>
@@ -349,196 +347,384 @@
   </div>
 </div>
 
-<!-- quiz Modal Step3 -->
-<div class="modal fade" id="quizModalStep3" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
+<!-- question Modal -->
+<div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="quizModalStep1Label">Modal title</h1>
+        <h1 class="modal-title fs-5" id="questionModalLabel">Quiz</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body p-5">
         <div class="mb-5">
           <div class="form-progress">
-            <progress class="form-progress-bar" min="0" max="100" value="100" step="33"
+            <progress class="form-progress-bar" min="0" max="100" value="50" step="33"
               aria-labelledby="form-progress-completion"></progress>
-
             <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
             <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
-            <div class="justify-content-center d-flex align-items-center form-progress-indicator three active">3</div>
-
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
             <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
             </p>
           </div>
         </div>
-        <div class="form-outline mb-3">
-          <div class="mb-3">
-            <label class="form-label my-2 fw-bold">Time Limit</label>
+        <div>
+          <div class="form-outline mb-4">
+            <label class="form-label my-2 fw-bold">Write your question here</label>
+            <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+              placeholder="Write your question here" required />
+          </div>
+          <div class="mb-5">
+            <label class="form-label my-2 fw-bold">Select your question type</label>
+            <div class="card bg-white text-start mb-3">
+              <div class="card-body p-0">
+                <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
+                  data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
+                  <div class="d-flex gap-2 align-items-center">
+                    <button class="btn btn-outline-primary border rounded" type="button"
+                      style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+                      <i class="fas fa-cog text-primary"></i>
+                    </button>
+                    <span class="fw-bold text-muted">True / False</span>
+                  </div>
+                  <span class="d-flex gap-2 px-2">
+                    <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
+                  </span>
+                </div>
+                <div class="collapse" id="questionTypeSelect">
+                  <div class="card card-body">
+                    <div class="row">
+
+                      <div class="col-4 mb-2">
+                        <div class="d-flex gap-2 align-items-center rounded border p-1">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+                            <i class="fas fa-cog text-primary"></i>
+                          </button>
+                          <span class="fw-bold text-muted">Single Choice</span>
+                        </div>
+                      </div>
+
+                      <div class="col-4 mb-2">
+                        <div class="d-flex gap-2 align-items-center rounded border p-1">
+                          <button class="btn btn-outline-primary border rounded" type="button"
+                            style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+                            <i class="fas fa-cog text-primary"></i>
+                          </button>
+                          <span class="fw-bold text-muted">True / False</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="answerRequired">
+              <label class="form-check-label" for="answerRequired">Answer Required</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="randomize">
+              <label class="form-check-label" for="randomize">Randomize</label>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label my-2 fw-bold">Point(s) for this answer</label>
             <div class="d-flex gap-3 align-items-center">
-              <input type="number" style="width: 150px; background-color: #f8f8f8;"
-                class="form-control p-3 mb-2 border-0" placeholder="Quiz Title" required />
-              <select class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
-                aria-label="Default select example">
-                <option selected>Second</option>
-                <option>Minutes</option>
-                <option value="1">Hours</option>
-                <option value="2">Days</option>
-                <option value="3">Weeks</option>
-              </select>
+              <input type="text" style="width: 200px; background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                placeholder="Set the mark" required />
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Hide quiz time - display</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="displayPoints">
+                <label class="form-check-label" for="displayPoints">Display Points</label>
               </div>
             </div>
             <small>Time limit for this quiz. 0 means no time limit.</small>
           </div>
+          <label class="form-label my-2 mb-4 fw-bold">Description (Optional)</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+          Next</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-          <div class="mb-3">
-            <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
-            <div class="d-flex flex-column gap-3">
-              <small>(Pick the quiz system"s behaviour on choice based questions.)</small>
-              <div class="rounded border p-3">
-                <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="defaultRadio" checked>
-                  <div class="d-flex flex-column">
-                    <label class="form-check-label" for="defaultRadio">
-                      Default
-                    </label>
-                    <small class="text-muted">Answers shown after quiz is finished.</small>
-                  </div>
+<!-- quiz Modal Step3 -->
+<div class="modal fade" id="quizModalStep3" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
+  <div class="modal-dialog modal-d<div class=" mb-3">
+    <div class="card bg-white text-start mb-3">
+      <div class="card-body p-0">
+        <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
+          <div class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-primary border rounded-circle" type="button"
+              style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+              <i class="fas fa-cog text-primary"></i>
+            </button>
+            <span class="fw-bold text-muted">Advance Settings</span>
+          </div>
+          <span class="d-flex gap-2 px-2">
+            <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#advanceSettings"><i
+                class="fas fa-chevron-down text-muted"></i></button>
+          </span>
+        </div>
+        <div class="collapse" id="advanceSettings">
+          <div class="card card-body">
+            <div class="mb-4">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
+                <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
+              </div>
+              <small class="text-muted">If you enable this option, the quiz will start automatically after
+                the page is loaded.</small>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex gap-3 align-items-center">
+                <div style="width: 47%;">
+                  <label class="form-label my-2 fw-bold">Question Layout</label>
+                  <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                    aria-label="Default select example">
+                    <option selected>Set Question Layout View</option>
+                    <option>Single Question</option>
+                    <option value="1">Question Pagination</option>
+                    <option value="2">Question Below Each Other</option>
+                  </select>
+                </div>
+                <div style="width: 47%;">
+                  <label class="form-label my-2 fw-bold">Questions Order</label>
+                  <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                    aria-label="Default select example">
+                    <option selected>Random</option>
+                    <option>Sorting</option>
+                    <option value="1">Ascending</option>
+                    <option value="2">Descending</option>
+                  </select>
                 </div>
               </div>
-              <div class="rounded border p-3">
-                <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="revealModeRadio" checked>
-                  <div class="d-flex flex-column">
-                    <label class="form-check-label" for="revealModeRadio">
-                      Reveal Mode
-                    </label>
-                    <small class="text-muted">Show result after the attempt.</small>
-                  </div>
+              <small>Time limit for this quiz. 0 means no time limit.</small>
+            </div>
+            <div class="my-3">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
+                <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
+              </div>
+              <small class="text-muted">Show/hide question number during attempt.</small>
+            </div>
+            <div class="mb-3">
+              <div class="form-outline">
+                <label class="form-label my-2 fw-bold">Short answer characters limit</label>
+                <input type="number" style="background-color: #f8f8f8;" name="title"
+                  class="form-control p-3 mb-2 border-0" required />
+              </div>
+              <small class="text-muted">Student will place answer in short answer question type within this
+                characters
+                limit.</small>
+            </div>
+            <div class="mb-3">
+              <div class="form-outline">
+                <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
+                  limit</label>
+                <input type="number" style="background-color: #f8f8f8;" name="title"
+                  class="form-control p-3 mb-2 border-0" required />
+              </div>
+              <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
+                within this
+                character limit.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>ialog-centered modal-lg modal-dialog-scrollable">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="quizModalStep1Label">Modal title</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body p-5">
+      <div class="mb-5">
+        <div class="form-progress">
+          <progress class="form-progress-bar" min="0" max="100" value="100" step="33"
+            aria-labelledby="form-progress-completion"></progress>
+
+          <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
+          <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
+          <div class="justify-content-center d-flex align-items-center form-progress-indicator three active">3</div>
+
+          <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
+          </p>
+        </div>
+      </div>
+      <div class="form-outline mb-3">
+        <div class="mb-3">
+          <label class="form-label my-2 fw-bold">Time Limit</label>
+          <div class="d-flex gap-3 align-items-center">
+            <input type="number" style="width: 150px; background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <select class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
+              aria-label="Default select example">
+              <option selected>Second</option>
+              <option>Minutes</option>
+              <option value="1">Hours</option>
+              <option value="2">Days</option>
+              <option value="3">Weeks</option>
+            </select>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+              <label class="form-check-label" for="flexSwitchCheckDefault">Hide quiz time - display</label>
+            </div>
+          </div>
+          <small>Time limit for this quiz. 0 means no time limit.</small>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
+          <div class="d-flex flex-column gap-3">
+            <small>(Pick the quiz system"s behaviour on choice based questions.)</small>
+            <div class="rounded border p-3">
+              <div class="form-check d-flex gap-3 align-items-center">
+                <input class="form-check-input" type="radio" name="feedbackMode" id="defaultRadio" checked>
+                <div class="d-flex flex-column">
+                  <label class="form-check-label" for="defaultRadio">
+                    Default
+                  </label>
+                  <small class="text-muted">Answers shown after quiz is finished.</small>
                 </div>
               </div>
-              <div class="rounded border p-3">
-                <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="retryModeRadio" checked>
-                  <div class="d-flex flex-column">
-                    <label class="form-check-label" for="retryModeRadio">
-                      Retry Mode
-                    </label>
-                    <small class="text-muted">Reattempt quiz any number of times. Define Attempts Allowed below.</small>
-                  </div>
+            </div>
+            <div class="rounded border p-3">
+              <div class="form-check d-flex gap-3 align-items-center">
+                <input class="form-check-input" type="radio" name="feedbackMode" id="revealModeRadio" checked>
+                <div class="d-flex flex-column">
+                  <label class="form-check-label" for="revealModeRadio">
+                    Reveal Mode
+                  </label>
+                  <small class="text-muted">Show result after the attempt.</small>
                 </div>
               </div>
-              <div class="mb-3">
-                <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
-                <div class="d-flex gap-3 p-3 rounded border">
-                  <input type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
-                  <div class="rangePercentage d-flex flex-column align-items-center justify-content-center rounded-end">
-                    <div class="arrow"></div>
-                    <span class="percentage-label fw-bold" id="percentage-label">50</span>
-                  </div>
+            </div>
+            <div class="rounded border p-3">
+              <div class="form-check d-flex gap-3 align-items-center">
+                <input class="form-check-input" type="radio" name="feedbackMode" id="retryModeRadio" checked>
+                <div class="d-flex flex-column">
+                  <label class="form-check-label" for="retryModeRadio">
+                    Retry Mode
+                  </label>
+                  <small class="text-muted">Reattempt quiz any number of times. Define Attempts Allowed below.</small>
                 </div>
-                <small>Restriction on the number of attempts a student is allowed to take for this quiz. 0
-                  for no limit</small>
               </div>
-              <div class="mb-3">
-                <div class="form-outline">
-                  <label class="form-label my-2 fw-bold">Passing Grade (%)</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
+              <div class="d-flex gap-3 p-3 rounded border">
+                <input type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
+                <div class="rangePercentage d-flex flex-column align-items-center justify-content-center rounded-end">
+                  <div class="arrow"></div>
+                  <span class="percentage-label fw-bold" id="percentage-label">50</span>
                 </div>
-                <small>Set the passing percentage for this quiz</small>
               </div>
-              <div class="mb-3">
-                <div class="form-outline">
-                  <label class="form-label my-2 fw-bold">Max Question Allowed to Answer</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
-                </div>
-                <small>This amount of question will be available for students to answer, and question will comes
-                  randomly from all available questions belongs with a quiz, if this amount is greater than available
-                  question, then all questions will be available for a student to answer.</small>
+              <small>Restriction on the number of attempts a student is allowed to take for this quiz. 0
+                for no limit</small>
+            </div>
+            <div class="mb-3">
+              <div class="form-outline">
+                <label class="form-label my-2 fw-bold">Passing Grade (%)</label>
+                <input type="number" style="background-color: #f8f8f8;" name="title"
+                  class="form-control p-3 mb-2 border-0" required />
               </div>
-              <div class="mb-3">
-                <div class="card bg-white text-start mb-3">
-                  <div class="card-body p-0">
-                    <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
-                      <div class="d-flex gap-2 align-items-center">
-                        <button class="btn btn-outline-primary border rounded-circle" type="button"
-                          style="background-color: rgb(209, 242, 255);" aria-expanded="false">
-                          <i class="fas fa-cog text-primary"></i>
-                        </button>
-                        <span class="fw-bold text-muted">Advance Settings</span>
-                      </div>
-                      <span class="d-flex gap-2 px-2">
-                        <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#advanceSettings"><i
-                            class="fas fa-chevron-down text-muted"></i></button>
-                      </span>
+              <small>Set the passing percentage for this quiz</small>
+            </div>
+            <div class="mb-3">
+              <div class="form-outline">
+                <label class="form-label my-2 fw-bold">Max Question Allowed to Answer</label>
+                <input type="number" style="background-color: #f8f8f8;" name="title"
+                  class="form-control p-3 mb-2 border-0" required />
+              </div>
+              <small>This amount of question will be available for students to answer, and question will comes
+                randomly from all available questions belongs with a quiz, if this amount is greater than available
+                question, then all questions will be available for a student to answer.</small>
+            </div>
+            <div class="mb-3">
+              <div class="card bg-white text-start mb-3">
+                <div class="card-body p-0">
+                  <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
+                    <div class="d-flex gap-2 align-items-center">
+                      <button class="btn btn-outline-primary border rounded-circle" type="button"
+                        style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+                        <i class="fas fa-cog text-primary"></i>
+                      </button>
+                      <span class="fw-bold text-muted">Advance Settings</span>
                     </div>
-                    <div class="collapse" id="advanceSettings">
-                      <div class="card card-body">
-                        <div class="mb-4">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
-                            <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
-                          </div>
-                          <small class="text-muted">If you enable this option, the quiz will start automatically after
-                            the page is loaded.</small>
+                    <span class="d-flex gap-2 px-2">
+                      <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#advanceSettings"><i
+                          class="fas fa-chevron-down text-muted"></i></button>
+                    </span>
+                  </div>
+                  <div class="collapse" id="advanceSettings">
+                    <div class="card card-body">
+                      <div class="mb-4">
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
+                          <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
                         </div>
-                        <div class="mb-3">
-                          <div class="d-flex gap-3 align-items-center">
-                            <div style="width: 47%;">
-                              <label class="form-label my-2 fw-bold">Question Layout</label>
-                              <select class="form-select p-3 mb-2 border-0"
-                                style="background-color: #f8f8f8;" aria-label="Default select example">
-                                <option selected>Set Question Layout View</option>
-                                <option>Single Question</option>
-                                <option value="1">Question Pagination</option>
-                                <option value="2">Question Below Each Other</option>
-                              </select>
-                            </div>
-                            <div style="width: 47%;">
-                              <label class="form-label my-2 fw-bold">Questions Order</label>
-                              <select class="form-select p-3 mb-2 border-0"
-                                style="background-color: #f8f8f8;" aria-label="Default select example">
-                                <option selected>Random</option>
-                                <option>Sorting</option>
-                                <option value="1">Ascending</option>
-                                <option value="2">Descending</option>
-                              </select>
-                            </div>
+                        <small class="text-muted">If you enable this option, the quiz will start automatically after
+                          the page is loaded.</small>
+                      </div>
+                      <div class="mb-3">
+                        <div class="d-flex gap-3 align-items-center">
+                          <div style="width: 47%;">
+                            <label class="form-label my-2 fw-bold">Question Layout</label>
+                            <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                              aria-label="Default select example">
+                              <option selected>Set Question Layout View</option>
+                              <option>Single Question</option>
+                              <option value="1">Question Pagination</option>
+                              <option value="2">Question Below Each Other</option>
+                            </select>
                           </div>
-                          <small>Time limit for this quiz. 0 means no time limit.</small>
-                        </div>
-                        <div class="my-3">
-                          <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
-                            <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
+                          <div style="width: 47%;">
+                            <label class="form-label my-2 fw-bold">Questions Order</label>
+                            <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                              aria-label="Default select example">
+                              <option selected>Random</option>
+                              <option>Sorting</option>
+                              <option value="1">Ascending</option>
+                              <option value="2">Descending</option>
+                            </select>
                           </div>
-                          <small class="text-muted">Show/hide question number during attempt.</small>
                         </div>
-                        <div class="mb-3">
-                          <div class="form-outline">
-                            <label class="form-label my-2 fw-bold">Short answer characters limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
-                          </div>
-                          <small class="text-muted">Student will place answer in short answer question type within this
-                            characters
-                            limit.</small>
+                        <small>Time limit for this quiz. 0 means no time limit.</small>
+                      </div>
+                      <div class="my-3">
+                        <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
+                          <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
                         </div>
-                        <div class="mb-3">
-                          <div class="form-outline">
-                            <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
-                              limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
-                          </div>
-                          <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
-                            within this
-                            character limit.</small>
+                        <small class="text-muted">Show/hide question number during attempt.</small>
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-outline">
+                          <label class="form-label my-2 fw-bold">Short answer characters limit</label>
+                          <input type="number" style="background-color: #f8f8f8;" name="title"
+                            class="form-control p-3 mb-2 border-0" required />
                         </div>
+                        <small class="text-muted">Student will place answer in short answer question type within this
+                          characters
+                          limit.</small>
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-outline">
+                          <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
+                            limit</label>
+                          <input type="number" style="background-color: #f8f8f8;" name="title"
+                            class="form-control p-3 mb-2 border-0" required />
+                        </div>
+                        <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
+                          within this
+                          character limit.</small>
                       </div>
                     </div>
                   </div>
@@ -546,19 +732,20 @@
               </div>
             </div>
           </div>
+        </div>
 
-        </div>
       </div>
-      <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <div class="d-flex gap-3">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2"
-            class="btn btn-outline-primary">Back</button>
-          <button type="button" class="btn btn-primary">Save & Next</button>
-        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-between">
+      <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+      <div class="d-flex gap-3">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2"
+          class="btn btn-outline-primary">Back</button>
+        <button type="button" class="btn btn-primary">Save & Next</button>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 <script>
