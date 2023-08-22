@@ -90,3 +90,485 @@
     </div>
   </div>
 </div>
+
+<!-- Style for quiz modals -->
+<style>
+  .form-progress {
+    position: relative;
+    display: block;
+    margin: 0px auto 30px auto;
+    width: 100%;
+    max-width: 660px;
+  }
+
+  progress {
+    display: block;
+    position: relative;
+    top: 5px;
+    left: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: #0071dc;
+    width: 100%;
+    height: 2px;
+    background: none;
+    transition: 1s;
+    will-change: contents;
+  }
+
+  progress::-webkit-progress-bar {
+    background-color: #e3e5eb;
+  }
+
+  progress::-webkit-progress-bar::after {
+    background-color: #0071dc;
+
+  }
+
+  progress::-webkit-progress-value {
+    background-color: #0071dc;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .form-progress-indicator {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: white;
+    border: 3px solid #e3e5eb;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+    transition-delay: 0.3s;
+    will-change: transform;
+    font-size: 13px;
+  }
+
+  .form-progress-indicator.one {
+    left: 0;
+  }
+
+  .form-progress-indicator.two {
+    left: 50%;
+  }
+
+  .form-progress-indicator.three {
+    left: 100%;
+  }
+
+  .form-progress-indicator.active {
+    -webkit-animation: bounce 0.5s forwards;
+    animation: bounce 0.5s forwards;
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+    border-color: #0071dc;
+    background-color: #0071dc;
+    color: white;
+  }
+
+  /* Styles for the slider container and progress bar */
+  .slider-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+  }
+
+  .rangePercentage {
+    position: relative;
+    width: 50px;
+    height: 30px;
+    background-color: #0071dc;
+    color: white;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 0;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid #0071dc;
+  }
+</style>
+
+<!-- quiz Modal Step1 -->
+<div class="modal fade" id="quizModalStep1" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="quizModalStep1Label">Quiz</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div>
+          <div class="form-progress">
+            <progress class="form-progress-bar" min="0" max="100" value="0" step="33"
+              aria-labelledby="form-progress-completion"></progress>
+
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator two">2</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
+
+            <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
+            </p>
+          </div>
+        </div>
+        <div class="mt-5">
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold">Quiz Title</label>
+            <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold">Summary</label>
+            <textarea style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
+              placeholder="Summary"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+          Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- quiz Modal Step2 -->
+<div class="modal fade" id="quizModalStep2" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="quizModalStep1Label">Quiz</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div class="mb-5">
+          <div class="form-progress">
+            <progress class="form-progress-bar" min="0" max="100" value="50" step="33"
+              aria-labelledby="form-progress-completion"></progress>
+
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
+
+            <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
+            </p>
+          </div>
+        </div>
+        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
+          <span class="fs-6 SortHandle" style="cursor: grab;"><i
+              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
+            66</span>
+          <span class="d-flex gap-3 align-items-center">
+            <div class="px-2">
+              Question Type
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fal fa-ellipsis-h"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
+        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
+          <span class="fs-6 SortHandle" style="cursor: grab;"><i
+              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
+            66</span>
+          <span class="d-flex gap-3 align-items-center">
+            <div class="px-2">
+              Question Type
+            </div>
+            <div class="dropdown">
+              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fal fa-ellipsis-h"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item p-3" href="#">
+                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </span>
+        </div>
+        <button type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
+          data-bs-target="#topicModal">
+          <i class="fas fa-plus-square"></i>
+          <span>&nbsp;&nbsp;Add Question</span>
+        </button>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        <div class="d-flex gap-3">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1"
+            class="btn btn-outline-primary">Back</button>
+          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep3" class="btn btn-primary">Save &
+            Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- quiz Modal Step3 -->
+<div class="modal fade" id="quizModalStep3" tabindex="-1" aria-labelledby="quizModalStep1Label" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="quizModalStep1Label">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div class="mb-5">
+          <div class="form-progress">
+            <progress class="form-progress-bar" min="0" max="100" value="100" step="33"
+              aria-labelledby="form-progress-completion"></progress>
+
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
+            <div class="justify-content-center d-flex align-items-center form-progress-indicator three active">3</div>
+
+            <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
+            </p>
+          </div>
+        </div>
+        <div class="form-outline mb-3">
+          <div class="mb-3">
+            <label class="form-label my-2 fw-bold">Time Limit</label>
+            <div class="d-flex gap-3 align-items-center">
+              <input type="number" style="width: 150px; background-color: #f8f8f8;"
+                class="form-control p-3 mb-2 border-0" placeholder="Quiz Title" required />
+              <select class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
+                aria-label="Default select example">
+                <option selected>Second</option>
+                <option>Minutes</option>
+                <option value="1">Hours</option>
+                <option value="2">Days</option>
+                <option value="3">Weeks</option>
+              </select>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Hide quiz time - display</label>
+              </div>
+            </div>
+            <small>Time limit for this quiz. 0 means no time limit.</small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
+            <div class="d-flex flex-column gap-3">
+              <small>(Pick the quiz system"s behaviour on choice based questions.)</small>
+              <div class="rounded border p-3">
+                <div class="form-check d-flex gap-3 align-items-center">
+                  <input class="form-check-input" type="radio" name="feedbackMode" id="defaultRadio" checked>
+                  <div class="d-flex flex-column">
+                    <label class="form-check-label" for="defaultRadio">
+                      Default
+                    </label>
+                    <small class="text-muted">Answers shown after quiz is finished.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded border p-3">
+                <div class="form-check d-flex gap-3 align-items-center">
+                  <input class="form-check-input" type="radio" name="feedbackMode" id="revealModeRadio" checked>
+                  <div class="d-flex flex-column">
+                    <label class="form-check-label" for="revealModeRadio">
+                      Reveal Mode
+                    </label>
+                    <small class="text-muted">Show result after the attempt.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="rounded border p-3">
+                <div class="form-check d-flex gap-3 align-items-center">
+                  <input class="form-check-input" type="radio" name="feedbackMode" id="retryModeRadio" checked>
+                  <div class="d-flex flex-column">
+                    <label class="form-check-label" for="retryModeRadio">
+                      Retry Mode
+                    </label>
+                    <small class="text-muted">Reattempt quiz any number of times. Define Attempts Allowed below.</small>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
+                <div class="d-flex gap-3 p-3 rounded border">
+                  <input type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
+                  <div class="rangePercentage d-flex flex-column align-items-center justify-content-center rounded-end">
+                    <div class="arrow"></div>
+                    <span class="percentage-label fw-bold" id="percentage-label">50</span>
+                  </div>
+                </div>
+                <small>Restriction on the number of attempts a student is allowed to take for this quiz. 0
+                  for no limit</small>
+              </div>
+              <div class="mb-3">
+                <div class="form-outline">
+                  <label class="form-label my-2 fw-bold">Passing Grade (%)</label>
+                  <input type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required />
+                </div>
+                <small>Set the passing percentage for this quiz</small>
+              </div>
+              <div class="mb-3">
+                <div class="form-outline">
+                  <label class="form-label my-2 fw-bold">Max Question Allowed to Answer</label>
+                  <input type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required />
+                </div>
+                <small>This amount of question will be available for students to answer, and question will comes
+                  randomly from all available questions belongs with a quiz, if this amount is greater than available
+                  question, then all questions will be available for a student to answer.</small>
+              </div>
+              <div class="mb-3">
+                <div class="card bg-white text-start mb-3">
+                  <div class="card-body p-0">
+                    <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
+                      <div class="d-flex gap-2 align-items-center">
+                        <button class="btn btn-outline-primary border rounded-circle" type="button"
+                          style="background-color: rgb(209, 242, 255);" aria-expanded="false">
+                          <i class="fas fa-cog text-primary"></i>
+                        </button>
+                        <span class="fw-bold text-muted">Advance Settings</span>
+                      </div>
+                      <span class="d-flex gap-2 px-2">
+                        <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#advanceSettings"><i
+                            class="fas fa-chevron-down text-muted"></i></button>
+                      </span>
+                    </div>
+                    <div class="collapse" id="advanceSettings">
+                      <div class="card card-body">
+                        <div class="mb-4">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
+                            <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
+                          </div>
+                          <small class="text-muted">If you enable this option, the quiz will start automatically after
+                            the page is loaded.</small>
+                        </div>
+                        <div class="mb-3">
+                          <div class="d-flex gap-3 align-items-center">
+                            <div style="width: 47%;">
+                              <label class="form-label my-2 fw-bold">Question Layout</label>
+                              <select class="form-select p-3 mb-2 border-0"
+                                style="background-color: #f8f8f8;" aria-label="Default select example">
+                                <option selected>Set Question Layout View</option>
+                                <option>Single Question</option>
+                                <option value="1">Question Pagination</option>
+                                <option value="2">Question Below Each Other</option>
+                              </select>
+                            </div>
+                            <div style="width: 47%;">
+                              <label class="form-label my-2 fw-bold">Questions Order</label>
+                              <select class="form-select p-3 mb-2 border-0"
+                                style="background-color: #f8f8f8;" aria-label="Default select example">
+                                <option selected>Random</option>
+                                <option>Sorting</option>
+                                <option value="1">Ascending</option>
+                                <option value="2">Descending</option>
+                              </select>
+                            </div>
+                          </div>
+                          <small>Time limit for this quiz. 0 means no time limit.</small>
+                        </div>
+                        <div class="my-3">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
+                            <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
+                          </div>
+                          <small class="text-muted">Show/hide question number during attempt.</small>
+                        </div>
+                        <div class="mb-3">
+                          <div class="form-outline">
+                            <label class="form-label my-2 fw-bold">Short answer characters limit</label>
+                            <input type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required />
+                          </div>
+                          <small class="text-muted">Student will place answer in short answer question type within this
+                            characters
+                            limit.</small>
+                        </div>
+                        <div class="mb-3">
+                          <div class="form-outline">
+                            <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
+                              limit</label>
+                            <input type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required />
+                          </div>
+                          <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
+                            within this
+                            character limit.</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
+        <div class="d-flex gap-3">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2"
+            class="btn btn-outline-primary">Back</button>
+          <button type="button" class="btn btn-primary">Save & Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Get the slider and percentage label elements
+  const slider = document.getElementById("slider");
+  const percentageLabel = document.getElementById("percentage-label");
+
+  // Update the percentage label when the slider is changed
+  slider.addEventListener("input", () => {
+    const value = slider.value;
+    percentageLabel.textContent = value;
+  });
+</script>
