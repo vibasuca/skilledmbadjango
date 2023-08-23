@@ -264,7 +264,7 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Lesson Name</label>
-              <input type="text" id="title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="create-lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> Lesson titles are displayed
                 publicly wherever required.
@@ -273,8 +273,8 @@
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Lesson Content</label>
-              <div id="lesson-content-editor">
-              </div>
+              <textarea id="create-lesson-content-editor">
+              </textarea>
               <br />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> The idea of a summary is a
@@ -295,7 +295,8 @@
                 <span>
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  <select class="d-none" id="create-lesson-feature_image"></select>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal" data-target="create_lesson">
                     Upload Image
                   </button>
                 </span>
@@ -342,13 +343,15 @@
               </div> 
               {% endcomment %}
               
+              <select class="d-none" id="create-lesson-attachments" name="attachments" multiple>
+              </select>
               <button class="btn btn-outline-primary p-3">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
 
             <div class="d-flex align-items-center gap-3 mb-4">
-              <input type="checkbox" id="enable_preview" name="enable_preview" class="form-check-input"
+              <input type="checkbox" id="create-lesson-enable_preview" name="enable_preview" class="form-check-input"
                 style="padding: 10px" />
               <label for="enable_preview">Enable Course Preview:</label>
             </div>
@@ -617,8 +620,13 @@
     });
 
     const lessonModal = document.getElementById("lessonModal");
-    if (lessonModal) {
-      ClassicEditor.create(document.querySelector("#lesson-content-editor"));
+    ClassicEditor.create(document.querySelector("#create-lesson-content-editor")).then(editor => {
+      console.log("CKEditor initialized");
+      createLessonContentEditor = editor;
+    })
+    .catch(error => {
+        console.error(error);
+    });;
 
       lessonTopicId = "";
       lessonModal.addEventListener("show.bs.modal", (event) => {
@@ -629,27 +637,92 @@
 
       $("#lesson-form").submit(function () {
         event.preventDefault();
-        url = `/courses/create-lesson/${lessonTopicId}/`;
-        form = JSON.stringify($("#lesson-form").serialize());
-        console.log(form);
-
+        let url = `/courses/create-lesson/${lessonTopicId}/`;
+        let data = {
+          'title': $("#create-lesson-title").val(),
+          'content': createLessonContentEditor.getData(),
+          'feature_image': parseInt($("#create-lesson-feature_image").val()) || null,
+          'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
+          'enable_preview': $("#create-lesson-enable_preview").prop('checked'),
+        };
+        
         $.ajax({
           type: "POST",
           url: url,
-          headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-          },
-          data: form,
+          headers : { "X-CSRFToken": "{{ csrf_token }}" },
+          data: JSON.stringify(data),
+
           success: function (data) {
             console.log(data);
+            $("#lessonModal").modal("hide");
+            $("#create-lesson-title").val("");
+            createLessonContentEditor.setData("");
+            $("#create-lesson-feature_image").val("");
+            $("#create-lesson-attachments").val("");
+            $("#create-lesson-enable_preview").prop('checked', false);
+            $("#thumbnailPreview").html(`
+              <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+            `);
+
+
+
+            // Get topic items
+            $.ajax({
+              type: "GET",
+              url: `/courses/list-topic-item/${lessonTopicId}/`,
+              headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+              },
+              success: function (response) {
+                const topicItems = response.data;
+                const topicItemsContainer = $(`.topicItems-${lessonTopicId}`);
+                topicItemsContainer.empty();
+
+                topicItems.forEach(function (item, index) {
+
+                  topicItemList = "";
+
+                  if (item.lesson != null) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+
+                  topicItemsContainer.append(topicItemList);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+                alert("Error: " + xhr.responseJSON.error);
+                // Handle the error and update the UI accordingly
+              },
+            });
+
+
+
+
+
           },
           error: function (xhr, status, error) {
-            var errorMessage = JSON.parse(xhr.responseText).error_message;
-            console.log(errorMessage);
-          },
+            console.error(error);
+          }
         });
+
       });
-    }
+    
 
     const assignmentModal = document.getElementById("assignmentModal");
     if (assignmentModal) {
