@@ -69,9 +69,23 @@
             {% endfor %}
           </select>
         </p>
-        <div id="attachmentsPreviewContainer">
+        <div class="row mb-3" id="attachmentsPreviewContainer">
           {% for attachment in course.attachments.all %}
-            {{ attachment.id }}:{{ attachment.file.url }}<br>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex align-items-center">
+                  <div class="text-truncate p-3" style="max-width: 90%;">
+                    {{ attachment.id }}:{{ attachment.file.url }}
+                  </div>
+                  <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fal fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
           {% endfor %}
         </div>
         <button type="button" data-bs-toggle="modal" data-bs-target="#mediaModal" id="attachments-btn-js"
@@ -128,15 +142,16 @@
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Materials Included</label>
           <textarea class="form-control" name="materials_included"
-            placeholder="A list of assets you will be providing for the students in this course (One per line)"
-            rows="3" style="background: #f8f8f8;">
+            placeholder="A list of assets you will be providing for the students in this course (One per line)" rows="3"
+            style="background: #f8f8f8;">
 {{ course.materials_included | safe }}</textarea>
         </div>
 
         <div class="form-outline mb-3">
           <label class="form-label my-2 fw-bold">Requirements/Instructions</label>
           <textarea class="form-control" name="requirements"
-            placeholder="Additional requirements or special instructions for the students (One per line)" rows="3" style="background: #f8f8f8;">
+            placeholder="Additional requirements or special instructions for the students (One per line)" rows="3"
+            style="background: #f8f8f8;">
 {{ course.requirements | safe }}</textarea>
         </div>
 

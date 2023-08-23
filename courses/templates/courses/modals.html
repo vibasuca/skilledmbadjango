@@ -196,6 +196,20 @@
     border-bottom: 15px solid transparent;
     border-right: 15px solid #0071dc;
   }
+
+  .questionTypeJS:hover {
+    border-radius: 5px;
+    box-shadow: 0px 7px 29px 0px rgba(129, 129, 139, 0.2);
+  }
+
+  .optionImage {
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+  }
 </style>
 
 <!-- quiz Modal Step1 -->
@@ -350,85 +364,123 @@
 <!-- question Modal -->
 <div class="modal fade" id="questionModal" tabindex="-1" aria-labelledby="questionModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-    <div class="modal-content">
+    <div class="modal-content p-0">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="questionModalLabel">Quiz</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body p-5">
-        <div class="mb-5">
-          <div class="form-progress">
-            <progress class="form-progress-bar" min="0" max="100" value="50" step="33"
-              aria-labelledby="form-progress-completion"></progress>
-            <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
-            <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
-            <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
-            <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0% complete
-            </p>
+      <div class="modal-body p-0">
+        <div class="p-5 pb-0">
+          <div class="mb-5">
+            <div class="form-progress">
+              <progress class="form-progress-bar" min="0" max="100" value="50" step="33"
+                aria-labelledby="form-progress-completion"></progress>
+              <div class="justify-content-center d-flex align-items-center form-progress-indicator one active">1</div>
+              <div class="justify-content-center d-flex align-items-center form-progress-indicator two active">2</div>
+              <div class="justify-content-center d-flex align-items-center form-progress-indicator three">3</div>
+              <p id="form-progress-completion" class="js-form-progress-completion sr-only" aria-live="polite">0%
+                complete
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="form-outline mb-4">
+              <label class="form-label my-2 fw-bold">Write your question here</label>
+              <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+                placeholder="Write your question here" required />
+            </div>
+            <div class="mb-5">
+              <label class="form-label my-2 fw-bold">Select your question type</label>
+              <div class="card bg-white text-start mb-3">
+                <div class="card-body p-0">
+                  <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
+                    data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
+
+                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
+                      <div class="d-flex gap-3 align-items-center">
+                        <button class="btn btn-outline-primary border rounded" type="button"
+                          style="background-color:#3e64de; color: white;" aria-expanded="false">
+                          <i class="far fa-adjust"></i>
+                        </button>
+                        <small class="fw-bold text-muted">True / False</small>
+                      </div>
+                    </div>
+
+                    <span class="d-flex gap-2 px-2">
+                      <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
+                    </span>
+                  </div>
+                  <div class="collapse" id="questionTypeSelect">
+                    <div class="card card-body">
+                      <div class="row">
+
+                        <div class="d-flex flex-wrap gap-3" id="questionTypesContainer"></div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex gap-3 mb-4">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="answerRequired">
+                <label class="form-check-label" for="answerRequired">Answer Required</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="randomize">
+                <label class="form-check-label" for="randomize">Randomize</label>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label class="form-label my-2 fw-bold">Point(s) for this answer</label>
+              <div class="d-flex gap-3 align-items-center">
+                <input type="text" style="width: 200px; background-color: #f8f8f8;"
+                  class="form-control p-3 mb-2 border-0" placeholder="Set the mark" required />
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="displayPoints">
+                  <label class="form-check-label" for="displayPoints">Display Points</label>
+                </div>
+              </div>
+              <small>Time limit for this quiz. 0 means no time limit.</small>
+            </div>
+            <label class="form-label my-2 mb-4 fw-bold">Description (Optional)</label>
+            <br>
+            <label class="form-label my-2 mb-4 fw-bold">Input options for the question and select the correct
+              answer.</label>
           </div>
         </div>
-        <div>
-          <div class="form-outline mb-4">
-            <label class="form-label my-2 fw-bold">Write your question here</label>
-            <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
-              placeholder="Write your question here" required />
-          </div>
-          <div class="mb-5">
-            <label class="form-label my-2 fw-bold">Select your question type</label>
-            <div class="card bg-white text-start mb-3">
-              <div class="card-body p-0">
-                <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
-                  data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
-
-                  <div id="selectedTypeJS" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
-                    <div class="d-flex gap-3 align-items-center">
-                      <button class="btn btn-outline-primary border rounded" type="button"
-                        style="background-color:#3e64de; color: white;" aria-expanded="false">
-                        <i class="far fa-adjust"></i>
-                      </button>
-                      <small class="fw-bold text-muted">True / False</small>
-                    </div>
-                  </div>
-
-                  <span class="d-flex gap-2 px-2">
-                    <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
-                  </span>
+        <div id="typeOptionsJS">
+          <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
+            <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
+              <small>
+                True
+              </small>
+              <span class="d-flex gap-2 align-items-center">
+                <div class="form-check">
+                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="true">
                 </div>
-                <div class="collapse show" id="questionTypeSelect">
-                  <div class="card card-body">
-                    <div class="row">
-
-                      <div class="d-flex flex-wrap gap-3" id="questionTypesContainer"></div>
-
-                    </div>
-                  </div>
+                <span class="fs-6 SortHandle" style="cursor: grab;">
+                  <i class="fal fa-grip-vertical text-muted mx-2"></i>
+                </span>
+              </span>
+            </div>
+            <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between">
+              <small>
+                False
+              </small>
+              <span class="d-flex gap-2 align-items-center">
+                <div class="form-check">
+                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="true">
                 </div>
-              </div>
+                <span class="fs-6 SortHandle" style="cursor: grab;">
+                  <i class="fal fa-grip-vertical text-muted mx-2"></i>
+                </span>
+              </span>
             </div>
           </div>
-          <div class="d-flex gap-3 mb-4">
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="answerRequired">
-              <label class="form-check-label" for="answerRequired">Answer Required</label>
-            </div>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" role="switch" id="randomize">
-              <label class="form-check-label" for="randomize">Randomize</label>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label class="form-label my-2 fw-bold">Point(s) for this answer</label>
-            <div class="d-flex gap-3 align-items-center">
-              <input type="text" style="width: 200px; background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-                placeholder="Set the mark" required />
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="displayPoints">
-                <label class="form-check-label" for="displayPoints">Display Points</label>
-              </div>
-            </div>
-            <small>Time limit for this quiz. 0 means no time limit.</small>
-          </div>
-          <label class="form-label my-2 mb-4 fw-bold">Description (Optional)</label>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
@@ -658,7 +710,7 @@
 
   $('#questionModal').on('shown.bs.modal', function () {
     const questionTypes = {
-      "true_false": {
+      "true_/_false": {
         "icon": "far fa-adjust",
         "title": "True / False",
         "color": "#3e64de"
@@ -718,7 +770,7 @@
       const type = title.toLowerCase().replace(/\s+/g, '_');
 
       const questionTypeDiv = $("<div>").html(
-        `<div style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
+        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
           <div class="d-flex gap-3 align-items-center rounded border p-2">
             <button class="btn btn-outline-primary border rounded" type="button"
               style="background-color: ${color}; color: white;" aria-expanded="false">
@@ -735,7 +787,6 @@
     $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
       const questionType = $(this).data("question-type");
       const singleChoiceQuestionType = questionTypes[questionType];
-      console.log(singleChoiceQuestionType)
       var newHtmlContent =
         `<div style="width: 200px; cursor: pointer;" data-question-type="${questionType}" class="questionTypeJS">
         <div class="d-flex gap-3 align-items-center">
@@ -748,15 +799,688 @@
       </div>`;
 
       $("#selectedTypeJS").html(newHtmlContent);
+      showOptions(questionType);
     });
+
+    const optionForm_trueFalse = `
+    <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
+      <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
+        <small>
+          True
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="true">
+          </div>
+          <span class="fs-6 SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+      <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between">
+        <small>
+          False
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="true">
+          </div>
+          <span class="fs-6 SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+    </div>
+    `;
+
+    const optionForm_singleChoice = `
+    <div class="p-5" id="optionform_single_choice" style="background: #e3e5eb;">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Choice 1
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <div class="form-check">
+              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                name="singleChoice" value="choice 1">
+            </div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Choice 2
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <div class="form-check">
+              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                name="singleChoice" value="choice 2">
+            </div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_ordering = `
+    <div class="p-5" id="optionform_single_choice" style="background: #e3e5eb;">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            option 1
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            option 2
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_multipleChoice = `
+    <div class="p-5" id="optionform_multiple_choice" style="background: #e3e5eb;">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Choice 1
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <div class="form-check">
+              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="checkbox"
+                value="choice1">
+            </div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Choice 2
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <div class="form-check">
+              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="checkbox"
+                value="choice2">
+            </div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_fillBlanks = `
+    <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
+      <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
+        style="width: 97%;">
+        <small style="width: 100%;" class="text-muted d-flex justify-content-between">
+          <div>My name - Om. I - 21 years old.</div>
+          <div>
+            Answer: <b>is | am</b>
+          </div>
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <button class="btn btn-outline-primary border rounded-circle" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false">
+            <i class="fal fa-pen"></i>
+          </button>
+        </span>
+      </div>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
+            </small>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
+            </small>
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_default = `
+    <div class="p-5" id="optionform_matching" style="background: #e3e5eb;">
+      No option is necessary for this answer type
+    </div>
+    `;
+
+    const optionForm_imageMatching = `
+    <div class="p-5" id="optionform_image_matching" style="background: #e3e5eb;">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Image matching text
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Image matched text</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_imageAnswering = `
+    <div class="p-5" id="optionform_image_answering" style="background: #e3e5eb;">
+      <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Image matching text
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer input value</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> The answers that students enter should match with this text. Write in <b>small caps</b>
+            </small>
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_matching = `
+    <div class="p-5" id="optionform_image_answering" style="background: #e3e5eb;">
+      <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Answer title - Matched Answer title
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Matched Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    function showOptions(type) {
+      switch (type) {
+        case "true_/_false":
+          $("#typeOptionsJS").html(optionForm_trueFalse);
+          break;
+
+        case "single_choice":
+          $("#typeOptionsJS").html(optionForm_singleChoice);
+          break;
+
+        case "multiple_choice":
+          $("#typeOptionsJS").html(optionForm_multipleChoice);
+          break;
+
+        case "fill_in_the_blanks":
+          $("#typeOptionsJS").html(optionForm_fillBlanks);
+          break;
+
+        case "image_matching":
+          $("#typeOptionsJS").html(optionForm_imageMatching);
+          break;
+
+        case "image_answering":
+          $("#typeOptionsJS").html(optionForm_imageAnswering);
+          break;
+
+        case "ordering":
+          $("#typeOptionsJS").html(optionForm_ordering);
+          break;
+
+        case "matching":
+          $("#typeOptionsJS").html(optionForm_matching);
+          break;
+
+        default:
+          $("#typeOptionsJS").html(optionForm_default);
+      }
+    }
 
   });
 
-  // Get the slider and percentage label elements
   const slider = document.getElementById("slider");
   const percentageLabel = document.getElementById("percentage-label");
 
-  // Update the percentage label when the slider is changed
   slider.addEventListener("input", () => {
     const value = slider.value;
     percentageLabel.textContent = value;
