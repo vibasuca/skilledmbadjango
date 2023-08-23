@@ -22,8 +22,8 @@
           <a href="{% url 'account_profile' %}">Dashboard</a> &nbsp;&nbsp; | &nbsp;&nbsp;
           <a href="{% url 'account_logout' %}">Log out</a>
           {% else %}
-          <a href="{% url 'account_login' %}">Log in</a> &nbsp;&nbsp; | &nbsp;&nbsp;
-          <a href="{% url 'account_signup' %}">Register</a>
+          <a data-bs-toggle="modal" href="#loginModal">Log in</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+          <a data-bs-toggle="modal" href="#registerModal">Register</a>
           {% endif %}
         </div>
         <div class="d-flex justify-content-between gap-4">
