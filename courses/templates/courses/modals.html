@@ -450,7 +450,38 @@
               answer.</label>
           </div>
         </div>
-        <div id="typeOptionsJS"></div>
+        <div id="typeOptionsJS">
+          <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
+            <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
+              <small>
+                True
+              </small>
+              <span class="d-flex gap-2 align-items-center">
+                <div class="form-check">
+                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="true">
+                </div>
+                <span class="fs-6 SortHandle" style="cursor: grab;">
+                  <i class="fal fa-grip-vertical text-muted mx-2"></i>
+                </span>
+              </span>
+            </div>
+            <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between">
+              <small>
+                False
+              </small>
+              <span class="d-flex gap-2 align-items-center">
+                <div class="form-check">
+                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="true">
+                </div>
+                <span class="fs-6 SortHandle" style="cursor: grab;">
+                  <i class="fal fa-grip-vertical text-muted mx-2"></i>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
@@ -773,7 +804,6 @@
 
     const optionForm_trueFalse = `
     <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
-      <h3>True / False</h3>
       <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
         <small>
           True
@@ -788,7 +818,7 @@
           </span>
         </span>
       </div>
-      <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
+      <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between">
         <small>
           False
         </small>
@@ -801,14 +831,6 @@
             <i class="fal fa-grip-vertical text-muted mx-2"></i>
           </span>
         </span>
-      </div>
-      <div class="d-grid gap-2">
-        <button class="btn btn-secondary p-3" type="button" data-bs-toggle="collapse"
-          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
-          option</button>
-      </div>
-      <div class="collapse" id="addOptionBtnJS">
-        form
       </div>
     </div>
     `;
@@ -871,7 +893,8 @@
           data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
           option</button>
       </div>
-      <div class="collapse show" id="addOptionBtnJS">
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
         <div>
           <div class="form-outline mb-3">
             <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
@@ -917,7 +940,112 @@
                 </label>
               </div>
             </div>
-            <br>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const optionForm_ordering = `
+    <div class="p-5" id="optionform_single_choice" style="background: #e3e5eb;">
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            option 1
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <div class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            option 2
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
             <button type="button" class="btn btn-primary mt-5">
               Update Answer
             </button>
@@ -929,7 +1057,6 @@
 
     const optionForm_multipleChoice = `
     <div class="p-5" id="optionform_multiple_choice" style="background: #e3e5eb;">
-      <h3>Multiple Choice</h3>
       <div class="d-flex align-items-center mb-3 gap-3">
         <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
           style="width: 97%;">
@@ -980,12 +1107,14 @@
           <i class="far fa-trash-alt text-muted"></i>
         </span>
       </div>
+      <br>
       <div class="d-grid gap-2">
         <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
           data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
           option</button>
       </div>
-      <div class="collapse show" id="addOptionBtnJS">
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
         <div>
           <div class="form-outline mb-3">
             <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
@@ -1031,7 +1160,6 @@
                 </label>
               </div>
             </div>
-            <br>
             <button type="button" class="btn btn-primary mt-5">
               Update Answer
             </button>
@@ -1043,7 +1171,6 @@
 
     const optionForm_fillBlanks = `
     <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
-      <h3>Fill in the blanks</h3>
       <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
         style="width: 97%;">
         <small style="width: 100%;" class="text-muted d-flex justify-content-between">
@@ -1053,18 +1180,35 @@
           </div>
         </small>
         <span class="d-flex gap-2 align-items-center">
-          <span class="fs-6">
-            <i class="fal fa-pen text-muted mx-2"></i>
-          </span>
+          <button class="btn btn-outline-primary border rounded-circle" type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false">
+            <i class="fal fa-pen"></i>
+          </button>
         </span>
       </div>
-      <div class="d-grid gap-2">
-        <button class="btn btn-secondary p-3" type="button" data-bs-toggle="collapse"
-          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
-          option</button>
-      </div>
       <div class="collapse" id="addOptionBtnJS">
-        form
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
+            </small>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
+            </small>
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
+        </div>
       </div>
     </div>
     `;
@@ -1077,7 +1221,6 @@
 
     const optionForm_imageMatching = `
     <div class="p-5" id="optionform_image_matching" style="background: #e3e5eb;">
-      <h3>Image matching</h3>
       <div class="d-flex align-items-center mb-3 gap-3">
         <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
           style="width: 97%;">
@@ -1099,20 +1242,47 @@
           <i class="far fa-trash-alt text-muted"></i>
         </span>
       </div>
+      <br>
       <div class="d-grid gap-2">
-        <button class="btn btn-secondary p-3" type="button" data-bs-toggle="collapse"
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
           data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
           option</button>
       </div>
+      <br>
       <div class="collapse" id="addOptionBtnJS">
-        form
+        <div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Image matched text</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
+        </div>
       </div>
     </div>
     `;
 
     const optionForm_imageAnswering = `
     <div class="p-5" id="optionform_image_answering" style="background: #e3e5eb;">
-      <h3>Image Answering</h3>
       <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
         <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
           style="width: 97%;">
@@ -1134,14 +1304,134 @@
           <i class="far fa-trash-alt text-muted"></i>
         </span>
       </div>
-      <div class="addOptionBtn">
-        <div class="d-grid gap-2">
-          <button class="btn btn-secondary p-3" type="button" data-bs-toggle="collapse"
-            data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
-            option</button>
+      
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer input value</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+            <small class="text-muted">
+              <i class="fal fa-info-circle"></i> The answers that students enter should match with this text. Write in <b>small caps</b>
+            </small>
+          </div>
+          <button type="button" class="btn btn-primary mt-5">
+            Update Answer
+          </button>
         </div>
-        <div class="collapse" id="addOptionBtnJS">
-          form
+      </div>
+    </div>
+    `;
+
+    const optionForm_matching = `
+    <div class="p-5" id="optionform_image_answering" style="background: #e3e5eb;">
+      <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
+        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small>
+            Answer title - Matched Answer title
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <div class="optionImage mx-2"
+              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
+            <span class="fs-6">
+              <i class="fal fa-pen text-muted mx-2"></i>
+            </span>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="fal fa-grip-vertical text-muted mx-2"></i>
+            </span>
+          </span>
+        </div>
+        <span class="fs-6 SortHandle" style="cursor: grab;">
+          <i class="far fa-trash-alt text-muted"></i>
+        </span>
+      </div>
+      <br>
+      <div class="d-grid gap-2">
+        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button>
+      </div>
+      <br>
+      <div class="collapse" id="addOptionBtnJS">
+        <div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Matched Answer title</label>
+            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+              placeholder="Quiz Title" required />
+          </div>
+          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+          <div class="d-flex border rounded bg-white mb-3">
+            <div class="p-3">
+              <div class="thumbnail-preview" id="thumbnailPreview">
+                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+              </div>
+            </div>
+            <div class="p-3 d-flex align-items-center" style="width: 100%">
+              <span>
+                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                <p>File Support:</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
+                  Upload Image
+                </button>
+              </span>
+            </div>
+          </div>
+          <div class="form-outline mb-3">
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+            <div class="d-flex justify-content-around">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
+                <label class="form-check-label fw-bold" for="onlyText">
+                  Only Text
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
+                <label class="form-check-label fw-bold" for="onlyImage">
+                  Only Image
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
+                <label class="form-check-label fw-bold" for="bothTextImage">
+                  Text & Image both
+                </label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary mt-5">
+              Update Answer
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1171,6 +1461,14 @@
 
         case "image_answering":
           $("#typeOptionsJS").html(optionForm_imageAnswering);
+          break;
+
+        case "ordering":
+          $("#typeOptionsJS").html(optionForm_ordering);
+          break;
+
+        case "matching":
+          $("#typeOptionsJS").html(optionForm_matching);
           break;
 
         default:
