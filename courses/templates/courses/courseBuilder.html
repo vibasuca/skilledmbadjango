@@ -123,7 +123,7 @@
                                 </button>
 
                                 <!-- Button for Add Quiz -->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary" data-topic-id="${topic.id}">
                                     <i class="fas fa-plus-square"></i>
                                     &nbsp;Quiz
                                 </button>
@@ -144,149 +144,6 @@
               `;
 
             topicListContainer.append(topicsList);
-            $("body").append(`
-            <!-- Lesson Modal -->
-            <div class="modal fade" id="lessonModal-${topic.id}" tabindex="-1" aria-labelledby="lessonModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="lessonModalLabel">Lesson</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  
-                  <div class="modal-body px-4 lesson-create-form">
-                    <div class="form-outline mb-3">
-                      <label class="form-label my-2 fw-bold">Lesson Name</label>
-                      <input type="text" class="form-control p-3 mb-2" id="create-lesson-title-${topic.id}" required>
-                      <small class="text-muted">
-                        <i class="fal fa-info-circle"></i> Lesson titles are displayed
-                        publicly wherever required.
-                      </small>
-                    </div>
-      
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2 fw-bold">Lesson Content</label>
-                      <div id="lesson-content-editor-${topic.id}">
-                      </div>
-                      <input type="text" class="form-control" id="create-lesson-content-${topic.id}" required>
-                      <br />
-                      <small class="text-muted">
-                        <i class="fal fa-info-circle"></i> The idea of a summary is a
-                        short text to prepare students for the activities within the
-                        topic or week. The text is shown on the course page under the
-                        topic name.
-                      </small>
-                    </div>
-                    
-                    <label class="form-label my-2 fw-bold">Feature Image</label>
-                    <div class="d-flex border rounded">
-                      <div class="p-3">
-                        <div class="thumbnail-preview" id="thumbnailPreview">
-                          <img
-                            class="img-fluid"
-                            src="{% static 'images/thumbnail-placeholder.svg' %}"
-                            alt="thumbnail"
-                          />
-                        </div>
-                      </div>
-                      <div class="p-3 d-flex align-items-center" style="width: 100%">
-                        <span>
-                          <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
-                          <p>File Support:</p>
-                          <button
-                            type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#mediaModal"
-                          >
-                            Media Library
-                          </button>
-                        </span>
-                      </div>
-                    </div>
-
-                    <!-- <input type="number" class="form-control" id="create-lesson-feature_image-${topic.id}" required> -->
-      
-                    <div class="my-4">
-                      <div class="card border-0">
-                        <div class="card-body border border-warning rounded">
-                          <i class="far fa-exclamation-circle text-warning fa-lg"></i
-                          >&nbsp;&nbsp;No video source selected from settings!
-                        </div>
-                      </div>
-                    </div>
-      
-                    <div class="form-outline mb-4">
-                      <label class="form-label my-2 fw-bold"
-                        >Upload exercise files to the Lesson</label
-                      ><br>
-
-
-                      {% comment %} 
-                      <div class="card my-3" style="max-width: 350px">
-                        <div class="card-body">
-                          <div class="d-flex flex-column">
-                            <b style="font-weight: 500">File name</b>
-                            <span style="color: #9e9e9e"> File size </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card my-3" style="max-width: 350px">
-                        <div class="card-body">
-                          <div class="d-flex flex-column">
-                            <b style="font-weight: 500">File name</b>
-                            <span style="color: #9e9e9e"> File size </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card my-3" style="max-width: 350px">
-                        <div class="card-body">
-                          <div class="d-flex flex-column">
-                            <b style="font-weight: 500">File name</b>
-                            <span style="color: #9e9e9e"> File size </span>
-                          </div>
-                        </div>
-                      </div> 
-                      {% endcomment %}
-
-
-
-                      <button class="btn btn-outline-primary p-3">
-                        <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span
-                          >Upload Attachments</span
-                        >
-                      </button>
-                      <!-- <input type="text" class="form-control" id="create-lesson-attachments-${topic.id}" required> -->
-                    </div>
-      
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                      <input
-                        type="checkbox"
-                        id="create-lesson-enable_preview-${topic.id}" required
-                        class="form-check-input"
-                        style="padding: 10px"
-                      />
-                      <label for="enable_preview">Enable Course Preview:</label>
-                    </div>
-                    <small class="text-muted">
-                      <i class="fal fa-info-circle"></i> If checked, any users/guest
-                      can view this lesson without enroll course
-                    </small>
-                  </div>
-                  <div class="modal-footer d-flex justify-content-between">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-bs-dismiss="modal"
-                    >
-                      Close
-                    </button>
-                    <button class="btn btn-primary create-lesson-btn" data-topic-id="${topic.id}">Create lesson</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            `);
 
             // Get topic items
             $.ajax({
@@ -312,7 +169,23 @@
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson ${item.lesson_data.title}</span>
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+                  else if (item.assignment) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
@@ -407,58 +280,6 @@
       }
     );
 
-    // Create Lesson
-    $(document).on("click", ".create-lesson-btn", function (e) {
-      const topicId = $(this).data("topic-id");
-      const url = "/courses/create-lesson/" + topicId + "/";
-      let data = {
-        title: $(`#create-lesson-title-${topicId}`).val(),
-        content: $(`#create-lesson-content-${topicId}`).val(),
-        enable_preview: $(`#create-lesson-enable_preview-${topicId}`).prop(
-          "checked"
-        ),
-      };
-      let feature_image = $(
-        `#create-lesson-feature_image-${topicId}`
-      ).val();
-      if (feature_image) {
-        data.feature_image = parseInt(feature_image);
-      }
-      let attachments = $(`#create-lesson-attachments-${topicId}`).val();
-      if (attachments) {
-        attachments = attachments.split(",");
-        attachments = attachments.map(function (attachment) {
-          return parseInt(attachment);
-        });
-        data.attachments = attachments;
-      }
-
-      console.log("testing " + topicId);
-
-      $.ajax({
-        type: "POST",
-        url: url,
-        data: JSON.stringify(data),
-        headers: {
-          "X-CSRFToken": "{{ csrf_token }}",
-        },
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-          // Refresh media list after successful upload
-          fetchTopicsList();
-          $("#lessonModal").modal("hide");
-        },
-        error: function (xhr, status, error) {
-          console.log(xhr);
-          console.log(status);
-          console.log(error);
-          alert("Error: " + xhr.responseJSON.error);
-          // Handle the error and update the UI accordingly
-        },
-      });
-    });
-
     // Function to update media
     function updateTopic(topicId, newData) {
       $.ajax({
@@ -494,14 +315,15 @@
 
 
 
+    var activeTopicId = null;
 
 
-
-    $(".create-lesson-button").click()
-
-
-
-
+    $(".create-lesson-button").click(
+      function (e) {
+        activeTopicId = $(this).data("topic-id");
+        console.log(activeTopicId);
+      }
+    );
 
 
 

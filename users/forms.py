@@ -36,6 +36,28 @@ class CustomLoginForm(LoginForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 
+class AjaxSignupForm(SignupForm):
+    first_name = forms.CharField(
+        max_length=30,
+        label="First Name",
+        widget=forms.TextInput(attrs={"placeholder": "First Name"}),
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        label="Last Name",
+        widget=forms.TextInput(attrs={"placeholder": "Last Name"}),
+    )
+    account_type = forms.CharField(widget=forms.HiddenInput(), required=False)
+    email = forms.EmailField(widget=EmailAsTextInput(attrs={"placeholder": "E-Mail"}))
+
+    def save(self, request):
+        user = super().save(request)
+        if self.cleaned_data["account_type"] == "instructor":
+            user.is_instructor = True
+            user.save()
+        return user
+
+
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
