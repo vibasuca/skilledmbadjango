@@ -1,3 +1,4 @@
+{% load static %}
 <!--Navbar-->
 <div id="myNavbar">
   <!--header1-->
@@ -49,17 +50,8 @@
     <div class="container flex justify-content-between">
       <div class="d-flex gap-4 align-items-center">
         <a href="/">
-          <img class="brandingLogo" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-            loading="lazy" srcset="
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-          https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-        " />
+          <img class="brandingLogo" src="{% static 'images/logo.png' %}"
+            loading="lazy"  />
         </a>
         <div class="d-none d-lg-block" style="width: 1px; height: 40px; background: lightgray"></div>
         <div class="dropdown d-none d-lg-block" style="z-index: 99 !important;">
