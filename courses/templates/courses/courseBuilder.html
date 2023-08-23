@@ -123,7 +123,7 @@
                                 </button>
 
                                 <!-- Button for Add Quiz -->
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary" data-topic-id="${topic.id}">
                                     <i class="fas fa-plus-square"></i>
                                     &nbsp;Quiz
                                 </button>
@@ -170,6 +170,22 @@
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
                             <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+                  else if (item.assignment) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
