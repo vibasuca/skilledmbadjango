@@ -396,7 +396,7 @@
                   <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
                     data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
 
-                    <div id="selectedTypeJS" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
+                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
                       <div class="d-flex gap-3 align-items-center">
                         <button class="btn btn-outline-primary border rounded" type="button"
                           style="background-color:#3e64de; color: white;" aria-expanded="false">
@@ -410,7 +410,7 @@
                       <button type="button" class="btn btn-sm"><i class="fas fa-chevron-down text-muted"></i></button>
                     </span>
                   </div>
-                  <div class="collapse show" id="questionTypeSelect">
+                  <div class="collapse" id="questionTypeSelect">
                     <div class="card card-body">
                       <div class="row">
 
@@ -770,7 +770,7 @@
       const type = title.toLowerCase().replace(/\s+/g, '_');
 
       const questionTypeDiv = $("<div>").html(
-        `<div style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
+        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
           <div class="d-flex gap-3 align-items-center rounded border p-2">
             <button class="btn btn-outline-primary border rounded" type="button"
               style="background-color: ${color}; color: white;" aria-expanded="false">
