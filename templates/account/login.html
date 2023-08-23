@@ -42,7 +42,7 @@
 
                 <div class="form-outline mb-4">
                   <input type="text" id="email" name="login" class="form-control form-control-lg"
-                    placeholder="Your Email Address" />
+                    placeholder="Your Email Address" value="{{form.login.value|default_if_none:''}}" />
 
 
                   {% if form.login.errors %}
