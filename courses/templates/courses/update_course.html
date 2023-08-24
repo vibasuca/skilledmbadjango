@@ -379,12 +379,12 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Assignment Name</label>
-              <input type="text" id="create-assignment-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="assignment-title" name="title" class="form-control p-3 mb-2" value="test title" required />
             </div>
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Summary</label>
-              <textarea id="create-assignment-summary-editor">
+              <textarea id="assignment-summary-editor">
               </textarea>
             </div>
 
@@ -416,8 +416,11 @@
                   </div>
                 </div>
               </div> {% endcomment %}
-              <select class="d-none" id="create-assignment-attachments" name="attachments" multiple></select>
-              <button class="btn btn-outline-primary p-3" type="button">
+
+              <div class="row mb-3" id="assignmentAttachmentsPreviewContainer"></div>
+
+              <select class="d-none" id="assignment-attachments" name="attachments" multiple></select>
+              <button class="btn btn-outline-primary p-3" type="button" id="assignment-attachments-btn">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
@@ -425,12 +428,12 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Time Limit</label>
-                <input type="number" id="create-assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="0" min="0" />
 
                 <select
                   class="course-difficulty-single form-select p-3 mb-2"
-                  id="create-assignment-time_limit_unit"
+                  id="assignment-time_limit_unit"
                 >
                   <option value="W" selected>Weeks</option>
                   <option value="D">Days</option>
@@ -442,7 +445,7 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Total Points</label>
-                <input type="number" id="create-assignment-total_points" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-total_points" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="10" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Maximum points a student
@@ -454,7 +457,7 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Minimum Passing Points</label>
-                <input type="number" id="create-assignment-min_pass_points" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-min_pass_points" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="5" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Minimum points required
@@ -466,7 +469,7 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Maximum File Uploads</label>
-                <input type="number" id="create-assignment-max_file_uploads" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-max_file_uploads" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="1" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define the number of
@@ -479,7 +482,7 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">File Size Limit</label>
-                <input type="number" id="create-assignment-file_size_limit" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-file_size_limit" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="2" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define maximum file size
@@ -730,7 +733,7 @@
     
 
     const assignmentModal = document.getElementById("assignmentModal");
-    ClassicEditor.create(document.querySelector("#create-assignment-summary-editor")).then(editor => {
+    ClassicEditor.create(document.querySelector("#assignment-summary-editor")).then(editor => {
       console.log("CKEditor initialized");
       createAssignmentSummaryEditor = editor;
     })
@@ -750,16 +753,16 @@
       event.preventDefault();
       let url = `/courses/create-assignment/${assignmentTopicId}/`;
       let data = {
-        'title': $("#create-assignment-title").val(),
+        'title': $("#assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
-        'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
-        'time_limit_unit': $("#create-assignment-time_limit_unit").val() ,
-        'total_points': parseInt($("#create-assignment-total_points").val()),
-        'min_pass_points': parseInt($("#create-assignment-min_pass_points").val()),
-        'max_file_uploads': parseInt($("#create-assignment-max_file_uploads").val()),
-        'file_size_limit': parseInt($("#create-assignment-file_size_limit").val()),
+        'attachments': $("#assignment-attachments").val().map(val => parseInt(val)),
+        'time_limit_unit': $("#assignment-time_limit_unit").val() ,
+        'total_points': parseInt($("#assignment-total_points").val()),
+        'min_pass_points': parseInt($("#assignment-min_pass_points").val()),
+        'max_file_uploads': parseInt($("#assignment-max_file_uploads").val()),
+        'file_size_limit': parseInt($("#assignment-file_size_limit").val()),
       };
-      let time_limit = parseInt($("#create-assignment-time_limit").val())
+      let time_limit = parseInt($("#assignment-time_limit").val())
       if (data["time_limit_unit"] == "D") {
         time_limit = time_limit * 24;
       }
@@ -777,15 +780,15 @@
         success: function (data) {
           console.log(data);
           $("#assignmentModal").modal("hide");
-          $("#create-assignment-title").val("");
+          $("#assignment-title").val("");
           createAssignmentSummaryEditor.setData("");
-          $("#create-assignment-attachments").val("");
-          $("#create-assignment-time_limit").val("0");
-          $("#create-assignment-time_limit_unit").val("W");
-          $("#create-assignment-total_points").val("10");
-          $("#create-assignment-min_pass_points").val("5");
-          $("#create-assignment-max_file_uploads").val("1");
-          $("#create-assignment-file_size_limit").val("2");
+          $("#assignment-attachments").val("");
+          $("#assignment-time_limit").val("0");
+          $("#assignment-time_limit_unit").val("W");
+          $("#assignment-total_points").val("10");
+          $("#assignment-min_pass_points").val("5");
+          $("#assignment-max_file_uploads").val("1");
+          $("#assignment-file_size_limit").val("2");
 
 
 
@@ -872,6 +875,11 @@
       $('#mediaModal').modal('show');
     });
 
+    $("#assignment-attachments-btn").click(function () {
+      $("#mediaModal").data("target", "assignment_attachments");
+      $('#mediaModal').modal('show');
+    });
+
     function remove_lesson_attachment(btn) {
       console.log(btn)
       const mediaId = $(btn).data("media-id");
@@ -881,6 +889,16 @@
       // Find the closest parent card and remove it
       $(btn).closest(".col-md-4").remove();
   };
+
+  function remove_assignment_attachment(btn) {
+    console.log(btn)
+    const mediaId = $(btn).data("media-id");
+    console.log("removing", mediaId)
+    const option = $("#assignment-attachments option[value='" + mediaId + "']").first();
+    option.remove();
+    // Find the closest parent card and remove it
+    $(btn).closest(".col-md-4").remove();
+};
 
     
   </script>
