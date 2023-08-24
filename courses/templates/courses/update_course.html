@@ -819,14 +819,32 @@
           $("#lesson-title").val(lessonTitle);
           createLessonContentEditor.setData(lessonContent);
           if (lessonFeatureImage) {
-            $("#lesson-feature_image").val(lessonFeatureImage.id);
+             var newOption = $('<option>', {
+              value: lessonFeatureImage.id,
+              text: "",
+              selected: true // Set the selected attribute to keep it selected
+            });
+            $("#lesson-feature_image").append(newOption);
             $("#lesson-feature-image-preview").attr("src", lessonFeatureImage.file);
           }
           else {
-            $("#lesson-feature_image").val("");
+            $("#lesson-feature_image").empty();
             $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
           }
-          $("#lesson-attachments").val(lessonAttachments);
+          
+          if (lessonAttachments.length > 0) {
+            lessonAttachments.forEach(function (attachment, index) {
+              var newOption = $('<option>', {
+                value: attachment.id,
+                text: "",
+                selected: true // Set the selected attribute to keep it selected
+              });
+              $("#lesson-attachments").append(newOption);
+            });
+          }
+          else {
+            $("#lesson-attachments").empty();
+          }
           $("#lesson-enable_preview").prop('checked', lessonEnablePreview);
           $("#lessonAttachmentsPreviewContainer").empty();
           lessonAttachments.forEach(function (attachment, index) {
@@ -948,7 +966,20 @@
 
         $("#assignment-title").val(assignmentTitle);
         createAssignmentSummaryEditor.setData(assignmentSummary);
-        $("#assignment-attachments").val(assignmentAttachments);
+        if (assignmentAttachments.length > 0) {
+          assignmentAttachments.forEach(function (attachment, index) {
+            var newOption = $('<option>', {
+              value: attachment.id,
+              text: "",
+              selected: true // Set the selected attribute to keep it selected
+            });
+            $("#assignment-attachments").append(newOption);
+          });
+        }
+        else {
+          $("#assignment-attachments").empty();
+        }
+        
         if (assignmentTimeLimitUnit == "D") {
           $("#assignment-time_limit").val(assignmentTimeLimit / 24);
         }
