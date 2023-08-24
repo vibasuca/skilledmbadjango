@@ -139,7 +139,7 @@
   <!---------------- Modals ---------------->
 
   <!-- Media Managerment -->
-  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true" style="z-index: 99999999999">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
         <div class="modal-header border-0">
@@ -255,7 +255,7 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Lesson Name</label>
-              <input type="text" id="create-lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> Lesson titles are displayed
                 publicly wherever required.
@@ -264,7 +264,7 @@
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Lesson Content</label>
-              <textarea id="create-lesson-content-editor">
+              <textarea id="lesson-content-editor">
               </textarea>
               <br />
               <small class="text-muted">
@@ -279,15 +279,15 @@
             <div class="d-flex border rounded">
               <div class="p-3">
                 <div class="thumbnail-preview" id="thumbnailPreview">
-                  <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                  <img id="lesson-feature-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
                 </div>
               </div>
               <div class="p-3 d-flex align-items-center" style="width: 100%">
                 <span>
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
-                  <select class="d-none" id="create-lesson-feature_image"></select>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal" data-target="create_lesson">
+                  <select class="d-none" id="lesson-feature_image"></select>
+                  <button type="button" class="btn btn-primary"  id="lesson-feature_image-btn">
                     Upload Image
                   </button>
                 </span>
@@ -333,16 +333,18 @@
                 </div>
               </div> 
               {% endcomment %}
+
+              <div class="row mb-3" id="lessonAttachmentsPreviewContainer"></div>
               
-              <select class="d-none" id="create-lesson-attachments" name="attachments" multiple>
+              <select class="d-none" id="lesson-attachments" name="attachments" multiple>
               </select>
-              <button class="btn btn-outline-primary p-3">
+              <button class="btn btn-outline-primary p-3" id="lesson-attachments-btn" type="button">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
 
             <div class="d-flex align-items-center gap-3 mb-4">
-              <input type="checkbox" id="create-lesson-enable_preview" name="enable_preview" class="form-check-input"
+              <input type="checkbox" id="lesson-enable_preview" name="enable_preview" class="form-check-input"
                 style="padding: 10px" />
               <label for="enable_preview">Enable Course Preview:</label>
             </div>
@@ -609,7 +611,7 @@
     });
 
     const lessonModal = document.getElementById("lessonModal");
-    ClassicEditor.create(document.querySelector("#create-lesson-content-editor")).then(editor => {
+    ClassicEditor.create(document.querySelector("#lesson-content-editor")).then(editor => {
       console.log("CKEditor initialized");
       createLessonContentEditor = editor;
     })
@@ -628,11 +630,11 @@
         event.preventDefault();
         let url = `/courses/create-lesson/${lessonTopicId}/`;
         let data = {
-          'title': $("#create-lesson-title").val(),
+          'title': $("#lesson-title").val(),
           'content': createLessonContentEditor.getData(),
-          'feature_image': parseInt($("#create-lesson-feature_image").val()) || null,
-          'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
-          'enable_preview': $("#create-lesson-enable_preview").prop('checked'),
+          'feature_image': parseInt($("#lesson-feature_image").val()) || null,
+          'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
+          'enable_preview': $("#lesson-enable_preview").prop('checked'),
         };
 
         $.ajax({
@@ -644,15 +646,13 @@
           success: function (data) {
             console.log(data);
             $("#lessonModal").modal("hide");
-            $("#create-lesson-title").val("");
+            $("#lesson-title").val("");
             createLessonContentEditor.setData("");
-            $("#create-lesson-feature_image").val("");
-            $("#create-lesson-attachments").val("");
-            $("#create-lesson-enable_preview").prop('checked', false);
-            $("#thumbnailPreview").html(`
-              <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
-            `);
-
+            $("#lesson-feature_image").val("");
+            $("#lesson-attachments").val("");
+            $("#lesson-enable_preview").prop('checked', false);
+            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+            $("#lessonAttachmentsPreviewContainer").empty();
 
 
             // Get topic items
@@ -752,7 +752,7 @@
       let data = {
         'title': $("#create-assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
-        'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
+        'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
         'time_limit_unit': $("#create-assignment-time_limit_unit").val() ,
         'total_points': parseInt($("#create-assignment-total_points").val()),
         'min_pass_points': parseInt($("#create-assignment-min_pass_points").val()),
@@ -861,6 +861,26 @@
       });
 
     });
+
+    $("#lesson-feature_image-btn").click(function () {
+      $("#mediaModal").data("target", "lesson_feature_image");
+      $('#mediaModal').modal('show');
+    });
+    
+    $("#lesson-attachments-btn").click(function () {
+      $("#mediaModal").data("target", "lesson_attachments");
+      $('#mediaModal').modal('show');
+    });
+
+    function remove_lesson_attachment(btn) {
+      console.log(btn)
+      const mediaId = $(btn).data("media-id");
+      console.log("removing", mediaId)
+      const option = $("#lesson-attachments option[value='" + mediaId + "']").first();
+      option.remove();
+      // Find the closest parent card and remove it
+      $(btn).closest(".col-md-4").remove();
+  };
 
     
   </script>

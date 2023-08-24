@@ -273,7 +273,7 @@
                 size: $(this).data("media-size"),
             }
 
-            if ($("#mediaModal").data("target") == "thumbnail") {
+            if (["thumbnail", "lesson_feature_image"].includes($("#mediaModal").data("target"))) {
                 clearSelection();
                 selectedMedia.push(media);
                 $(this).append(`
@@ -285,7 +285,7 @@
                 `)
                 $("#use-media-btn-js").prop("disabled", false);
             }
-            else if ($("#mediaModal").data("target") == "attachments") {
+            else if (["attachments", "lesson_attachments"].includes($("#mediaModal").data("target"))) {
                 if (isCtrlKeyDown) {
                     // If media is already selected the unselect it
                     if (selectedMedia.some(obj => obj.id === media.id)) {
@@ -594,6 +594,61 @@
                     </div>
                     `;
                     $("#attachmentsPreviewContainer").append(attachmentPreview);
+                }
+
+                clearSelection();
+                $("#mediaModal").modal("hide");
+            }
+            else if (target == "lesson_feature_image") {
+                var selectElement = $('#lesson-feature_image');
+                selectElement.empty(); // Remove all child nodes
+
+                // Create a new option element and set the selected attribute
+                var newOption = $('<option>', {
+                    value: selectedMedia[0].id,
+                    text: "",
+                    selected: true // Set the selected attribute to keep it selected
+                });
+
+                // Append the new option element to the select element
+                selectElement.append(newOption);
+                $("#lesson-feature-image-preview").attr("src", selectedMedia[0].file);
+
+                clearSelection();
+                $("#mediaModal").modal("hide");
+            }
+            else if (target == "lesson_attachments") {
+                var selectElement = $('#lesson-attachments');
+
+                // Create a new option element and set the selected attribute
+                for (let i = 0; i < selectedMedia.length; i++) {
+                    const element = selectedMedia[i];
+                    var newOption = $('<option>', {
+                        value: element.id,
+                        text: "",
+                        selected: true // Set the selected attribute to keep it selected
+                    });
+                    selectElement.append(newOption);
+                    const attachmentPreview = `
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                                    ${element.file.replace(/^.*[\\\/]/, '')}<br>
+                                        <span class="text-muted" style="font-weight: normal;">Size: ${element.size}</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary border rounded-circle" 
+                                        type="button" data-media-id="${element.id}" onclick="remove_lesson_attachment(this)"
+                                        aria-expanded="false">
+                                    <i class="fal fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                    $("#lessonAttachmentsPreviewContainer").append(attachmentPreview);
                 }
 
                 clearSelection();
