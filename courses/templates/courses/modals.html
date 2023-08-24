@@ -763,6 +763,8 @@
 
     };
 
+    $("#questionTypesContainer").html('');
+    
     $.each(questionTypes, function (key, value) {
       const icon = value.icon;
       const title = value.title;
@@ -780,7 +782,6 @@
           </div>
         </div>`
       );
-
       $("#questionTypesContainer").append(questionTypeDiv);
     });
 

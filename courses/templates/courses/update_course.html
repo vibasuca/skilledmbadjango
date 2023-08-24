@@ -254,7 +254,8 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Lesson Name</label>
-              <input type="text" id="create-lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="create-lesson-title" name="title" class="form-control p-3 mb-2" value="test title"
+                required />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> Lesson titles are displayed
                 publicly wherever required.
@@ -273,7 +274,7 @@
                 topic name.
               </small>
             </div>
-            
+
             <label class="form-label my-2 fw-bold">Feature Image</label>
             <div class="d-flex border rounded">
               <div class="p-3">
@@ -286,7 +287,8 @@
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
                   <select class="d-none" id="create-lesson-feature_image"></select>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal" data-target="create_lesson">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal"
+                    data-target="create_lesson">
                     Upload Image
                   </button>
                 </span>
@@ -305,8 +307,8 @@
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
               <br>
-              
-              {% comment %} 
+
+              {% comment %}
               <div class="card my-3" style="max-width: 350px">
                 <div class="card-body">
                   <div class="d-flex flex-column">
@@ -330,9 +332,9 @@
                     <span style="color: #9e9e9e"> File size </span>
                   </div>
                 </div>
-              </div> 
+              </div>
               {% endcomment %}
-              
+
               <select class="d-none" id="create-lesson-attachments" name="attachments" multiple>
               </select>
               <button class="btn btn-outline-primary p-3">
@@ -376,7 +378,8 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Assignment Name</label>
-              <input type="text" id="create-assignment-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="create-assignment-title" name="title" class="form-control p-3 mb-2"
+                value="test title" required />
             </div>
 
             <div class="form-outline mb-4">
@@ -422,17 +425,16 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Time Limit</label>
-                <input type="number" id="create-assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
-                  placeholder="Time Limit" value="0" min="0" />
+                <div class="d-flex gap-3 align-content-center">
+                  <input type="number" id="create-assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
+                    placeholder="Time Limit" value="0" min="0" />
 
-                <select
-                  class="course-difficulty-single form-select p-3 mb-2"
-                  id="create-assignment-time_limit_unit"
-                >
-                  <option value="W" selected>Weeks</option>
-                  <option value="D">Days</option>
-                  <option value="H">Hours</option>
-                </select>
+                  <select class="course-difficulty-single form-select p-3 mb-2" id="create-assignment-time_limit_unit">
+                    <option value="W" selected>Weeks</option>
+                    <option value="D">Days</option>
+                    <option value="H">Hours</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -451,8 +453,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Minimum Passing Points</label>
-                <input type="number" id="create-assignment-min_pass_points" name="time_limit" class="form-control p-3 mb-2"
-                  placeholder="Time Limit" value="5" min="0" />
+                <input type="number" id="create-assignment-min_pass_points" name="time_limit"
+                  class="form-control p-3 mb-2" placeholder="Time Limit" value="5" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Minimum points required
                   for the student to pass this assignment.
@@ -463,8 +465,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Maximum File Uploads</label>
-                <input type="number" id="create-assignment-max_file_uploads" name="time_limit" class="form-control p-3 mb-2"
-                  placeholder="Time Limit" value="1" min="0" />
+                <input type="number" id="create-assignment-max_file_uploads" name="time_limit"
+                  class="form-control p-3 mb-2" placeholder="Time Limit" value="1" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define the number of
                   files that a student can upload in this assignment. Input 0
@@ -476,8 +478,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">File Size Limit</label>
-                <input type="number" id="create-assignment-file_size_limit" name="time_limit" class="form-control p-3 mb-2"
-                  placeholder="Time Limit" value="2" min="0" />
+                <input type="number" id="create-assignment-file_size_limit" name="time_limit"
+                  class="form-control p-3 mb-2" placeholder="Time Limit" value="2" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define maximum file size
                   attachment in MB
@@ -612,65 +614,65 @@
       console.log("CKEditor initialized");
       createLessonContentEditor = editor;
     })
-    .catch(error => {
+      .catch(error => {
         console.error(error);
-    });;
+      });;
 
-      lessonTopicId = "";
-      lessonModal.addEventListener("show.bs.modal", (event) => {
-        const button = event.relatedTarget;
-        const selectedTopicId = button.getAttribute("data-topic-id");
-        lessonTopicId = selectedTopicId;
-      });
+    lessonTopicId = "";
+    lessonModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedTopicId = button.getAttribute("data-topic-id");
+      lessonTopicId = selectedTopicId;
+    });
 
-      $("#lesson-form").submit(function () {
-        event.preventDefault();
-        let url = `/courses/create-lesson/${lessonTopicId}/`;
-        let data = {
-          'title': $("#create-lesson-title").val(),
-          'content': createLessonContentEditor.getData(),
-          'feature_image': parseInt($("#create-lesson-feature_image").val()) || null,
-          'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
-          'enable_preview': $("#create-lesson-enable_preview").prop('checked'),
-        };
+    $("#lesson-form").submit(function () {
+      event.preventDefault();
+      let url = `/courses/create-lesson/${lessonTopicId}/`;
+      let data = {
+        'title': $("#create-lesson-title").val(),
+        'content': createLessonContentEditor.getData(),
+        'feature_image': parseInt($("#create-lesson-feature_image").val()) || null,
+        'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
+        'enable_preview': $("#create-lesson-enable_preview").prop('checked'),
+      };
 
-        $.ajax({
-          type: "POST",
-          url: url,
-          headers : { "X-CSRFToken": "{{ csrf_token }}" },
-          data: JSON.stringify(data),
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
 
-          success: function (data) {
-            console.log(data);
-            $("#lessonModal").modal("hide");
-            $("#create-lesson-title").val("");
-            createLessonContentEditor.setData("");
-            $("#create-lesson-feature_image").val("");
-            $("#create-lesson-attachments").val("");
-            $("#create-lesson-enable_preview").prop('checked', false);
-            $("#thumbnailPreview").html(`
+        success: function (data) {
+          console.log(data);
+          $("#lessonModal").modal("hide");
+          $("#create-lesson-title").val("");
+          createLessonContentEditor.setData("");
+          $("#create-lesson-feature_image").val("");
+          $("#create-lesson-attachments").val("");
+          $("#create-lesson-enable_preview").prop('checked', false);
+          $("#thumbnailPreview").html(`
               <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
             `);
 
 
 
-            // Get topic items
-            $.ajax({
-              type: "GET",
-              url: `/courses/list-topic-item/${lessonTopicId}/`,
-              headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-              },
-              success: function (response) {
-                const topicItems = response.data;
-                const topicItemsContainer = $(`.topicItems-${lessonTopicId}`);
-                topicItemsContainer.empty();
+          // Get topic items
+          $.ajax({
+            type: "GET",
+            url: `/courses/list-topic-item/${lessonTopicId}/`,
+            headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+            },
+            success: function (response) {
+              const topicItems = response.data;
+              const topicItemsContainer = $(`.topicItems-${lessonTopicId}`);
+              topicItemsContainer.empty();
 
-                topicItems.forEach(function (item, index) {
+              topicItems.forEach(function (item, index) {
 
-                  topicItemList = "";
-                  if (item.lesson != null) {
-                    topicItemList = `
+                topicItemList = "";
+                if (item.lesson != null) {
+                  topicItemList = `
                     <div class="card bg-white text-start mb-3">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
@@ -684,9 +686,9 @@
                       </div>
                     </div>
                     `;
-                  }
-                  else if (item.assignment) {
-                    topicItemList = `
+                }
+                else if (item.assignment) {
+                  topicItemList = `
                     <div class="card bg-white text-start mb-3">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
@@ -700,42 +702,42 @@
                       </div>
                     </div>
                     `;
-                  }
+                }
 
 
-                  topicItemsContainer.append(topicItemList);
-                });
-              },
-              error: function (xhr, status, error) {
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-                alert("Error: " + xhr.responseJSON.error);
-                // Handle the error and update the UI accordingly
-              },
-            });
+                topicItemsContainer.append(topicItemList);
+              });
+            },
+            error: function (xhr, status, error) {
+              console.log(xhr);
+              console.log(status);
+              console.log(error);
+              alert("Error: " + xhr.responseJSON.error);
+              // Handle the error and update the UI accordingly
+            },
+          });
 
 
 
 
 
-          },
-          error: function (xhr, status, error) {
-            console.error(error);
-          }
-        });
-
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
       });
-    
+
+    });
+
 
     const assignmentModal = document.getElementById("assignmentModal");
     ClassicEditor.create(document.querySelector("#create-assignment-summary-editor")).then(editor => {
       console.log("CKEditor initialized");
       createAssignmentSummaryEditor = editor;
     })
-    .catch(error => {
+      .catch(error => {
         console.error(error);
-    });
+      });
 
     assignmentTopicId = "";
     assignmentModal.addEventListener("show.bs.modal", (event) => {
@@ -752,7 +754,7 @@
         'title': $("#create-assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
         'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
-        'time_limit_unit': $("#create-assignment-time_limit_unit").val() ,
+        'time_limit_unit': $("#create-assignment-time_limit_unit").val(),
         'total_points': parseInt($("#create-assignment-total_points").val()),
         'min_pass_points': parseInt($("#create-assignment-min_pass_points").val()),
         'max_file_uploads': parseInt($("#create-assignment-max_file_uploads").val()),
@@ -766,11 +768,11 @@
         time_limit = time_limit * 24 * 7;
       }
       data["time_limit"] = `${time_limit}:00:00`;
-      
+
       $.ajax({
         type: "POST",
         url: url,
-        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
         success: function (data) {
@@ -835,7 +837,7 @@
                   </div>
                   `;
                 }
-                
+
 
                 topicItemsContainer.append(topicItemList);
               });
@@ -861,7 +863,7 @@
 
     });
 
-    
+
   </script>
 </body>
 
