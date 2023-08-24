@@ -8,8 +8,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from courses.models import Course
-from .forms import CustomSignupForm, UserUpdateForm
+from .forms import CustomSignupForm, UserUpdateForm, AjaxSignupForm
 from .models import User
+
+from allauth.account.forms import LoginForm
+from allauth.account.views import LoginView, SignupView
+from django.views.decorators.csrf import csrf_exempt
 
 
 @login_required
@@ -66,3 +70,33 @@ def search_instructors(request, course_pk):
         )
     users = users.values("id", "first_name", "last_name", "email")
     return JsonResponse({"data": list(users)})
+
+
+class AjaxLoginView(LoginView):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        response = super().dispatch(*args, **kwargs)
+        if self.request.user.is_authenticated:
+            return JsonResponse({"message": "Login successful"})
+        else:
+            errors = self.get_form().errors
+            print("errors", errors)
+            return JsonResponse({"errors": errors}, status=400)
+
+    def get_form_class(self):
+        return LoginForm
+
+
+class AjaxSignupView(SignupView):
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        self.form_class = AjaxSignupForm
+        response = super().dispatch(*args, **kwargs)
+        errors = self.get_form().errors
+        if not errors:
+            return JsonResponse({"message": "Signup successful"})
+        else:
+            return JsonResponse({"errors": errors}, status=400)
+
+    def get_form_class(self):
+        return AjaxSignupForm

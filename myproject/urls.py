@@ -29,7 +29,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("accounts/profile/", users_views.profile, name="account_profile"),
-    # path("student-registration/", SignupView.as_view(), name="student_signup"),
+    path("ajax-login/", users_views.AjaxLoginView.as_view(), name="ajax_login"),
+    path("ajax-signup/", users_views.AjaxSignupView.as_view(), name="ajax_signup"),
     path(
         "",
         TemplateView.as_view(template_name="index.html"),

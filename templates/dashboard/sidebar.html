@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Sidebar Wrapper -->
 <div id="sidebar-wrapper" class="shadow-sm">
     <button type="button" class="btn position-absolute menu-toggle"
@@ -6,17 +7,8 @@
         <span class="sr-only">Toggle Menu</span>
     </button>
     <div class="py-5 d-flex">
-        <img class="brandingLogo m-auto" src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-            loading="lazy" srcset="
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-                  https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-                " />
+        <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}"
+            loading="lazy" />
     </div>
     <nav id="sidebar">
 
@@ -82,9 +74,9 @@
                 <i class="fal fa-wallet fs-5"></i>
                 <a href="{% url 'withdrawals' %}">Withdrawals</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'quiz_attempts' %}active{% endif %}">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name in 'quiz_attempts,quiz_attempt_detail' %}active{% endif %}">
                 <i class="fal fa-question fs-5"></i>
-                <a href="{% url 'quiz_attempts' %}">Quiz Attempts</a>
+                <a href="{% url 'quizzes:quiz_attempts' %}">Quiz Attempts</a>
             </li>
             <li class="list-group-item d-flex align-items-center gap-3">
                 <i class="fal fa-copy fs-5"></i>

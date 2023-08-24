@@ -81,7 +81,7 @@
                 <div class="form-outline mb-4">
                   <label class="form-label my-2" for="fname">First Name</label>
                   <input type="text" id="fname" name="first_name" class="form-control form-control-lg"
-                    placeholder="e.g. Peter" />
+                    placeholder="e.g. Peter" value="{{form.first_name.value|default_if_none:''}}" />
 
                   {% if form.first_name.errors %}
                   <ul>
@@ -95,7 +95,7 @@
                 <div class="form-outline mb-4">
                   <label class="form-label my-2" for="lname">Last Name</label>
                   <input type="text" id="lname" name="last_name" class="form-control form-control-lg"
-                    placeholder="e.g. Parker" />
+                    placeholder="e.g. Parker" value="{{form.last_name.value|default_if_none:''}}" />
 
                   {% if form.last_name.errors %}
                   <ul>
@@ -109,7 +109,7 @@
                 <div class="form-outline mb-4">
                   <label class="form-label my-2" for="uname">Username</label>
                   <input type="text" id="uname" name="username" class="form-control form-control-lg"
-                    placeholder="parkerpeter" />
+                    placeholder="parkerpeter" value="{{form.username.value|default_if_none:''}}" />
                   {% if form.username.errors %}
                   <ul>
                     {% for error in form.username.errors %}
@@ -122,7 +122,7 @@
                 <div class="form-outline mb-4">
                   <label class="form-label my-2" for="email">Email Address</label>
                   <input type="email" id="email" name="email" class="form-control form-control-lg"
-                    placeholder="peterparker@email.com" />
+                    placeholder="peterparker@email.com" value="{{form.email.value|default_if_none:''}}" />
 
                   {% if form.email.errors %}
                   <ul>
