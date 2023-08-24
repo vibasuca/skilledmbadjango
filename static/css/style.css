@@ -318,6 +318,24 @@ footer a:hover {
   position: relative;
 }
 
+.underSvg {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+}
+
+.underSvg::after {
+  content: "";
+  background-image: url("https://edumall.thememove.com/main/wp-content/themes/edumall/assets/svg/headline-curve.svg");
+  background-repeat: repeat-x;
+  background-size: 91px 15px;
+  width: 91px;
+  height: 15px;
+  position: absolute;
+  bottom: -12px;
+  left: 20%;
+}
+
 .animate-me {
   opacity: 0;
   transform: translateY(100px);
