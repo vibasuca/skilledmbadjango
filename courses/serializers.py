@@ -61,7 +61,7 @@ class CreateLessonSerializer(serializers.ModelSerializer):
 
 
 class UpdateLessonSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Lesson
@@ -133,6 +133,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class AssignmentSerializer(serializers.ModelSerializer):
     attachments_data = MediaSerializer(source="attachments", read_only=True, many=True)
+    time_limit_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = Assignment
@@ -143,12 +144,20 @@ class AssignmentSerializer(serializers.ModelSerializer):
             "attachments",
             "attachments_data",
             "time_limit",
+            "time_limit_hours",
             "time_limit_unit",
             "total_points",
             "min_pass_points",
             "max_file_uploads",
             "file_size_limit",
         )
+
+    def get_time_limit_hours(self, obj):
+        value = obj.time_limit
+        total_seconds = value.total_seconds()
+        total_hours = int(total_seconds // 3600)
+        remaining_minutes = int((total_seconds % 3600) // 60)
+        return total_hours
 
 
 class QuizSerializer(serializers.ModelSerializer):
@@ -226,7 +235,7 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
 
 
 class UpdateAssignmentSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Assignment

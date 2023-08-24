@@ -508,6 +508,180 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
   <script>
+
+    // [
+    //    {
+    //       "id":1,
+    //       "topic_items": [
+    //              {
+    //                 "id":1,
+    //                 "lesson": {
+    //                    "id":1,
+    //                    "title":"Lesson 1",
+    //                    "summary":"Lesson 1 summary",
+    //                    "feature_image":null,
+    //                    "content":"<p>Lesson 1 content<\/p>",
+    //                    "attachments":[
+    //                       {
+    //                          "id":1,
+    //                          "file":"http://.."
+    //                       }
+    //                    ],
+    //                  "enable_preview":false,
+    //                 },
+    //                 "quiz":null,
+    //                 "assignment":null,
+    //                 "sort_order":1
+    //              },
+    //              ...
+    //          ],
+    //    },
+    //    ...
+    // ]
+    
+    topics_state = [];
+
+    // Function to fetch and display the topics list
+    function fetchTopicsList() {
+      topics_state.length = 0;
+      const url = "{% url 'courses:list_topics' course.pk %}";
+
+      $.ajax({
+        type: "GET",
+        url: url,
+        success: function (response) {
+          const topicList = response.topics;
+          const topicListContainer = $("#topic-list #topicsList");
+          topicListContainer.empty();
+
+          topicList.forEach(function (topic, index) {
+            const topicsList = `
+              <div class="card bg-light text-start mb-3" data-topic-id="${topic.id}">
+                <div class="card-body p-0">
+                    <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
+                        <span class="fs-6 SortHandle" style="cursor: grab;"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topic.title}</span>
+                        <span class="d-flex gap-2 px-2">
+                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal" data-bs-topic-sort="${topic.sort_order}" data-bs-topic-id="${topic.id}" data-bs-topic-title="${topic.title}" data-bs-topic-summary="${topic.summary}"><i class="fas fa-edit text-muted"></i></button>
+                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#topic-${topic.id}"><i class="fas fa-chevron-down text-muted"></i></button>
+                        </span>
+                    </div>
+                    
+                    <div class="collapse show" id="topic-${topic.id}">
+                        <div class="card card-body">
+
+                            <div class="topicItems-${topic.id}"></div>
+
+                            <div class="d-flex gap-3">
+                                <!-- Button for Add Lesson -->
+                                <button type="button" class="btn btn-outline-primary create-lesson-button" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}">
+                                  <i class="fas fa-plus-square"></i>
+                                    &nbsp;Lesson
+                                </button>
+
+                                <!-- Button for Add Quiz -->
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary" data-topic-id="${topic.id}">
+                                    <i class="fas fa-plus-square"></i>
+                                    &nbsp;Quiz
+                                </button>
+
+                                <!-- Button for Add Assignment -->
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}">
+                                  <i class="fas fa-plus-square"></i>
+                                    &nbsp;Assignment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+              
+
+              `;
+
+            topicListContainer.append(topicsList);
+
+            // Get topic items
+            $.ajax({
+              type: "GET",
+              url: `/courses/list-topic-item/${topic.id}/`,
+              headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+              },
+              success: function (response) {
+                console.log(topic.id);
+                console.log(response.data);
+                const topicItems = response.data;
+                const topicItemsContainer = $(`.topicItems-${topic.id}`);
+                topicItemsContainer.empty();
+
+                topics_state.push({
+                  topic_id: topic.id,
+                  topic_items: topicItems,
+                });
+                topicItems.forEach(function (item, index) {
+
+                  topicItemList = "";
+
+                  if (item.lesson != null) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+                  else if (item.assignment) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+
+                  topicItemsContainer.append(topicItemList);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+                alert("Error: " + xhr.responseJSON.error);
+                // Handle the error and update the UI accordingly
+              },
+            });
+          });
+        },
+        error: function (xhr, status, error) {
+          alert("Error fetching topic list.");
+        },
+      });
+    }
+
+
+
+
+
+
+
     $("#search-instructor-js").keyup(function (event) {
       if (event.key === "Enter") {
         $.ajax({
@@ -623,15 +797,78 @@
     });;
 
       lessonTopicId = "";
+      activeLessonId = "";
       lessonModal.addEventListener("show.bs.modal", (event) => {
         const button = event.relatedTarget;
         const selectedTopicId = button.getAttribute("data-topic-id");
         lessonTopicId = selectedTopicId;
+        //get state object
+        const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+        const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+        activeLessonId = "";
+        console.log(item);
+        if (item) {
+          activeLessonId = item.lesson;
+          const lessonId = item.lesson_data.id;
+          const lessonTitle = item.lesson_data.title;
+          const lessonContent = item.lesson_data.content;
+          const lessonFeatureImage = item.lesson_data.feature_image_data;
+          const lessonAttachments = item.lesson_data.attachments_data;
+          const lessonEnablePreview = item.lesson_data.enable_preview;
+
+          $("#lesson-title").val(lessonTitle);
+          createLessonContentEditor.setData(lessonContent);
+          if (lessonFeatureImage) {
+            $("#lesson-feature_image").val(lessonFeatureImage.id);
+            $("#lesson-feature-image-preview").attr("src", lessonFeatureImage.file);
+          }
+          else {
+            $("#lesson-feature_image").val("");
+            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+          }
+          $("#lesson-attachments").val(lessonAttachments);
+          $("#lesson-enable_preview").prop('checked', lessonEnablePreview);
+          $("#lessonAttachmentsPreviewContainer").empty();
+          lessonAttachments.forEach(function (attachment, index) {
+          $("#lessonAttachmentsPreviewContainer").append(`
+                <div class="col-md-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="d-flex align-items-center">
+                              <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                              ${attachment.file.replace(/^.*[\\\/]/, '')}<br>
+                                  <span class="text-muted" style="font-weight: normal;">Size: ${attachment.size}</span>
+                              </div>
+                              <button class="btn btn-outline-primary border rounded-circle" 
+                                  type="button" data-media-id="${attachment.id}" onclick="remove_lesson_attachment(this)"
+                                  aria-expanded="false">
+                              <i class="fal fa-times"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            `);
+          });
+        }
+        else {
+          $("#lesson-title").val("");
+          createLessonContentEditor.setData("");
+          $("#lesson-feature_image").val("");
+          $("#lesson-attachments").val("");
+          $("#lesson-enable_preview").prop('checked', false);
+          $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+          $("#lessonAttachmentsPreviewContainer").empty();
+        }
+
       });
 
       $("#lesson-form").submit(function () {
         event.preventDefault();
         let url = `/courses/create-lesson/${lessonTopicId}/`;
+        if (activeLessonId) {
+          url = `/courses/update-lesson/${activeLessonId}/`;
+        }
         let data = {
           'title': $("#lesson-title").val(),
           'content': createLessonContentEditor.getData(),
@@ -659,65 +896,7 @@
 
 
             // Get topic items
-            $.ajax({
-              type: "GET",
-              url: `/courses/list-topic-item/${lessonTopicId}/`,
-              headers: {
-                "X-CSRFToken": "{{ csrf_token }}",
-              },
-              success: function (response) {
-                const topicItems = response.data;
-                const topicItemsContainer = $(`.topicItems-${lessonTopicId}`);
-                topicItemsContainer.empty();
-
-                topicItems.forEach(function (item, index) {
-
-                  topicItemList = "";
-                  if (item.lesson != null) {
-                    topicItemList = `
-                    <div class="card bg-white text-start mb-3">
-                      <div class="card-body p-0">
-                        <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
-                            <span class="d-flex gap-2 px-2">
-                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                            </span>
-                        </div>
-                      </div>
-                    </div>
-                    `;
-                  }
-                  else if (item.assignment) {
-                    topicItemList = `
-                    <div class="card bg-white text-start mb-3">
-                      <div class="card-body p-0">
-                        <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
-                            <span class="d-flex gap-2 px-2">
-                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                            </span>
-                        </div>
-                      </div>
-                    </div>
-                    `;
-                  }
-
-
-                  topicItemsContainer.append(topicItemList);
-                });
-              },
-              error: function (xhr, status, error) {
-                console.log(xhr);
-                console.log(status);
-                console.log(error);
-                alert("Error: " + xhr.responseJSON.error);
-                // Handle the error and update the UI accordingly
-              },
-            });
+            fetchTopicsList();
 
 
 
@@ -742,16 +921,93 @@
     });
 
     assignmentTopicId = "";
+    activeAssignmentId = "";
     assignmentModal.addEventListener("show.bs.modal", (event) => {
       const button = event.relatedTarget;
       const selectedTopicId = button.getAttribute("data-topic-id");
       assignmentTopicId = selectedTopicId;
+      //get state object
+      const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+      const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+      activeAssignmentId = "";
+      console.log(topics_state)
+      console.log(item);
+      if (item) {
+        activeAssignmentId = item.assignment;
+        const assignmentId = item.assignment_data.id;
+        const assignmentTitle = item.assignment_data.title;
+        const assignmentSummary = item.assignment_data.summary;
+        const assignmentAttachments = item.assignment_data.attachments_data;
+        const assignmentTimeLimit = item.assignment_data.time_limit_hours;
+        const assignmentTimeLimitUnit = item.assignment_data.time_limit_unit;
+        const assignmentTotalPoints = item.assignment_data.total_points;
+        const assignmentMinPassPoints = item.assignment_data.min_pass_points;
+        const assignmentMaxFileUploads = item.assignment_data.max_file_uploads;
+        const assignmentFileSizeLimit = item.assignment_data.file_size_limit;
+        
+
+        $("#assignment-title").val(assignmentTitle);
+        createAssignmentSummaryEditor.setData(assignmentSummary);
+        $("#assignment-attachments").val(assignmentAttachments);
+        if (assignmentTimeLimitUnit == "D") {
+          $("#assignment-time_limit").val(assignmentTimeLimit / 24);
+        }
+        else if (assignmentTimeLimitUnit == "W") {
+          $("#assignment-time_limit").val(assignmentTimeLimit / 24 / 7);
+        }
+        else {
+          $("#assignment-time_limit").val(assignmentTimeLimit);
+        }
+        $("#assignment-time_limit_unit").val(assignmentTimeLimitUnit);
+        $("#assignment-total_points").val(assignmentTotalPoints);
+        $("#assignment-min_pass_points").val(assignmentMinPassPoints);
+        $("#assignment-max_file_uploads").val(assignmentMaxFileUploads);
+        $("#assignment-file_size_limit").val(assignmentFileSizeLimit);
+        $("#assignmentAttachmentsPreviewContainer").empty();
+        assignmentAttachments.forEach(function (attachment, index) {
+          $("#assignmentAttachmentsPreviewContainer").append(`
+                  <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                                ${attachment.file.replace(/^.*[\\\/]/, '')}<br>
+                                    <span class="text-muted" style="font-weight: normal;">Size: ${attachment.size}</span>
+                                </div>
+                                <button class="btn btn-outline-primary border rounded-circle" 
+                                    type="button" data-media-id="${attachment.id}" onclick="remove_assignment_attachment(this)"
+                                    aria-expanded="false">
+                                <i class="fal fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          `);
+        });
+
+      }
+      else {
+        $("#assignment-title").val("");
+        createAssignmentSummaryEditor.setData("");
+        $("#assignment-attachments").val("");
+        $("#assignment-time_limit").val("0");
+        $("#assignment-time_limit_unit").val("W");
+        $("#assignment-total_points").val("10");
+        $("#assignment-min_pass_points").val("5");
+        $("#assignment-max_file_uploads").val("1");
+        $("#assignment-file_size_limit").val("2");
+        $("#assignmentAttachmentsPreviewContainer").empty();
+      }
     });
 
 
     $("#assignment-form").submit(function () {
       event.preventDefault();
       let url = `/courses/create-assignment/${assignmentTopicId}/`;
+      if (activeAssignmentId) {
+        url = `/courses/update-assignment/${activeAssignmentId}/`;
+      }
       let data = {
         'title': $("#assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
@@ -792,66 +1048,7 @@
 
 
 
-          // Get topic items
-          $.ajax({
-            type: "GET",
-            url: `/courses/list-topic-item/${assignmentTopicId}/`,
-            headers: {
-              "X-CSRFToken": "{{ csrf_token }}",
-            },
-            success: function (response) {
-              const topicItems = response.data;
-              const topicItemsContainer = $(`.topicItems-${assignmentTopicId}`);
-              topicItemsContainer.empty();
-
-              topicItems.forEach(function (item, index) {
-
-                topicItemList = "";
-                if (item.lesson != null) {
-                  topicItemList = `
-                  <div class="card bg-white text-start mb-3">
-                    <div class="card-body p-0">
-                      <div class="section p-2 d-flex align-items-center justify-content-between"
-                      style="cursor: pointer;">
-                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
-                          <span class="d-flex gap-2 px-2">
-                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                          </span>
-                      </div>
-                    </div>
-                  </div>
-                  `;
-                }
-                else if (item.assignment) {
-                  topicItemList = `
-                  <div class="card bg-white text-start mb-3">
-                    <div class="card-body p-0">
-                      <div class="section p-2 d-flex align-items-center justify-content-between"
-                      style="cursor: pointer;">
-                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
-                          <span class="d-flex gap-2 px-2">
-                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                          </span>
-                      </div>
-                    </div>
-                  </div>
-                  `;
-                }
-                
-
-                topicItemsContainer.append(topicItemList);
-              });
-            },
-            error: function (xhr, status, error) {
-              console.log(xhr);
-              console.log(status);
-              console.log(error);
-              alert("Error: " + xhr.responseJSON.error);
-              // Handle the error and update the UI accordingly
-            },
-          });
+          fetchTopicsList();
 
 
 
