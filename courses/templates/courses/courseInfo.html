@@ -328,6 +328,9 @@
         <p class="d-none">
           <label for="id_thumbnail" class="text-danger">Thumbnail:</label>
           <select name="thumbnail" id="thumbnail-input-js">
+            {% if course.thumbnail %}
+            <option value="{{ course.thumbnail.id }}" selected="selected"></option>
+            {% endif %}
           </select>
         </p>
       </div>

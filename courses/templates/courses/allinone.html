@@ -75,10 +75,11 @@
             <div class="card">
               <div class="card-body">
                 <div class="d-flex align-items-center">
-                  <div class="text-truncate p-3" style="max-width: 90%;">
-                    {{ attachment.id }}:{{ attachment.file.url }}
+                  <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                    {{ attachment.file.url|get_filename }}<br>
+                    <span class="text-muted" style="font-weight: normal;">Size: {{ attachment.get_size }}</span>
                   </div>
-                  <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                  <button class="btn btn-outline-primary border rounded-circle dropdown-toggl remove-course-attachments-js" type="button" data-media-id="{{ attachment.id }}"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fal fa-times"></i>
                   </button>
@@ -216,7 +217,13 @@
       $("#mediaModal").data("target", "attachments");
     });
 
-
+    $(".remove-course-attachments-js").click(function() {
+      const mediaId = $(this).data("media-id");
+      const option = $("#attachments-input-js option[value='" + mediaId + "']").first();
+      option.remove();
+      // Find the closest parent card and remove it
+      $(this).closest(".col-md-4").remove();
+  });
 
   });
 </script>

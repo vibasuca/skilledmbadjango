@@ -94,6 +94,8 @@ class UpdateLessonSerializer(serializers.ModelSerializer):
 
 
 class MediaSerializer(serializers.ModelSerializer):
+    size = serializers.SerializerMethodField()
+
     class Meta:
         model = Media
         fields = (
@@ -103,8 +105,12 @@ class MediaSerializer(serializers.ModelSerializer):
             "description",
             "alt_text",
             "caption",
+            "size",
             "created_at",
         )
+
+    def get_size(self, obj):
+        return obj.get_size()
 
 
 class LessonSerializer(serializers.ModelSerializer):

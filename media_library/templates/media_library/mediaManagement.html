@@ -239,6 +239,7 @@
                                     data-media-description="${media.description}"
                                     data-media-alt-text="${media.alt_text}"
                                     data-media-caption="${media.caption}"
+                                    data-media-size="${media.size}"
                                     data-media-index="${index}"
                                     id="gridItem${index}"
                                 >
@@ -269,6 +270,7 @@
                 description: $(this).data("media-description"),
                 alt_text: $(this).data("media-alt-text"),
                 caption: $(this).data("media-caption"),
+                size: $(this).data("media-size"),
             }
 
             if ($("#mediaModal").data("target") == "thumbnail") {
@@ -326,6 +328,7 @@
                                 description: element.data("media-description"),
                                 alt_text: element.data("media-alt-text"),
                                 caption: element.data("media-caption"),
+                                size: element.data("media-size"),
                             }
                             if (!selectedMedia.includes(newMedia)) {
                                 selectedMedia.push(newMedia);
@@ -576,11 +579,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
-                                    <div class="text-truncate p-3" style="max-width: 90%;">
-                                    ${element.file}
+                                    <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                                    ${element.file.replace(/^.*[\\\/]/, '')}<br>
+                                        <span class="text-muted" style="font-weight: normal;">Size: ${element.size}</span>
                                     </div>
-                                    <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn btn-outline-primary border rounded-circle dropdown-toggl remove-course-attachments-js" 
+                                        type="button" data-media-id="${element.id}"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fal fa-times"></i>
                                     </button>
                                 </div>
