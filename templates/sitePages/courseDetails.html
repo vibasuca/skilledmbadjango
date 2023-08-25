@@ -10,7 +10,7 @@
         margin: -15px;
     }
 
-    .instructor-image-grid-item{
+    .instructor-image-grid-item {
         flex: 0 0 200px;
         position: relative;
         overflow: hidden;
@@ -32,13 +32,15 @@
         width: 100%;
     }
 
-    .instructor-image-grid-item::before, .image-grid-item::before {
+    .instructor-image-grid-item::before,
+    .image-grid-item::before {
         content: "";
         display: block;
         padding-bottom: 100%;
     }
 
-    .instructor-image-background, .image-background {
+    .instructor-image-background,
+    .image-background {
         position: absolute;
         top: 0;
         left: 0;
@@ -423,60 +425,69 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-4 pt-3">
                 <div class="position-relative bg-white" id="courseSidePanelJS"
                     style="top: -275px !important; z-index: 1; transition: all 0.25s ease-in-out;">
                     <div class="card text-start bg-white mb-4">
                         <div class="image-grid-item rounded-top">
                             {% comment %}
-                            <div
-                              class="image-background"
-                              style="background-image: url('https://placehold.co/150x250')"
-                            ></div>
+                            <div class="image-background" style="background-image: url('https://placehold.co/150x250')">
+                            </div>
                             {% endcomment %}
                             <video class="image-background" src="https://placehold.co/1920x1080.mp4" controls></video>
-                          </div>
+                        </div>
                         <div class="card-body tips p-4">
                             <h1 class="text-muted mb-4">
                                 <b>Free</b>
                             </h1>
-                            <div style="font-size: 14px;">
-                                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mt-4">
-                                    <div>
-                                        <i class="far fa-sliders-h text-muted"></i>&nbsp;
-                                        <b>Level</b>
+                            <ul class="list-group list-group-flush" style="font-size: 14px;">
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center justify-content-between py-2">
+                                        <div>
+                                            <i class="far fa-sliders-h text-muted"></i>&nbsp;
+                                            <b>Level</b>
+                                        </div>
+                                        <div>Beginner</div>
                                     </div>
-                                    <div>Beginner</div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mt-3">
-                                    <div>
-                                        <i class="far fa-clock text-muted"></i>&nbsp;
-                                        <b>Duration</b>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center justify-content-between py-2">
+                                        <div>
+                                            <i class="far fa-clock text-muted"></i>&nbsp;
+                                            <b>Duration</b>
+                                        </div>
+                                        <div>8.5 hours</div>
                                     </div>
-                                    <div>8.5 hours</div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mt-3">
-                                    <div>
-                                        <i class="far fa-play-circle text-muted"></i>&nbsp;
-                                        <b>Lectures</b>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center justify-content-between py-2">
+                                        <div>
+                                            <i class="far fa-play-circle text-muted"></i>&nbsp;
+                                            <b>Lectures</b>
+                                        </div>
+                                        <div>1 lecture</div>
                                     </div>
-                                    <div>1 lecture</div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mt-3">
-                                    <div>
-                                        <i class="far fa-tag text-muted"></i>&nbsp;
-                                        <b>Subject</b>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center justify-content-between py-2">
+                                        <div>
+                                            <i class="far fa-tag text-muted"></i>&nbsp;
+                                            <b>Subject</b>
+                                        </div>
+                                        <div>Design Tools</div>
                                     </div>
-                                    <div>Design Tools</div>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between pb-3 mt-3">
-                                    <div>
-                                        <i class="far fa-globe text-muted"></i>&nbsp;
-                                        <b>Langauge</b>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="d-flex align-items-center justify-content-between py-2">
+                                        <div>
+                                            <i class="far fa-globe text-muted"></i>&nbsp;
+                                            <b>Langauge</b>
+                                        </div>
+                                        <div>English</div>
                                     </div>
-                                    <div>English</div>
-                                </div>
-                            </div>
+                                </li>
+                            </ul>
                             <br>
                             <h5>Material Includes</h5>
                             <div class="text-muted py-3" style="font-size: 15px;">
@@ -524,7 +535,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card bg-white mb-4">
                         <div class="card-body p-4">
                             <h5>Course categories</h5>
                             <div class="d-flex flex-column gap-4">
@@ -541,6 +552,98 @@
                                         style="font-size: 16px; font-weight: 500;">Finance</li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card bg-white mb-4">
+                        <div class="card-body p-4">
+                            <h5>Related Courses</h5>
+                            <br>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item px-0">
+                                    <div class="card border-0" style="max-width: 950px">
+                                        <div class="card-body p-0">
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="instructor-image-grid-item rounded" style="height: 120px;">
+                                                    <div class="image-background"
+                                                        style="background-image: url('https://placehold.co/150x250');">
+                                                        <div class="position-absolute p-2" style="top: 0px;">
+                                                            <span class="badge" style="background: #0071dc;">-15%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
+                                                    <div style="width: 100%;">
+                                                        <div class="mb-2 d-flex flex-column gap-2">
+                                                            <small class="fw-bold">Decision-Making Alignment</small>
+                                                            <div class="text-muted">
+                                                                <b class="fs-5">₹100</b><b>.96</b>
+                                                                <s class="text-muted">₹00</s><s
+                                                                    class="text-muted">.00</s>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="card border-0" style="max-width: 950px">
+                                        <div class="card-body p-0">
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="instructor-image-grid-item rounded" style="height: 120px;">
+                                                    <div class="image-background"
+                                                        style="background-image: url('https://placehold.co/150x250');">
+                                                        <div class="position-absolute p-2" style="top: 0px;">
+                                                            <span class="badge" style="background: #0071dc;">-15%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
+                                                    <div style="width: 100%;">
+                                                        <div class="mb-2 d-flex flex-column gap-2">
+                                                            <small class="fw-bold">Decision-Making Alignment</small>
+                                                            <div class="text-muted">
+                                                                <b class="fs-5">₹100</b><b>.96</b>
+                                                                <s class="text-muted">₹00</s><s
+                                                                    class="text-muted">.00</s>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="card border-0" style="max-width: 950px">
+                                        <div class="card-body p-0">
+                                            <div class="d-flex flex-column flex-md-row">
+                                                <div class="instructor-image-grid-item rounded" style="height: 120px;">
+                                                    <div class="image-background"
+                                                        style="background-image: url('https://placehold.co/150x250');">
+                                                        <div class="position-absolute p-2" style="top: 0px;">
+                                                            <span class="badge" style="background: #0071dc;">-15%</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
+                                                    <div style="width: 100%;">
+                                                        <div class="mb-2 d-flex flex-column gap-2">
+                                                            <small class="fw-bold">Decision-Making Alignment</small>
+                                                            <div class="text-muted">
+                                                                <b class="fs-5">₹100</b><b>.96</b>
+                                                                <s class="text-muted">₹00</s><s
+                                                                    class="text-muted">.00</s>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
