@@ -1,19 +1,13 @@
+{% load static %}
 <footer class="container-fluid p-lg-5 footer" style="background: #f9f9fb">
   <div class="row container mx-auto">
     <div class="col-lg-5 my-5 my-lg-0">
       <div class="d-flex flex-column align-items-center">
         <div>
-          <img src="https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png"
-            class="attachment-full size-full wp-image-6642" alt="" loading="lazy" srcset="
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2.png          3378w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-300x110.png   300w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1024x376.png 1024w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-768x282.png   768w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-1536x565.png 1536w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-2048x753.png 2048w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-400x147.png   400w,
-                https://skilledmba.com/wp-content/uploads/2020/08/Logo-File-2-600x221.png   600w
-              " sizes="(max-width: 3378px) 100vw, 3378px" style="max-width: 200px; height: auto; margin: 20px" />
+          <a href="/">
+            <img src="{% static 'images/logo.png' %}"
+            class="attachment-full size-full wp-image-6642" alt="" style="max-width: 200px; height: auto; margin: 20px" />
+          </a>
         </div>
         <div class="mb-3">
           <div class="d-flex gap-4" style="font-size: 20px; color: #96a1b1">
