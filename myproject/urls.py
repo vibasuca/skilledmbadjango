@@ -33,7 +33,7 @@ urlpatterns = [
     path("ajax-signup/", users_views.AjaxSignupView.as_view(), name="ajax_signup"),
     path(
         "",
-        TemplateView.as_view(template_name="sitePages/courseDetails.html"),
+        TemplateView.as_view(template_name="index.html"),
         name="index",
     ),
     path(
