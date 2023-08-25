@@ -1,0 +1,194 @@
+{% extends "dashboard/base.html" %} {% load static %} {% load my_extras %}
+<!--do not remove this comment-->
+{% block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+<style>
+    .ck-editor__editable_inline {
+        min-height: 100px;
+    }
+</style>
+<div>
+    <!--Page Title-->
+    <div class="container-fluid title-content">
+        <div class="py-3">
+            <div class="container mt-4">
+                <h3 class="fw-normal mb-3" style="letter-spacing: 1px">Settings</h3>
+                <div class="d-flex gap-4 border-bottom mt-3">
+                    <a href="#" class="flex-1 px-4 py-2 text-primary border-bottom border-2"
+                        style="border-color: #0071dc !important;">
+                        Profile
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2">
+                        Reset Password
+                    </a>
+                    <a href="#" class="flex-1 px-4 py-2 ">
+                        Withdraw
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Content Tab Profile -->
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <div>
+                            <h5 style="font-weight: 500;">Contact information</h5>
+                            <p class="text-muted" style="font-size: 15px;">Provide your details below to create your
+                                account
+                                profile</p>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">First
+                                            Name</label>
+                                        <input type="text" style="font-size: 16px;" name="first_name"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Last
+                                            Name</label>
+                                        <input type="text" style="font-size: 16px;" name="last_name"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Job
+                                            Title</label>
+                                        <input type="text" style="font-size: 16px;" name="job_title"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Phone
+                                            Number</label>
+                                        <input type="text" style="font-size: 16px;" name="phone_number"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="editor">{{ course.description|safe }}</div>
+                            <br>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Twitter</label>
+                                        <input type="text" style="font-size: 16px;" name="job_title"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Facebook</label>
+                                        <input type="text" style="font-size: 16px;" name="phone_number"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Instagram</label>
+                                        <input type="text" style="font-size: 16px;" name="job_title"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Linkedin</label>
+                                        <input type="text" style="font-size: 16px;" name="phone_number"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">Pinterest</label>
+                                        <input type="text" style="font-size: 16px;" name="job_title"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">YouTube</label>
+                                        <input type="text" style="font-size: 16px;" name="phone_number"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label my-2" style="font-size: 14px;">GitHub</label>
+                                        <input type="text" style="font-size: 16px;" name="job_title"
+                                            class="form-control form-control-lg p-3" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 style="font-weight: 500;">Photo</h5>
+                        <p class="text-muted" style="font-size: 15px;">Upload your profile photo.</p>
+                        <section class="gradient-custom-2">
+                            <div class="card border-0">
+                                <div class="rounded text-white d-flex flex-row"
+                                    style="background-image: url('https://placehold.co/700x430'); background-position: center; height:250px;">
+                                    <div class="ms-4 d-flex flex-column" style="width: 150px; margin-top: 150px;">
+                                        <img src="https://placehold.co/200x200" alt="Generic placeholder image"
+                                            class="img-fluid img-thumbnail mt-4 mb-2 rounded-circle"
+                                            style="width: 150px; z-index: 1">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end" style="height: 100px;">
+                                    <div class="my-3 text-muted" style="font-size: 15px;">
+                                        Profile Photo Size: <b>200x200</b> pixels,<br>Cover Photo Size: <b>700x430</b>
+                                        pixels,
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div class="row g-2">
+                            <div class="col-md">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label my-2" style="font-size: 14px;">Display name publicly
+                                        as</label>
+                                    <select style="font-size: 16px;" class="form-select p-3"
+                                        aria-label="Default select example">
+                                        <option selected>Om Dahale</option>
+                                        <option value="1">omdahale1</option>
+                                        <option value="2">Om</option>
+                                        <option value="3">Dahale</option>
+                                        <option value="3">Dahale Om</option>
+                                    </select>
+                                    <div class="text-muted mt-3" style="font-size: 15px;">
+                                        The display name is shown in all public fields, such as the author name,
+                                        instructor name, student name, and name that will be printed on the certificate.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    ClassicEditor.create(document.querySelector("#editor"));
+</script>
+{% endblock content %}

@@ -7,8 +7,7 @@
         <span class="sr-only">Toggle Menu</span>
     </button>
     <div class="py-5 d-flex">
-        <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}"
-            loading="lazy" />
+        <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}" loading="lazy" />
     </div>
     <nav id="sidebar">
 
@@ -18,7 +17,8 @@
                 <i class="fal fa-layer-group fs-5"></i>
                 <a href="https://skilledmba.com/dashboard/">Dashboard</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'account_profile' %}active{% endif %}">
+            <li
+                class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'account_profile' %}active{% endif %}">
                 <i class="fal fa-user fs-5"></i>
                 <a href="{% url 'account_profile' %}">My Profile</a>
             </li>
@@ -62,45 +62,43 @@
             Instructor
         </span>
         <ul class="list-group p-3">
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name in "list_courses_published,list_courses_pending,list_courses_draft" %}active{% endif %}">
-                <i class="fal fa-tv-alt fs-5"></i>
-                <a href="{% url 'courses:list_courses_published' %}">My Courses</a>
+            <li class="list-group-item p-0 {% if url_name in "list_courses_published,list_courses_pending,list_courses_draft" %}active{% endif %}">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'courses:list_courses_published' %}">
+                    <i class="fal fa-tv-alt fs-5"></i>My Courses
+                </a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'announcements' %}active{% endif %}">
-                <i class="fal fa-bullhorn fs-5"></i>
-                <a href="{% url 'announcements' %}">Announcements</a>
+            <li class="list-group-item p-0 {% if url_name == 'announcements' %}active{% endif %}">
+                <a class="d-flex align-items-center gap-3 p-3" href="{% url 'announcements' %}"><i
+                        class="fal fa-bullhorn fs-5"></i>Announcements</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'withdrawals' %}active{% endif %}">
-                <i class="fal fa-wallet fs-5"></i>
-                <a href="{% url 'withdrawals' %}">Withdrawals</a>
+            <li class="list-group-item p-0 {% if url_name == 'withdrawals' %}active{% endif %}">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'withdrawals' %}"><i
+                        class="fal fa-wallet fs-5"></i>Withdrawals</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name in 'quiz_attempts,quiz_attempt_detail' %}active{% endif %}">
-                <i class="fal fa-question fs-5"></i>
-                <a href="{% url 'quizzes:quiz_attempts' %}">Quiz Attempts</a>
+            <li class="list-group-item p-0 {% if url_name in 'quiz_attempts,quiz_attempt_detail' %}active{% endif %}">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'quizzes:quiz_attempts' %}"><i
+                        class="fal fa-question fs-5"></i>Quiz Attempts</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fal fa-copy fs-5"></i>
-                <a href="#">Assignments</a>
+            <li class="list-group-item p-0">
+                <a class="p-3 d-flex align-items-center gap-3" href="#"><i class="fal fa-copy fs-5"></i>Assignments</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fal fa-copy fs-5"></i>
-                <a href="#">Courses to Teach</a>
+            <li class="list-group-item p-0">
+                <a class="p-3 d-flex align-items-center gap-3" href="#"><i class="fal fa-copy fs-5"></i>Courses to
+                    Teach</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fal fa-users fs-5"></i>
-                <a href="#">My Students</a>
+            <li class="list-group-item p-0">
+                <a class="p-3 d-flex align-items-center gap-3" href="#"><i class="fal fa-users fs-5"></i>My Students</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'analytics' %}active{% endif %}">
-                <i class="fal fa-analytics fs-5"></i>
-                <a href="{% url 'analytics' %}">Analytics</a>
+            <li class="list-group-item p-0 {% if url_name == 'analytics' %}active{% endif %}">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'analytics' %}"><i
+                        class="fal fa-analytics fs-5"></i>Analytics</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fal fa-cog fs-5"></i>
-                <a href="#">Settings</a>
+            <li class="list-group-item p-0">
+                <a class="p-3 d-flex align-items-center gap-3" href="#"><i class="fal fa-cog fs-5"></i>Settings</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
-                <i class="fal fa-sign-out fs-5"></i>
-                <a href="{% url 'account_logout' %}" data-no-instant="">Logout</a>
+            <li class="list-group-item p-0">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'account_logout' %}" data-no-instant=""><i
+                        class="fal fa-sign-out fs-5"></i>Logout</a>
             </li>
         </ul>
         {% endif %}
