@@ -89,9 +89,104 @@
                     </p>
                 </div>
                 <div>
-                    <b class="fw-bold text-muted">Adobe, Design, Graphic, Illustrator</b>
+                    <i class="far fa-tags text-muted"></i>&nbsp;&nbsp;<b class="fw-bold text-muted">Adobe, Design,
+                        Graphic, Illustrator</b>
                 </div>
-                <div style="height: 1000px;"></div>
+                <div class="card my-5">
+                    <div class="card-body p-4">
+                        <h5>Learning Objectives</h5>
+                        <div class="row text-muted" style="font-size: 15px;">
+                            <div class="col-lg-6 p-3 d-flex gap-2">
+                                <i class="fal text-success fa-check-circle"></i>
+                                <span>With the skills learned in this course, you'll have a highly-desired skill that
+                                    can
+                                    help
+                                    you get jobs and make money as a graphic designer.</span>
+                            </div>
+                            <div class="col-lg-6 p-3 d-flex gap-2">
+                                <i class="fal text-success fa-check-circle"></i>
+                                <span>Adobe Illustrator is the industry-standard application when it comes to graphic
+                                    design,
+                                    so it's important for you to learn it if you want to be a professional
+                                    designer.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5>Requirements</h5>
+                <div class="text-muted py-3" style="font-size: 15px;">
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-check text-primary"></i>
+                        <span>Any version of Adobe Illustrator, preferably the CC (Creative Cloud) version.</span>
+                    </div>
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-check text-primary"></i>
+                        <span>No prior knowledge or experience with Illustrator is required.</span>
+                    </div>
+                </div>
+                <br>
+                <h5>Target Audience</h5>
+                <div class="text-muted py-3" style="font-size: 15px;">
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-long-arrow-right"></i>
+                        <span>Any version of Adobe Illustrator, preferably the CC (Creative Cloud) version.</span>
+                    </div>
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-long-arrow-right"></i>
+                        <span>No prior knowledge or experience with Illustrator is required.</span>
+                    </div>
+                </div>
+                <hr>
+                <br>
+                <div class="d-flex justify-content-between">
+                    <h5>Curriculum</h5>
+                    <div class="d-flex gap-5 overflow-auto pb-3 ps-5" style="max-width: 50%; font-size: 14px;">
+                        <span style="font-weight: 500;">1 Lesson</span>
+                        <span>8h 30m</span>
+                    </div>
+                </div>
+                <div class="my-3">
+                    <div class="card text-start mb-3">
+                        <div class="card-body p-0">
+                            <div class="section p-3 px-4 text-primary d-flex align-items-center gap-3"
+                                style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+                                <i class="fas fa-plus"></i>
+                                <span style="font-weight: 500;">Section 1: What to Expect</span>
+                                <i class="fad fa-info-circle text-muted"></i>
+                            </div>
+                            <div class="collapse" id="card1">
+                                <div class="mt-0">
+                                    <!--content in here-->
+                                    <table class="table table-striped m-0">
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-3 px-4 text-muted"><i
+                                                        class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</td>
+                                                <td class="text-end py-3 px-4 text-muted"><i
+                                                        class="far fa-lock-alt"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3 px-4 text-muted"><i
+                                                        class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
+                                                <td class="text-end py-3 px-4 text-muted"><i
+                                                        class="far fa-lock-alt"></i>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-3 px-4 text-muted"><i
+                                                        class="far fa-file-alt"></i>&nbsp;&nbsp;Quiz</td>
+                                                <td class="text-end py-3 px-4 text-muted"><i
+                                                        class="far fa-question-circle"></i>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4 pt-3">
                 <div class="position-relative bg-white" style="top: -200px !important;">
@@ -210,6 +305,9 @@
         });
     });
 
+    $(".section").click(function () {
+        $(this).children(".fas").toggleClass("fa-plus fa-minus");
+    });
 </script>
 
 {% endblock content %}
