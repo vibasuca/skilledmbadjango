@@ -161,6 +161,8 @@ class AssignmentSerializer(serializers.ModelSerializer):
 
 
 class QuizSerializer(serializers.ModelSerializer):
+    time_limit_hours = serializers.SerializerMethodField()
+
     class Meta:
         model = Quiz
         fields = (
@@ -168,6 +170,7 @@ class QuizSerializer(serializers.ModelSerializer):
             "title",
             "summary",
             "time_limit",
+            "time_limit_hours",
             "time_limit_unit",
             "hide_time_display",
             "feedback_mode",
@@ -181,6 +184,13 @@ class QuizSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+
+    def get_time_limit_hours(self, obj):
+        value = obj.time_limit
+        total_seconds = value.total_seconds()
+        total_hours = int(total_seconds // 3600)
+        remaining_minutes = int((total_seconds % 3600) // 60)
+        return total_hours
 
 
 class ListTopicItemSerializer(serializers.ModelSerializer):
@@ -288,7 +298,9 @@ class CreateQuizSerializer(serializers.ModelSerializer):
             "hide_question_no",
             "short_ans_char_limit",
             "long_ans_char_limit",
+            "topic_item",
         )
+        extra_kwargs = {"topic_item": {"read_only": True}}
 
     def create(self, validated_data):
         topic = self.context["topic"]
@@ -300,7 +312,7 @@ class CreateQuizSerializer(serializers.ModelSerializer):
 
 
 class UpdateQuizSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Quiz
@@ -320,7 +332,9 @@ class UpdateQuizSerializer(serializers.ModelSerializer):
             "short_ans_char_limit",
             "long_ans_char_limit",
             "sort_order",
+            "topic_item",
         )
+        extra_kwargs = {"topic_item": {"read_only": True}}
 
     def update(self, instance, validated_data):
         # Shift sort order of others if necessary

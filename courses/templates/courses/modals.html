@@ -237,19 +237,19 @@
         <div>
           <div class="form-outline mb-3">
             <label class="form-label my-2 fw-bold">Quiz Title</label>
-            <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+            <input id="quiz-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
               placeholder="Quiz Title" required />
           </div>
           <div class="form-outline mb-3">
             <label class="form-label my-2 fw-bold">Summary</label>
-            <textarea style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
+            <textarea id="quiz-summary" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
               placeholder="Summary"></textarea>
           </div>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+        <button id="save-quiz-step1" type="button" class="btn btn-primary">Save &
           Next</button>
       </div>
     </div>
@@ -351,9 +351,9 @@
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
         <div class="d-flex gap-3">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1"
+          <button id="back-quiz-step2" type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1"
             class="btn btn-outline-primary">Back</button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep3" class="btn btn-primary">Save &
+          <button id="save-quiz-step2" type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep3" class="btn btn-primary">Save &
             Next</button>
         </div>
       </div>
@@ -520,19 +520,19 @@
           <div class="mb-3">
             <label class="form-label my-2 fw-bold">Time Limit</label>
             <div class="d-flex gap-3 align-items-center">
-              <input type="number" style="width: 150px; background-color: #f8f8f8;"
-                class="form-control p-3 mb-2 border-0" placeholder="Quiz Title" required />
-              <select class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
+              <input id="quiz-time_limit" type="number" style="width: 150px; background-color: #f8f8f8;"
+                class="form-control p-3 mb-2 border-0" placeholder="Time limit" required value="0" min="0" />
+              <select id="quiz-time_limit_unit" class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
                 aria-label="Default select example">
-                <option selected>Second</option>
-                <option>Minutes</option>
-                <option value="1">Hours</option>
-                <option value="2">Days</option>
-                <option value="3">Weeks</option>
+                <option value="S">Second</option>
+                <option value="M">Minutes</option>
+                <option value="H">Hours</option>
+                <option value="D">Days</option>
+                <option value="W" selected>Weeks</option>
               </select>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Hide quiz time - display</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="quiz-hide_time_display">
+                <label class="form-check-label" for="quiz-hide_time_display">Hide quiz time - display</label>
               </div>
             </div>
             <small>Time limit for this quiz. 0 means no time limit.</small>
@@ -544,9 +544,9 @@
               <small>(Pick the quiz system"s behaviour on choice based questions.)</small>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="defaultRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-defaultRadio" value="D" checked>
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="defaultRadio">
+                    <label class="form-check-label" for="quiz-defaultRadio">
                       Default
                     </label>
                     <small class="text-muted">Answers shown after quiz is finished.</small>
@@ -555,9 +555,9 @@
               </div>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="revealModeRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-revealModeRadio" value="R">
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="revealModeRadio">
+                    <label class="form-check-label" for="quiz-revealModeRadio">
                       Reveal Mode
                     </label>
                     <small class="text-muted">Show result after the attempt.</small>
@@ -566,9 +566,9 @@
               </div>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="retryModeRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-retryModeRadio" value="T">
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="retryModeRadio">
+                    <label class="form-check-label" for="quiz-retryModeRadio">
                       Retry Mode
                     </label>
                     <small class="text-muted">Reattempt quiz any number of times. Define Attempts Allowed below.</small>
@@ -578,7 +578,7 @@
               <div class="mb-3">
                 <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
                 <div class="d-flex gap-3 p-3 rounded border">
-                  <input type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
+                  <input name="quiz-max_attempts_allowed-js" type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
                   <div class="rangePercentage d-flex flex-column align-items-center justify-content-center rounded-end">
                     <div class="arrow"></div>
                     <span class="percentage-label fw-bold" id="percentage-label">50</span>
@@ -590,16 +590,16 @@
               <div class="mb-3">
                 <div class="form-outline">
                   <label class="form-label my-2 fw-bold">Passing Grade (%)</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
+                  <input id="quiz-passing_percentage" type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required value="80" min="0" max="100" />
                 </div>
                 <small>Set the passing percentage for this quiz</small>
               </div>
               <div class="mb-3">
                 <div class="form-outline">
                   <label class="form-label my-2 fw-bold">Max Question Allowed to Answer</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
+                  <input id="quiz-max_questions" type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required value="1" min="1" />
                 </div>
                 <small>This amount of question will be available for students to answer, and question will comes
                   randomly from all available questions belongs with a quiz, if this amount is greater than available
@@ -625,8 +625,8 @@
                       <div class="card card-body">
                         <div class="mb-4">
                           <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
-                            <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="quiz-auto_start">
+                            <label class="form-check-label" for="quiz-auto_start">Quiz Auto Start</label>
                           </div>
                           <small class="text-muted">If you enable this option, the quiz will start automatically after
                             the page is loaded.</small>
@@ -658,16 +658,16 @@
                         </div>
                         <div class="my-3">
                           <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
-                            <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="quiz-hide_question_no">
+                            <label class="form-check-label" for="quiz-hide_question_no">Hide question number</label>
                           </div>
                           <small class="text-muted">Show/hide question number during attempt.</small>
                         </div>
                         <div class="mb-3">
                           <div class="form-outline">
                             <label class="form-label my-2 fw-bold">Short answer characters limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
+                            <input id="quiz-short_ans_char_limit" type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required value="200" min="0"/>
                           </div>
                           <small class="text-muted">Student will place answer in short answer question type within this
                             characters
@@ -677,8 +677,8 @@
                           <div class="form-outline">
                             <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
                               limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
+                            <input id="quiz-long_ans_char_limit" type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required value="500" min="0" />
                           </div>
                           <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
                             within this
@@ -699,7 +699,7 @@
         <div class="d-flex gap-3">
           <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2"
             class="btn btn-outline-primary">Back</button>
-          <button type="button" class="btn btn-primary">Save & Next</button>
+          <button id="save-quiz-step3" type="button" class="btn btn-primary">Save & Next</button>
         </div>
       </div>
     </div>

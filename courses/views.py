@@ -260,7 +260,9 @@ def create_quiz(request, topic_pk):
     serializer = CreateQuizSerializer(data=data, context={"topic": topic})
     if serializer.is_valid():
         quiz = serializer.save()
-        return JsonResponse({"message": "Quiz created successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Quiz created successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 
@@ -283,7 +285,9 @@ def update_quiz(request, pk):
     serializer = UpdateQuizSerializer(instance=quiz, data=data)
     if serializer.is_valid():
         quiz = serializer.save()
-        return JsonResponse({"message": "Quiz updated successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Quiz updated successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 

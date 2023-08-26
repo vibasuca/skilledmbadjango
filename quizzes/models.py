@@ -74,7 +74,7 @@ class Quiz(models.Model):
     )
     hide_time_display = models.BooleanField(default=False)
     feedback_mode = models.CharField(
-        max_length=1, choices=FEEDBACK_MODE_CHOICES, default="I"
+        max_length=1, choices=FEEDBACK_MODE_CHOICES, default="D"
     )
     max_attempts_allowed = models.PositiveIntegerField(
         default=10,
