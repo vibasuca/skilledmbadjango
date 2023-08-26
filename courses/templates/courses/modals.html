@@ -235,21 +235,23 @@
           </div>
         </div>
         <div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold">Quiz Title</label>
-            <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+          <form id="quizFormStep1">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Quiz Title</label>
+              <input id="quiz-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
               placeholder="Quiz Title" required />
-          </div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold">Summary</label>
-            <textarea style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
+            </div>
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Summary</label>
+              <textarea id="quiz-summary" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
               placeholder="Summary"></textarea>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+        <button id="save-quiz-step1" type="submit" class="btn btn-primary" form="quizFormStep1">Save &
           Next</button>
       </div>
     </div>
@@ -276,73 +278,8 @@
             </p>
           </div>
         </div>
-        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
-          <span class="fs-6 SortHandle" style="cursor: grab;"><i
-              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
-            66</span>
-          <span class="d-flex gap-3 align-items-center">
-            <div class="px-2">
-              Question Type
-            </div>
-            <div class="dropdown">
-              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fal fa-ellipsis-h"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </span>
-        </div>
-        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
-          <span class="fs-6 SortHandle" style="cursor: grab;"><i
-              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
-            66</span>
-          <span class="d-flex gap-3 align-items-center">
-            <div class="px-2">
-              Question Type
-            </div>
-            <div class="dropdown">
-              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fal fa-ellipsis-h"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </span>
-        </div>
-        <button type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
+        <div id="quiz-questions-container"></div>
+        <button id="quiz-add-question-btn" type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
           data-bs-target="#questionModal">
           <i class="fas fa-plus-square"></i>
           <span>&nbsp;&nbsp;Add Question</span>
@@ -351,9 +288,9 @@
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
         <div class="d-flex gap-3">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1"
+          <button id="back-quiz-step2" type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1"
             class="btn btn-outline-primary">Back</button>
-          <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep3" class="btn btn-primary">Save &
+          <button id="save-quiz-step2" type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep3" class="btn btn-primary">Save &
             Next</button>
         </div>
       </div>
@@ -384,9 +321,10 @@
             </div>
           </div>
           <div>
+            <form id="questionForm">
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Write your question here</label>
-              <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+              <input id="question-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
                 placeholder="Write your question here" required />
             </div>
             <div class="mb-5">
@@ -396,7 +334,7 @@
                   <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
                     data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
 
-                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
+                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="TF">
                       <div class="d-flex gap-3 align-items-center">
                         <button class="btn btn-outline-primary border rounded" type="button"
                           style="background-color:#3e64de; color: white;" aria-expanded="false">
@@ -424,22 +362,22 @@
             </div>
             <div class="d-flex gap-3 mb-4">
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="answerRequired">
-                <label class="form-check-label" for="answerRequired">Answer Required</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="question-answer_required">
+                <label class="form-check-label" for="question-answer_required">Answer Required</label>
               </div>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="randomize">
-                <label class="form-check-label" for="randomize">Randomize</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="randomize_options">
+                <label class="form-check-label" for="randomize_options">Randomize</label>
               </div>
             </div>
             <div class="mb-4">
               <label class="form-label my-2 fw-bold">Point(s) for this answer</label>
               <div class="d-flex gap-3 align-items-center">
-                <input type="text" style="width: 200px; background-color: #f8f8f8;"
+                <input id="question-points" type="text" style="width: 200px; background-color: #f8f8f8;"
                   class="form-control p-3 mb-2 border-0" placeholder="Set the mark" required />
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="displayPoints">
-                  <label class="form-check-label" for="displayPoints">Display Points</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="question-display_points">
+                  <label class="form-check-label" for="question-display_points">Display Points</label>
                 </div>
               </div>
               <small>Time limit for this quiz. 0 means no time limit.</small>
@@ -448,6 +386,7 @@
             <br>
             <label class="form-label my-2 mb-4 fw-bold">Input options for the question and select the correct
               answer.</label>
+            </form>
           </div>
         </div>
         <div id="typeOptionsJS">
@@ -458,7 +397,7 @@
               </small>
               <span class="d-flex gap-2 align-items-center">
                 <div class="form-check">
-                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                  <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
                     name="trueFalse" value="true">
                 </div>
                 <span class="fs-6 SortHandle" style="cursor: grab;">
@@ -472,8 +411,8 @@
               </small>
               <span class="d-flex gap-2 align-items-center">
                 <div class="form-check">
-                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-                    name="trueFalse" value="true">
+                  <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="false">
                 </div>
                 <span class="fs-6 SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
@@ -485,7 +424,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+        <button id="save-question-btn" type="submit" class="btn btn-primary" form="questionForm">Save &
           Next</button>
       </div>
     </div>
@@ -520,19 +459,19 @@
           <div class="mb-3">
             <label class="form-label my-2 fw-bold">Time Limit</label>
             <div class="d-flex gap-3 align-items-center">
-              <input type="number" style="width: 150px; background-color: #f8f8f8;"
-                class="form-control p-3 mb-2 border-0" placeholder="Quiz Title" required />
-              <select class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
+              <input id="quiz-time_limit" type="number" style="width: 150px; background-color: #f8f8f8;"
+                class="form-control p-3 mb-2 border-0" placeholder="Time limit" required value="0" min="0" />
+              <select id="quiz-time_limit_unit" class="form-select p-3 mb-2 border-0" style="width: 150px; background-color: #f8f8f8;"
                 aria-label="Default select example">
-                <option selected>Second</option>
-                <option>Minutes</option>
-                <option value="1">Hours</option>
-                <option value="2">Days</option>
-                <option value="3">Weeks</option>
+                <option value="S">Second</option>
+                <option value="M">Minutes</option>
+                <option value="H">Hours</option>
+                <option value="D">Days</option>
+                <option value="W" selected>Weeks</option>
               </select>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                <label class="form-check-label" for="flexSwitchCheckDefault">Hide quiz time - display</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="quiz-hide_time_display">
+                <label class="form-check-label" for="quiz-hide_time_display">Hide quiz time - display</label>
               </div>
             </div>
             <small>Time limit for this quiz. 0 means no time limit.</small>
@@ -544,9 +483,9 @@
               <small>(Pick the quiz system"s behaviour on choice based questions.)</small>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="defaultRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-defaultRadio" value="D" checked>
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="defaultRadio">
+                    <label class="form-check-label" for="quiz-defaultRadio">
                       Default
                     </label>
                     <small class="text-muted">Answers shown after quiz is finished.</small>
@@ -555,9 +494,9 @@
               </div>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="revealModeRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-revealModeRadio" value="R">
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="revealModeRadio">
+                    <label class="form-check-label" for="quiz-revealModeRadio">
                       Reveal Mode
                     </label>
                     <small class="text-muted">Show result after the attempt.</small>
@@ -566,9 +505,9 @@
               </div>
               <div class="rounded border p-3">
                 <div class="form-check d-flex gap-3 align-items-center">
-                  <input class="form-check-input" type="radio" name="feedbackMode" id="retryModeRadio" checked>
+                  <input class="form-check-input" type="radio" name="quiz-feedback_mode-js" id="quiz-retryModeRadio" value="T">
                   <div class="d-flex flex-column">
-                    <label class="form-check-label" for="retryModeRadio">
+                    <label class="form-check-label" for="quiz-retryModeRadio">
                       Retry Mode
                     </label>
                     <small class="text-muted">Reattempt quiz any number of times. Define Attempts Allowed below.</small>
@@ -578,7 +517,7 @@
               <div class="mb-3">
                 <label class="form-label my-2 fw-bold">Quiz Feedback Mode</label><br>
                 <div class="d-flex gap-3 p-3 rounded border">
-                  <input type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
+                  <input name="quiz-max_attempts_allowed-js" type="range" min="0" max="20" value="50" id="slider" style="width: 100%;">
                   <div class="rangePercentage d-flex flex-column align-items-center justify-content-center rounded-end">
                     <div class="arrow"></div>
                     <span class="percentage-label fw-bold" id="percentage-label">50</span>
@@ -590,16 +529,16 @@
               <div class="mb-3">
                 <div class="form-outline">
                   <label class="form-label my-2 fw-bold">Passing Grade (%)</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
+                  <input id="quiz-passing_percentage" type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required value="80" min="0" max="100" />
                 </div>
                 <small>Set the passing percentage for this quiz</small>
               </div>
               <div class="mb-3">
                 <div class="form-outline">
                   <label class="form-label my-2 fw-bold">Max Question Allowed to Answer</label>
-                  <input type="number" style="background-color: #f8f8f8;" name="title"
-                    class="form-control p-3 mb-2 border-0" required />
+                  <input id="quiz-max_questions" type="number" style="background-color: #f8f8f8;" name="title"
+                    class="form-control p-3 mb-2 border-0" required value="1" min="1" />
                 </div>
                 <small>This amount of question will be available for students to answer, and question will comes
                   randomly from all available questions belongs with a quiz, if this amount is greater than available
@@ -625,8 +564,8 @@
                       <div class="card card-body">
                         <div class="mb-4">
                           <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="autoStart">
-                            <label class="form-check-label" for="autoStart">Quiz Auto Start</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="quiz-auto_start">
+                            <label class="form-check-label" for="quiz-auto_start">Quiz Auto Start</label>
                           </div>
                           <small class="text-muted">If you enable this option, the quiz will start automatically after
                             the page is loaded.</small>
@@ -658,16 +597,16 @@
                         </div>
                         <div class="my-3">
                           <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="hideQuestionNumber">
-                            <label class="form-check-label" for="hideQuestionNumber">Hide question number</label>
+                            <input class="form-check-input" type="checkbox" role="switch" id="quiz-hide_question_no">
+                            <label class="form-check-label" for="quiz-hide_question_no">Hide question number</label>
                           </div>
                           <small class="text-muted">Show/hide question number during attempt.</small>
                         </div>
                         <div class="mb-3">
                           <div class="form-outline">
                             <label class="form-label my-2 fw-bold">Short answer characters limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
+                            <input id="quiz-short_ans_char_limit" type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required value="200" min="0"/>
                           </div>
                           <small class="text-muted">Student will place answer in short answer question type within this
                             characters
@@ -677,8 +616,8 @@
                           <div class="form-outline">
                             <label class="form-label my-2 fw-bold">Open-Ended/Essay questions answer character
                               limit</label>
-                            <input type="number" style="background-color: #f8f8f8;" name="title"
-                              class="form-control p-3 mb-2 border-0" required />
+                            <input id="quiz-long_ans_char_limit" type="number" style="background-color: #f8f8f8;" name="title"
+                              class="form-control p-3 mb-2 border-0" required value="500" min="0" />
                           </div>
                           <small class="text-muted">Students will place the answer in the Open-Ended/Essay question type
                             within this
@@ -699,7 +638,7 @@
         <div class="d-flex gap-3">
           <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2"
             class="btn btn-outline-primary">Back</button>
-          <button type="button" class="btn btn-primary">Save & Next</button>
+          <button id="save-quiz-step3" type="button" class="btn btn-primary">Save & Next</button>
         </div>
       </div>
     </div>
@@ -708,69 +647,82 @@
 
 <script>
 
-  $('#questionModal').on('shown.bs.modal', function () {
-    const questionTypes = {
-      "true_/_false": {
-        "icon": "far fa-adjust",
-        "title": "True / False",
-        "color": "#3e64de"
-      },
-      "single_choice": {
-        "icon": "far fa-check",
-        "title": "Single Choice",
-        "color": "#00b890"
-      },
-      "multiple_choice": {
-        "icon": "far fa-check-double",
-        "title": "Multiple Choice",
-        "color": "#9034a9"
-      },
-      "open_ended": {
-        "icon": "far fa-text-width",
-        "title": "Open Ended",
-        "color": "#fe3129"
-      },
-      "fill_in_the_blanks": {
-        "icon": "far fa-hourglass-end",
-        "title": "Fill In The Blanks",
-        "color": "#ffbf00"
-      },
-      "short_answer": {
-        "icon": "far fa-compress",
-        "title": "Short Answer",
-        "color": "#f37512"
-      },
-      "matching": {
-        "icon": "far fa-exchange-alt",
-        "title": "Matching",
-        "color": "#8a4a1b"
-      },
-      "image_matching": {
-        "icon": "far fa-images",
-        "title": "Image Matching",
-        "color": "#f37512"
-      },
-      "image_answering": {
-        "icon": "fas fa-camera",
-        "title": "Image Answering",
-        "color": "#a322f9"
-      },
-      "ordering": {
-        "icon": "far fa-sort-alpha-up",
-        "title": "Ordering",
-        "color": "#1b52d8"
-      },
+  const questionTypes = {
+    "TF": {
+      "icon": "far fa-adjust",
+      "title": "True / False",
+      "color": "#3e64de",
+      "code": "TF",
+    },
+    "SC": {
+      "icon": "far fa-check",
+      "title": "Single Choice",
+      "color": "#00b890",
+      "code": "SC",
+    },
+    "MC": {
+      "icon": "far fa-check-double",
+      "title": "Multiple Choice",
+      "color": "#9034a9",
+      "code": "MC",
+    },
+    "OE": {
+      "icon": "far fa-text-width",
+      "title": "Open Ended",
+      "color": "#fe3129",
+      "code": "OE",
+    },
+    "FB": {
+      "icon": "far fa-hourglass-end",
+      "title": "Fill In The Blanks",
+      "color": "#ffbf00",
+      "code": "FB",
+    },
+    "SA": {
+      "icon": "far fa-compress",
+      "title": "Short Answer",
+      "color": "#f37512",
+      "code": "SA",
+    },
+    "M": {
+      "icon": "far fa-exchange-alt",
+      "title": "Matching",
+      "color": "#8a4a1b",
+      "code": "M",
+    },
+    "IM": {
+      "icon": "far fa-images",
+      "title": "Image Matching",
+      "color": "#f37512",
+      "code": "IM",
+    },
+    "IA": {
+      "icon": "fas fa-camera",
+      "title": "Image Answering",
+      "color": "#a322f9",
+      "code": "IA",
+    },
+    "O": {
+      "icon": "far fa-sort-alpha-up",
+      "title": "Ordering",
+      "color": "#1b52d8",
+      "code": "O",
+    },
 
-    };
+  };
+  $('#questionModal').on('shown.bs.modal', function () {
+
+    $("#questionTypesContainer").html('');
 
     $.each(questionTypes, function (key, value) {
       const icon = value.icon;
       const title = value.title;
       const color = value.color;
+      const code = value.code;
       const type = title.toLowerCase().replace(/\s+/g, '_');
 
       const questionTypeDiv = $("<div>").html(
-        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
+        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${code}" class="questionTypeJS">
           <div class="d-flex gap-3 align-items-center rounded border p-2">
             <button class="btn btn-outline-primary border rounded" type="button"
               style="background-color: ${color}; color: white;" aria-expanded="false">
@@ -786,9 +738,19 @@
 
     $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
       const questionType = $(this).data("question-type");
-      const singleChoiceQuestionType = questionTypes[questionType];
-      var newHtmlContent =
-        `<div style="width: 200px; cursor: pointer;" data-question-type="${questionType}" class="questionTypeJS">
+      selectQuestionType(questionType, {});
+    });
+    
+    
+    
+  });
+  
+  
+  
+  function selectQuestionType(questionType, context){
+    const singleChoiceQuestionType = questionTypes[questionType];
+    var newHtmlContent =
+        `<div style="width: 200px; cursor: pointer;" data-question-type="${singleChoiceQuestionType.code}" class="questionTypeJS">
         <div class="d-flex gap-3 align-items-center">
           <button class="btn btn-outline-primary border rounded" type="button"
             style="background-color: ${singleChoiceQuestionType.color}; color: white;" aria-expanded="false">
@@ -799,10 +761,12 @@
       </div>`;
 
       $("#selectedTypeJS").html(newHtmlContent);
-      showOptions(questionType);
-    });
+      showOptions(questionType, context);
+  }
 
-    const optionForm_trueFalse = `
+
+
+  const optionForm_trueFalse = `
     <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
       <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
         <small>
@@ -810,7 +774,7 @@
         </small>
         <span class="d-flex gap-2 align-items-center">
           <div class="form-check">
-            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+            <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
               name="trueFalse" value="true">
           </div>
           <span class="fs-6 SortHandle" style="cursor: grab;">
@@ -824,8 +788,8 @@
         </small>
         <span class="d-flex gap-2 align-items-center">
           <div class="form-check">
-            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-              name="trueFalse" value="true">
+            <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="false">
           </div>
           <span class="fs-6 SortHandle" style="cursor: grab;">
             <i class="fal fa-grip-vertical text-muted mx-2"></i>
@@ -1169,49 +1133,69 @@
     </div>
     `;
 
-    const optionForm_fillBlanks = `
-    <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
-      <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
-        style="width: 97%;">
-        <small style="width: 100%;" class="text-muted d-flex justify-content-between">
-          <div>My name - Om. I - 21 years old.</div>
+    const optionForm_fillBlanks = function(context) {
+      let string = `
+      <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
+        <div id="question-FB-option-container">
+      `
+      if (context.fb_question_title) {
+        string += `
+        <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small style="width: 100%;" class="text-muted d-flex justify-content-between">
+            <div id="question-FB-question_title">${context.fb_question_title}</div>
+            <div>
+              Answer: <b id="question-FB-correct_answer">${context.fb_correct_answer}</b>
+            </div>
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-primary border rounded-circle" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#addOptionBtnJS" aria-expanded="false">
+              <i class="fal fa-pen"></i>
+            </button>
+          </span>
+        </div>
+      </div> <!-- end of question-FB-option-container -->
+        `
+      }
+      else {
+        string += `
+        <button type="button" class="btn btn-light p-3 btn-block w-100" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button> 
+        </div> <!-- end of question-FB-option-container -->
+        `
+      }
+      return string + `
+        <div class="collapse" id="addOptionBtnJS">
           <div>
-            Answer: <b>is | am</b>
+            <form id="question-FB-option-form">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
+                <input id="question-FB-question_title-input" type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                  placeholder="Title" value="${context.fb_question_title || ""}" required />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
+                </small>
+              </div>
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
+                <input id="question-FB-correct_answer-input" type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                  placeholder="Answer" value="${context.fb_correct_answer || ""}" required />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
+                </small>
+              </div>
+              <button type="submit" class="btn btn-primary mt-5">
+                Update Answer
+              </button>
+            </form>
           </div>
-        </small>
-        <span class="d-flex gap-2 align-items-center">
-          <button class="btn btn-outline-primary border rounded-circle" type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#addOptionBtnJS" aria-expanded="false">
-            <i class="fal fa-pen"></i>
-          </button>
-        </span>
-      </div>
-      <div class="collapse" id="addOptionBtnJS">
-        <div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
-            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-              placeholder="Quiz Title" required />
-            <small class="text-muted">
-              <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
-            </small>
-          </div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
-            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-              placeholder="Quiz Title" required />
-            <small class="text-muted">
-              <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
-            </small>
-          </div>
-          <button type="button" class="btn btn-primary mt-5">
-            Update Answer
-          </button>
         </div>
       </div>
-    </div>
-    `;
+      `;
+    }
 
     const optionForm_default = `
     <div class="p-5" id="optionform_matching" style="background: #e3e5eb;">
@@ -1437,37 +1421,61 @@
     </div>
     `;
 
-    function showOptions(type) {
+    function showOptions(type, context) {
       switch (type) {
-        case "true_/_false":
+        case "TF":
           $("#typeOptionsJS").html(optionForm_trueFalse);
           break;
 
-        case "single_choice":
+        case "SC":
           $("#typeOptionsJS").html(optionForm_singleChoice);
           break;
 
-        case "multiple_choice":
+        case "MC":
           $("#typeOptionsJS").html(optionForm_multipleChoice);
           break;
 
-        case "fill_in_the_blanks":
-          $("#typeOptionsJS").html(optionForm_fillBlanks);
+        case "FB":
+          $("#typeOptionsJS").html(optionForm_fillBlanks(context));
+          $("#question-FB-option-form").submit(function(){
+            event.preventDefault();
+            const question_title = $("#question-FB-question_title-input").val();
+            const correct_answer = $("#question-FB-correct_answer-input").val();
+            $("#question-FB-option-container").html(`
+              <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
+                style="width: 97%;">
+                <small style="width: 100%;" class="text-muted d-flex justify-content-between">
+                  <div id="question-FB-question_title">${question_title}</div>
+                  <div>
+                    Answer: <b id="question-FB-correct_answer">${correct_answer}</b>
+                  </div>
+                </small>
+                <span class="d-flex gap-2 align-items-center">
+                  <button class="btn btn-outline-primary border rounded-circle" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#addOptionBtnJS" aria-expanded="false">
+                    <i class="fal fa-pen"></i>
+                  </button>
+                </span>
+              </div>
+            `);
+            $("#addOptionBtnJS").collapse("hide");
+          });
           break;
 
-        case "image_matching":
+        case "IM":
           $("#typeOptionsJS").html(optionForm_imageMatching);
           break;
 
-        case "image_answering":
+        case "IA":
           $("#typeOptionsJS").html(optionForm_imageAnswering);
           break;
 
-        case "ordering":
+        case "O":
           $("#typeOptionsJS").html(optionForm_ordering);
           break;
 
-        case "matching":
+        case "M":
           $("#typeOptionsJS").html(optionForm_matching);
           break;
 
@@ -1476,7 +1484,11 @@
       }
     }
 
-  });
+
+
+    
+
+
 
   const slider = document.getElementById("slider");
   const percentageLabel = document.getElementById("percentage-label");

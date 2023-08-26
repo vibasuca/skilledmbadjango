@@ -656,6 +656,22 @@
                     </div>
                     `;
                   }
+                  else if (item.quiz) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Quiz: ${item.quiz_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#quizModalStep1" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
 
                   topicItemsContainer.append(topicItemList);
                 });
@@ -672,6 +688,83 @@
         },
         error: function (xhr, status, error) {
           alert("Error fetching topic list.");
+        },
+      });
+    }
+
+    // Active quiz's questions state
+    // [
+    //      {
+    //        answer_required: false,
+    //        description: "qwe",
+    //        display_points: false,
+    //        fb_correct_answer: "",
+    //        fb_question_title: "",
+    //        id: 4,
+    //        points: 1,
+    //        randomize_options: false,
+    //        sort_order: 1,
+    //        tf_correct_answer: true,
+    //        tf_true_first: true,
+    //        title: "Q1",
+    //        type: "TF",
+    //      },
+    // ]
+    questions_state = [];
+
+    function fetchQuizQuestions(quizID) {
+      const url = `/courses/list-questions/${quizID}/`;
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        success: function (response) {
+          console.log("Questions", response);
+          questions_state = response.data;
+
+          $("#quiz-questions-container").empty();
+          for (const question of response.data) {
+            $("#quiz-questions-container").append(`
+              <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
+                <span class="fs-6 SortHandle" style="cursor: grab;"><i
+                    class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;${question.title}
+                  </span>
+                <span class="d-flex gap-3 align-items-center">
+                  <div class="px-2">
+                    ${question.type}
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fal fa-ellipsis-h"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <a class="dropdown-item p-3" href="#" data-quiz-id="${quizID}" data-question-id="${question.id}" data-bs-toggle="modal"
+                        data-bs-target="#questionModal">
+                          <i class="far fa-edit">&nbsp;&nbsp;</i> Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item p-3" href="#">
+                          <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </span>
+              </div>
+            `);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+          console.log(status);
+          console.log(error);
+          alert("Error: " + xhr.responseJSON.error);
+          // Handle the error and update the UI accordingly
         },
       });
     }
@@ -1127,6 +1220,345 @@
     // Find the closest parent card and remove it
     $(btn).closest(".col-md-4").remove();
 };
+
+
+  quizTopicId = "";
+  activeQuizId = "";
+  const quizModalStep1 = document.getElementById("quizModalStep1");
+  quizModalStep1.addEventListener("show.bs.modal", (event) => {
+    const button = event.relatedTarget;
+    const selectedTopicId = button.getAttribute("data-topic-id");
+    quizTopicId = selectedTopicId;
+    //get state object
+    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+    activeQuizId = "";
+    console.log(topics_state)
+    console.log(item);
+    if (item) {
+      activeQuizId = item.quiz;
+      const quizId = item.quiz_data.id;
+      const quizTitle = item.quiz_data.title;
+      const quizSummary = item.quiz_data.summary;
+
+      $("#quiz-title").val(quizTitle);
+      $("#quiz-summary").val(quizSummary);
+    }
+    else {
+      $("#quiz-title").val("");
+      $("#quiz-summary").val("");
+    }
+  });
+
+  $("#quizFormStep1").submit(function () {
+    event.preventDefault();
+    let url = `/courses/create-quiz/${quizTopicId}/`;
+    if (activeQuizId) {
+      url = `/courses/update-quiz/${activeQuizId}/`;
+    }
+    let data = {
+      'title': $("#quiz-title").val(),
+      'summary': $("#quiz-summary").val(),
+    };
+    
+    $.ajax({
+      type: "POST",
+      url: url,
+      headers : { "X-CSRFToken": "{{ csrf_token }}" },
+      data: JSON.stringify(data),
+
+      success: function (data) {
+        console.log(data);
+        fetchTopicsList();
+
+        activeQuizId = data.data.id;
+        console.log("activeQuizId", activeQuizId)
+        console.log("topic item id", data.data.topic_item)
+        $("#back-quiz-step2").attr({
+          "data-topic-id": quizTopicId,
+          "data-topic-item-id": data.data.topic_item,
+        });
+        $("#save-quiz-step2").attr({
+          "data-topic-id": quizTopicId,
+          "data-topic-item-id": data.data.topic_item,
+        });
+        $("#quiz-add-question-btn").attr({
+          "data-quiz-id": activeQuizId,
+        });
+
+        fetchQuizQuestions(activeQuizId);
+
+        $("#quizModalStep1").modal("hide");
+        $("#quizModalStep2").modal("show");
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      }
+    });
+
+  });
+
+  const quizModalStep3 = document.getElementById("quizModalStep3");
+  quizModalStep3.addEventListener("show.bs.modal", (event) => {
+    const button = event.relatedTarget;
+    const selectedTopicId = button.getAttribute("data-topic-id");
+    quizTopicId = selectedTopicId;
+    //get state object
+    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+    activeQuizId = "";
+    console.log(topics_state)
+    console.log(item);
+    if (item) {
+      activeQuizId = item.quiz;
+      const quizId = item.quiz_data.id;
+      
+      const quizTimeLimit = item.quiz_data.time_limit_hours;
+      const quizTimeLimitUnit = item.quiz_data.time_limit_unit;
+      const quizHideTimeDisplay = item.quiz_data.hide_time_display;
+      const quizFeedbackMode = item.quiz_data.feedback_mode;
+      const quizMaxAttemptsAllowed = item.quiz_data.max_attempts_allowed;
+      const quizPassingPercentage = item.quiz_data.passing_percentage;
+      const quizMaxQuestions = item.quiz_data.max_questions;
+      const quizAutoStart = item.quiz_data.auto_start;
+      const quizHideQuestionNo = item.quiz_data.hide_question_no;
+      const quizShortAnsCharLimit = item.quiz_data.short_ans_char_limit;
+      const quizLongAnsCharLimit = item.quiz_data.long_ans_char_limit;
+
+      if (quizTimeLimitUnit == "S") {
+        $("#quiz-time_limit").val(quizTimeLimit * 60 * 60);
+      }
+      else if (quizTimeLimitUnit == "M") {
+        $("#quiz-time_limit").val(quizTimeLimit * 60);
+      }
+      else if (quizTimeLimitUnit == "H") {
+        $("#quiz-time_limit").val(quizTimeLimit);
+      }
+      else if (quizTimeLimitUnit == "D") {
+        $("#quiz-time_limit").val(quizTimeLimit / 24);
+      }
+      else if (quizTimeLimitUnit == "W") {
+        $("#quiz-time_limit").val(quizTimeLimit / 24 / 7);
+      }
+
+
+      $("#quiz-time_limit_unit").val(quizTimeLimitUnit);
+      $("#quiz-hide_time_display").prop('checked', quizHideTimeDisplay);
+
+      if (quizFeedbackMode == "D") {
+        $("#quiz-defaultRadio").prop("checked", true);
+        $("#quiz-revealModeRadio").prop("checked", false);
+        $("#quiz-retryModeRadio").prop("checked", false);
+      }
+      else if (quizFeedbackMode == "R") {
+        $("#quiz-defaultRadio").prop("checked", false);
+        $("#quiz-revealModeRadio").prop("checked", true);
+        $("#quiz-retryModeRadio").prop("checked", false);
+      }
+      else if (quizFeedbackMode == "T") {
+        $("#quiz-defaultRadio").prop("checked", false);
+        $("#quiz-revealModeRadio").prop("checked", false);
+        $("#quiz-retryModeRadio").prop("checked", true);
+      }
+
+      $(`input[name="quiz-max_attempts_allowed-js"]`).val(quizMaxAttemptsAllowed);
+      $("#percentage-label").text(quizMaxAttemptsAllowed);
+      $("#quiz-passing_percentage").val(quizPassingPercentage);
+      $("#quiz-max_questions").val(quizMaxQuestions);
+      $("#quiz-auto_start").prop('checked', quizAutoStart);
+      $("#quiz-hide_question_no").prop('checked', quizHideQuestionNo);
+      $("#quiz-short_ans_char_limit").val(quizShortAnsCharLimit);
+      $("#quiz-long_ans_char_limit").val(quizLongAnsCharLimit);
+
+    }
+    else {
+      $("#quiz-time_limit").val("0");
+      $("#quiz-time_limit_unit").val("W");
+      $("#quiz-hide_time_display").prop('checked', false);
+      
+      $("#quiz-defaultRadio").prop("checked", true);
+      $("#quiz-revealModeRadio").prop("checked", false);
+      $("#quiz-retryModeRadio").prop("checked", false);
+
+      $(`input[name="quiz-max_attempts_allowed-js"]`).val("1");
+      $("#percentage-label").text("1");
+      $("#quiz-passing_percentage").val("80");
+      $("#quiz-max_questions").val("10");
+      $("#quiz-auto_start").prop('checked', false);
+      $("#quiz-hide_question_no").prop('checked', false);
+      $("#quiz-short_ans_char_limit").val("200");
+      $("#quiz-long_ans_char_limit").val("500");
+    }
+  
+  });
+
+  function secondsToHHMMSS(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+    $("#save-quiz-step3").click(function() {
+      event.preventDefault();
+      const url = `/courses/update-quiz/${activeQuizId}/`;
+      let data = {
+        'title': $("#quiz-title").val(),
+        'summary': $("#quiz-summary").val(),
+        'time_limit_unit': $("#quiz-time_limit_unit").val(),
+        'hide_time_display': $("#quiz-hide_time_display").prop('checked'),
+        'feedback_mode': $("input[name='quiz-feedback_mode-js']:checked").val(),
+        'max_attempts_allowed': $(`input[name="quiz-max_attempts_allowed-js"]`).val(),
+        'passing_percentage': $("#quiz-passing_percentage").val(),
+        'max_questions': $("#quiz-max_questions").val(),
+        'auto_start': $("#quiz-auto_start").prop('checked'),
+        'hide_question_no': $("#quiz-hide_question_no").prop('checked'),
+        'short_ans_char_limit': $("#quiz-short_ans_char_limit").val(),
+        'long_ans_char_limit': $("#quiz-long_ans_char_limit").val(),
+      };
+
+      let quizTimeLimitUnit = data['time_limit_unit'];
+      if (quizTimeLimitUnit == "S") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val()); 
+      }
+      else if (quizTimeLimitUnit == "M") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60); 
+      }
+      else if (quizTimeLimitUnit == "H") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60); 
+      }
+      else if (quizTimeLimitUnit == "D") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24); 
+      }
+      else if (quizTimeLimitUnit == "W") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24 * 7); 
+      }
+      
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log(data);
+          fetchTopicsList();
+
+          $("#quizModalStep3").modal("hide");
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+    });
+
+
+
+    quizId = "";
+    quizQuestionId = "";
+    const questionModal = document.getElementById("questionModal");
+    questionModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedQuizId = button.getAttribute("data-quiz-id");
+      const selectedQuestionId = button.getAttribute("data-question-id");
+      quizId = selectedQuizId;
+      quizQuestionId = selectedQuestionId;
+      //get state object
+      const question = questions_state.find(question => question.id == selectedQuestionId);
+      // set field values
+      if (question) {
+        $("#question-title").val(question.title);
+        $("#question-answer_required").prop('checked', question.answer_required);
+        $("#question-randomize_options").prop('checked', question.randomize_options);
+        $("#question-points").val(question.points);
+        $("#question-display_points").prop('checked', question.display_points);
+        
+        if (question.type == "TF") {
+          selectQuestionType(question.type);
+          if (question.tf_correct_answer) {
+            $("#option-TF-true").prop('checked', true);
+            $("#option-TF-false").prop('checked', false);
+          }
+          else {
+            $("#option-TF-true").prop('checked', false);
+            $("#option-TF-false").prop('checked', true);
+          }
+        }
+        else if (question.type == "FB") {
+          context = {
+            fb_question_title: question.fb_question_title,
+            fb_correct_answer: question.fb_correct_answer,
+          }
+          selectQuestionType("FB", context);
+        }
+
+
+      }
+      else {
+        selectQuestionType("TF");
+        $("#question-title").val("");
+        $("#question-answer_required").prop('checked', false);
+        $("#question-randomize_options").prop('checked', false);
+        $("#question-points").val("1.0");
+        $("#question-display_points").prop('checked', false);
+
+        $("#option-TF-true").prop('checked', true);
+        $("#option-TF-false").prop('checked', false);
+
+      }
+
+    });
+
+    $("#questionForm").submit(function () {
+      event.preventDefault();
+      let url = `/courses/create-question/${quizId}/`;
+      if (quizQuestionId) {
+        url = `/courses/update-question/${quizQuestionId}/`;
+      }
+      let data = {
+        'type': $("#selectedTypeJS .questionTypeJS").data("question-type"),
+        'title': $("#question-title").val(),
+        'answer_required': $("#question-answer_required").prop('checked'),
+        'randomize_options': $("#question-randomize_options").prop('checked'),
+        'points': parseFloat($("#question-points").val()),
+        'display_points': $("#question-display_points").prop('checked'),
+      };
+      if (data["type"] == "TF") {
+        data["tf_correct_answer"] = $("#option-TF-true").prop('checked');
+      }
+      else if (data["type"] == "FB") {
+        data["fb_question_title"] = $("#question-FB-question_title").text();
+        data["fb_correct_answer"] = $("#question-FB-correct_answer").text();
+      }
+      
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log("Question saved")
+          console.log(data);
+          fetchQuizQuestions(quizId);
+          $("#questionModal").modal("hide");
+          $("#quizModalStep2").modal("show");
+
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+
+    });
+
+
+
 
     
   </script>
