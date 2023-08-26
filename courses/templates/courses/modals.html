@@ -235,21 +235,23 @@
           </div>
         </div>
         <div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold">Quiz Title</label>
-            <input id="quiz-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+          <form id="quizFormStep1">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Quiz Title</label>
+              <input id="quiz-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
               placeholder="Quiz Title" required />
-          </div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold">Summary</label>
-            <textarea id="quiz-summary" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
+            </div>
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold">Summary</label>
+              <textarea id="quiz-summary" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0" rows="10"
               placeholder="Summary"></textarea>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button id="save-quiz-step1" type="button" class="btn btn-primary">Save &
+        <button id="save-quiz-step1" type="submit" class="btn btn-primary" form="quizFormStep1">Save &
           Next</button>
       </div>
     </div>
@@ -319,6 +321,7 @@
             </div>
           </div>
           <div>
+            <form id="questionForm">
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Write your question here</label>
               <input id="question-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
@@ -383,6 +386,7 @@
             <br>
             <label class="form-label my-2 mb-4 fw-bold">Input options for the question and select the correct
               answer.</label>
+            </form>
           </div>
         </div>
         <div id="typeOptionsJS">
@@ -393,7 +397,7 @@
               </small>
               <span class="d-flex gap-2 align-items-center">
                 <div class="form-check">
-                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                  <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
                     name="trueFalse" value="true">
                 </div>
                 <span class="fs-6 SortHandle" style="cursor: grab;">
@@ -407,8 +411,8 @@
               </small>
               <span class="d-flex gap-2 align-items-center">
                 <div class="form-check">
-                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-                    name="trueFalse" value="true">
+                  <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+                    name="trueFalse" value="false">
                 </div>
                 <span class="fs-6 SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
@@ -420,7 +424,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button id="save-question-btn" type="button" class="btn btn-primary">Save &
+        <button id="save-question-btn" type="submit" class="btn btn-primary" form="questionForm">Save &
           Next</button>
       </div>
     </div>
@@ -734,7 +738,7 @@
 
     $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
       const questionType = $(this).data("question-type");
-      selectQuestionType(questionType);
+      selectQuestionType(questionType, {});
     });
     
     
@@ -743,7 +747,7 @@
   
   
   
-  function selectQuestionType(questionType){
+  function selectQuestionType(questionType, context){
     const singleChoiceQuestionType = questionTypes[questionType];
     var newHtmlContent =
         `<div style="width: 200px; cursor: pointer;" data-question-type="${singleChoiceQuestionType.code}" class="questionTypeJS">
@@ -757,7 +761,7 @@
       </div>`;
 
       $("#selectedTypeJS").html(newHtmlContent);
-      showOptions(questionType);
+      showOptions(questionType, context);
   }
 
 
@@ -770,7 +774,7 @@
         </small>
         <span class="d-flex gap-2 align-items-center">
           <div class="form-check">
-            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+            <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
               name="trueFalse" value="true">
           </div>
           <span class="fs-6 SortHandle" style="cursor: grab;">
@@ -784,8 +788,8 @@
         </small>
         <span class="d-flex gap-2 align-items-center">
           <div class="form-check">
-            <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-              name="trueFalse" value="true">
+            <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="false">
           </div>
           <span class="fs-6 SortHandle" style="cursor: grab;">
             <i class="fal fa-grip-vertical text-muted mx-2"></i>
@@ -1129,49 +1133,69 @@
     </div>
     `;
 
-    const optionForm_fillBlanks = `
-    <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
-      <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
-        style="width: 97%;">
-        <small style="width: 100%;" class="text-muted d-flex justify-content-between">
-          <div>My name - Om. I - 21 years old.</div>
+    const optionForm_fillBlanks = function(context) {
+      let string = `
+      <div class="p-5" id="optionform_fill_in_the_blanks" style="background: #e3e5eb;">
+        <div id="question-FB-option-container">
+      `
+      if (context.fb_question_title) {
+        string += `
+        <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
+          style="width: 97%;">
+          <small style="width: 100%;" class="text-muted d-flex justify-content-between">
+            <div id="question-FB-question_title">${context.fb_question_title}</div>
+            <div>
+              Answer: <b id="question-FB-correct_answer">${context.fb_correct_answer}</b>
+            </div>
+          </small>
+          <span class="d-flex gap-2 align-items-center">
+            <button class="btn btn-outline-primary border rounded-circle" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#addOptionBtnJS" aria-expanded="false">
+              <i class="fal fa-pen"></i>
+            </button>
+          </span>
+        </div>
+      </div> <!-- end of question-FB-option-container -->
+        `
+      }
+      else {
+        string += `
+        <button type="button" class="btn btn-light p-3 btn-block w-100" data-bs-toggle="collapse"
+          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+          option</button> 
+        </div> <!-- end of question-FB-option-container -->
+        `
+      }
+      return string + `
+        <div class="collapse" id="addOptionBtnJS">
           <div>
-            Answer: <b>is | am</b>
+            <form id="question-FB-option-form">
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
+                <input id="question-FB-question_title-input" type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                  placeholder="Title" value="${context.fb_question_title || ""}" required />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
+                </small>
+              </div>
+              <div class="form-outline mb-3">
+                <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
+                <input id="question-FB-correct_answer-input" type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                  placeholder="Answer" value="${context.fb_correct_answer || ""}" required />
+                <small class="text-muted">
+                  <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
+                </small>
+              </div>
+              <button type="submit" class="btn btn-primary mt-5">
+                Update Answer
+              </button>
+            </form>
           </div>
-        </small>
-        <span class="d-flex gap-2 align-items-center">
-          <button class="btn btn-outline-primary border rounded-circle" type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#addOptionBtnJS" aria-expanded="false">
-            <i class="fal fa-pen"></i>
-          </button>
-        </span>
-      </div>
-      <div class="collapse" id="addOptionBtnJS">
-        <div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Question Title</label>
-            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-              placeholder="Quiz Title" required />
-            <small class="text-muted">
-              <i class="fal fa-info-circle"></i> Please make sure to use the {dash} variable in your question title to show the blanks in your question. You can use multiple {dash} variables in one question.
-            </small>
-          </div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Correct Answer(s)</label>
-            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-              placeholder="Quiz Title" required />
-            <small class="text-muted">
-              <i class="fal fa-info-circle"></i> Separate multiple answers by a vertical bar |. 1 answer per {dash} variable is defined in the question. Example: Apple | Banana | Orange
-            </small>
-          </div>
-          <button type="button" class="btn btn-primary mt-5">
-            Update Answer
-          </button>
         </div>
       </div>
-    </div>
-    `;
+      `;
+    }
 
     const optionForm_default = `
     <div class="p-5" id="optionform_matching" style="background: #e3e5eb;">
@@ -1397,7 +1421,7 @@
     </div>
     `;
 
-    function showOptions(type) {
+    function showOptions(type, context) {
       switch (type) {
         case "TF":
           $("#typeOptionsJS").html(optionForm_trueFalse);
@@ -1412,7 +1436,31 @@
           break;
 
         case "FB":
-          $("#typeOptionsJS").html(optionForm_fillBlanks);
+          $("#typeOptionsJS").html(optionForm_fillBlanks(context));
+          $("#question-FB-option-form").submit(function(){
+            event.preventDefault();
+            const question_title = $("#question-FB-question_title-input").val();
+            const correct_answer = $("#question-FB-correct_answer-input").val();
+            $("#question-FB-option-container").html(`
+              <div class="bg-white border p-3 mb-3 gap-3 rounded d-flex align-items-center justify-content-between"
+                style="width: 97%;">
+                <small style="width: 100%;" class="text-muted d-flex justify-content-between">
+                  <div id="question-FB-question_title">${question_title}</div>
+                  <div>
+                    Answer: <b id="question-FB-correct_answer">${correct_answer}</b>
+                  </div>
+                </small>
+                <span class="d-flex gap-2 align-items-center">
+                  <button class="btn btn-outline-primary border rounded-circle" type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#addOptionBtnJS" aria-expanded="false">
+                    <i class="fal fa-pen"></i>
+                  </button>
+                </span>
+              </div>
+            `);
+            $("#addOptionBtnJS").collapse("hide");
+          });
           break;
 
         case "IM":
@@ -1435,6 +1483,12 @@
           $("#typeOptionsJS").html(optionForm_default);
       }
     }
+
+
+
+    
+
+
 
   const slider = document.getElementById("slider");
   const percentageLabel = document.getElementById("percentage-label");

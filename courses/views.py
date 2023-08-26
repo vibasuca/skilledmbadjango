@@ -345,22 +345,8 @@ def list_questions(request, quiz_pk):
         Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
     )
     questions = quiz.questions.all()
-    questions = questions.values(
-        "id",
-        "title",
-        "description",
-        "type",
-        "answer_required",
-        "randomize_options",
-        "points",
-        "display_points",
-        "tf_correct_answer",
-        "tf_true_first",
-        "fb_question_title",
-        "fb_correct_answer",
-        "sort_order",
-    )
-    return JsonResponse({"data": list(questions)})
+    serializer = ListQuestionSerializer(questions, many=True)
+    return JsonResponse({"data": list(serializer.data)})
 
 
 @require_POST

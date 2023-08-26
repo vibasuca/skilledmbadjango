@@ -1250,7 +1250,7 @@
     }
   });
 
-  $("#save-quiz-step1").click(function () {
+  $("#quizFormStep1").submit(function () {
     event.preventDefault();
     let url = `/courses/create-quiz/${quizTopicId}/`;
     if (activeQuizId) {
@@ -1472,13 +1472,32 @@
       const question = questions_state.find(question => question.id == selectedQuestionId);
       // set field values
       if (question) {
-        selectQuestionType(question.type);
         $("#question-title").val(question.title);
         $("#question-answer_required").prop('checked', question.answer_required);
         $("#question-randomize_options").prop('checked', question.randomize_options);
         $("#question-points").val(question.points);
         $("#question-display_points").prop('checked', question.display_points);
         
+        if (question.type == "TF") {
+          selectQuestionType(question.type);
+          if (question.tf_correct_answer) {
+            $("#option-TF-true").prop('checked', true);
+            $("#option-TF-false").prop('checked', false);
+          }
+          else {
+            $("#option-TF-true").prop('checked', false);
+            $("#option-TF-false").prop('checked', true);
+          }
+        }
+        else if (question.type == "FB") {
+          context = {
+            fb_question_title: question.fb_question_title,
+            fb_correct_answer: question.fb_correct_answer,
+          }
+          selectQuestionType("FB", context);
+        }
+
+
       }
       else {
         selectQuestionType("TF");
@@ -1488,11 +1507,14 @@
         $("#question-points").val("1.0");
         $("#question-display_points").prop('checked', false);
 
+        $("#option-TF-true").prop('checked', true);
+        $("#option-TF-false").prop('checked', false);
+
       }
 
     });
 
-    $("#save-question-btn").click(function () {
+    $("#questionForm").submit(function () {
       event.preventDefault();
       let url = `/courses/create-question/${quizId}/`;
       if (quizQuestionId) {
@@ -1506,6 +1528,13 @@
         'points': parseFloat($("#question-points").val()),
         'display_points': $("#question-display_points").prop('checked'),
       };
+      if (data["type"] == "TF") {
+        data["tf_correct_answer"] = $("#option-TF-true").prop('checked');
+      }
+      else if (data["type"] == "FB") {
+        data["fb_question_title"] = $("#question-FB-question_title").text();
+        data["fb_correct_answer"] = $("#question-FB-correct_answer").text();
+      }
       
       $.ajax({
         type: "POST",

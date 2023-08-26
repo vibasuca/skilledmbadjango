@@ -472,3 +472,27 @@ class ListOptionSerializer(serializers.ModelSerializer):
             "o_correct_order",
             "m_matched_ans_title",
         )
+
+
+class ListQuestionSerializer(serializers.ModelSerializer):
+    options_data = ListOptionSerializer(source="options", read_only=True, many=True)
+
+    class Meta:
+        model = Question
+        fields = (
+            "id",
+            "title",
+            "description",
+            "type",
+            "answer_required",
+            "randomize_options",
+            "points",
+            "display_points",
+            "sort_order",
+            "tf_correct_answer",
+            "tf_true_first",
+            "fb_question_title",
+            "fb_correct_answer",
+            "options",
+            "options_data",
+        )
