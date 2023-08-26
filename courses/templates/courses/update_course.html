@@ -692,6 +692,83 @@
       });
     }
 
+    // Active quiz's questions state
+    // [
+    //      {
+    //        answer_required: false,
+    //        description: "qwe",
+    //        display_points: false,
+    //        fb_correct_answer: "",
+    //        fb_question_title: "",
+    //        id: 4,
+    //        points: 1,
+    //        randomize_options: false,
+    //        sort_order: 1,
+    //        tf_correct_answer: true,
+    //        tf_true_first: true,
+    //        title: "Q1",
+    //        type: "TF",
+    //      },
+    // ]
+    questions_state = [];
+
+    function fetchQuizQuestions(quizID) {
+      const url = `/courses/list-questions/${quizID}/`;
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        success: function (response) {
+          console.log("Questions", response);
+          questions_state = response.data;
+
+          $("#quiz-questions-container").empty();
+          for (const question of response.data) {
+            $("#quiz-questions-container").append(`
+              <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
+                <span class="fs-6 SortHandle" style="cursor: grab;"><i
+                    class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;${question.title}
+                  </span>
+                <span class="d-flex gap-3 align-items-center">
+                  <div class="px-2">
+                    ${question.type}
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fal fa-ellipsis-h"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <a class="dropdown-item p-3" href="#" data-quiz-id="${quizID}" data-question-id="${question.id}" data-bs-toggle="modal"
+                        data-bs-target="#questionModal">
+                          <i class="far fa-edit">&nbsp;&nbsp;</i> Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item p-3" href="#">
+                          <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </span>
+              </div>
+            `);
+          }
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+          console.log(status);
+          console.log(error);
+          alert("Error: " + xhr.responseJSON.error);
+          // Handle the error and update the UI accordingly
+        },
+      });
+    }
+
 
 
 
@@ -1205,6 +1282,11 @@
           "data-topic-id": quizTopicId,
           "data-topic-item-id": data.data.topic_item,
         });
+        $("#quiz-add-question-btn").attr({
+          "data-quiz-id": activeQuizId,
+        });
+
+        fetchQuizQuestions(activeQuizId);
 
         $("#quizModalStep1").modal("hide");
         $("#quizModalStep2").modal("show");
@@ -1374,6 +1456,81 @@
         }
       });
     });
+
+
+
+    quizId = "";
+    quizQuestionId = "";
+    const questionModal = document.getElementById("questionModal");
+    questionModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedQuizId = button.getAttribute("data-quiz-id");
+      const selectedQuestionId = button.getAttribute("data-question-id");
+      quizId = selectedQuizId;
+      quizQuestionId = selectedQuestionId;
+      //get state object
+      const question = questions_state.find(question => question.id == selectedQuestionId);
+      // set field values
+      if (question) {
+        selectQuestionType(question.type);
+        $("#question-title").val(question.title);
+        $("#question-answer_required").prop('checked', question.answer_required);
+        $("#question-randomize_options").prop('checked', question.randomize_options);
+        $("#question-points").val(question.points);
+        $("#question-display_points").prop('checked', question.display_points);
+        
+      }
+      else {
+        selectQuestionType("TF");
+        $("#question-title").val("");
+        $("#question-answer_required").prop('checked', false);
+        $("#question-randomize_options").prop('checked', false);
+        $("#question-points").val("1.0");
+        $("#question-display_points").prop('checked', false);
+
+      }
+
+    });
+
+    $("#save-question-btn").click(function () {
+      event.preventDefault();
+      let url = `/courses/create-question/${quizId}/`;
+      if (quizQuestionId) {
+        url = `/courses/update-question/${quizQuestionId}/`;
+      }
+      let data = {
+        'type': $("#selectedTypeJS .questionTypeJS").data("question-type"),
+        'title': $("#question-title").val(),
+        'answer_required': $("#question-answer_required").prop('checked'),
+        'randomize_options': $("#question-randomize_options").prop('checked'),
+        'points': parseFloat($("#question-points").val()),
+        'display_points': $("#question-display_points").prop('checked'),
+      };
+      
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log("Question saved")
+          console.log(data);
+          fetchQuizQuestions(quizId);
+          $("#questionModal").modal("hide");
+          $("#quizModalStep2").modal("show");
+
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+
+    });
+
+
+
+
     
   </script>
 </body>

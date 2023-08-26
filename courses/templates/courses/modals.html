@@ -276,73 +276,8 @@
             </p>
           </div>
         </div>
-        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
-          <span class="fs-6 SortHandle" style="cursor: grab;"><i
-              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
-            66</span>
-          <span class="d-flex gap-3 align-items-center">
-            <div class="px-2">
-              Question Type
-            </div>
-            <div class="dropdown">
-              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fal fa-ellipsis-h"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </span>
-        </div>
-        <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
-          <span class="fs-6 SortHandle" style="cursor: grab;"><i
-              class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;Question
-            66</span>
-          <span class="d-flex gap-3 align-items-center">
-            <div class="px-2">
-              Question Type
-            </div>
-            <div class="dropdown">
-              <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fal fa-ellipsis-h"></i>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-dark">
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-share">&nbsp;&nbsp;</i> Share
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-copy">&nbsp;&nbsp;</i> Duplicate
-                  </a>
-                </li>
-                <li>
-                  <a class="dropdown-item p-3" href="#">
-                    <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </span>
-        </div>
-        <button type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
+        <div id="quiz-questions-container"></div>
+        <button id="quiz-add-question-btn" type="button" class="btn btn-outline-primary p-3 mb-5" data-bs-toggle="modal"
           data-bs-target="#questionModal">
           <i class="fas fa-plus-square"></i>
           <span>&nbsp;&nbsp;Add Question</span>
@@ -386,7 +321,7 @@
           <div>
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Write your question here</label>
-              <input type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
+              <input id="question-title" type="text" style="background-color: #f8f8f8;" name="title" class="form-control p-3 mb-2 border-0"
                 placeholder="Write your question here" required />
             </div>
             <div class="mb-5">
@@ -396,7 +331,7 @@
                   <div class="section px-2 py-3 d-flex align-items-center justify-content-between"
                     data-bs-toggle="collapse" href="#questionTypeSelect" style="cursor: pointer;">
 
-                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="true_/_false">
+                    <div id="selectedTypeJS" data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="TF">
                       <div class="d-flex gap-3 align-items-center">
                         <button class="btn btn-outline-primary border rounded" type="button"
                           style="background-color:#3e64de; color: white;" aria-expanded="false">
@@ -424,22 +359,22 @@
             </div>
             <div class="d-flex gap-3 mb-4">
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="answerRequired">
-                <label class="form-check-label" for="answerRequired">Answer Required</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="question-answer_required">
+                <label class="form-check-label" for="question-answer_required">Answer Required</label>
               </div>
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="randomize">
-                <label class="form-check-label" for="randomize">Randomize</label>
+                <input class="form-check-input" type="checkbox" role="switch" id="randomize_options">
+                <label class="form-check-label" for="randomize_options">Randomize</label>
               </div>
             </div>
             <div class="mb-4">
               <label class="form-label my-2 fw-bold">Point(s) for this answer</label>
               <div class="d-flex gap-3 align-items-center">
-                <input type="text" style="width: 200px; background-color: #f8f8f8;"
+                <input id="question-points" type="text" style="width: 200px; background-color: #f8f8f8;"
                   class="form-control p-3 mb-2 border-0" placeholder="Set the mark" required />
                 <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" id="displayPoints">
-                  <label class="form-check-label" for="displayPoints">Display Points</label>
+                  <input class="form-check-input" type="checkbox" role="switch" id="question-display_points">
+                  <label class="form-check-label" for="question-display_points">Display Points</label>
                 </div>
               </div>
               <small>Time limit for this quiz. 0 means no time limit.</small>
@@ -485,7 +420,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep2" class="btn btn-primary">Save &
+        <button id="save-question-btn" type="button" class="btn btn-primary">Save &
           Next</button>
       </div>
     </div>
@@ -708,69 +643,82 @@
 
 <script>
 
-  $('#questionModal').on('shown.bs.modal', function () {
-    const questionTypes = {
-      "true_/_false": {
-        "icon": "far fa-adjust",
-        "title": "True / False",
-        "color": "#3e64de"
-      },
-      "single_choice": {
-        "icon": "far fa-check",
-        "title": "Single Choice",
-        "color": "#00b890"
-      },
-      "multiple_choice": {
-        "icon": "far fa-check-double",
-        "title": "Multiple Choice",
-        "color": "#9034a9"
-      },
-      "open_ended": {
-        "icon": "far fa-text-width",
-        "title": "Open Ended",
-        "color": "#fe3129"
-      },
-      "fill_in_the_blanks": {
-        "icon": "far fa-hourglass-end",
-        "title": "Fill In The Blanks",
-        "color": "#ffbf00"
-      },
-      "short_answer": {
-        "icon": "far fa-compress",
-        "title": "Short Answer",
-        "color": "#f37512"
-      },
-      "matching": {
-        "icon": "far fa-exchange-alt",
-        "title": "Matching",
-        "color": "#8a4a1b"
-      },
-      "image_matching": {
-        "icon": "far fa-images",
-        "title": "Image Matching",
-        "color": "#f37512"
-      },
-      "image_answering": {
-        "icon": "fas fa-camera",
-        "title": "Image Answering",
-        "color": "#a322f9"
-      },
-      "ordering": {
-        "icon": "far fa-sort-alpha-up",
-        "title": "Ordering",
-        "color": "#1b52d8"
-      },
+  const questionTypes = {
+    "TF": {
+      "icon": "far fa-adjust",
+      "title": "True / False",
+      "color": "#3e64de",
+      "code": "TF",
+    },
+    "SC": {
+      "icon": "far fa-check",
+      "title": "Single Choice",
+      "color": "#00b890",
+      "code": "SC",
+    },
+    "MC": {
+      "icon": "far fa-check-double",
+      "title": "Multiple Choice",
+      "color": "#9034a9",
+      "code": "MC",
+    },
+    "OE": {
+      "icon": "far fa-text-width",
+      "title": "Open Ended",
+      "color": "#fe3129",
+      "code": "OE",
+    },
+    "FB": {
+      "icon": "far fa-hourglass-end",
+      "title": "Fill In The Blanks",
+      "color": "#ffbf00",
+      "code": "FB",
+    },
+    "SA": {
+      "icon": "far fa-compress",
+      "title": "Short Answer",
+      "color": "#f37512",
+      "code": "SA",
+    },
+    "M": {
+      "icon": "far fa-exchange-alt",
+      "title": "Matching",
+      "color": "#8a4a1b",
+      "code": "M",
+    },
+    "IM": {
+      "icon": "far fa-images",
+      "title": "Image Matching",
+      "color": "#f37512",
+      "code": "IM",
+    },
+    "IA": {
+      "icon": "fas fa-camera",
+      "title": "Image Answering",
+      "color": "#a322f9",
+      "code": "IA",
+    },
+    "O": {
+      "icon": "far fa-sort-alpha-up",
+      "title": "Ordering",
+      "color": "#1b52d8",
+      "code": "O",
+    },
 
-    };
+  };
+  $('#questionModal').on('shown.bs.modal', function () {
+
+    $("#questionTypesContainer").html('');
 
     $.each(questionTypes, function (key, value) {
       const icon = value.icon;
       const title = value.title;
       const color = value.color;
+      const code = value.code;
       const type = title.toLowerCase().replace(/\s+/g, '_');
 
       const questionTypeDiv = $("<div>").html(
-        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${type}" class="questionTypeJS">
+        `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${code}" class="questionTypeJS">
           <div class="d-flex gap-3 align-items-center rounded border p-2">
             <button class="btn btn-outline-primary border rounded" type="button"
               style="background-color: ${color}; color: white;" aria-expanded="false">
@@ -786,9 +734,19 @@
 
     $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
       const questionType = $(this).data("question-type");
-      const singleChoiceQuestionType = questionTypes[questionType];
-      var newHtmlContent =
-        `<div style="width: 200px; cursor: pointer;" data-question-type="${questionType}" class="questionTypeJS">
+      selectQuestionType(questionType);
+    });
+    
+    
+    
+  });
+  
+  
+  
+  function selectQuestionType(questionType){
+    const singleChoiceQuestionType = questionTypes[questionType];
+    var newHtmlContent =
+        `<div style="width: 200px; cursor: pointer;" data-question-type="${singleChoiceQuestionType.code}" class="questionTypeJS">
         <div class="d-flex gap-3 align-items-center">
           <button class="btn btn-outline-primary border rounded" type="button"
             style="background-color: ${singleChoiceQuestionType.color}; color: white;" aria-expanded="false">
@@ -800,9 +758,11 @@
 
       $("#selectedTypeJS").html(newHtmlContent);
       showOptions(questionType);
-    });
+  }
 
-    const optionForm_trueFalse = `
+
+
+  const optionForm_trueFalse = `
     <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
       <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
         <small>
@@ -1439,35 +1399,35 @@
 
     function showOptions(type) {
       switch (type) {
-        case "true_/_false":
+        case "TF":
           $("#typeOptionsJS").html(optionForm_trueFalse);
           break;
 
-        case "single_choice":
+        case "SC":
           $("#typeOptionsJS").html(optionForm_singleChoice);
           break;
 
-        case "multiple_choice":
+        case "MC":
           $("#typeOptionsJS").html(optionForm_multipleChoice);
           break;
 
-        case "fill_in_the_blanks":
+        case "FB":
           $("#typeOptionsJS").html(optionForm_fillBlanks);
           break;
 
-        case "image_matching":
+        case "IM":
           $("#typeOptionsJS").html(optionForm_imageMatching);
           break;
 
-        case "image_answering":
+        case "IA":
           $("#typeOptionsJS").html(optionForm_imageAnswering);
           break;
 
-        case "ordering":
+        case "O":
           $("#typeOptionsJS").html(optionForm_ordering);
           break;
 
-        case "matching":
+        case "M":
           $("#typeOptionsJS").html(optionForm_matching);
           break;
 
@@ -1475,8 +1435,6 @@
           $("#typeOptionsJS").html(optionForm_default);
       }
     }
-
-  });
 
   const slider = document.getElementById("slider");
   const percentageLabel = document.getElementById("percentage-label");
