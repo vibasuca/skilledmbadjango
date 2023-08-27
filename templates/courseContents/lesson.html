@@ -29,12 +29,16 @@
             height: 100%;
         }
 
-        .sidebar > .card {
+        .sidebar>.card {
             width: 350px;
         }
 
         .toggleSidebar {
             top: 60px;
+        }
+
+        .content {
+            max-width: 100%;
         }
     }
 
@@ -50,12 +54,16 @@
             display: none;
         }
 
-        .sidebar > .card {
+        .sidebar>.card {
             width: 400px;
         }
 
         .toggleSidebar {
             top: 60px;
+        }
+
+        .content {
+            max-width: 79.3%;
         }
     }
 </style>
@@ -119,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex-fill position-relative">
+            <div class="content flex-fill position-relative">
                 <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
                     style="left: 0px; width: 50px; background: white;">
                     <i class="fas fa-exchange"></i>
@@ -145,14 +153,16 @@
                     <!--Main Content-->
                     <div class="py-5">
                         <h1><b>Lorem ipsum dolor sit amet</b></h1>
-                        <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel pulvinar diam. Mauris blandit quam convallis diam
+                        <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel
+                            pulvinar diam. Mauris blandit quam convallis diam
                             pretium semper. Vivamus metus arcu, varius ac consectetur ac, rutrum iaculis dui. Vivamus
                             porta, augue efficitur malesuada auctor, dolor augue facilisis erat, eu finibus dolor urna
                             at dolor. Aliquam sollicitudin arcu eu fringilla dapibus. In efficitur sollicitudin tempus.
                             Duis nec elit arcu. Curabitur ultrices lacus sed libero pharetra, non elementum elit
                             euismod. </p>
                         <h2>Pellentesque justo leo, vestibulum sed quam et</h2>
-                        <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui non ligula tincidunt volutpat ac eu elit. Nullam
+                        <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui non
+                            ligula tincidunt volutpat ac eu elit. Nullam
                             gravida venenatis elit, et vestibulum tortor rhoncus in. In hac habitasse platea dictumst.
                             Mauris nec tellus justo. Nullam at dictum leo. Nam fringilla velit at orci cursus elementum.
                             Curabitur et porttitor sapien. Etiam scelerisque imperdiet mauris eu rutrum. Maecenas
@@ -165,6 +175,81 @@
                             potenti. Nunc euismod vehicula lectus at laoreet. Curabitur et commodo mauris. Sed pulvinar,
                             massa vel semper facilisis, mi magna consequat metus, ut aliquam lorem tellus commodo est.
                             Nunc fringilla risus eget tristique finibus. Donec elementum in mi eget vestibulum.</p>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores ipsa quas libero eaque repellat, doloremque expedita autem! Ipsa totam impedit natus doloremque quidem, perferendis voluptatem blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores ipsa quas libero eaque repellat, doloremque expedita autem! Ipsa totam impedit natus doloremque quidem, perferendis voluptatem blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores ipsa quas libero eaque repellat, doloremque expedita autem! Ipsa totam impedit natus doloremque quidem, perferendis voluptatem blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores ipsa quas libero eaque repellat, doloremque expedita autem! Ipsa totam impedit natus doloremque quidem, perferendis voluptatem blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
