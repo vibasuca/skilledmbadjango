@@ -788,7 +788,7 @@
           if (op.image) {
             string += `
                 <div class="optionImage mx-2"
-                  style="background-image: url('${op.image.file}');"></div>
+                  style="background-image: url('${op.image_data.file}');"></div>
             `
           }      
                   
@@ -835,18 +835,19 @@
           <div class="d-flex border rounded bg-white mb-3">
             <div class="p-3">
               <div class="d-none">
-                <select id="question-SC-option-image"></select>
+                <select id="question-option-image"></select>
               </div>
               <div class="thumbnail-preview" id="thumbnailPreview">
-                <img id="question-SC-option-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                <img id="question-option-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
               </div>
             </div>
             <div class="p-3 d-flex align-items-center" style="width: 100%">
               <span>
                 <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                 <p>File Support:</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
-                  Upload Image
+                <button type="button" class="btn btn-primary" 
+                  id="question-option-image-btn-js">
+                    Upload Image
                 </button>
               </span>
             </div>
@@ -873,7 +874,7 @@
                 </label>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary mt-5">
+            <button type="submit" class="btn btn-primary mt-5" form="question-SC-option-form">
               Update Answer
             </button>
           </div>
@@ -1438,6 +1439,12 @@
           });
 
 
+          $("#question-option-image-btn-js").click(function(){
+            $("#mediaModal").attr("data-target", "option_image");
+            $('#mediaModal').modal('show');
+          });
+
+
           // Collapse event
           $('.collapse-toggle-options-js').on('click', function(event) {
             const button = event.currentTarget;
@@ -1463,12 +1470,31 @@
                   $("#question-SC-option-onlyImage").prop("checked", false);
                   $("#question-SC-option-bothTextImage").prop("checked", true);
                 }
-            }
-            else {
-              $("#question-SC-option-title").val("");
-              $("#question-SC-option-onlyText").prop("checked", true);
-              $("#question-SC-option-onlyImage").prop("checked", false);
-              $("#question-SC-option-bothTextImage").prop("checked", false);
+                if (option.image){
+                  var selectElement = $('#question-option-image');
+                  selectElement.empty(); // Remove all child nodes
+                  var newOption = $('<option>', {
+                      value: option.image,
+                      text: "",
+                      selected: true // Set the selected attribute to keep it selected
+                  });
+                  selectElement.append(newOption);
+                  $("#question-option-image-preview").attr("src", option.image_data.file);
+                }
+                else {
+                  var selectElement = $('#question-option-image');
+                  selectElement.empty(); // Remove all child nodes
+                  $("#question-option-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+                }
+              }
+              else {
+                $("#question-SC-option-title").val("");
+                $("#question-SC-option-onlyText").prop("checked", true);
+                $("#question-SC-option-onlyImage").prop("checked", false);
+                $("#question-SC-option-bothTextImage").prop("checked", false);
+                var selectElement = $('#question-option-image');
+                selectElement.empty(); // Remove all child nodes
+                $("#question-option-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
             }
 
             
@@ -1489,7 +1515,7 @@
             let data = {
               "type": "SC",
               "title": $("#question-SC-option-title").val(),
-              "image": null,
+              "image": $("#question-option-image").val(),
               "display_format": $("input[name='question-SC-option-display_format']:checked").val(),
               "sort_order": option ? option.sort_order : null,
             }
