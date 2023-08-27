@@ -24,42 +24,8 @@
 
     <div>
         <div class="row">
-            <div class="sidebar shadow-sm col-lg-4 p-0">
-                <!--Topics card-->
-                <div class="card text-start border-0">
-                    <div class="card-body p-0">
-                        <div class="section p-3 text-primary d-flex align-items-center justify-content-between gap-3"
-                            style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
-                            <div class="d-flex align-items-center justify-content-between gap-3">
-                                <small style="font-weight: 500;">Section 1: What to Expect</small>
-                                <i class="fad fa-info-circle text-muted"></i>
-                            </div>
-                            <i class="fal fa-minus"></i>
-                        </div>
-                        <div class="collapse show" id="card1">
-                            <div class="mt-0">
-                                <!--content in here-->
-                                <table class="table table-striped m-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="py-3 px-4 text-white bg-primary"><i
-                                                    class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-3 px-4 text-muted"><i
-                                                    class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-3 px-4 text-muted"><i
-                                                    class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include 'courseContents/sidebar.html' %}
+
             <div class="content flex-fill position-relative col-lg-8">
                 <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
                     style="left: 0px; width: 50px; background: white;">
@@ -116,7 +82,10 @@
                                         <div class="d-flex align-items-center justify-content-between">
                                             <div class="p-3" style="max-width: 90%;">
                                                 <div class="text-truncate mb-2" style="max-width: 100%;">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores ipsa quas libero eaque repellat, doloremque expedita autem! Ipsa totam impedit natus doloremque quidem, perferendis voluptatem blanditiis nulla. Inventore, delectus.
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
                                                 </div>
                                                 <small class="text-muted">Size: 121.45 KB</small>
                                             </div>
@@ -172,19 +141,6 @@
         $(".toggleSidebar").click(function () {
             $(".sidebar").toggle();
         });
-    }
-
-    if (document.querySelector('.trigger') != null) {
-        (new IntersectionObserver(function (e, o) {
-            if (e[0].intersectionRatio > 0) {
-                $("#courseSidePanelJS").removeClass("sticky-top").addClass("position-relative");
-                $("#courseSidePanelJS").css("top", "-275px");
-            } else {
-                $("#courseSidePanelJS").removeClass("position-relative").addClass("sticky-top");
-                $("#courseSidePanelJS").css("top", "175px");
-            };
-
-        })).observe(document.querySelector('.trigger'));
     }
 
     $(document).ready(function () {
