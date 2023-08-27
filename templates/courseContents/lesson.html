@@ -4,7 +4,7 @@
 
 {% block content %}
 <style>
-    .backdrop{
+    .backdrop {
         background-color: rgba(0, 0, 0, 0.5);
         position: fixed;
         top: 0;
@@ -14,13 +14,27 @@
         display: none;
     }
 
+    .sidebar {
+        background: #fff;
+        transition: 0.5s;
+    }
+
     @media (max-width: 992px) {
         .sidebar {
             position: fixed;
             top: 0px;
-            left: -400px;
+            width: 350px;
+            left: -350px;
             z-index: 1;
             height: 100%;
+        }
+
+        .sidebar > .card {
+            width: 350px;
+        }
+
+        .toggleSidebar {
+            top: 60px;
         }
     }
 
@@ -29,10 +43,22 @@
             position: static;
             top: 0px;
             left: 0px;
+            width: 400px;
+        }
+
+        .backdrop {
+            display: none;
+        }
+
+        .sidebar > .card {
+            width: 400px;
+        }
+
+        .toggleSidebar {
+            top: 60px;
         }
     }
 </style>
-<!--main content-->
 <div class="container-fluid bg-white">
     <div class="container py-4">
         <!--page title-->
@@ -51,13 +77,97 @@
 
     <div>
         <div class="d-flex">
-            <div class="sidebar bg-danger" style="width: 400px;">
-                sidebar
+            <div class="sidebar shadow-sm">
+                <!--Topics card-->
+                <div class="card text-start border-0">
+                    <div class="card-body p-0">
+                        <div class="section p-3 text-primary d-flex align-items-center justify-content-between gap-3"
+                            style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+                            <div class="d-flex align-items-center justify-content-between gap-3">
+                                <small style="font-weight: 500;">Section 1: What to Expect</small>
+                                <i class="fad fa-info-circle text-muted"></i>
+                            </div>
+                            <i class="fal fa-minus"></i>
+                        </div>
+                        <div class="collapse show" id="card1">
+                            <div class="mt-0">
+                                <!--content in here-->
+                                <table class="table table-striped m-0">
+                                    <tbody>
+                                        <tr>
+                                            <td class="py-3 px-4 text-muted"><i
+                                                    class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</td>
+                                            <td class="text-end py-3 px-4 text-muted"><i class="far fa-lock-alt"></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-muted"><i
+                                                    class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
+                                            <td class="text-end py-3 px-4 text-muted"><i class="far fa-lock-alt"></i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-3 px-4 text-muted"><i
+                                                    class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</td>
+                                            <td class="text-end py-3 px-4 text-muted"><i class="far fa-lock-alt"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="content bg-success flex-fill">
-                <button class="toggleSidebar">
-                    T
+            <div class="flex-fill position-relative">
+                <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
+                    style="left: 0px; width: 50px; background: white;">
+                    <i class="fas fa-exchange"></i>
                 </button>
+                <div class="container">
+                    <!--Content Header-->
+                    <div class="p-3 rounded" style="background: #031f42; color: white;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="far fa-home text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">
+                                    <a href="#" class="text-light">Go to course home</a>
+                                </small>
+                            </div>
+                            <div>
+                                <i class="far fa-file-alt text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">lesson name</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <div class="py-5">
+                        <h1><b>Lorem ipsum dolor sit amet</b></h1>
+                        <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel pulvinar diam. Mauris blandit quam convallis diam
+                            pretium semper. Vivamus metus arcu, varius ac consectetur ac, rutrum iaculis dui. Vivamus
+                            porta, augue efficitur malesuada auctor, dolor augue facilisis erat, eu finibus dolor urna
+                            at dolor. Aliquam sollicitudin arcu eu fringilla dapibus. In efficitur sollicitudin tempus.
+                            Duis nec elit arcu. Curabitur ultrices lacus sed libero pharetra, non elementum elit
+                            euismod. </p>
+                        <h2>Pellentesque justo leo, vestibulum sed quam et</h2>
+                        <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui non ligula tincidunt volutpat ac eu elit. Nullam
+                            gravida venenatis elit, et vestibulum tortor rhoncus in. In hac habitasse platea dictumst.
+                            Mauris nec tellus justo. Nullam at dictum leo. Nam fringilla velit at orci cursus elementum.
+                            Curabitur et porttitor sapien. Etiam scelerisque imperdiet mauris eu rutrum. Maecenas
+                            consequat erat nisi, non sodales lorem sollicitudin a. Ut aliquet tempus rutrum.br <br>
+
+                            Maecenas suscipit auctor enim, et ultrices velit rhoncus eu. Nulla facilisi. Etiam mollis
+                            est sed laoreet interdum. Ut orci mauris, fringilla egestas facilisis quis, mollis sit amet
+                            eros. Fusce molestie ullamcorper egestas. Sed id turpis eu dolor efficitur semper.
+                            Pellentesque luctus lacus eget luctus commodo. Nullam vitae facilisis dui. Suspendisse
+                            potenti. Nunc euismod vehicula lectus at laoreet. Curabitur et commodo mauris. Sed pulvinar,
+                            massa vel semper facilisis, mi magna consequat metus, ut aliquam lorem tellus commodo est.
+                            Nunc fringilla risus eget tristique finibus. Donec elementum in mi eget vestibulum.</p>
+
+                    </div>
+                </div>
             </div>
         </div>
         <div class="backdrop"></div>
@@ -105,11 +215,11 @@
 
     const windowWidth = $(window).width();
 
-    if(windowWidth < 992){
-        $(".toggleSidebar").click(function(){
+    if (windowWidth < 992) {
+        $(".toggleSidebar").click(function () {
             activate();
         });
-        $(".backdrop").click(function(){
+        $(".backdrop").click(function () {
             deactivate();
         });
         function activate() {
@@ -117,13 +227,13 @@
             $(".backdrop").show();
         }
         function deactivate() {
-            $(".sidebar").css("left", "-400px");
+            $(".sidebar").css("left", "-350px");
             $(".backdrop").hide();
         }
     }
-    
-    if(windowWidth > 992) {
-        $(".toggleSidebar").click(function(){
+
+    if (windowWidth > 992) {
+        $(".toggleSidebar").click(function () {
             $(".sidebar").toggle();
         });
     }
@@ -141,24 +251,6 @@
         })).observe(document.querySelector('.trigger'));
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        var animateElements = document.querySelectorAll(".animate-me");
-
-        function checkAnimation() {
-            animateElements.forEach(function (element) {
-                var elementPosition = element.getBoundingClientRect().top;
-                var windowHeight = window.innerHeight;
-
-                if (elementPosition < windowHeight - 100) { // Adjust threshold as needed
-                    element.classList.add("animate");
-                }
-            });
-        }
-
-        window.addEventListener("scroll", checkAnimation);
-        checkAnimation(); // Check on page load
-    });
-
     $(document).ready(function () {
         $("#close-login-cta").click(function () {
             $(".login-cta").hide();
@@ -166,7 +258,7 @@
     });
 
     $(".section").click(function () {
-        $(this).children(".fas").toggleClass("fa-plus fa-minus");
+        $(this).children(".fal").toggleClass("fa-minus fa-plus");
     });
 </script>
 {% endblock content %}
