@@ -311,7 +311,9 @@ def create_question(request, quiz_pk):
     serializer = CreateQuestionSerializer(data=data, context={"quiz": quiz})
     if serializer.is_valid():
         question = serializer.save()
-        return JsonResponse({"message": "Question created successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Question created successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 
