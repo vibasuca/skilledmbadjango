@@ -80,6 +80,7 @@ def list_media(request):
             "description": media.description,
             "alt_text": media.alt_text,
             "caption": media.caption,
+            "size": media.get_size(),
             "created_at": media.created_at,
         }
         for media in media_queryset

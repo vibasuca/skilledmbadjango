@@ -35,7 +35,8 @@
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-3 gap-lg-4">
         <div class="p-3 d-flex">
-          <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}" />
+          <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}"
+            loading="lazy" />
         </div>
         <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2" type="submit" form="courseForm">
           <i class="fal fa-save"></i>
@@ -138,7 +139,7 @@
   <!---------------- Modals ---------------->
 
   <!-- Media Managerment -->
-  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true" style="z-index: 99999999999">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
         <div class="modal-header border-0">
@@ -254,8 +255,7 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Lesson Name</label>
-              <input type="text" id="create-lesson-title" name="title" class="form-control p-3 mb-2" value="test title"
-                required />
+              <input type="text" id="lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> Lesson titles are displayed
                 publicly wherever required.
@@ -264,7 +264,7 @@
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Lesson Content</label>
-              <textarea id="create-lesson-content-editor">
+              <textarea id="lesson-content-editor">
               </textarea>
               <br />
               <small class="text-muted">
@@ -279,16 +279,15 @@
             <div class="d-flex border rounded">
               <div class="p-3">
                 <div class="thumbnail-preview" id="thumbnailPreview">
-                  <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                  <img id="lesson-feature-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
                 </div>
               </div>
               <div class="p-3 d-flex align-items-center" style="width: 100%">
                 <span>
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
-                  <select class="d-none" id="create-lesson-feature_image"></select>
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal"
-                    data-target="create_lesson">
+                  <select class="d-none" id="lesson-feature_image"></select>
+                  <button type="button" class="btn btn-primary"  id="lesson-feature_image-btn">
                     Upload Image
                   </button>
                 </span>
@@ -335,15 +334,17 @@
               </div>
               {% endcomment %}
 
-              <select class="d-none" id="create-lesson-attachments" name="attachments" multiple>
+              <div class="row mb-3" id="lessonAttachmentsPreviewContainer"></div>
+              
+              <select class="d-none" id="lesson-attachments" name="attachments" multiple>
               </select>
-              <button class="btn btn-outline-primary p-3">
+              <button class="btn btn-outline-primary p-3" id="lesson-attachments-btn" type="button">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
 
             <div class="d-flex align-items-center gap-3 mb-4">
-              <input type="checkbox" id="create-lesson-enable_preview" name="enable_preview" class="form-check-input"
+              <input type="checkbox" id="lesson-enable_preview" name="enable_preview" class="form-check-input"
                 style="padding: 10px" />
               <label for="enable_preview">Enable Course Preview:</label>
             </div>
@@ -378,13 +379,12 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Assignment Name</label>
-              <input type="text" id="create-assignment-title" name="title" class="form-control p-3 mb-2"
-                value="test title" required />
+              <input type="text" id="assignment-title" name="title" class="form-control p-3 mb-2" value="test title" required />
             </div>
 
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Summary</label>
-              <textarea id="create-assignment-summary-editor">
+              <textarea id="assignment-summary-editor">
               </textarea>
             </div>
 
@@ -416,8 +416,11 @@
                   </div>
                 </div>
               </div> {% endcomment %}
-              <select class="d-none" id="create-assignment-attachments" name="attachments" multiple></select>
-              <button class="btn btn-outline-primary p-3" type="button">
+
+              <div class="row mb-3" id="assignmentAttachmentsPreviewContainer"></div>
+
+              <select class="d-none" id="assignment-attachments" name="attachments" multiple></select>
+              <button class="btn btn-outline-primary p-3" type="button" id="assignment-attachments-btn">
                 <i class="far fa-paperclip"></i>&nbsp;&nbsp;<span>Upload Attachments</span>
               </button>
             </div>
@@ -426,10 +429,13 @@
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Time Limit</label>
                 <div class="d-flex gap-3 align-content-center">
-                  <input type="number" id="create-assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
+                  <input type="number" id="assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
                     placeholder="Time Limit" value="0" min="0" />
 
-                  <select class="course-difficulty-single form-select p-3 mb-2" id="create-assignment-time_limit_unit">
+                  <select
+                    class="course-difficulty-single form-select p-3 mb-2"
+                    id="assignment-time_limit_unit"
+                  >
                     <option value="W" selected>Weeks</option>
                     <option value="D">Days</option>
                     <option value="H">Hours</option>
@@ -441,7 +447,7 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Total Points</label>
-                <input type="number" id="create-assignment-total_points" name="time_limit" class="form-control p-3 mb-2"
+                <input type="number" id="assignment-total_points" name="time_limit" class="form-control p-3 mb-2"
                   placeholder="Time Limit" value="10" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Maximum points a student
@@ -453,8 +459,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Minimum Passing Points</label>
-                <input type="number" id="create-assignment-min_pass_points" name="time_limit"
-                  class="form-control p-3 mb-2" placeholder="Time Limit" value="5" min="0" />
+                <input type="number" id="assignment-min_pass_points" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" value="5" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Minimum points required
                   for the student to pass this assignment.
@@ -465,8 +471,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Maximum File Uploads</label>
-                <input type="number" id="create-assignment-max_file_uploads" name="time_limit"
-                  class="form-control p-3 mb-2" placeholder="Time Limit" value="1" min="0" />
+                <input type="number" id="assignment-max_file_uploads" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" value="1" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define the number of
                   files that a student can upload in this assignment. Input 0
@@ -478,8 +484,8 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">File Size Limit</label>
-                <input type="number" id="create-assignment-file_size_limit" name="time_limit"
-                  class="form-control p-3 mb-2" placeholder="Time Limit" value="2" min="0" />
+                <input type="number" id="assignment-file_size_limit" name="time_limit" class="form-control p-3 mb-2"
+                  placeholder="Time Limit" value="2" min="0" />
                 <small class="text-muted">
                   <i class="fal fa-info-circle"></i> Define maximum file size
                   attachment in MB
@@ -504,6 +510,279 @@
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
   <script>
+
+    // [
+    //    {
+    //       "id":1,
+    //       "topic_items": [
+    //              {
+    //                 "id":1,
+    //                 "lesson": {
+    //                    "id":1,
+    //                    "title":"Lesson 1",
+    //                    "summary":"Lesson 1 summary",
+    //                    "feature_image":null,
+    //                    "content":"<p>Lesson 1 content<\/p>",
+    //                    "attachments":[
+    //                       {
+    //                          "id":1,
+    //                          "file":"http://.."
+    //                       }
+    //                    ],
+    //                  "enable_preview":false,
+    //                 },
+    //                 "quiz":null,
+    //                 "assignment":null,
+    //                 "sort_order":1
+    //              },
+    //              ...
+    //          ],
+    //    },
+    //    ...
+    // ]
+    
+    topics_state = [];
+
+    // Function to fetch and display the topics list
+    function fetchTopicsList() {
+      topics_state.length = 0;
+      const url = "{% url 'courses:list_topics' course.pk %}";
+
+      $.ajax({
+        type: "GET",
+        url: url,
+        success: function (response) {
+          const topicList = response.topics;
+          const topicListContainer = $("#topic-list #topicsList");
+          topicListContainer.empty();
+
+          topicList.forEach(function (topic, index) {
+            const topicsList = `
+              <div class="card bg-light text-start mb-3" data-topic-id="${topic.id}">
+                <div class="card-body p-0">
+                    <div class="section px-2 py-3 d-flex align-items-center justify-content-between">
+                        <span class="fs-6 SortHandle" style="cursor: grab;"><i class="fal fa-bars"></i>&nbsp;&nbsp;${topic.title}</span>
+                        <span class="d-flex gap-2 px-2">
+                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal" data-bs-topic-sort="${topic.sort_order}" data-bs-topic-id="${topic.id}" data-bs-topic-title="${topic.title}" data-bs-topic-summary="${topic.summary}"><i class="fas fa-edit text-muted"></i></button>
+                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            <button type="button" class="btn btn-sm" data-bs-toggle="collapse" href="#topic-${topic.id}"><i class="fas fa-chevron-down text-muted"></i></button>
+                        </span>
+                    </div>
+                    
+                    <div class="collapse show" id="topic-${topic.id}">
+                        <div class="card card-body">
+
+                            <div class="topicItems-${topic.id}"></div>
+
+                            <div class="d-flex gap-3">
+                                <!-- Button for Add Lesson -->
+                                <button type="button" class="btn btn-outline-primary create-lesson-button" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}">
+                                  <i class="fas fa-plus-square"></i>
+                                    &nbsp;Lesson
+                                </button>
+
+                                <!-- Button for Add Quiz -->
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#quizModalStep1" class="btn btn-outline-primary" data-topic-id="${topic.id}">
+                                    <i class="fas fa-plus-square"></i>
+                                    &nbsp;Quiz
+                                </button>
+
+                                <!-- Button for Add Assignment -->
+                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}">
+                                  <i class="fas fa-plus-square"></i>
+                                    &nbsp;Assignment
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+              
+
+              `;
+
+            topicListContainer.append(topicsList);
+
+            // Get topic items
+            $.ajax({
+              type: "GET",
+              url: `/courses/list-topic-item/${topic.id}/`,
+              headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+              },
+              success: function (response) {
+                console.log(topic.id);
+                console.log(response.data);
+                const topicItems = response.data;
+                const topicItemsContainer = $(`.topicItems-${topic.id}`);
+                topicItemsContainer.empty();
+
+                topics_state.push({
+                  topic_id: topic.id,
+                  topic_items: topicItems,
+                });
+                topicItems.forEach(function (item, index) {
+
+                  topicItemList = "";
+
+                  if (item.lesson != null) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+                  else if (item.assignment) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+                  else if (item.quiz) {
+                    topicItemList = `
+                    <div class="card bg-white text-start mb-3">
+                      <div class="card-body p-0">
+                        <div class="section p-2 d-flex align-items-center justify-content-between"
+                        style="cursor: pointer;">
+                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Quiz: ${item.quiz_data.title}</span>
+                            <span class="d-flex gap-2 px-2">
+                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#quizModalStep1" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
+                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    `;
+                  }
+
+                  topicItemsContainer.append(topicItemList);
+                });
+              },
+              error: function (xhr, status, error) {
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+                alert("Error: " + xhr.responseJSON.error);
+                // Handle the error and update the UI accordingly
+              },
+            });
+          });
+        },
+        error: function (xhr, status, error) {
+          alert("Error fetching topic list.");
+        },
+      });
+    }
+
+    // Active quiz's questions state
+    // [
+    //      {
+    //        answer_required: false,
+    //        description: "qwe",
+    //        display_points: false,
+    //        fb_correct_answer: "",
+    //        fb_question_title: "",
+    //        id: 4,
+    //        points: 1,
+    //        randomize_options: false,
+    //        sort_order: 1,
+    //        tf_correct_answer: true,
+    //        tf_true_first: true,
+    //        title: "Q1",
+    //        type: "TF",
+    //      },
+    // ]
+    questions_state = [];
+
+    function fetchQuizQuestions(quizID, success_handler) {
+      const url = `/courses/list-questions/${quizID}/`;
+      $.ajax({
+        type: "GET",
+        url: url,
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+        success: function (response) {
+          console.log("Questions", response);
+          questions_state = response.data;
+
+          $("#quiz-questions-container").empty();
+          for (const question of response.data) {
+            $("#quiz-questions-container").append(`
+              <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
+                <span class="fs-6 SortHandle" style="cursor: grab;"><i
+                    class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;${question.title}
+                  </span>
+                <span class="d-flex gap-3 align-items-center">
+                  <div class="px-2">
+                    ${question.type}
+                  </div>
+                  <div class="dropdown">
+                    <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
+                      data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fal fa-ellipsis-h"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                      <li>
+                        <a class="dropdown-item p-3" href="#" data-quiz-id="${quizID}" data-question-id="${question.id}" data-bs-toggle="modal"
+                        data-bs-target="#questionModal">
+                          <i class="far fa-edit">&nbsp;&nbsp;</i> Edit
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item p-3" href="#">
+                          <i class="fal fa-trash">&nbsp;&nbsp;</i> Delete
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </span>
+              </div>
+            `);
+          }
+
+
+          if (success_handler) {
+            success_handler();
+          }
+
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+          console.log(status);
+          console.log(error);
+          alert("Error: " + xhr.responseJSON.error);
+          // Handle the error and update the UI accordingly
+        },
+      });
+    }
+
+
+
+
+
+
+
     $("#search-instructor-js").keyup(function (event) {
       if (event.key === "Enter") {
         $.ajax({
@@ -610,7 +889,7 @@
     });
 
     const lessonModal = document.getElementById("lessonModal");
-    ClassicEditor.create(document.querySelector("#create-lesson-content-editor")).then(editor => {
+    ClassicEditor.create(document.querySelector("#lesson-content-editor")).then(editor => {
       console.log("CKEditor initialized");
       createLessonContentEditor = editor;
     })
@@ -618,23 +897,104 @@
         console.error(error);
       });;
 
-    lessonTopicId = "";
-    lessonModal.addEventListener("show.bs.modal", (event) => {
-      const button = event.relatedTarget;
-      const selectedTopicId = button.getAttribute("data-topic-id");
-      lessonTopicId = selectedTopicId;
-    });
+      lessonTopicId = "";
+      activeLessonId = "";
+      lessonModal.addEventListener("show.bs.modal", (event) => {
+        const button = event.relatedTarget;
+        const selectedTopicId = button.getAttribute("data-topic-id");
+        lessonTopicId = selectedTopicId;
+        //get state object
+        const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+        const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+        activeLessonId = "";
+        console.log(item);
+        if (item) {
+          activeLessonId = item.lesson;
+          const lessonId = item.lesson_data.id;
+          const lessonTitle = item.lesson_data.title;
+          const lessonContent = item.lesson_data.content;
+          const lessonFeatureImage = item.lesson_data.feature_image_data;
+          const lessonAttachments = item.lesson_data.attachments_data;
+          const lessonEnablePreview = item.lesson_data.enable_preview;
 
-    $("#lesson-form").submit(function () {
-      event.preventDefault();
-      let url = `/courses/create-lesson/${lessonTopicId}/`;
-      let data = {
-        'title': $("#create-lesson-title").val(),
-        'content': createLessonContentEditor.getData(),
-        'feature_image': parseInt($("#create-lesson-feature_image").val()) || null,
-        'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
-        'enable_preview': $("#create-lesson-enable_preview").prop('checked'),
-      };
+          $("#lesson-title").val(lessonTitle);
+          createLessonContentEditor.setData(lessonContent);
+          if (lessonFeatureImage) {
+             var newOption = $('<option>', {
+              value: lessonFeatureImage.id,
+              text: "",
+              selected: true // Set the selected attribute to keep it selected
+            });
+            $("#lesson-feature_image").append(newOption);
+            $("#lesson-feature-image-preview").attr("src", lessonFeatureImage.file);
+          }
+          else {
+            $("#lesson-feature_image").empty();
+            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+          }
+          
+          if (lessonAttachments.length > 0) {
+            lessonAttachments.forEach(function (attachment, index) {
+              var newOption = $('<option>', {
+                value: attachment.id,
+                text: "",
+                selected: true // Set the selected attribute to keep it selected
+              });
+              $("#lesson-attachments").append(newOption);
+            });
+          }
+          else {
+            $("#lesson-attachments").empty();
+          }
+          $("#lesson-enable_preview").prop('checked', lessonEnablePreview);
+          $("#lessonAttachmentsPreviewContainer").empty();
+          lessonAttachments.forEach(function (attachment, index) {
+          $("#lessonAttachmentsPreviewContainer").append(`
+                <div class="col-md-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <div class="d-flex align-items-center">
+                              <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                              ${attachment.file.replace(/^.*[\\\/]/, '')}<br>
+                                  <span class="text-muted" style="font-weight: normal;">Size: ${attachment.size}</span>
+                              </div>
+                              <button class="btn btn-outline-primary border rounded-circle" 
+                                  type="button" data-media-id="${attachment.id}" onclick="remove_lesson_attachment(this)"
+                                  aria-expanded="false">
+                              <i class="fal fa-times"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            `);
+          });
+        }
+        else {
+          $("#lesson-title").val("");
+          createLessonContentEditor.setData("");
+          $("#lesson-feature_image").val("");
+          $("#lesson-attachments").val("");
+          $("#lesson-enable_preview").prop('checked', false);
+          $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+          $("#lessonAttachmentsPreviewContainer").empty();
+        }
+
+      });
+
+      $("#lesson-form").submit(function () {
+        event.preventDefault();
+        let url = `/courses/create-lesson/${lessonTopicId}/`;
+        if (activeLessonId) {
+          url = `/courses/update-lesson/${activeLessonId}/`;
+        }
+        let data = {
+          'title': $("#lesson-title").val(),
+          'content': createLessonContentEditor.getData(),
+          'feature_image': parseInt($("#lesson-feature_image").val()) || null,
+          'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
+          'enable_preview': $("#lesson-enable_preview").prop('checked'),
+        };
 
       $.ajax({
         type: "POST",
@@ -642,80 +1002,20 @@
         headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
-        success: function (data) {
-          console.log(data);
-          $("#lessonModal").modal("hide");
-          $("#create-lesson-title").val("");
-          createLessonContentEditor.setData("");
-          $("#create-lesson-feature_image").val("");
-          $("#create-lesson-attachments").val("");
-          $("#create-lesson-enable_preview").prop('checked', false);
-          $("#thumbnailPreview").html(`
-              <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
-            `);
+          success: function (data) {
+            console.log(data);
+            $("#lessonModal").modal("hide");
+            $("#lesson-title").val("");
+            createLessonContentEditor.setData("");
+            $("#lesson-feature_image").val("");
+            $("#lesson-attachments").val("");
+            $("#lesson-enable_preview").prop('checked', false);
+            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+            $("#lessonAttachmentsPreviewContainer").empty();
 
 
-
-          // Get topic items
-          $.ajax({
-            type: "GET",
-            url: `/courses/list-topic-item/${lessonTopicId}/`,
-            headers: {
-              "X-CSRFToken": "{{ csrf_token }}",
-            },
-            success: function (response) {
-              const topicItems = response.data;
-              const topicItemsContainer = $(`.topicItems-${lessonTopicId}`);
-              topicItemsContainer.empty();
-
-              topicItems.forEach(function (item, index) {
-
-                topicItemList = "";
-                if (item.lesson != null) {
-                  topicItemList = `
-                    <div class="card bg-white text-start mb-3">
-                      <div class="card-body p-0">
-                        <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
-                            <span class="d-flex gap-2 px-2">
-                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                            </span>
-                        </div>
-                      </div>
-                    </div>
-                    `;
-                }
-                else if (item.assignment) {
-                  topicItemList = `
-                    <div class="card bg-white text-start mb-3">
-                      <div class="card-body p-0">
-                        <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
-                            <span class="d-flex gap-2 px-2">
-                              <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                              <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                            </span>
-                        </div>
-                      </div>
-                    </div>
-                    `;
-                }
-
-
-                topicItemsContainer.append(topicItemList);
-              });
-            },
-            error: function (xhr, status, error) {
-              console.log(xhr);
-              console.log(status);
-              console.log(error);
-              alert("Error: " + xhr.responseJSON.error);
-              // Handle the error and update the UI accordingly
-            },
-          });
+            // Get topic items
+            fetchTopicsList();
 
 
 
@@ -731,7 +1031,7 @@
 
 
     const assignmentModal = document.getElementById("assignmentModal");
-    ClassicEditor.create(document.querySelector("#create-assignment-summary-editor")).then(editor => {
+    ClassicEditor.create(document.querySelector("#assignment-summary-editor")).then(editor => {
       console.log("CKEditor initialized");
       createAssignmentSummaryEditor = editor;
     })
@@ -740,27 +1040,117 @@
       });
 
     assignmentTopicId = "";
+    activeAssignmentId = "";
     assignmentModal.addEventListener("show.bs.modal", (event) => {
       const button = event.relatedTarget;
       const selectedTopicId = button.getAttribute("data-topic-id");
       assignmentTopicId = selectedTopicId;
+      //get state object
+      const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+      const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+      activeAssignmentId = "";
+      console.log(topics_state)
+      console.log(item);
+      if (item) {
+        activeAssignmentId = item.assignment;
+        const assignmentId = item.assignment_data.id;
+        const assignmentTitle = item.assignment_data.title;
+        const assignmentSummary = item.assignment_data.summary;
+        const assignmentAttachments = item.assignment_data.attachments_data;
+        const assignmentTimeLimit = item.assignment_data.time_limit_hours;
+        const assignmentTimeLimitUnit = item.assignment_data.time_limit_unit;
+        const assignmentTotalPoints = item.assignment_data.total_points;
+        const assignmentMinPassPoints = item.assignment_data.min_pass_points;
+        const assignmentMaxFileUploads = item.assignment_data.max_file_uploads;
+        const assignmentFileSizeLimit = item.assignment_data.file_size_limit;
+        
+
+        $("#assignment-title").val(assignmentTitle);
+        createAssignmentSummaryEditor.setData(assignmentSummary);
+        if (assignmentAttachments.length > 0) {
+          assignmentAttachments.forEach(function (attachment, index) {
+            var newOption = $('<option>', {
+              value: attachment.id,
+              text: "",
+              selected: true // Set the selected attribute to keep it selected
+            });
+            $("#assignment-attachments").append(newOption);
+          });
+        }
+        else {
+          $("#assignment-attachments").empty();
+        }
+        
+        if (assignmentTimeLimitUnit == "D") {
+          $("#assignment-time_limit").val(assignmentTimeLimit / 24);
+        }
+        else if (assignmentTimeLimitUnit == "W") {
+          $("#assignment-time_limit").val(assignmentTimeLimit / 24 / 7);
+        }
+        else {
+          $("#assignment-time_limit").val(assignmentTimeLimit);
+        }
+        $("#assignment-time_limit_unit").val(assignmentTimeLimitUnit);
+        $("#assignment-total_points").val(assignmentTotalPoints);
+        $("#assignment-min_pass_points").val(assignmentMinPassPoints);
+        $("#assignment-max_file_uploads").val(assignmentMaxFileUploads);
+        $("#assignment-file_size_limit").val(assignmentFileSizeLimit);
+        $("#assignmentAttachmentsPreviewContainer").empty();
+        assignmentAttachments.forEach(function (attachment, index) {
+          $("#assignmentAttachmentsPreviewContainer").append(`
+                  <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <div class="text-truncate p-3" style="max-width: 90%; font-weight: bold;">
+                                ${attachment.file.replace(/^.*[\\\/]/, '')}<br>
+                                    <span class="text-muted" style="font-weight: normal;">Size: ${attachment.size}</span>
+                                </div>
+                                <button class="btn btn-outline-primary border rounded-circle" 
+                                    type="button" data-media-id="${attachment.id}" onclick="remove_assignment_attachment(this)"
+                                    aria-expanded="false">
+                                <i class="fal fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          `);
+        });
+
+      }
+      else {
+        $("#assignment-title").val("");
+        createAssignmentSummaryEditor.setData("");
+        $("#assignment-attachments").val("");
+        $("#assignment-time_limit").val("0");
+        $("#assignment-time_limit_unit").val("W");
+        $("#assignment-total_points").val("10");
+        $("#assignment-min_pass_points").val("5");
+        $("#assignment-max_file_uploads").val("1");
+        $("#assignment-file_size_limit").val("2");
+        $("#assignmentAttachmentsPreviewContainer").empty();
+      }
     });
 
 
     $("#assignment-form").submit(function () {
       event.preventDefault();
       let url = `/courses/create-assignment/${assignmentTopicId}/`;
+      if (activeAssignmentId) {
+        url = `/courses/update-assignment/${activeAssignmentId}/`;
+      }
       let data = {
-        'title': $("#create-assignment-title").val(),
+        'title': $("#assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
-        'attachments': $("#create-lesson-attachments").val().map(val => parseInt(val)),
-        'time_limit_unit': $("#create-assignment-time_limit_unit").val(),
-        'total_points': parseInt($("#create-assignment-total_points").val()),
-        'min_pass_points': parseInt($("#create-assignment-min_pass_points").val()),
-        'max_file_uploads': parseInt($("#create-assignment-max_file_uploads").val()),
-        'file_size_limit': parseInt($("#create-assignment-file_size_limit").val()),
+        'attachments': $("#assignment-attachments").val().map(val => parseInt(val)),
+        'time_limit_unit': $("#assignment-time_limit_unit").val() ,
+        'total_points': parseInt($("#assignment-total_points").val()),
+        'min_pass_points': parseInt($("#assignment-min_pass_points").val()),
+        'max_file_uploads': parseInt($("#assignment-max_file_uploads").val()),
+        'file_size_limit': parseInt($("#assignment-file_size_limit").val()),
       };
-      let time_limit = parseInt($("#create-assignment-time_limit").val())
+      let time_limit = parseInt($("#assignment-time_limit").val())
       if (data["time_limit_unit"] == "D") {
         time_limit = time_limit * 24;
       }
@@ -778,78 +1168,19 @@
         success: function (data) {
           console.log(data);
           $("#assignmentModal").modal("hide");
-          $("#create-assignment-title").val("");
+          $("#assignment-title").val("");
           createAssignmentSummaryEditor.setData("");
-          $("#create-assignment-attachments").val("");
-          $("#create-assignment-time_limit").val("0");
-          $("#create-assignment-time_limit_unit").val("W");
-          $("#create-assignment-total_points").val("10");
-          $("#create-assignment-min_pass_points").val("5");
-          $("#create-assignment-max_file_uploads").val("1");
-          $("#create-assignment-file_size_limit").val("2");
+          $("#assignment-attachments").val("");
+          $("#assignment-time_limit").val("0");
+          $("#assignment-time_limit_unit").val("W");
+          $("#assignment-total_points").val("10");
+          $("#assignment-min_pass_points").val("5");
+          $("#assignment-max_file_uploads").val("1");
+          $("#assignment-file_size_limit").val("2");
 
 
 
-          // Get topic items
-          $.ajax({
-            type: "GET",
-            url: `/courses/list-topic-item/${assignmentTopicId}/`,
-            headers: {
-              "X-CSRFToken": "{{ csrf_token }}",
-            },
-            success: function (response) {
-              const topicItems = response.data;
-              const topicItemsContainer = $(`.topicItems-${assignmentTopicId}`);
-              topicItemsContainer.empty();
-
-              topicItems.forEach(function (item, index) {
-
-                topicItemList = "";
-                if (item.lesson != null) {
-                  topicItemList = `
-                  <div class="card bg-white text-start mb-3">
-                    <div class="card-body p-0">
-                      <div class="section p-2 d-flex align-items-center justify-content-between"
-                      style="cursor: pointer;">
-                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
-                          <span class="d-flex gap-2 px-2">
-                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                          </span>
-                      </div>
-                    </div>
-                  </div>
-                  `;
-                }
-                else if (item.assignment) {
-                  topicItemList = `
-                  <div class="card bg-white text-start mb-3">
-                    <div class="card-body p-0">
-                      <div class="section p-2 d-flex align-items-center justify-content-between"
-                      style="cursor: pointer;">
-                          <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
-                          <span class="d-flex gap-2 px-2">
-                            <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#updateTopicModal"><i class="fas fa-edit text-muted"></i></button>
-                            <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
-                          </span>
-                      </div>
-                    </div>
-                  </div>
-                  `;
-                }
-
-
-                topicItemsContainer.append(topicItemList);
-              });
-            },
-            error: function (xhr, status, error) {
-              console.log(xhr);
-              console.log(status);
-              console.log(error);
-              alert("Error: " + xhr.responseJSON.error);
-              // Handle the error and update the UI accordingly
-            },
-          });
+          fetchTopicsList();
 
 
 
@@ -863,7 +1194,407 @@
 
     });
 
+    $("#lesson-feature_image-btn").click(function () {
+      $("#mediaModal").data("target", "lesson_feature_image");
+      $('#mediaModal').modal('show');
+    });
+    
+    $("#lesson-attachments-btn").click(function () {
+      $("#mediaModal").data("target", "lesson_attachments");
+      $('#mediaModal').modal('show');
+    });
 
+    $("#assignment-attachments-btn").click(function () {
+      $("#mediaModal").data("target", "assignment_attachments");
+      $('#mediaModal').modal('show');
+    });
+
+    function remove_lesson_attachment(btn) {
+      console.log(btn)
+      const mediaId = $(btn).data("media-id");
+      console.log("removing", mediaId)
+      const option = $("#lesson-attachments option[value='" + mediaId + "']").first();
+      option.remove();
+      // Find the closest parent card and remove it
+      $(btn).closest(".col-md-4").remove();
+  };
+
+  function remove_assignment_attachment(btn) {
+    console.log(btn)
+    const mediaId = $(btn).data("media-id");
+    console.log("removing", mediaId)
+    const option = $("#assignment-attachments option[value='" + mediaId + "']").first();
+    option.remove();
+    // Find the closest parent card and remove it
+    $(btn).closest(".col-md-4").remove();
+};
+
+
+  quizTopicId = "";
+  activeQuizId = "";
+  const quizModalStep1 = document.getElementById("quizModalStep1");
+  quizModalStep1.addEventListener("show.bs.modal", (event) => {
+    const button = event.relatedTarget;
+    const selectedTopicId = button.getAttribute("data-topic-id");
+    quizTopicId = selectedTopicId;
+    //get state object
+    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+    activeQuizId = "";
+    console.log(topics_state)
+    console.log(item);
+    if (item) {
+      activeQuizId = item.quiz;
+      const quizId = item.quiz_data.id;
+      const quizTitle = item.quiz_data.title;
+      const quizSummary = item.quiz_data.summary;
+
+      $("#quiz-title").val(quizTitle);
+      $("#quiz-summary").val(quizSummary);
+    }
+    else {
+      $("#quiz-title").val("");
+      $("#quiz-summary").val("");
+    }
+  });
+
+  $("#quizFormStep1").submit(function () {
+    event.preventDefault();
+    let url = `/courses/create-quiz/${quizTopicId}/`;
+    if (activeQuizId) {
+      url = `/courses/update-quiz/${activeQuizId}/`;
+    }
+    let data = {
+      'title': $("#quiz-title").val(),
+      'summary': $("#quiz-summary").val(),
+    };
+    
+    $.ajax({
+      type: "POST",
+      url: url,
+      headers : { "X-CSRFToken": "{{ csrf_token }}" },
+      data: JSON.stringify(data),
+
+      success: function (data) {
+        console.log(data);
+        fetchTopicsList();
+
+        activeQuizId = data.data.id;
+        console.log("activeQuizId", activeQuizId)
+        console.log("topic item id", data.data.topic_item)
+        $("#back-quiz-step2").attr({
+          "data-topic-id": quizTopicId,
+          "data-topic-item-id": data.data.topic_item,
+        });
+        $("#save-quiz-step2").attr({
+          "data-topic-id": quizTopicId,
+          "data-topic-item-id": data.data.topic_item,
+        });
+        $("#quiz-add-question-btn").attr({
+          "data-quiz-id": activeQuizId,
+        });
+
+        fetchQuizQuestions(activeQuizId);
+
+        $("#quizModalStep1").modal("hide");
+        $("#quizModalStep2").modal("show");
+      },
+      error: function (xhr, status, error) {
+        console.error(error);
+      }
+    });
+
+  });
+
+  const quizModalStep3 = document.getElementById("quizModalStep3");
+  quizModalStep3.addEventListener("show.bs.modal", (event) => {
+    const button = event.relatedTarget;
+    const selectedTopicId = button.getAttribute("data-topic-id");
+    quizTopicId = selectedTopicId;
+    //get state object
+    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+    activeQuizId = "";
+    console.log(topics_state)
+    console.log(item);
+    if (item) {
+      activeQuizId = item.quiz;
+      const quizId = item.quiz_data.id;
+      
+      const quizTimeLimit = item.quiz_data.time_limit_hours;
+      const quizTimeLimitUnit = item.quiz_data.time_limit_unit;
+      const quizHideTimeDisplay = item.quiz_data.hide_time_display;
+      const quizFeedbackMode = item.quiz_data.feedback_mode;
+      const quizMaxAttemptsAllowed = item.quiz_data.max_attempts_allowed;
+      const quizPassingPercentage = item.quiz_data.passing_percentage;
+      const quizMaxQuestions = item.quiz_data.max_questions;
+      const quizAutoStart = item.quiz_data.auto_start;
+      const quizHideQuestionNo = item.quiz_data.hide_question_no;
+      const quizShortAnsCharLimit = item.quiz_data.short_ans_char_limit;
+      const quizLongAnsCharLimit = item.quiz_data.long_ans_char_limit;
+
+      if (quizTimeLimitUnit == "S") {
+        $("#quiz-time_limit").val(quizTimeLimit * 60 * 60);
+      }
+      else if (quizTimeLimitUnit == "M") {
+        $("#quiz-time_limit").val(quizTimeLimit * 60);
+      }
+      else if (quizTimeLimitUnit == "H") {
+        $("#quiz-time_limit").val(quizTimeLimit);
+      }
+      else if (quizTimeLimitUnit == "D") {
+        $("#quiz-time_limit").val(quizTimeLimit / 24);
+      }
+      else if (quizTimeLimitUnit == "W") {
+        $("#quiz-time_limit").val(quizTimeLimit / 24 / 7);
+      }
+
+
+      $("#quiz-time_limit_unit").val(quizTimeLimitUnit);
+      $("#quiz-hide_time_display").prop('checked', quizHideTimeDisplay);
+
+      if (quizFeedbackMode == "D") {
+        $("#quiz-defaultRadio").prop("checked", true);
+        $("#quiz-revealModeRadio").prop("checked", false);
+        $("#quiz-retryModeRadio").prop("checked", false);
+      }
+      else if (quizFeedbackMode == "R") {
+        $("#quiz-defaultRadio").prop("checked", false);
+        $("#quiz-revealModeRadio").prop("checked", true);
+        $("#quiz-retryModeRadio").prop("checked", false);
+      }
+      else if (quizFeedbackMode == "T") {
+        $("#quiz-defaultRadio").prop("checked", false);
+        $("#quiz-revealModeRadio").prop("checked", false);
+        $("#quiz-retryModeRadio").prop("checked", true);
+      }
+
+      $(`input[name="quiz-max_attempts_allowed-js"]`).val(quizMaxAttemptsAllowed);
+      $("#percentage-label").text(quizMaxAttemptsAllowed);
+      $("#quiz-passing_percentage").val(quizPassingPercentage);
+      $("#quiz-max_questions").val(quizMaxQuestions);
+      $("#quiz-auto_start").prop('checked', quizAutoStart);
+      $("#quiz-hide_question_no").prop('checked', quizHideQuestionNo);
+      $("#quiz-short_ans_char_limit").val(quizShortAnsCharLimit);
+      $("#quiz-long_ans_char_limit").val(quizLongAnsCharLimit);
+
+    }
+    else {
+      $("#quiz-time_limit").val("0");
+      $("#quiz-time_limit_unit").val("W");
+      $("#quiz-hide_time_display").prop('checked', false);
+      
+      $("#quiz-defaultRadio").prop("checked", true);
+      $("#quiz-revealModeRadio").prop("checked", false);
+      $("#quiz-retryModeRadio").prop("checked", false);
+
+      $(`input[name="quiz-max_attempts_allowed-js"]`).val("1");
+      $("#percentage-label").text("1");
+      $("#quiz-passing_percentage").val("80");
+      $("#quiz-max_questions").val("10");
+      $("#quiz-auto_start").prop('checked', false);
+      $("#quiz-hide_question_no").prop('checked', false);
+      $("#quiz-short_ans_char_limit").val("200");
+      $("#quiz-long_ans_char_limit").val("500");
+    }
+  
+  });
+
+  function secondsToHHMMSS(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const formattedHours = String(hours).padStart(2, '0');
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+    $("#save-quiz-step3").click(function() {
+      event.preventDefault();
+      const url = `/courses/update-quiz/${activeQuizId}/`;
+      let data = {
+        'title': $("#quiz-title").val(),
+        'summary': $("#quiz-summary").val(),
+        'time_limit_unit': $("#quiz-time_limit_unit").val(),
+        'hide_time_display': $("#quiz-hide_time_display").prop('checked'),
+        'feedback_mode': $("input[name='quiz-feedback_mode-js']:checked").val(),
+        'max_attempts_allowed': $(`input[name="quiz-max_attempts_allowed-js"]`).val(),
+        'passing_percentage': $("#quiz-passing_percentage").val(),
+        'max_questions': $("#quiz-max_questions").val(),
+        'auto_start': $("#quiz-auto_start").prop('checked'),
+        'hide_question_no': $("#quiz-hide_question_no").prop('checked'),
+        'short_ans_char_limit': $("#quiz-short_ans_char_limit").val(),
+        'long_ans_char_limit': $("#quiz-long_ans_char_limit").val(),
+      };
+
+      let quizTimeLimitUnit = data['time_limit_unit'];
+      if (quizTimeLimitUnit == "S") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val()); 
+      }
+      else if (quizTimeLimitUnit == "M") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60); 
+      }
+      else if (quizTimeLimitUnit == "H") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60); 
+      }
+      else if (quizTimeLimitUnit == "D") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24); 
+      }
+      else if (quizTimeLimitUnit == "W") {
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24 * 7); 
+      }
+      
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log(data);
+          fetchTopicsList();
+
+          $("#quizModalStep3").modal("hide");
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+    });
+
+    options_state = [];
+    correct_options_state = [];
+
+    quizId = "";
+    quizQuestionId = "";
+    const questionModal = document.getElementById("questionModal");
+    questionModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedQuizId = button.getAttribute("data-quiz-id");
+      const selectedQuestionId = button.getAttribute("data-question-id");
+      quizId = selectedQuizId;
+      quizQuestionId = selectedQuestionId;
+      //get state object
+      const question = questions_state.find(question => question.id == selectedQuestionId);
+      // set field values
+      if (question) {
+        options_state = question.options_data;
+        $("#question-title").val(question.title);
+        $("#question-answer_required").prop('checked', question.answer_required);
+        $("#question-randomize_options").prop('checked', question.randomize_options);
+        $("#question-points").val(question.points);
+        $("#question-display_points").prop('checked', question.display_points);
+        
+        selectQuestionType(question.type, question);
+
+      }
+      else {
+        $.ajax({
+          url: `/courses/create-question/${quizId}/`,
+          type: "POST",
+          headers: { "X-CSRFToken": "{{ csrf_token }}" },
+          data: JSON.stringify({title: "New Question"}),
+          success: function (data) {
+            console.log(data);
+            fetchQuizQuestions(quizId);
+            quizQuestionId = data.data.id;
+            options_state = [];
+            selectQuestionType("TF", {tf_correct_answer: true});
+            $("#question-title").val("New Question");
+            $("#question-answer_required").prop('checked', false);
+            $("#question-randomize_options").prop('checked', false);
+            $("#question-points").val("1.0");
+            $("#question-display_points").prop('checked', false);
+          },
+        });
+
+      }
+
+      // Question type widget
+      $("#questionTypesContainer").html('');
+
+      $.each(questionTypes, function (key, value) {
+        const icon = value.icon;
+        const title = value.title;
+        const color = value.color;
+        const code = value.code;
+        const type = title.toLowerCase().replace(/\s+/g, '_');
+
+        const questionTypeDiv = $("<div>").html(
+          `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${code}" class="questionTypeJS">
+            <div class="d-flex gap-3 align-items-center rounded border p-2">
+              <button class="btn btn-outline-primary border rounded" type="button"
+                style="background-color: ${color}; color: white;" aria-expanded="false">
+                <i class="${icon}"></i>
+              </button>
+              <small class="fw-bold text-muted">${title}</small>
+            </div>
+          </div>`
+        );
+
+        $("#questionTypesContainer").append(questionTypeDiv);
+      });
+
+      $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
+        const questionType = $(this).data("question-type");
+        const context = question ? question : {};
+        console.log("question, context", question, context)
+        selectQuestionType(questionType, context);
+      });
+
+    });
+
+    $("#questionForm").submit(function () {
+      event.preventDefault();
+      let url = `/courses/create-question/${quizId}/`;
+      if (quizQuestionId) {
+        url = `/courses/update-question/${quizQuestionId}/`;
+      }
+      let data = {
+        'type': $("#selectedTypeJS .questionTypeJS").data("question-type"),
+        'title': $("#question-title").val(),
+        'answer_required': $("#question-answer_required").prop('checked'),
+        'randomize_options': $("#question-randomize_options").prop('checked'),
+        'points': parseFloat($("#question-points").val()),
+        'display_points': $("#question-display_points").prop('checked'),
+        'correct_options': correct_options_state,
+      };
+      if (data["type"] == "TF") {
+        data["tf_correct_answer"] = $("#option-TF-true").prop('checked');
+      }
+      else if (data["type"] == "FB") {
+        data["fb_question_title"] = $("#question-FB-question_title").text();
+        data["fb_correct_answer"] = $("#question-FB-correct_answer").text();
+      }
+      
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log("Question saved")
+          console.log(data);
+          fetchQuizQuestions(quizId);
+          $("#questionModal").modal("hide");
+          $("#quizModalStep2").modal("show");
+
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+
+    });
+
+
+
+
+    
   </script>
 </body>
 
