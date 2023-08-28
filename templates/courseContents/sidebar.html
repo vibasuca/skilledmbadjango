@@ -1,0 +1,82 @@
+<style>
+    .activeSidebarTab {
+        background-color: #eee;
+    }
+</style>
+<div class="sidebar shadow-sm col-lg-4 p-0">
+    <div class="d-flex">
+        <div style="cursor: pointer;" class="sidebartab1 col-6 p-3 text-center">
+            <i class="fal fa-book-open text-primary"></i>
+            <small>
+                <a class="text-muted" href="#">Lesson List</a>
+            </small>
+        </div>
+        <div style="cursor: pointer;" class="sidebartab2 col-6 p-3 text-center">
+            <i class="fal fa-question-circle text-primary"></i>
+            <small>
+                <a class="text-muted" href="#">Browse Q&A</a>
+            </small>
+        </div>
+    </div>
+    <div class="sidebartab1Content">
+        <!--Topics card-->
+        <div class="card text-start border-0">
+            <div class="card-body p-0">
+                <div class="section p-3 text-primary d-flex align-items-center justify-content-between gap-3"
+                    style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                        <small style="font-weight: 500;">Section 1: What to Expect</small>
+                        <i class="fad fa-info-circle text-muted"></i>
+                    </div>
+                    <i class="fal fa-minus"></i>
+                </div>
+                <div class="collapse show" id="card1">
+                    <div class="mt-0">
+                        <!--content in here-->
+                        <table class="table table-striped m-0">
+                            <tbody>
+                                <tr>
+                                    <td class="py-3 px-4 text-muted"><i class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-white bg-primary"><i
+                                            class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-4 text-muted"><i
+                                            class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebartab2Content">
+        Q&A section
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".sidebartab2Content").hide();
+        $(".sidebartab2").addClass("activeSidebarTab");
+
+        $(".sidebartab2").click(function () {
+            $(".sidebartab1Content").hide();
+            $(".sidebartab2Content").show();
+            $(".sidebartab2").removeClass("activeSidebarTab");
+            $(".sidebartab1").addClass("activeSidebarTab");
+        });
+
+        $(".sidebartab1").click(function () {
+            $(".sidebartab2Content").hide();
+            $(".sidebartab1Content").show();
+            $(".sidebartab1").removeClass("activeSidebarTab");
+            $(".sidebartab2").addClass("activeSidebarTab");
+        });
+    });
+</script>

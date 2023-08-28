@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Skilled MBA{% endblock title %}
+
+{% block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/courseContent.css' %}" />
+
+<div class="container-fluid bg-white">
+    <div class="container py-4">
+        <!--page title-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="hover-underline-animation">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="hover-underline-animation">Courses</a>
+                </li>
+                <li class="breadcrumb-item">Art & Design</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div>
+        <div class="row">
+            {% include 'courseContents/sidebar.html' %}
+
+            <div class="content flex-fill position-relative col-lg-8">
+                <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
+                    style="left: 0px; width: 50px; background: white;">
+                    <i class="fas fa-exchange"></i>
+                </button>
+                <div class="container">
+                    <!--Content Header-->
+                    <div class="p-3 rounded" style="background: #031f42; color: white;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="far fa-home text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">
+                                    <a href="#" class="text-light">Go to course home</a>
+                                </small>
+                            </div>
+                            <div>
+                                <i class="far fa-question-circle text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">quiz name</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <div class="py-5">
+                        <h3 class="fw-bold">
+                            ‘ls’ Command in Unix/Linux
+                        </h3>
+                        <b>
+                            <span class="text-muted">Course: </span>Linux Foundation Course
+                        </b>
+                        <div class="card my-5 px-3 py-4 border-0" style="background-color: #f4f9ff;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between gap-5 flex-wrap">
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-muted">Questions</span>
+                                        <span>2</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-muted">Allowed Attemtps</span>
+                                        <span>10</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-muted">Attempted</span>
+                                        <span>8</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-muted">Attempts Remaining</span>
+                                        <span>5</span>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <span class="text-muted">Passing Grade</span>
+                                        <span>7</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body p-0 table-responsive border rounded">
+                            <table class="table m-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            #
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            Time
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            Questions
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            Total&nbsp;Marks
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            Earned&nbsp;Marks
+                                        </td>
+                                        <td scope="col" class="py-3 px-4 text-muted"
+                                            style="font-size: 15px; background: #f4f9ff;">
+                                            Pass&nbsp;Marks
+                                        </td>
+                                        <td class="py-3 px-4 text-muted" style="font-size: 15px; background: #f4f9ff;">
+                                            Result
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="p-4" style="font-size: 15px;">
+                                            1
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            August 27, 2023 4:15 pm
+                                        </td>
+                                        <td class="p-4" style="font-size: 15px;">1</td>
+                                        <td class="p-4" style="font-size: 15px;">1</td>
+                                        <td class="p-4" style="font-size: 15px;">0</td>
+                                        <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+                                        <td class="p-4" style="font-size: 15px;">
+                                            <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                                style="font-size: 12px; width: 80px;">Fail</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-4" style="font-size: 15px;">
+                                            1
+                                        </td>
+                                        <td class="p-4 text-muted" style="font-size: 15px;">
+                                            August 27, 2023 4:15 pm
+                                        </td>
+                                        <td class="p-4" style="font-size: 15px;">1</td>
+                                        <td class="p-4" style="font-size: 15px;">1</td>
+                                        <td class="p-4" style="font-size: 15px;">0</td>
+                                        <td class="p-4" style="font-size: 15px;">1.00 (80%)</td>
+                                        <td class="p-4" style="font-size: 15px;">
+                                            <div class="alert alert-danger py-1 px-2 mb-0 text-center"
+                                                style="font-size: 12px; width: 80px;">Fail</div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-start my-5">
+                            <button class="btn btn-primary px-3 py-2">
+                                Start Quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="backdrop"></div>
+    </div>
+</div>
+
+{% include 'loginPopup.html' %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    const windowWidth = $(window).width();
+
+    if (windowWidth < 992) {
+        $(".toggleSidebar").click(function () {
+            activate();
+        });
+        $(".backdrop").click(function () {
+            deactivate();
+        });
+        function activate() {
+            $(".sidebar").css("left", "0px");
+            $(".backdrop").show();
+        }
+        function deactivate() {
+            $(".sidebar").css("left", "-350px");
+            $(".backdrop").hide();
+        }
+    }
+
+    if (windowWidth > 992) {
+        $(".toggleSidebar").click(function () {
+            $(".sidebar").toggle();
+        });
+    }
+
+    $(document).ready(function () {
+        $("#close-login-cta").click(function () {
+            $(".login-cta").hide();
+        });
+    });
+
+    $(".section").click(function () {
+        $(this).children(".fal").toggleClass("fa-minus fa-plus");
+    });
+</script>
+{% endblock content %}

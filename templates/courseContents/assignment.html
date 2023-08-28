@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Skilled MBA{% endblock title %}
+
+{% block content %}
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/courseContent.css' %}" />
+
+<div class="container-fluid bg-white">
+    <div class="container py-4">
+        <!--page title-->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#" class="hover-underline-animation">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#" class="hover-underline-animation">Courses</a>
+                </li>
+                <li class="breadcrumb-item">Art & Design</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div>
+        <div class="row">
+            {% include 'courseContents/sidebar.html' %}
+
+            <div class="content flex-fill position-relative col-lg-8">
+                <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
+                    style="left: 0px; width: 50px; background: white;">
+                    <i class="fas fa-exchange"></i>
+                </button>
+                <div class="container">
+                    <!--Content Header-->
+                    <div class="p-3 rounded" style="background: #031f42; color: white;">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <i class="far fa-home text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">
+                                    <a href="#" class="text-light">Go to course home</a>
+                                </small>
+                            </div>
+                            <div>
+                                <i class="far fa-file-edit text-warning"></i>
+                                &nbsp;
+                                <small style="font-weight: 500;">assignment name</small>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Main Content-->
+                    <div class="py-5">
+                        <h5 class="mb-5">
+                            Exploring the ls Command in Unix/Linux
+                        </h5>
+
+                        <div class="d-flex py-4 my-4 justify-content-between border-top border-bottom gap-5 flex-wrap">
+                            <div class="d-flex gap-5">
+                                <div>
+                                    <span class="text-muted">Duration:</span>
+                                    <b>1 Week</b>
+                                </div>
+                                <div>
+                                    <span class="text-muted">Deadline:</span>
+                                    <b>5 Days, 21 Hours</b>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-5">
+                                <div>
+                                    <span class="text-muted">Total Marks:</span>
+                                    <b>10</b>
+                                </div>
+                                <div>
+                                    <span class="text-muted">Passing Mark:</span>
+                                    <b>5</b>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Main Content pre-start assignment-->
+                        {% comment %}
+                        <div class="mb-4 fw-bold">Description</div>
+                        <div class="text-muted mb-5">
+                            <p>In this assignment, you will explore the ‘ls’ command, a fundamental command in
+                                Unix/Linux operating systems. The ‘ls’ command is used to list files and directories in
+                                a directory. It provides various options and functionalities to customize the output.
+                                This assignment will help you become familiar with its usage and some of its most
+                                commonly used options.</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary px-3 py-2">
+                                Start Assignment Submit
+                            </button>
+                            <button class="btn btn-outline-primary px-3 py-2">
+                                Skip to Next
+                            </button>
+                        </div>
+                        {% endcomment %}
+
+                        <!--Main Content post-start assignment-->
+                        <div class="mb-4 fw-bold">Assignment Submission</div>
+
+                        <div class="form-outline mb-4">
+                            <label class="form-label my-2">Assignment answer form</label>
+                            <div id="editor">{{ course.description|safe }}</div>
+                        </div>
+
+                        <style>
+                            .ck-editor__editable_inline {
+                                min-height: 200px;
+                            }
+                        </style>
+
+                        <div class="d-flex justify-content-between">
+                            <button class="btn btn-primary px-3 py-2">
+                                Submit Assignment
+                            </button>
+                        </div>
+
+                        <hr class="my-5">
+
+                        <div class="mb-4 fw-bold">Description</div>
+                        <div class="text-muted mb-5">
+                            <p>In this assignment, you will explore the ‘ls’ command, a fundamental command in
+                                Unix/Linux operating systems. The ‘ls’ command is used to list files and directories in
+                                a directory. It provides various options and functionalities to customize the output.
+                                This assignment will help you become familiar with its usage and some of its most
+                                commonly used options.</p>
+                        </div>
+
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-primary px-3 py-2">
+                                Skip To Next
+                            </button>
+                        </div>
+                        <!--post-start assignment till here-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="backdrop"></div>
+    </div>
+</div>
+
+{% include 'loginPopup.html' %}
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+
+    ClassicEditor.create(document.querySelector("#editor"));
+
+    const windowWidth = $(window).width();
+
+    if (windowWidth < 992) {
+        $(".toggleSidebar").click(function () {
+            activate();
+        });
+        $(".backdrop").click(function () {
+            deactivate();
+        });
+        function activate() {
+            $(".sidebar").css("left", "0px");
+            $(".backdrop").show();
+        }
+        function deactivate() {
+            $(".sidebar").css("left", "-350px");
+            $(".backdrop").hide();
+        }
+    }
+
+    if (windowWidth > 992) {
+        $(".toggleSidebar").click(function () {
+            $(".sidebar").toggle();
+        });
+    }
+
+    $(document).ready(function () {
+        $("#close-login-cta").click(function () {
+            $(".login-cta").hide();
+        });
+    });
+
+    $(".section").click(function () {
+        $(this).children(".fal").toggleClass("fa-minus fa-plus");
+    });
+</script>
+{% endblock content %}

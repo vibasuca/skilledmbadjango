@@ -274,7 +274,7 @@
                 topic name.
               </small>
             </div>
-            
+
             <label class="form-label my-2 fw-bold">Feature Image</label>
             <div class="d-flex border rounded">
               <div class="p-3">
@@ -306,8 +306,8 @@
             <div class="form-outline mb-4">
               <label class="form-label my-2 fw-bold">Upload exercise files to the Lesson</label>
               <br>
-              
-              {% comment %} 
+
+              {% comment %}
               <div class="card my-3" style="max-width: 350px">
                 <div class="card-body">
                   <div class="d-flex flex-column">
@@ -331,7 +331,7 @@
                     <span style="color: #9e9e9e"> File size </span>
                   </div>
                 </div>
-              </div> 
+              </div>
               {% endcomment %}
 
               <div class="row mb-3" id="lessonAttachmentsPreviewContainer"></div>
@@ -428,17 +428,19 @@
             <div class="py-2" style="max-width: 350px">
               <div class="form-outline mb-3">
                 <label class="form-label my-2 fw-bold">Time Limit</label>
-                <input type="number" id="assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
-                  placeholder="Time Limit" value="0" min="0" />
+                <div class="d-flex gap-3 align-content-center">
+                  <input type="number" id="assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
+                    placeholder="Time Limit" value="0" min="0" />
 
-                <select
-                  class="course-difficulty-single form-select p-3 mb-2"
-                  id="assignment-time_limit_unit"
-                >
-                  <option value="W" selected>Weeks</option>
-                  <option value="D">Days</option>
-                  <option value="H">Hours</option>
-                </select>
+                  <select
+                    class="course-difficulty-single form-select p-3 mb-2"
+                    id="assignment-time_limit_unit"
+                  >
+                    <option value="W" selected>Weeks</option>
+                    <option value="D">Days</option>
+                    <option value="H">Hours</option>
+                  </select>
+                </div>
               </div>
             </div>
 
@@ -891,9 +893,9 @@
       console.log("CKEditor initialized");
       createLessonContentEditor = editor;
     })
-    .catch(error => {
+      .catch(error => {
         console.error(error);
-    });;
+      });;
 
       lessonTopicId = "";
       activeLessonId = "";
@@ -994,11 +996,11 @@
           'enable_preview': $("#lesson-enable_preview").prop('checked'),
         };
 
-        $.ajax({
-          type: "POST",
-          url: url,
-          headers : { "X-CSRFToken": "{{ csrf_token }}" },
-          data: JSON.stringify(data),
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
 
           success: function (data) {
             console.log(data);
@@ -1019,23 +1021,23 @@
 
 
 
-          },
-          error: function (xhr, status, error) {
-            console.error(error);
-          }
-        });
-
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
       });
-    
+
+    });
+
 
     const assignmentModal = document.getElementById("assignmentModal");
     ClassicEditor.create(document.querySelector("#assignment-summary-editor")).then(editor => {
       console.log("CKEditor initialized");
       createAssignmentSummaryEditor = editor;
     })
-    .catch(error => {
+      .catch(error => {
         console.error(error);
-    });
+      });
 
     assignmentTopicId = "";
     activeAssignmentId = "";
@@ -1156,11 +1158,11 @@
         time_limit = time_limit * 24 * 7;
       }
       data["time_limit"] = `${time_limit}:00:00`;
-      
+
       $.ajax({
         type: "POST",
         url: url,
-        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
         success: function (data) {

@@ -155,7 +155,8 @@ a {
 }
 
 .title-content {
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
+  background: #f4f9ff;
 }
 
 .breadcrumb a {
@@ -316,6 +317,24 @@ footer a:hover {
 
 .svg-container img {
   position: relative;
+}
+
+.underSvg {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+}
+
+.underSvg::after {
+  content: "";
+  background-image: url("https://edumall.thememove.com/main/wp-content/themes/edumall/assets/svg/headline-curve.svg");
+  background-repeat: repeat-x;
+  background-size: 91px 15px;
+  width: 91px;
+  height: 15px;
+  position: absolute;
+  bottom: -12px;
+  left: 20%;
 }
 
 .animate-me {

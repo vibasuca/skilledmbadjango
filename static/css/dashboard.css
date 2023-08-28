@@ -211,8 +211,8 @@ a {
   border-radius: 5px;
 }
 
-#sidebar > ul > li.active > i {
-  color: white;
+#sidebar > ul > li.active > a > i {
+  color: white !important;
 }
 
 .card {
