@@ -98,7 +98,7 @@
             <h3>Top <mark class="underSvg">Categories</mark></h3>
             <div class="row py-4">
                 <div class="col-lg-3 mb-4">
-                    <a href="#">
+                    <a href="{% url 'course_list' %}">
                         <div
                             class="top-category d-flex gap-3 align-items-center p-3 justify-content-start rounded border">
                             <i class="fal fa-torii-gate text-primary" style="font-size: 2.9em;"></i>
@@ -226,7 +226,9 @@
                                                 style="font-size: 12px;">Success</span>
                                         </div>
                                         <div class="my-1">
-                                            <b>New Course</b>
+                                            <a href="{% url 'course_details' %}" class="text-dark">
+                                                <b>New Course</b>
+                                            </a>
                                         </div>
                                         <small>
                                             <span class="text-primary">Author</span>
@@ -258,7 +260,9 @@
                                                 style="font-size: 12px;">Success</span>
                                         </div>
                                         <div class="my-1">
-                                            <b>New Course</b>
+                                            <a href="{% url 'course_details' %}" class="text-dark">
+                                                <b>New Course</b>
+                                            </a>
                                         </div>
                                         <small>
                                             <span class="text-primary">Author</span>
@@ -290,7 +294,9 @@
                                                 style="font-size: 12px;">Success</span>
                                         </div>
                                         <div class="my-1">
-                                            <b>New Course</b>
+                                            <a href="{% url 'course_details' %}" class="text-dark">
+                                                <b>New Course</b>
+                                            </a>
                                         </div>
                                         <small>
                                             <span class="text-primary">Author</span>
@@ -322,7 +328,9 @@
                                                 style="font-size: 12px;">Success</span>
                                         </div>
                                         <div class="my-1">
-                                            <b>New Course</b>
+                                            <a href="{% url 'course_details' %}" class="text-dark">
+                                                <b>New Course</b>
+                                            </a>
                                         </div>
                                         <small>
                                             <span class="text-primary">Author</span>
