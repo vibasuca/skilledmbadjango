@@ -440,7 +440,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
 
 
 class UpdateOptionSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Option

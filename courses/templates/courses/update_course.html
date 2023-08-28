@@ -1486,30 +1486,7 @@
         $("#question-points").val(question.points);
         $("#question-display_points").prop('checked', question.display_points);
         
-        if (question.type == "TF") {
-          selectQuestionType(question.type, question);
-        }
-        else if (question.type == "FB") {
-          context = {
-            fb_question_title: question.fb_question_title,
-            fb_correct_answer: question.fb_correct_answer,
-          }
-          selectQuestionType("FB", question);
-        }
-        else if (question.type == "SC") {
-          context = {
-            options: question.options,
-            options_data: question.options_data,
-          }
-          selectQuestionType("SC", question);
-        }
-        else if (question.type == "MC") {
-          context = {
-            options: question.options,
-            options_data: question.options_data,
-          }
-          selectQuestionType("MC", question);
-        }
+        selectQuestionType(question.type, question);
 
       }
       else {
