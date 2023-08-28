@@ -1,3 +1,4 @@
+import os
 from django import template
 
 register = template.Library()
@@ -31,3 +32,8 @@ def get_timedelta_minutes(value):
     total_hours = int(total_seconds // 3600)
     remaining_minutes = int((total_seconds % 3600) // 60)
     return remaining_minutes
+
+
+@register.filter
+def get_filename(value):
+    return os.path.basename(value)

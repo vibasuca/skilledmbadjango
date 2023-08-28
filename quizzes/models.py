@@ -74,7 +74,7 @@ class Quiz(models.Model):
     )
     hide_time_display = models.BooleanField(default=False)
     feedback_mode = models.CharField(
-        max_length=1, choices=FEEDBACK_MODE_CHOICES, default="I"
+        max_length=1, choices=FEEDBACK_MODE_CHOICES, default="D"
     )
     max_attempts_allowed = models.PositiveIntegerField(
         default=10,
@@ -166,6 +166,11 @@ class Option(models.Model):
     question = models.ForeignKey(
         Question, on_delete=models.CASCADE, related_name="options"
     )
+    type = models.CharField(
+        max_length=2,
+        choices=QUESTION_TYPE_CHOICES,
+        default="TF",
+    )
     title = models.CharField(max_length=255)  # Used by SC, MC, IM, IA Question Types
     image = models.ForeignKey(
         Media,
@@ -180,11 +185,9 @@ class Option(models.Model):
         default="T",
     )
     is_correct = models.BooleanField(default=False)
-    sort_order = models.PositiveIntegerField(default=0)
+    sort_order = models.PositiveIntegerField(default=0)  # Also used by O Question Type
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # For Ordering Question Type
-    o_correct_order = models.PositiveIntegerField(default=0)
     # For Matching Question Type
     m_matched_ans_title = models.CharField(max_length=255, blank=True)
 

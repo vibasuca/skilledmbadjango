@@ -61,7 +61,7 @@ class CreateLessonSerializer(serializers.ModelSerializer):
 
 
 class UpdateLessonSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Lesson
@@ -94,6 +94,8 @@ class UpdateLessonSerializer(serializers.ModelSerializer):
 
 
 class MediaSerializer(serializers.ModelSerializer):
+    size = serializers.SerializerMethodField()
+
     class Meta:
         model = Media
         fields = (
@@ -103,8 +105,12 @@ class MediaSerializer(serializers.ModelSerializer):
             "description",
             "alt_text",
             "caption",
+            "size",
             "created_at",
         )
+
+    def get_size(self, obj):
+        return obj.get_size()
 
 
 class LessonSerializer(serializers.ModelSerializer):
@@ -127,6 +133,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 class AssignmentSerializer(serializers.ModelSerializer):
     attachments_data = MediaSerializer(source="attachments", read_only=True, many=True)
+    time_limit_hours = serializers.SerializerMethodField()
 
     class Meta:
         model = Assignment
@@ -137,6 +144,7 @@ class AssignmentSerializer(serializers.ModelSerializer):
             "attachments",
             "attachments_data",
             "time_limit",
+            "time_limit_hours",
             "time_limit_unit",
             "total_points",
             "min_pass_points",
@@ -144,8 +152,17 @@ class AssignmentSerializer(serializers.ModelSerializer):
             "file_size_limit",
         )
 
+    def get_time_limit_hours(self, obj):
+        value = obj.time_limit
+        total_seconds = value.total_seconds()
+        total_hours = int(total_seconds // 3600)
+        remaining_minutes = int((total_seconds % 3600) // 60)
+        return total_hours
+
 
 class QuizSerializer(serializers.ModelSerializer):
+    time_limit_hours = serializers.SerializerMethodField()
+
     class Meta:
         model = Quiz
         fields = (
@@ -153,6 +170,7 @@ class QuizSerializer(serializers.ModelSerializer):
             "title",
             "summary",
             "time_limit",
+            "time_limit_hours",
             "time_limit_unit",
             "hide_time_display",
             "feedback_mode",
@@ -166,6 +184,13 @@ class QuizSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+
+    def get_time_limit_hours(self, obj):
+        value = obj.time_limit
+        total_seconds = value.total_seconds()
+        total_hours = int(total_seconds // 3600)
+        remaining_minutes = int((total_seconds % 3600) // 60)
+        return total_hours
 
 
 class ListTopicItemSerializer(serializers.ModelSerializer):
@@ -220,7 +245,7 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
 
 
 class UpdateAssignmentSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Assignment
@@ -273,7 +298,9 @@ class CreateQuizSerializer(serializers.ModelSerializer):
             "hide_question_no",
             "short_ans_char_limit",
             "long_ans_char_limit",
+            "topic_item",
         )
+        extra_kwargs = {"topic_item": {"read_only": True}}
 
     def create(self, validated_data):
         topic = self.context["topic"]
@@ -285,7 +312,7 @@ class CreateQuizSerializer(serializers.ModelSerializer):
 
 
 class UpdateQuizSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Quiz
@@ -305,7 +332,9 @@ class UpdateQuizSerializer(serializers.ModelSerializer):
             "short_ans_char_limit",
             "long_ans_char_limit",
             "sort_order",
+            "topic_item",
         )
+        extra_kwargs = {"topic_item": {"read_only": True}}
 
     def update(self, instance, validated_data):
         # Shift sort order of others if necessary
@@ -345,7 +374,8 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
 
 
 class UpdateQuestionSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
+    correct_options = serializers.ListField(child=serializers.IntegerField())
 
     class Meta:
         model = Question
@@ -363,9 +393,19 @@ class UpdateQuestionSerializer(serializers.ModelSerializer):
             "tf_true_first",
             "fb_question_title",
             "fb_correct_answer",
+            "correct_options",
         )
 
     def update(self, instance, validated_data):
+        # Update correct options
+        correct_options = validated_data.pop("correct_options", [])
+        if correct_options:
+            type = validated_data.get("type")
+            instance.options.filter(type=type).update(is_correct=False)
+            instance.options.filter(id__in=correct_options, type=type).update(
+                is_correct=True
+            )
+
         # Shift sort order of others if necessary
         sort_order = validated_data.get("sort_order")
         if sort_order:
@@ -382,7 +422,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
             "image",
             "display_format",
             "is_correct",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
         )
 
@@ -400,7 +440,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
 
 
 class UpdateOptionSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Option
@@ -411,7 +451,7 @@ class UpdateOptionSerializer(serializers.ModelSerializer):
             "display_format",
             "is_correct",
             "sort_order",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
         )
 
@@ -440,6 +480,30 @@ class ListOptionSerializer(serializers.ModelSerializer):
             "display_format",
             "is_correct",
             "sort_order",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
+        )
+
+
+class ListQuestionSerializer(serializers.ModelSerializer):
+    options_data = ListOptionSerializer(source="options", read_only=True, many=True)
+
+    class Meta:
+        model = Question
+        fields = (
+            "id",
+            "title",
+            "description",
+            "type",
+            "answer_required",
+            "randomize_options",
+            "points",
+            "display_points",
+            "sort_order",
+            "tf_correct_answer",
+            "tf_true_first",
+            "fb_question_title",
+            "fb_correct_answer",
+            "options",
+            "options_data",
         )

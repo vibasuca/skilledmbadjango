@@ -260,7 +260,9 @@ def create_quiz(request, topic_pk):
     serializer = CreateQuizSerializer(data=data, context={"topic": topic})
     if serializer.is_valid():
         quiz = serializer.save()
-        return JsonResponse({"message": "Quiz created successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Quiz created successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 
@@ -283,7 +285,9 @@ def update_quiz(request, pk):
     serializer = UpdateQuizSerializer(instance=quiz, data=data)
     if serializer.is_valid():
         quiz = serializer.save()
-        return JsonResponse({"message": "Quiz updated successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Quiz updated successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 
@@ -307,7 +311,9 @@ def create_question(request, quiz_pk):
     serializer = CreateQuestionSerializer(data=data, context={"quiz": quiz})
     if serializer.is_valid():
         question = serializer.save()
-        return JsonResponse({"message": "Question created successfully."})
+        return JsonResponse(
+            {"data": serializer.data, "message": "Question created successfully."}
+        )
     return JsonResponse({"error": serializer.errors}, status=400)
 
 
@@ -341,22 +347,8 @@ def list_questions(request, quiz_pk):
         Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
     )
     questions = quiz.questions.all()
-    questions = questions.values(
-        "id",
-        "title",
-        "description",
-        "type",
-        "answer_required",
-        "randomize_options",
-        "points",
-        "display_points",
-        "tf_correct_answer",
-        "tf_true_first",
-        "fb_question_title",
-        "fb_correct_answer",
-        "sort_order",
-    )
-    return JsonResponse({"data": list(questions)})
+    serializer = ListQuestionSerializer(questions, many=True)
+    return JsonResponse({"data": list(serializer.data)})
 
 
 @require_POST
