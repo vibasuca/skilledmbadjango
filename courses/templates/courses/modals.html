@@ -775,6 +775,12 @@
       console.log("context", context)
       if (context.options_data) {
         context.options_data.forEach(function(op){
+
+          if (op.type != "SC") {
+            return;
+          }
+
+
           string += `
           <div class="d-flex align-items-center mb-3 gap-3">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
@@ -991,119 +997,139 @@
     </div>
     `;
 
-    const optionForm_multipleChoice = `
-    <div class="p-5" id="optionform_multiple_choice" style="background: #e3e5eb;">
-      <div class="d-flex align-items-center mb-3 gap-3">
-        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
-          style="width: 97%;">
-          <small>
-            Choice 1
-          </small>
-          <span class="d-flex gap-2 align-items-center">
+    const optionForm_multipleChoice = function(context) {
+      let string = `
+      <div class="p-5" id="optionform_multiple_choice" style="background: #e3e5eb;">
+        <div id="question-MC-option-container">
+      `
+
+      if (context.options_data) {
+        context.options_data.forEach(function(op) {
+
+          if (op.type != "MC") {
+            return;
+          }
+
+          string += `
+          <div class="d-flex align-items-center mb-3 gap-3">
+            <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
+              style="width: 97%;">
+              <small>
+                ${op.title}
+              </small>
+              <span class="d-flex gap-2 align-items-center">
+          `
+
+
+          if (op.image) {
+            string += `
             <div class="optionImage mx-2"
-              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
-            <div class="form-check">
-              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="checkbox"
-                value="choice1">
-            </div>
-            <span class="fs-6">
-              <i class="fal fa-pen text-muted mx-2"></i>
-            </span>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
-              <i class="fal fa-grip-vertical text-muted mx-2"></i>
-            </span>
-          </span>
-        </div>
-        <span class="fs-6 SortHandle" style="cursor: grab;">
-          <i class="far fa-trash-alt text-muted"></i>
-        </span>
-      </div>
-      <div class="d-flex align-items-center mb-3 gap-3">
-        <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
-          style="width: 97%;">
-          <small>
-            Choice 2
-          </small>
-          <span class="d-flex gap-2 align-items-center">
-            <div class="optionImage mx-2"
-              style="background-image: url('https://images.unsplash.com/photo-1692651955510-8b334577cff7');"></div>
-            <div class="form-check">
-              <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="checkbox"
-                value="choice2">
-            </div>
-            <span class="fs-6">
-              <i class="fal fa-pen text-muted mx-2"></i>
-            </span>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
-              <i class="fal fa-grip-vertical text-muted mx-2"></i>
-            </span>
-          </span>
-        </div>
-        <span class="fs-6 SortHandle" style="cursor: grab;">
-          <i class="far fa-trash-alt text-muted"></i>
-        </span>
-      </div>
-      <br>
-      <div class="d-grid gap-2">
-        <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
-          data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
-          option</button>
-      </div>
-      <br>
-      <div class="collapse" id="addOptionBtnJS">
-        <div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
-            <input type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
-              placeholder="Quiz Title" required />
-          </div>
-          <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
-          <div class="d-flex border rounded bg-white mb-3">
-            <div class="p-3">
-              <div class="thumbnail-preview" id="thumbnailPreview">
-                <img class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
-              </div>
-            </div>
-            <div class="p-3 d-flex align-items-center" style="width: 100%">
-              <span>
-                <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
-                <p>File Support:</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mediaModal">
-                  Upload Image
+              style="background-image: url('${op.image_data.file}');"></div>
+            `
+          }
+
+          string += `
+                <div class="form-check">
+                  <input class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="checkbox"
+                    name="question-MC-option-is_correct-js" value="${op.id}" ${op.is_correct ? "checked" : ""}>
+                </div>
+                <button class="collapse-toggle-options-js fs-6 btn btn-outline-primary border rounded-circle" type="button" 
+                  data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
+                    <i class="fal fa-pen"></i>
                 </button>
+                <span class="fs-6 SortHandle" style="cursor: grab;">
+                  <i class="fal fa-grip-vertical text-muted mx-2"></i>
+                </span>
               </span>
             </div>
+            <span class="fs-6 SortHandle" style="cursor: grab;">
+              <i class="far fa-trash-alt text-muted"></i>
+            </span>
           </div>
-          <div class="form-outline mb-3">
-            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
-            <div class="d-flex justify-content-around">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyText">
-                <label class="form-check-label fw-bold" for="onlyText">
-                  Only Text
-                </label>
+          `
+
+
+
+
+
+
+
+        });
+      }
+
+
+      return string + `
+        
+              
+              
+        <br>
+        <div class="d-grid gap-2">
+          <button class="btn btn-light p-3" type="button" data-bs-toggle="collapse"
+            data-bs-target="#addOptionBtnJS" aria-expanded="false" aria-controls="addOptionBtnJS">Add an
+            option</button>
+        </div>
+        </div> <!-- end of question-MC-option-container -->
+        <br>
+        <div class="collapse" id="addOptionBtnJS">
+          <div>
+            <form id="question-MC-option-form">
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold" style="font-size: 15px;">Answer title</label>
+              <input id="question-MC-option-title" type="text" style="background-color: #f8f8f8;" class="form-control p-3 mb-2 border-0"
+                placeholder="Title" required />
+            </div>
+            <label class="form-label my-2 fw-bold" style="font-size: 15px;">Upload Image</label>
+            <div class="d-flex border rounded bg-white mb-3">
+              <div class="p-3">
+                <div class="d-none">
+                  <select id="question-option-image"></select>
+                </div>
+                <div class="thumbnail-preview" id="thumbnailPreview">
+                  <img id="question-option-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                </div>
               </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="onlyImage" checked>
-                <label class="form-check-label fw-bold" for="onlyImage">
-                  Only Image
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="bothTextImage" checked>
-                <label class="form-check-label fw-bold" for="bothTextImage">
-                  Text & Image both
-                </label>
+              <div class="p-3 d-flex align-items-center" style="width: 100%">
+                <span>
+                  <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
+                  <p>File Support:</p>
+                  <button type="button" class="btn btn-primary" id="question-option-image-btn-js">
+                    Upload Image
+                  </button>
+                </span>
               </div>
             </div>
-            <button type="button" class="btn btn-primary mt-5">
-              Update Answer
-            </button>
+            <div class="form-outline mb-3">
+              <label class="form-label my-2 fw-bold" style="font-size: 15px;">Display format for options</label>
+              <div class="d-flex justify-content-around">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="question-MC-option-display_format" value="T" id="question-MC-option-onlyText" checked>
+                  <label class="form-check-label fw-bold" for="question-MC-option-onlyText">
+                    Only Text
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="question-MC-option-display_format" value="I" id="question-MC-option-onlyImage">
+                  <label class="form-check-label fw-bold" for="question-MC-option-onlyImage">
+                    Only Image
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="question-MC-option-display_format" value="B" id="question-MC-option-bothTextImage">
+                  <label class="form-check-label fw-bold" for="question-MC-option-bothTextImage">
+                    Text & Image both
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary mt-5">
+                Update Answer
+              </button>
+            </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
-    `;
+      `;
+    }
 
     const optionForm_fillBlanks = function(context) {
       let string = `
@@ -1427,6 +1453,7 @@
             });
           }
 
+
           $("input[name='question-SC-option-is_correct-js']").on("change", function(){
             const correct_op = $("input[name='question-SC-option-is_correct-js']:checked").val();
             console.log("correct_op", correct_op)
@@ -1540,7 +1567,127 @@
           break;
 
         case "MC":
-          $("#typeOptionsJS").html(optionForm_multipleChoice);
+          $("#typeOptionsJS").html(optionForm_multipleChoice(context));
+
+
+          function fetchOptions() {
+            fetchQuizQuestions(activeQuizId, function(){
+              const question = questions_state.find(question => question.id == quizQuestionId);
+              options_state = question.options_data;
+              showOptions("MC", question);
+            });
+          }
+
+
+          $("input[name='question-MC-option-is_correct-js']").on("change", function(){
+            const correct_op = $("input[name='question-MC-option-is_correct-js']:checked").val();
+            console.log("correct_op", correct_op)
+            correct_options_state = $("input[name='question-MC-option-is_correct-js']:checked").map(function() {
+              return parseInt($(this).val());
+            }).get();
+          });
+
+
+          $("#question-option-image-btn-js").click(function(){
+            $("#mediaModal").attr("data-target", "option_image");
+            $('#mediaModal').modal('show');
+          });
+
+
+          // Collapse event
+          $('.collapse-toggle-options-js').on('click', function(event) {
+            const button = event.currentTarget;
+            const option_id = button.getAttribute("data-option-id");
+            console.log("option_id, activeOptionId", option_id, activeOptionId)
+            activeOptionId = option_id;
+            const option = options_state.find(option => option.id == option_id);
+            console.log("option", option)
+            if (option){
+                $("#question-MC-option-title").val(option.title);
+                if (option.display_format == "T") {
+                  $("#question-MC-option-onlyText").prop("checked", true);
+                  $("#question-MC-option-onlyImage").prop("checked", false);
+                  $("#question-MC-option-bothTextImage").prop("checked", false);
+                }
+                else if (option.display_format == "I") {
+                  $("#question-MC-option-onlyText").prop("checked", false);
+                  $("#question-MC-option-onlyImage").prop("checked", true);
+                  $("#question-MC-option-bothTextImage").prop("checked", false);
+                }
+                else if (option.display_format == "B") {
+                  $("#question-MC-option-onlyText").prop("checked", false);
+                  $("#question-MC-option-onlyImage").prop("checked", false);
+                  $("#question-MC-option-bothTextImage").prop("checked", true);
+                }
+                if (option.image){
+                  var selectElement = $('#question-option-image');
+                  selectElement.empty(); // Remove all child nodes
+                  var newOption = $('<option>', {
+                      value: option.image,
+                      text: "",
+                      selected: true // Set the selected attribute to keep it selected
+                  });
+                  selectElement.append(newOption);
+                  $("#question-option-image-preview").attr("src", option.image_data.file);
+                }
+                else {
+                  var selectElement = $('#question-option-image');
+                  selectElement.empty(); // Remove all child nodes
+                  $("#question-option-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+                }
+              }
+              else {
+                $("#question-MC-option-title").val("");
+                $("#question-MC-option-onlyText").prop("checked", true);
+                $("#question-MC-option-onlyImage").prop("checked", false);
+                $("#question-MC-option-bothTextImage").prop("checked", false);
+                var selectElement = $('#question-option-image');
+                selectElement.empty(); // Remove all child nodes
+                $("#question-option-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+            }
+
+            
+
+          });
+
+          $("#question-MC-option-form").submit(function(){
+            event.preventDefault();
+            let url = "";
+            const option = options_state.find(option => option.id == activeOptionId);
+            if (option) {
+              url = "/courses/update-option/" + activeOptionId + "/";
+            }
+            else {
+              url = "/courses/create-option/" + quizQuestionId + "/";
+            }
+
+            let data = {
+              "type": "MC",
+              "title": $("#question-MC-option-title").val(),
+              "image": $("#question-option-image").val(),
+              "display_format": $("input[name='question-MC-option-display_format']:checked").val(),
+              "sort_order": option ? option.sort_order : null,
+            }
+
+            $.ajax({
+              type: "POST",
+              url: url,
+              data: JSON.stringify(data),
+              headers : { "X-CSRFToken": "{{ csrf_token }}" },
+              success: function(response) {
+                $("#addOptionBtnJS").collapse("hide");
+                fetchOptions();
+              },
+              error: function(error) {
+                console.log(error);
+              }
+            });
+
+
+
+          });
+
+
           break;
 
         case "FB":

@@ -1503,6 +1503,13 @@
           }
           selectQuestionType("SC", question);
         }
+        else if (question.type == "MC") {
+          context = {
+            options: question.options,
+            options_data: question.options_data,
+          }
+          selectQuestionType("MC", question);
+        }
 
       }
       else {
