@@ -712,7 +712,7 @@
     // ]
     questions_state = [];
 
-    function fetchQuizQuestions(quizID) {
+    function fetchQuizQuestions(quizID, success_handler) {
       const url = `/courses/list-questions/${quizID}/`;
       $.ajax({
         type: "GET",
@@ -758,6 +758,12 @@
               </div>
             `);
           }
+
+
+          if (success_handler) {
+            success_handler();
+          }
+
         },
         error: function (xhr, status, error) {
           console.log(xhr);
@@ -1457,7 +1463,8 @@
       });
     });
 
-
+    options_state = [];
+    correct_options_state = [];
 
     quizId = "";
     quizQuestionId = "";
@@ -1472,45 +1479,69 @@
       const question = questions_state.find(question => question.id == selectedQuestionId);
       // set field values
       if (question) {
+        options_state = question.options_data;
         $("#question-title").val(question.title);
         $("#question-answer_required").prop('checked', question.answer_required);
         $("#question-randomize_options").prop('checked', question.randomize_options);
         $("#question-points").val(question.points);
         $("#question-display_points").prop('checked', question.display_points);
         
-        if (question.type == "TF") {
-          selectQuestionType(question.type);
-          if (question.tf_correct_answer) {
-            $("#option-TF-true").prop('checked', true);
-            $("#option-TF-false").prop('checked', false);
-          }
-          else {
-            $("#option-TF-true").prop('checked', false);
-            $("#option-TF-false").prop('checked', true);
-          }
-        }
-        else if (question.type == "FB") {
-          context = {
-            fb_question_title: question.fb_question_title,
-            fb_correct_answer: question.fb_correct_answer,
-          }
-          selectQuestionType("FB", context);
-        }
-
+        selectQuestionType(question.type, question);
 
       }
       else {
-        selectQuestionType("TF");
-        $("#question-title").val("");
-        $("#question-answer_required").prop('checked', false);
-        $("#question-randomize_options").prop('checked', false);
-        $("#question-points").val("1.0");
-        $("#question-display_points").prop('checked', false);
-
-        $("#option-TF-true").prop('checked', true);
-        $("#option-TF-false").prop('checked', false);
+        $.ajax({
+          url: `/courses/create-question/${quizId}/`,
+          type: "POST",
+          headers: { "X-CSRFToken": "{{ csrf_token }}" },
+          data: JSON.stringify({title: "New Question"}),
+          success: function (data) {
+            console.log(data);
+            fetchQuizQuestions(quizId);
+            quizQuestionId = data.data.id;
+            options_state = [];
+            selectQuestionType("TF", {tf_correct_answer: true});
+            $("#question-title").val("New Question");
+            $("#question-answer_required").prop('checked', false);
+            $("#question-randomize_options").prop('checked', false);
+            $("#question-points").val("1.0");
+            $("#question-display_points").prop('checked', false);
+          },
+        });
 
       }
+
+      // Question type widget
+      $("#questionTypesContainer").html('');
+
+      $.each(questionTypes, function (key, value) {
+        const icon = value.icon;
+        const title = value.title;
+        const color = value.color;
+        const code = value.code;
+        const type = title.toLowerCase().replace(/\s+/g, '_');
+
+        const questionTypeDiv = $("<div>").html(
+          `<div data-bs-toggle="collapse" href="#questionTypeSelect" style="width: 200px; cursor: pointer;" data-question-type="${code}" class="questionTypeJS">
+            <div class="d-flex gap-3 align-items-center rounded border p-2">
+              <button class="btn btn-outline-primary border rounded" type="button"
+                style="background-color: ${color}; color: white;" aria-expanded="false">
+                <i class="${icon}"></i>
+              </button>
+              <small class="fw-bold text-muted">${title}</small>
+            </div>
+          </div>`
+        );
+
+        $("#questionTypesContainer").append(questionTypeDiv);
+      });
+
+      $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
+        const questionType = $(this).data("question-type");
+        const context = question ? question : {};
+        console.log("question, context", question, context)
+        selectQuestionType(questionType, context);
+      });
 
     });
 
@@ -1527,6 +1558,7 @@
         'randomize_options': $("#question-randomize_options").prop('checked'),
         'points': parseFloat($("#question-points").val()),
         'display_points': $("#question-display_points").prop('checked'),
+        'correct_options': correct_options_state,
       };
       if (data["type"] == "TF") {
         data["tf_correct_answer"] = $("#option-TF-true").prop('checked');

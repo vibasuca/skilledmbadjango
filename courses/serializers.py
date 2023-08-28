@@ -375,6 +375,7 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
 
 class UpdateQuestionSerializer(serializers.ModelSerializer):
     sort_order = serializers.IntegerField(min_value=1, required=False)
+    correct_options = serializers.ListField(child=serializers.IntegerField())
 
     class Meta:
         model = Question
@@ -392,9 +393,19 @@ class UpdateQuestionSerializer(serializers.ModelSerializer):
             "tf_true_first",
             "fb_question_title",
             "fb_correct_answer",
+            "correct_options",
         )
 
     def update(self, instance, validated_data):
+        # Update correct options
+        correct_options = validated_data.pop("correct_options", [])
+        if correct_options:
+            type = validated_data.get("type")
+            instance.options.filter(type=type).update(is_correct=False)
+            instance.options.filter(id__in=correct_options, type=type).update(
+                is_correct=True
+            )
+
         # Shift sort order of others if necessary
         sort_order = validated_data.get("sort_order")
         if sort_order:
@@ -411,7 +422,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
             "image",
             "display_format",
             "is_correct",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
         )
 
@@ -429,7 +440,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
 
 
 class UpdateOptionSerializer(serializers.ModelSerializer):
-    sort_order = serializers.IntegerField(min_value=1)
+    sort_order = serializers.IntegerField(min_value=1, required=False)
 
     class Meta:
         model = Option
@@ -440,7 +451,7 @@ class UpdateOptionSerializer(serializers.ModelSerializer):
             "display_format",
             "is_correct",
             "sort_order",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
         )
 
@@ -469,7 +480,7 @@ class ListOptionSerializer(serializers.ModelSerializer):
             "display_format",
             "is_correct",
             "sort_order",
-            "o_correct_order",
+            "type",
             "m_matched_ans_title",
         )
 

@@ -273,7 +273,7 @@
                 size: $(this).data("media-size"),
             }
 
-            if (["thumbnail", "lesson_feature_image"].includes($("#mediaModal").data("target"))) {
+            if (["thumbnail", "lesson_feature_image", "option_image"].includes($("#mediaModal").data("target"))) {
                 clearSelection();
                 selectedMedia.push(media);
                 $(this).append(`
@@ -687,6 +687,24 @@
                     `;
                     $("#assignmentAttachmentsPreviewContainer").append(attachmentPreview);
                 }
+
+                clearSelection();
+                $("#mediaModal").modal("hide");
+            }
+            else if (target == "option_image") {
+                var selectElement = $('#question-option-image');
+                selectElement.empty(); // Remove all child nodes
+
+                // Create a new option element and set the selected attribute
+                var newOption = $('<option>', {
+                    value: selectedMedia[0].id,
+                    text: "",
+                    selected: true // Set the selected attribute to keep it selected
+                });
+
+                // Append the new option element to the select element
+                selectElement.append(newOption);
+                $("#question-option-image-preview").attr("src", selectedMedia[0].file);
 
                 clearSelection();
                 $("#mediaModal").modal("hide");

@@ -157,44 +157,6 @@
                     mediaListContainer.empty();
 
                     mediaList.forEach(function (media, index) {
-                        //const listItem = $("<li>").addClass("list-group-item");
-                        //const mediaLink = $("<a>").attr("href", media.file).text(media.title);
-                        //const mediaDate = $("<span>").text(new Date(media.created_at).toLocaleString());
-
-                        //listItem.append(mediaLink);
-                        //listItem.append(" - ");
-                        //listItem.append(mediaDate);
-                        //mediaListContainer.append(listItem);
-                        {% comment %}
-                        const listItem = $("<li>").addClass("list-group-item");
-                        const mediaLink = $("<a>").attr("href", media.file).text(media.file);
-
-                        listItem.append(mediaLink);
-
-                        if (media.title) {
-                            listItem.append("<br>");
-                            listItem.append(`Title: ${media.title}`);
-                        }
-                        if (media.description) {
-                            listItem.append("<br>");
-                            listItem.append(`Description: ${media.description}`);
-                        }
-                        if (media.alt_text) {
-                            listItem.append("<br>");
-                            listItem.append(`Alt Text: ${media.alt_text}`);
-                        }
-                        if (media.caption) {
-                            listItem.append("<br>");
-                            listItem.append(`Caption: ${media.caption}`);
-                        }
-                        if (media.created_at) {
-                            listItem.append("<br>");
-                            listItem.append(`Created At: ${new Date(media.created_at).toLocaleString()}`);
-                        }
-
-                        mediaListContainer.append(listItem);
-                        {% endcomment %}
-
                         const mediaItem = `
                             <div class="card">
                                 <div class="card-header" id="heading${index}">
