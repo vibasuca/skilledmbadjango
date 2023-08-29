@@ -375,7 +375,9 @@ class CreateQuestionSerializer(serializers.ModelSerializer):
 
 class UpdateQuestionSerializer(serializers.ModelSerializer):
     sort_order = serializers.IntegerField(min_value=1, required=False)
-    correct_options = serializers.ListField(child=serializers.IntegerField())
+    correct_options = serializers.ListField(
+        child=serializers.IntegerField(), required=False
+    )
 
     class Meta:
         model = Question
