@@ -50,8 +50,7 @@
     <div class="container flex justify-content-between">
       <div class="d-flex gap-4 align-items-center">
         <a href="/">
-          <img class="brandingLogo" src="{% static 'images/logo.png' %}"
-            loading="lazy"/>
+          <img class="brandingLogo" src="{% static 'images/logo.png' %}" loading="lazy" />
         </a>
         <div class="d-none d-lg-block" style="width: 1px; height: 40px; background: lightgray"></div>
         <div class="dropdown d-none d-lg-block" style="z-index: 99 !important;">
@@ -226,7 +225,8 @@
           <small>Don't have an account yet? <a data-bs-toggle="modal" data-bs-target="#registerModal" href="#">Sign up
               for free</a></small>
         </div>
-        <form class="regForm mt-3" style="width: 100%;" method="POST" id="ajax-login-form-js" action="{% url 'ajax_login' %}">
+        <form class="regForm mt-3" style="width: 100%;" method="POST" id="ajax-login-form-js"
+          action="{% url 'ajax_login' %}">
 
 
           {% csrf_token %}
@@ -245,11 +245,48 @@
           <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
           {% endif %}
 
-          <p class="small mt-5"><a class="text-muted" href="{% url 'account_reset_password' %}">Forgot
+          <p class="small mt-5"><a class="text-muted" data-bs-toggle="modal" href="#forgotModal">Forgot
               password?</a></p>
 
           <div class="d-grid gap-2">
             <button class="btn btn-primary btn-lg" type="submit">Login</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Forget Password -->
+<div class="modal fade" id="forgotModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: transparent !important;">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5">
+        <div class="text-center d-flex flex-column gap-3">
+          <h2>Lost your password?</h2>
+          <small>Please enter your username or email address. You will receive a link to create a new password via email.</small>
+        </div>
+        <form class="regForm mt-3" style="width: 100%;" method="POST" id="ajax-login-form-js"
+          action="{% url 'ajax_login' %}">
+
+
+          {% csrf_token %}
+
+          <div class="form-outline mb-4">
+            <label class="form-label my-2" for="email">Username or Email address</label>
+            <input type="text" name="login" class="form-control form-control-lg" />
+          </div>
+
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary btn-lg" type="submit">Reset Password</button>
           </div>
 
         </form>
@@ -271,7 +308,8 @@
           <small>Already have an account? <a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log
               in</a></small>
         </div>
-        <form class="regForm pt-5" style="width: 100%;" method="POST" id="ajax-signup-form-js" action="{% url 'ajax_signup' %}">
+        <form class="regForm pt-5" style="width: 100%;" method="POST" id="ajax-signup-form-js"
+          action="{% url 'ajax_signup' %}">
           {% csrf_token %}
 
           {% comment %}
@@ -344,65 +382,65 @@
 
 {% block extra_scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
   $(document).ready(function () {
     // Handle login form submission
     $('#ajax-login-form-js').submit(function (event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function (response) {
-                // Handle successful login
-                console.log(response.message);
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-              console.log(xhr);
-              console.log(status);
-              console.log(error);
-              alert("Login failed");
-                // Handle login error
-                if (xhr.status === 400) {
-                    const errors = xhr.responseJSON.errors;
-                    // Display errors in the form
-                    // For example:
-                    // $('#login-error-message').text(errors.__all__[0]);
-                }
-            }
-        });
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function (response) {
+          // Handle successful login
+          console.log(response.message);
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+          console.log(status);
+          console.log(error);
+          alert("Login failed");
+          // Handle login error
+          if (xhr.status === 400) {
+            const errors = xhr.responseJSON.errors;
+            // Display errors in the form
+            // For example:
+            // $('#login-error-message').text(errors.__all__[0]);
+          }
+        }
+      });
     });
 
     // Handle signup form submission
     $('#ajax-signup-form-js').submit(function (event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function (response) {
-                // Handle successful signup
-                console.log(response.message);
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-              console.log(xhr);
-              console.log(status);
-              console.log(error);
-              alert("Signup failed");
-                // Handle signup error
-                if (xhr.status === 400) {
-                    const errors = xhr.responseJSON.errors;
-                    // Display errors in the form
-                    // For example:
-                    // $('#signup-error-message').text(errors.__all__[0]);
-                }
-            }
-        });
+      event.preventDefault();
+      $.ajax({
+        type: 'POST',
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        success: function (response) {
+          // Handle successful signup
+          console.log(response.message);
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          console.log(xhr);
+          console.log(status);
+          console.log(error);
+          alert("Signup failed");
+          // Handle signup error
+          if (xhr.status === 400) {
+            const errors = xhr.responseJSON.errors;
+            // Display errors in the form
+            // For example:
+            // $('#signup-error-message').text(errors.__all__[0]);
+          }
+        }
+      });
     });
-});
+  });
 </script>
 {% endblock extra_scripts %}
