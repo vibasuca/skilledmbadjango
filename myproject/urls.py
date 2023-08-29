@@ -21,6 +21,7 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from allauth.account.views import LoginView, SignupView
 from users import views as users_views
+from courses import views as courses_views
 
 admin.site.site_header = "Skilled MBA Administration"
 admin.site.site_title = "Skilled MBA Administration"
@@ -33,7 +34,7 @@ urlpatterns = [
     path("ajax-signup/", users_views.AjaxSignupView.as_view(), name="ajax_signup"),
     path(
         "",
-        TemplateView.as_view(template_name="index.html"),
+        courses_views.index,
         name="index",
     ),
     path(
