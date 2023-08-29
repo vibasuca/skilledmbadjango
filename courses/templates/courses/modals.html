@@ -733,38 +733,80 @@
 
   const optionForm_trueFalse = function(context) {
     console.log("tf_correct_answer", context.tf_correct_answer)
-   return `
-   <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
-     <div class="bg-white border mb-3 p-3 rounded d-flex align-items-center justify-content-between">
-       <small>
-         True
-       </small>
-       <span class="d-flex gap-2 align-items-center">
-         <div class="form-check">
-           <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-             name="trueFalse" value="true" ${context.tf_correct_answer ? "checked" : ""}>
-         </div>
-         <span class="fs-6 SortHandle" style="cursor: grab;">
-           <i class="fal fa-grip-vertical text-muted mx-2"></i>
-         </span>
-       </span>
-     </div>
-     <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between">
-       <small>
-         False
-       </small>
-       <span class="d-flex gap-2 align-items-center">
-         <div class="form-check">
-           <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
-             name="trueFalse" value="false" ${context.tf_correct_answer ? "" : "checked"}>
-         </div>
-         <span class="fs-6 SortHandle" style="cursor: grab;">
-           <i class="fal fa-grip-vertical text-muted mx-2"></i>
-         </span>
-       </span>
-     </div>
+    let string = `
+    <div class="p-5" id="optionform_true_/_false" style="background: #e3e5eb;">
+     <div id="question-option-container">`;
+
+    if (context.tf_true_first){
+      
+      string += `<div class="bg-white border my-2 p-3 rounded d-flex align-items-center justify-content-between" data-question-id="${context.id}" data-option="true">
+        <small>
+          True
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="true" ${context.tf_correct_answer ? "checked" : ""}>
+          </div>
+          <span class="fs-6 option-SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+      <div class="bg-white border my-2 p-3 rounded d-flex align-items-center justify-content-between" data-question-id="${context.id}" data-option="false">
+        <small>
+          False
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="false" ${context.tf_correct_answer ? "" : "checked"}>
+          </div>
+          <span class="fs-6 option-SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+      </div>
    </div>
    `; 
+    }
+    else {
+      string += `
+      <div class="bg-white border my-2 p-3 rounded d-flex align-items-center justify-content-between" data-question-id="${context.id}" data-option="false">
+        <small>
+          False
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input id="option-TF-false" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="false" ${context.tf_correct_answer ? "" : "checked"}>
+          </div>
+          <span class="fs-6 option-SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+      <div class="bg-white border my-2 p-3 rounded d-flex align-items-center justify-content-between" data-question-id="${context.id}" data-option="true">
+        <small>
+          True
+        </small>
+        <span class="d-flex gap-2 align-items-center">
+          <div class="form-check">
+            <input id="option-TF-true" class="form-check-input" style="border: 1px solid rgb(0, 119, 255);" type="radio"
+              name="trueFalse" value="true" ${context.tf_correct_answer ? "checked" : ""}>
+          </div>
+          <span class="fs-6 option-SortHandle" style="cursor: grab;">
+            <i class="fal fa-grip-vertical text-muted mx-2"></i>
+          </span>
+        </span>
+      </div>
+      </div>
+   </div>
+   `; 
+    }
+   return string;
+
   }
 
     const optionForm_singleChoice = function(context) {
@@ -782,7 +824,7 @@
 
 
           string += `
-          <div class="d-flex align-items-center mb-3 gap-3">
+          <div class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -807,12 +849,12 @@
                   data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                     <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -905,7 +947,7 @@
           }
           
           string += `
-          <div class="d-flex align-items-center mb-3 gap-3">
+          <div class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -926,12 +968,12 @@
                   data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                     <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -1027,7 +1069,7 @@
           }
 
           string += `
-          <div class="d-flex align-items-center mb-3 gap-3">
+          <div class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -1053,12 +1095,12 @@
                   data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                     <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -1231,7 +1273,7 @@
           }
 
           string += `
-          <div class="d-flex align-items-center mb-3 gap-3">
+          <div class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -1252,12 +1294,12 @@
                   data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                     <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -1330,7 +1372,7 @@
 
 
           string += `
-          <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
+          <div id="optionsList" class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -1351,12 +1393,12 @@
                     data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                       <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -1433,7 +1475,7 @@
           }
 
           string += `
-          <div id="optionsList" class="d-flex align-items-center mb-3 gap-3">
+          <div id="optionsList" class="d-flex align-items-center mb-3 gap-3" data-option-id="${op.id}">
             <div class="bg-white border p-3 rounded d-flex align-items-center justify-content-between"
               style="width: 97%;">
               <small>
@@ -1454,12 +1496,12 @@
                   data-bs-toggle="collapse" data-bs-target="#addOptionBtnJS" aria-expanded="false" data-option-id="${op.id}">
                     <i class="fal fa-pen"></i>
                 </button>
-                <span class="fs-6 SortHandle" style="cursor: grab;">
+                <span class="fs-6 option-SortHandle" style="cursor: grab;">
                   <i class="fal fa-grip-vertical text-muted mx-2"></i>
                 </span>
               </span>
             </div>
-            <span class="fs-6 SortHandle" style="cursor: grab;">
+            <span class="fs-6" style="cursor: grab;">
               <i class="far fa-trash-alt text-muted"></i>
             </span>
           </div>
@@ -1564,6 +1606,53 @@
       switch (type) {
         case "TF":
           $("#typeOptionsJS").html(optionForm_trueFalse(context));
+
+          // Sortable options
+          const sortableOptions = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
+
+                      const question_id = item.getAttribute("data-question-id");
+                      const option = item.getAttribute("data-option");
+                      console.log("question id, option", question_id, option)
+                      const question = questions_state.find((ques) => ques.id == question_id);
+                      console.log("question", question)
+
+                      const tf_true_first = ((option == "true" && newIndex == 0) || (option == "false" && newIndex == 1))? true : false;
+
+                      let url = `/courses/update-question/${question_id}/`;
+                      let data = {...question, "tf_true_first": tf_true_first,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted tf option")
+                          console.log(response);
+                          question.tf_true_first = tf_true_first;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
+
           break;
 
         case "SC":
@@ -1682,6 +1771,58 @@
 
 
           });
+
+
+          // Sortable options
+          const sortableOptionsSC = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
+
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
+
+
+
+
+
+
+
+
           break;
 
         case "MC":
@@ -1795,6 +1936,51 @@
 
 
           });
+
+
+
+          // Sortable options
+          const sortableOptionsMC = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
+
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
           break;
@@ -1921,7 +2107,48 @@
           });
 
 
+          // Sortable options
+          const sortableOptionsIM = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
 
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
 
@@ -2021,7 +2248,48 @@
 
           });
 
+          // Sortable options
+          const sortableOptionsIA = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
 
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
 
@@ -2133,7 +2401,48 @@
           });
 
 
+          // Sortable options
+          const sortableOptionsO = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
 
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
           break;
@@ -2250,7 +2559,48 @@
           });
 
 
+          // Sortable options
+          const sortableOptionsM = new Sortable(
+                  document.querySelector(`#question-option-container`),
+                  {
+                    handle: '.option-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
 
+                      const option_id = item.getAttribute("data-option-id");
+                      console.log("sorting option id", option_id)
+                      const option = options_state.find((o) => o.id == option_id);
+                      console.log("option", option)
+
+                      let url = `/courses/update-option/${option_id}/`;
+                      let data = {...option, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          option.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
 

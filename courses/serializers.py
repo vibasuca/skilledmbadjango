@@ -434,7 +434,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         question = self.context["question"]
-        sort_order = question.options.count() + 1
+        sort_order = question.options.filter(type=validated_data["type"]).count() + 1
         instance = self.Meta.model.objects.create(
             question=question, sort_order=sort_order, **validated_data
         )
@@ -465,7 +465,11 @@ class UpdateOptionSerializer(serializers.ModelSerializer):
         # Shift sort order of others if necessary
         sort_order = validated_data.get("sort_order")
         if sort_order:
-            shift_items(sort_order, instance, instance.question.options)
+            shift_items(
+                sort_order,
+                instance,
+                instance.question.options.filter(type=validated_data["type"]),
+            )
         return super().update(instance, validated_data)
 
 
