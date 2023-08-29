@@ -3,6 +3,37 @@
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
+<style>
+    .list-thumbnail-container {
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(218, 218, 218);
+        cursor: pointer;
+        min-width: 150px;
+        width: 400px;
+        max-width: 100%;
+    }
+
+    .grid-thumbnail-container {
+        flex: 0 0 200px;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(218, 218, 218);
+        cursor: pointer;
+        min-width: 150px;
+        width: 100%;
+    }
+
+    .image-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+    }
+</style>
 <!--page title-->
 <div class="container-fluid title-content">
     <div class="py-4" style="font-size: 14px;">
@@ -466,6 +497,376 @@
                                         <small>
                                             <b class="text-muted">Free</b>
                                         </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--filters-->
+        <div class="container animate-me">
+            <div class="d-flex gap-4 flex-column-reverse flex-lg-row">
+                <div class="col-lg-3">
+                    <div class="card border-0 mb-4" style="background-color: #f9f9fb;">
+                        <div class="card-body">
+                            <div class="fs-6 mb-3" style="font-weight: 500;">Filter By Category</div>
+                            <div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>category name (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0 mb-4" style="background-color: #f9f9fb;">
+                        <div class="card-body">
+                            <div class="fs-6 mb-4" style="font-weight: 500;">Filter By</div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">INSTRUCTOR</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>Admin (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">PRICE</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" type="radio" style="padding: 10px"
+                                                name="pricefilter">
+                                            <label class="form-check-label text-muted">
+                                                <small>All (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" type="radio" style="padding: 10px"
+                                                name="pricefilter">
+                                            <label class="form-check-label text-muted">
+                                                <small>Free (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" type="radio" style="padding: 10px"
+                                                name="pricefilter">
+                                            <label class="form-check-label text-muted">
+                                                <small>Paid (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">LEVEL</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>All Levels (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>Beginner (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>Intermediate (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">LANGUAGE</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>English (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">RATING</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <span>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                            </span>
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>(45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <span>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                            </span>
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>(45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <span>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                            </span>
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>(45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <span>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                            </span>
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>(45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <span>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #808080; font-size: 14px"></i>
+                                            </span>
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>(45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <div class="my-3" style="font-size: 14px;">DURATION</div>
+                                <ul class="list-group">
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>Less than 2 hours (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item bg-transparent border-0">
+                                        <div class="d-flex gap-3 align-items-center">
+                                            <input class="form-check-input" style="padding: 10px" type="checkbox"
+                                                value="">
+                                            <label class="form-check-label text-muted" for="flexCheckDefault">
+                                                <small>3 - 6 hours (45)</small>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="d-flex justify-content-between mb-5">
+                        <b class="text-muted" style="font-weight: 400;">
+                            We found <span style="font-weight: 600;">23</span> courses available for you
+                        </b>
+                        <div class="d-flex gap-3 align-items-center">
+                            <span>see</span>
+                            <button class="btn p-0 border-0"><i class="fas fa-th"></i></button>
+                            <button class="btn p-0 border-0"><i class="fa fa-bars"></i></button>
+                        </div>
+                    </div>
+                    <!--list view-->
+                    <div>
+                        <div class="list-view-card mb-4">
+                            <div class="card border-0">
+                                <div class="card-body p-0">
+                                    <div class="d-flex flex-column flex-md-row">
+                                        <div class="list-thumbnail-container rounded" style="height: 200px;">
+                                            <div class="image-background"
+                                                style="background-image: url('https://placehold.co/150x250');">
+                                                <div class="position-absolute p-2" style="top: 0px;">
+                                                    <span class="badge" style="background: #0071dc;">-15%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="py-lg-0 px-md-3 px-0 p-3 d-flex flex-wrap" style="width: 100%">
+                                            <div style="width: 100%;">
+                                                <div class="d-flex justify-content-between">
+                                                    <small class="text-primary">Decision-Making Alignment</small>
+                                                    <div class="text-muted">
+                                                        <b class="fs-5">₹100</b><b>.96</b>
+                                                        <s class="text-muted">₹00</s><s class="text-muted">.00</s>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex flex-column gap-2">
+                                                    <b>Course name loremm ipsum</b>
+                                                    <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
+                                                        <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8 Hours</span>
+                                                        <span><i
+                                                                class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
+                                                    </div>
+                                                    <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor sit
+                                                        amet, consectetur adipisicing elit. Obcaecati illo, aliquid quae
+                                                        dolore laboriosam debitis corporis</p>
+                                                    <div class="d-flex gap-3">
+                                                        <button class="btn btn-primary px-4">
+                                                            Get Enrolled
+                                                        </button>
+                                                        <button class="btn btn-light border">
+                                                            <i class="fal fa-heart text-primary"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <!--grid view-->
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-5">
+                            <div class="grid-view-card">
+                                <div class="card border-0">
+                                    <div class="card-body p-0">
+                                        <div class="d-flex flex-column">
+                                            <div class="grid-thumbnail-container rounded" style="height: 200px;">
+                                                <div class="image-background"
+                                                    style="background-image: url('https://placehold.co/150x250');">
+                                                    <div class="position-absolute p-2" style="top: 0px;">
+                                                        <span class="badge" style="background: #0071dc;">-15%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="py-3 d-flex flex-wrap" style="width: 100%">
+                                                <div style="width: 100%;">
+                                                    <div class="d-flex justify-content-between">
+                                                        <small class="text-primary">Decision-Making Alignment</small>
+                                                        <div class="text-muted">
+                                                            <b class="fs-5">₹100</b><b>.96</b>
+                                                            <s class="text-muted">₹00</s><s class="text-muted">.00</s>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-column gap-2">
+                                                        <b>Course name loremm ipsum</b>
+                                                        <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
+                                                            <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8
+                                                                Hours</span>
+                                                            <span><i
+                                                                    class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
+                                                        </div>
+                                                        <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor
+                                                            sit amet, consectetur adipisicing elit. Obcaecati illo,
+                                                            aliquid quae dolore laboriosam debitis corporis</p>
+                                                        <div class="d-flex gap-3">
+                                                            <button class="btn btn-primary px-4">
+                                                                Get Enrolled
+                                                            </button>
+                                                            <button class="btn btn-light border">
+                                                                <i class="fal fa-heart text-primary"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
