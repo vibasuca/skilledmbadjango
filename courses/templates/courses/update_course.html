@@ -628,11 +628,11 @@
 
                   if (item.lesson != null) {
                     topicItemList = `
-                    <div class="card bg-white text-start mb-3">
+                    <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
+                            <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
@@ -644,11 +644,11 @@
                   }
                   else if (item.assignment) {
                     topicItemList = `
-                    <div class="card bg-white text-start mb-3">
+                    <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
+                            <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
@@ -660,11 +660,11 @@
                   }
                   else if (item.quiz) {
                     topicItemList = `
-                    <div class="card bg-white text-start mb-3">
+                    <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
                         style="cursor: pointer;">
-                            <span class="fs-6"><i class="fal fa-bars"></i>&nbsp;&nbsp;Quiz: ${item.quiz_data.title}</span>
+                            <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Quiz: ${item.quiz_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#quizModalStep1" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
                               <button type="button" class="btn btn-sm"><i class="fas fa-trash-alt text-muted"></i></button>
@@ -677,6 +677,70 @@
 
                   topicItemsContainer.append(topicItemList);
                 });
+
+
+
+                // Sortable Topic item list
+                const sortableTopicList = new Sortable(
+                  document.querySelector(`.topicItems-${topic.id}`),
+                  {
+                    handle: '.topic-item-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
+
+                      const topic_id = item.getAttribute("data-topic-id");
+                      const topic_item_id = item.getAttribute("data-topic-item-id");
+                      console.log("topic id and topic item id", topic_id, topic_item_id)
+                      const topic = topics_state.find((topic) => topic.topic_id == topic_id);
+                      console.log("topic", topic)
+                      const topic_item = topic.topic_items.find((item) => item.id == topic_item_id);
+                      console.log("topic_item", topic_item)
+
+                      let url = "";
+                      let data = {};
+                      if (topic_item.lesson){
+                        url = `/courses/update-lesson/${topic_item.lesson}/`;
+                        data = {...topic_item.lesson_data, sort_order: newIndex + 1,};
+                      }
+                      else if (topic_item.assignment){
+                        url = `/courses/update-assignment/${topic_item.assignment}/`;
+                        data = {...topic_item.assignment_data, sort_order: newIndex + 1,};
+                      }
+                      else if (topic_item.quiz){
+                        url = `/courses/update-quiz/${topic_item.quiz}/`;
+                        data = {...topic_item.quiz_data, sort_order: newIndex + 1,};
+                      }
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted topic item")
+                          console.log(response);
+                          topic_item.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
+
+
+
+
               },
               error: function (xhr, status, error) {
                 console.log(xhr);
@@ -729,8 +793,8 @@
           $("#quiz-questions-container").empty();
           for (const question of response.data) {
             $("#quiz-questions-container").append(`
-              <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
-                <span class="fs-6 SortHandle" style="cursor: grab;"><i
+              <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between" data-quiz-id="${quizID}" data-question-id="${question.id}">
+                <span class="fs-6 question-SortHandle" style="cursor: grab;"><i
                     class="fal fa-grip-vertical text-muted mx-2"></i>&nbsp;&nbsp;${question.title}
                   </span>
                 <span class="d-flex gap-3 align-items-center">
@@ -760,6 +824,50 @@
               </div>
             `);
           }
+
+          // Sortable Quiz Questions
+          const sortableQuizQuestions = new Sortable(
+                  document.querySelector(`#quiz-questions-container`),
+                  {
+                    handle: '.question-SortHandle',
+                    animation: 150,
+                    onEnd: function (evt) {
+                      const item = evt.item;
+                      console.log("item", item)
+                      const newIndex = evt.newIndex;
+                      console.log("index", newIndex)
+
+                      const quiz_id = item.getAttribute("data-quiz-id");
+                      const question_id = item.getAttribute("data-question-id");
+                      console.log("quiz id and question id", quiz_id, question_id)
+                      const question = questions_state.find((ques) => ques.id == question_id);
+                      console.log("question", question)
+
+                      let url = `/courses/update-question/${question_id}/`;
+                      let data = {...question, sort_order: newIndex + 1,};
+                      $.ajax({
+                        url: url,
+                        type: "POST",
+                        headers: {
+                          "X-CSRFToken": "{{ csrf_token }}",
+                        },
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                          console.log("successfuly sorted question")
+                          console.log(response);
+                          question.sort_order = newIndex + 1;
+                        },
+                        error: function (xhr, status, error) {
+                          console.log(xhr);
+                          console.log(status);
+                          console.log(error);
+                          // Handle the error and update the UI accordingly
+                        },
+                      });
+
+                    },
+                  }
+                );
 
 
           if (success_handler) {
@@ -1502,7 +1610,7 @@
             fetchQuizQuestions(quizId);
             quizQuestionId = data.data.id;
             options_state = [];
-            selectQuestionType("TF", {tf_correct_answer: true});
+            selectQuestionType("TF", data.data);
             $("#question-title").val("New Question");
             $("#question-answer_required").prop('checked', false);
             $("#question-randomize_options").prop('checked', false);

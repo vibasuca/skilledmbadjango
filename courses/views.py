@@ -10,6 +10,14 @@ from .models import *
 from .serializers import *
 
 
+def index(request):
+    published = Course.objects.exclude(approved_at=None)
+    context = {
+        "courses": published,
+    }
+    return render(request, "index.html", context)
+
+
 def list_courses_published(request):
     published = request.user.courses.exclude(approved_at=None)
     pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
@@ -69,6 +77,7 @@ def update_course(request, pk):
                 instance.published_at = timezone.now()
             else:
                 instance.published_at = None
+            instance.approved_at = None
             instance.save()
 
             return redirect("courses:update_course", pk=instance.pk)
