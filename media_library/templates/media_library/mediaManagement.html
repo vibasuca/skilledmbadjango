@@ -254,6 +254,133 @@
                         mediaListContainer.append(mediaGridList);
 
                     });
+
+
+                    // On selecting image
+                    $(document).on("click", ".image-grid-item", function () {
+                        const media = {
+                            id: $(this).data("media-id"),
+                            file: $(this).data("media-url"),
+                            title: $(this).data("media-title"),
+                            description: $(this).data("media-description"),
+                            alt_text: $(this).data("media-alt-text"),
+                            caption: $(this).data("media-caption"),
+                            size: $(this).data("media-size"),
+                        }
+
+                        if (["thumbnail", "lesson_feature_image", "option_image"].includes($("#mediaModal").data("target"))) {
+                            clearSelection();
+                            selectedMedia.push(media);
+                            $(this).append(`
+                            <div class="selection-overlay">
+                                <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                    <i class="fal fa-check-square m-0"></i>
+                                </div>
+                            </div>
+                            `)
+                            $("#use-media-btn-js").prop("disabled", false);
+                        }
+                        else if (["attachments", "lesson_attachments", "assignment_attachments"].includes($("#mediaModal").data("target"))) {
+                            if (isCtrlKeyDown) {
+                                // If media is already selected the unselect it
+                                if (selectedMedia.some(obj => obj.id === media.id)) {
+                                    selectedMedia = selectedMedia.filter(function (item) {
+                                        return item.id !== media.id
+                                    })
+                                    $(this).find(".selection-overlay").remove();
+                                }
+                                else { // If media is not selected then select it
+                                    selectedMedia.push(media);
+                                    $(this).append(`
+                                    <div class="selection-overlay">
+                                        <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                            <i class="fal fa-check-square m-0"></i>
+                                        </div>
+                                    </div>
+                                    `)
+                                }
+                                if (selectedMedia.length > 0) {
+                                    $("#use-media-btn-js").prop("disabled", false);
+                                }
+                                else {
+                                    $("#use-media-btn-js").prop("disabled", true);
+                                }
+                            }
+                            else if (isShiftKeyDown) {
+                                // select all media between last selected media and current media
+                                if (selectedMedia.length > 0) {
+                                    const lastSelectedMedia = selectedMedia[selectedMedia.length - 1];
+                                    const lastSelectedMediaIndex = $(`.image-grid-item[data-media-id=${lastSelectedMedia.id}]`).data("media-index");
+                                    const currentMediaIndex = $(this).data("media-index");
+                                    const start = Math.min(lastSelectedMediaIndex, currentMediaIndex);
+                                    const end = Math.max(lastSelectedMediaIndex, currentMediaIndex);
+                                    for (let i = start; i <= end; i++) {
+                                        const element = $(`#gridItem${i}`);
+                                        const newMedia = {
+                                            id: element.data("media-id"),
+                                            file: element.data("media-url"),
+                                            title: element.data("media-title"),
+                                            description: element.data("media-description"),
+                                            alt_text: element.data("media-alt-text"),
+                                            caption: element.data("media-caption"),
+                                            size: element.data("media-size"),
+                                        }
+                                        if (!selectedMedia.includes(newMedia)) {
+                                            selectedMedia.push(newMedia);
+                                            element.append(`
+                                            <div class="selection-overlay">
+                                                <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                                    <i class="fal fa-check-square m-0"></i>
+                                                </div>
+                                            </div>
+                                            `)
+                                        }
+                                    }
+                                    if (selectedMedia.length > 0) {
+                                        $("#use-media-btn-js").prop("disabled", false);
+                                    }
+                                    else {
+                                        $("#use-media-btn-js").prop("disabled", true);
+                                    }
+                                }
+                                else {
+                                    // normal media selection
+                                    clearSelection();
+                                    selectedMedia.push(media);
+                                    $(this).append(`
+                                    <div class="selection-overlay">
+                                        <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                            <i class="fal fa-check-square m-0"></i>
+                                        </div>
+                                    </div>
+                                    `)
+                                    $("#use-media-btn-js").prop("disabled", false);
+                                }
+                            }
+                            else {
+                                clearSelection();
+                                selectedMedia.push(media);
+                                $(this).append(`
+                                <div class="selection-overlay">
+                                    <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
+                                        <i class="fal fa-check-square m-0"></i>
+                                    </div>
+                                </div>
+                                `)
+                                $("#use-media-btn-js").prop("disabled", false);
+                            }
+                        }
+
+                        $("#media-form-container-js").removeClass("d-none");
+                        $("#sidebar-form").html(generateFormHtml(media));
+                        $("#thumbnailPreviewJS").attr("src", media.file);
+                    });
+
+
+
+
+
+
                 },
                 error: function (xhr, status, error) {
                     alert("Error fetching media list.");
@@ -261,125 +388,7 @@
             });
         }
 
-        // On selecting image
-        $(document).on("click", ".image-grid-item", function () {
-            const media = {
-                id: $(this).data("media-id"),
-                file: $(this).data("media-url"),
-                title: $(this).data("media-title"),
-                description: $(this).data("media-description"),
-                alt_text: $(this).data("media-alt-text"),
-                caption: $(this).data("media-caption"),
-                size: $(this).data("media-size"),
-            }
 
-            if (["thumbnail", "lesson_feature_image", "option_image"].includes($("#mediaModal").data("target"))) {
-                clearSelection();
-                selectedMedia.push(media);
-                $(this).append(`
-                <div class="selection-overlay">
-                    <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                        <i class="fal fa-check-square m-0"></i>
-                    </div>
-                </div>
-                `)
-                $("#use-media-btn-js").prop("disabled", false);
-            }
-            else if (["attachments", "lesson_attachments", "assignment_attachments"].includes($("#mediaModal").data("target"))) {
-                if (isCtrlKeyDown) {
-                    // If media is already selected the unselect it
-                    if (selectedMedia.some(obj => obj.id === media.id)) {
-                        selectedMedia = selectedMedia.filter(function (item) {
-                            return item.id !== media.id
-                        })
-                        $(this).find(".selection-overlay").remove();
-                    }
-                    else { // If media is not selected then select it
-                        selectedMedia.push(media);
-                        $(this).append(`
-                        <div class="selection-overlay">
-                            <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                                <i class="fal fa-check-square m-0"></i>
-                            </div>
-                        </div>
-                        `)
-                    }
-                    if (selectedMedia.length > 0) {
-                        $("#use-media-btn-js").prop("disabled", false);
-                    }
-                    else {
-                        $("#use-media-btn-js").prop("disabled", true);
-                    }
-                }
-                else if (isShiftKeyDown) {
-                    // select all media between last selected media and current media
-                    if (selectedMedia.length > 0) {
-                        const lastSelectedMedia = selectedMedia[selectedMedia.length - 1];
-                        const lastSelectedMediaIndex = $(`.image-grid-item[data-media-id=${lastSelectedMedia.id}]`).data("media-index");
-                        const currentMediaIndex = $(this).data("media-index");
-                        const start = Math.min(lastSelectedMediaIndex, currentMediaIndex);
-                        const end = Math.max(lastSelectedMediaIndex, currentMediaIndex);
-                        for (let i = start; i <= end; i++) {
-                            const element = $(`#gridItem${i}`);
-                            const newMedia = {
-                                id: element.data("media-id"),
-                                file: element.data("media-url"),
-                                title: element.data("media-title"),
-                                description: element.data("media-description"),
-                                alt_text: element.data("media-alt-text"),
-                                caption: element.data("media-caption"),
-                                size: element.data("media-size"),
-                            }
-                            if (!selectedMedia.includes(newMedia)) {
-                                selectedMedia.push(newMedia);
-                                element.append(`
-                                <div class="selection-overlay">
-                                    <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                                        <i class="fal fa-check-square m-0"></i>
-                                    </div>
-                                </div>
-                                `)
-                            }
-                        }
-                        if (selectedMedia.length > 0) {
-                            $("#use-media-btn-js").prop("disabled", false);
-                        }
-                        else {
-                            $("#use-media-btn-js").prop("disabled", true);
-                        }
-                    }
-                    else {
-                        // normal media selection
-                        clearSelection();
-                        selectedMedia.push(media);
-                        $(this).append(`
-                        <div class="selection-overlay">
-                            <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                                <i class="fal fa-check-square m-0"></i>
-                            </div>
-                        </div>
-                        `)
-                        $("#use-media-btn-js").prop("disabled", false);
-                    }
-                }
-                else {
-                    clearSelection();
-                    selectedMedia.push(media);
-                    $(this).append(`
-                    <div class="selection-overlay">
-                        <div class="tick-mark p-0 d-flex justify-content-center align-items-center">
-                            <i class="fal fa-check-square m-0"></i>
-                        </div>
-                    </div>
-                    `)
-                    $("#use-media-btn-js").prop("disabled", false);
-                }
-            }
-
-            $("#media-form-container-js").removeClass("d-none");
-            $("#sidebar-form").html(generateFormHtml(media));
-            $("#thumbnailPreviewJS").attr("src", media.file);
-        });
 
         function generateFormHtml(media) {
             return `
@@ -543,7 +552,8 @@
 
         $("#use-media-btn-js").click(function () {
             console.log("using media", selectedMedia);
-            const target = $("#mediaModal").data("target");
+            const target = $("#mediaModal").attr("data-target");
+            console.log("for target", target)
             if (target == "thumbnail") {
                 var selectElement = $('#thumbnail-input-js');
                 selectElement.empty(); // Remove all child nodes
