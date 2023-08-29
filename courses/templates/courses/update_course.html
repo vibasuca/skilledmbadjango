@@ -35,8 +35,7 @@
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-3 gap-lg-4">
         <div class="p-3 d-flex">
-          <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}"
-            loading="lazy" />
+          <img class="brandingLogo m-auto" src="{% static 'images/logo.png' %}" loading="lazy" />
         </div>
         <button class="saveDraft btn btn-outline-primary px-lg-3 py-lg-2" type="submit" form="courseForm">
           <i class="fal fa-save"></i>
@@ -139,7 +138,8 @@
   <!---------------- Modals ---------------->
 
   <!-- Media Managerment -->
-  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true" style="z-index: 99999999999">
+  <div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true"
+    style="z-index: 99999999999">
     <div class="modal-dialog modal-fullscreen">
       <div class="modal-content">
         <div class="modal-header border-0">
@@ -255,7 +255,8 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Lesson Name</label>
-              <input type="text" id="lesson-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="lesson-title" name="title" class="form-control p-3 mb-2" value="test title"
+                required />
               <small class="text-muted">
                 <i class="fal fa-info-circle"></i> Lesson titles are displayed
                 publicly wherever required.
@@ -279,7 +280,8 @@
             <div class="d-flex border rounded">
               <div class="p-3">
                 <div class="thumbnail-preview" id="thumbnailPreview">
-                  <img id="lesson-feature-image-preview" class="img-fluid" src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
+                  <img id="lesson-feature-image-preview" class="img-fluid"
+                    src="{% static 'images/thumbnail-placeholder.svg' %}" alt="thumbnail" />
                 </div>
               </div>
               <div class="p-3 d-flex align-items-center" style="width: 100%">
@@ -287,7 +289,7 @@
                   <b id="imageDimensions">Allowed Size: 700x430 pixels</b>
                   <p>File Support:</p>
                   <select class="d-none" id="lesson-feature_image"></select>
-                  <button type="button" class="btn btn-primary"  id="lesson-feature_image-btn">
+                  <button type="button" class="btn btn-primary" id="lesson-feature_image-btn">
                     Upload Image
                   </button>
                 </span>
@@ -335,7 +337,7 @@
               {% endcomment %}
 
               <div class="row mb-3" id="lessonAttachmentsPreviewContainer"></div>
-              
+
               <select class="d-none" id="lesson-attachments" name="attachments" multiple>
               </select>
               <button class="btn btn-outline-primary p-3" id="lesson-attachments-btn" type="button">
@@ -379,7 +381,8 @@
           <div class="modal-body px-4">
             <div class="form-outline mb-3">
               <label class="form-label my-2 fw-bold">Assignment Name</label>
-              <input type="text" id="assignment-title" name="title" class="form-control p-3 mb-2" value="test title" required />
+              <input type="text" id="assignment-title" name="title" class="form-control p-3 mb-2" value="test title"
+                required />
             </div>
 
             <div class="form-outline mb-4">
@@ -432,10 +435,7 @@
                   <input type="number" id="assignment-time_limit" name="time_limit" class="form-control p-3 mb-2"
                     placeholder="Time Limit" value="0" min="0" />
 
-                  <select
-                    class="course-difficulty-single form-select p-3 mb-2"
-                    id="assignment-time_limit_unit"
-                  >
+                  <select class="course-difficulty-single form-select p-3 mb-2" id="assignment-time_limit_unit">
                     <option value="W" selected>Weeks</option>
                     <option value="D">Days</option>
                     <option value="H">Hours</option>
@@ -540,7 +540,7 @@
     //    },
     //    ...
     // ]
-    
+
     topics_state = [];
 
     // Function to fetch and display the topics list
@@ -712,6 +712,7 @@
     //        type: "TF",
     //      },
     // ]
+
     questions_state = [];
 
     function fetchQuizQuestions(quizID, success_handler) {
@@ -728,6 +729,7 @@
 
           $("#quiz-questions-container").empty();
           for (const question of response.data) {
+            const currQuestionType = questionTypes[question.type];
             $("#quiz-questions-container").append(`
               <div class="border mb-3 px-2 py-2 rounded d-flex align-items-center justify-content-between">
                 <span class="fs-6 SortHandle" style="cursor: grab;"><i
@@ -735,7 +737,10 @@
                   </span>
                 <span class="d-flex gap-3 align-items-center">
                   <div class="px-2">
-                    ${question.type}
+                    <button class="btn btn-outline-primary border rounded" type="button"
+                      style="background-color: ${currQuestionType.color}; color: white;" aria-expanded="false">
+                      <i class="${currQuestionType.icon}"></i>
+                    </button>
                   </div>
                   <div class="dropdown">
                     <button class="btn btn-outline-primary border rounded-circle dropdown-toggl" type="button"
@@ -897,58 +902,58 @@
         console.error(error);
       });;
 
-      lessonTopicId = "";
+    lessonTopicId = "";
+    activeLessonId = "";
+    lessonModal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedTopicId = button.getAttribute("data-topic-id");
+      lessonTopicId = selectedTopicId;
+      //get state object
+      const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+      const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
       activeLessonId = "";
-      lessonModal.addEventListener("show.bs.modal", (event) => {
-        const button = event.relatedTarget;
-        const selectedTopicId = button.getAttribute("data-topic-id");
-        lessonTopicId = selectedTopicId;
-        //get state object
-        const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
-        const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
-        activeLessonId = "";
-        console.log(item);
-        if (item) {
-          activeLessonId = item.lesson;
-          const lessonId = item.lesson_data.id;
-          const lessonTitle = item.lesson_data.title;
-          const lessonContent = item.lesson_data.content;
-          const lessonFeatureImage = item.lesson_data.feature_image_data;
-          const lessonAttachments = item.lesson_data.attachments_data;
-          const lessonEnablePreview = item.lesson_data.enable_preview;
+      console.log(item);
+      if (item) {
+        activeLessonId = item.lesson;
+        const lessonId = item.lesson_data.id;
+        const lessonTitle = item.lesson_data.title;
+        const lessonContent = item.lesson_data.content;
+        const lessonFeatureImage = item.lesson_data.feature_image_data;
+        const lessonAttachments = item.lesson_data.attachments_data;
+        const lessonEnablePreview = item.lesson_data.enable_preview;
 
-          $("#lesson-title").val(lessonTitle);
-          createLessonContentEditor.setData(lessonContent);
-          if (lessonFeatureImage) {
-             var newOption = $('<option>', {
-              value: lessonFeatureImage.id,
+        $("#lesson-title").val(lessonTitle);
+        createLessonContentEditor.setData(lessonContent);
+        if (lessonFeatureImage) {
+          var newOption = $('<option>', {
+            value: lessonFeatureImage.id,
+            text: "",
+            selected: true // Set the selected attribute to keep it selected
+          });
+          $("#lesson-feature_image").append(newOption);
+          $("#lesson-feature-image-preview").attr("src", lessonFeatureImage.file);
+        }
+        else {
+          $("#lesson-feature_image").empty();
+          $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+        }
+
+        if (lessonAttachments.length > 0) {
+          lessonAttachments.forEach(function (attachment, index) {
+            var newOption = $('<option>', {
+              value: attachment.id,
               text: "",
               selected: true // Set the selected attribute to keep it selected
             });
-            $("#lesson-feature_image").append(newOption);
-            $("#lesson-feature-image-preview").attr("src", lessonFeatureImage.file);
-          }
-          else {
-            $("#lesson-feature_image").empty();
-            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
-          }
-          
-          if (lessonAttachments.length > 0) {
-            lessonAttachments.forEach(function (attachment, index) {
-              var newOption = $('<option>', {
-                value: attachment.id,
-                text: "",
-                selected: true // Set the selected attribute to keep it selected
-              });
-              $("#lesson-attachments").append(newOption);
-            });
-          }
-          else {
-            $("#lesson-attachments").empty();
-          }
-          $("#lesson-enable_preview").prop('checked', lessonEnablePreview);
-          $("#lessonAttachmentsPreviewContainer").empty();
-          lessonAttachments.forEach(function (attachment, index) {
+            $("#lesson-attachments").append(newOption);
+          });
+        }
+        else {
+          $("#lesson-attachments").empty();
+        }
+        $("#lesson-enable_preview").prop('checked', lessonEnablePreview);
+        $("#lessonAttachmentsPreviewContainer").empty();
+        lessonAttachments.forEach(function (attachment, index) {
           $("#lessonAttachmentsPreviewContainer").append(`
                 <div class="col-md-4">
                   <div class="card">
@@ -968,33 +973,33 @@
                   </div>
               </div>
             `);
-          });
-        }
-        else {
-          $("#lesson-title").val("");
-          createLessonContentEditor.setData("");
-          $("#lesson-feature_image").val("");
-          $("#lesson-attachments").val("");
-          $("#lesson-enable_preview").prop('checked', false);
-          $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
-          $("#lessonAttachmentsPreviewContainer").empty();
-        }
+        });
+      }
+      else {
+        $("#lesson-title").val("");
+        createLessonContentEditor.setData("");
+        $("#lesson-feature_image").val("");
+        $("#lesson-attachments").val("");
+        $("#lesson-enable_preview").prop('checked', false);
+        $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+        $("#lessonAttachmentsPreviewContainer").empty();
+      }
 
-      });
+    });
 
-      $("#lesson-form").submit(function () {
-        event.preventDefault();
-        let url = `/courses/create-lesson/${lessonTopicId}/`;
-        if (activeLessonId) {
-          url = `/courses/update-lesson/${activeLessonId}/`;
-        }
-        let data = {
-          'title': $("#lesson-title").val(),
-          'content': createLessonContentEditor.getData(),
-          'feature_image': parseInt($("#lesson-feature_image").val()) || null,
-          'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
-          'enable_preview': $("#lesson-enable_preview").prop('checked'),
-        };
+    $("#lesson-form").submit(function () {
+      event.preventDefault();
+      let url = `/courses/create-lesson/${lessonTopicId}/`;
+      if (activeLessonId) {
+        url = `/courses/update-lesson/${activeLessonId}/`;
+      }
+      let data = {
+        'title': $("#lesson-title").val(),
+        'content': createLessonContentEditor.getData(),
+        'feature_image': parseInt($("#lesson-feature_image").val()) || null,
+        'attachments': $("#lesson-attachments").val().map(val => parseInt(val)),
+        'enable_preview': $("#lesson-enable_preview").prop('checked'),
+      };
 
       $.ajax({
         type: "POST",
@@ -1002,20 +1007,20 @@
         headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
-          success: function (data) {
-            console.log(data);
-            $("#lessonModal").modal("hide");
-            $("#lesson-title").val("");
-            createLessonContentEditor.setData("");
-            $("#lesson-feature_image").val("");
-            $("#lesson-attachments").val("");
-            $("#lesson-enable_preview").prop('checked', false);
-            $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
-            $("#lessonAttachmentsPreviewContainer").empty();
+        success: function (data) {
+          console.log(data);
+          $("#lessonModal").modal("hide");
+          $("#lesson-title").val("");
+          createLessonContentEditor.setData("");
+          $("#lesson-feature_image").val("");
+          $("#lesson-attachments").val("");
+          $("#lesson-enable_preview").prop('checked', false);
+          $("#lesson-feature-image-preview").attr("src", "{% static 'images/thumbnail-placeholder.svg' %}");
+          $("#lessonAttachmentsPreviewContainer").empty();
 
 
-            // Get topic items
-            fetchTopicsList();
+          // Get topic items
+          fetchTopicsList();
 
 
 
@@ -1063,7 +1068,7 @@
         const assignmentMinPassPoints = item.assignment_data.min_pass_points;
         const assignmentMaxFileUploads = item.assignment_data.max_file_uploads;
         const assignmentFileSizeLimit = item.assignment_data.file_size_limit;
-        
+
 
         $("#assignment-title").val(assignmentTitle);
         createAssignmentSummaryEditor.setData(assignmentSummary);
@@ -1080,7 +1085,7 @@
         else {
           $("#assignment-attachments").empty();
         }
-        
+
         if (assignmentTimeLimitUnit == "D") {
           $("#assignment-time_limit").val(assignmentTimeLimit / 24);
         }
@@ -1144,7 +1149,7 @@
         'title': $("#assignment-title").val(),
         'summary': createAssignmentSummaryEditor.getData(),
         'attachments': $("#assignment-attachments").val().map(val => parseInt(val)),
-        'time_limit_unit': $("#assignment-time_limit_unit").val() ,
+        'time_limit_unit': $("#assignment-time_limit_unit").val(),
         'total_points': parseInt($("#assignment-total_points").val()),
         'min_pass_points': parseInt($("#assignment-min_pass_points").val()),
         'max_file_uploads': parseInt($("#assignment-max_file_uploads").val()),
@@ -1198,7 +1203,7 @@
       $("#mediaModal").data("target", "lesson_feature_image");
       $('#mediaModal').modal('show');
     });
-    
+
     $("#lesson-attachments-btn").click(function () {
       $("#mediaModal").data("target", "lesson_attachments");
       $('#mediaModal').modal('show');
@@ -1217,202 +1222,202 @@
       option.remove();
       // Find the closest parent card and remove it
       $(btn).closest(".col-md-4").remove();
-  };
-
-  function remove_assignment_attachment(btn) {
-    console.log(btn)
-    const mediaId = $(btn).data("media-id");
-    console.log("removing", mediaId)
-    const option = $("#assignment-attachments option[value='" + mediaId + "']").first();
-    option.remove();
-    // Find the closest parent card and remove it
-    $(btn).closest(".col-md-4").remove();
-};
-
-
-  quizTopicId = "";
-  activeQuizId = "";
-  const quizModalStep1 = document.getElementById("quizModalStep1");
-  quizModalStep1.addEventListener("show.bs.modal", (event) => {
-    const button = event.relatedTarget;
-    const selectedTopicId = button.getAttribute("data-topic-id");
-    quizTopicId = selectedTopicId;
-    //get state object
-    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
-    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
-    activeQuizId = "";
-    console.log(topics_state)
-    console.log(item);
-    if (item) {
-      activeQuizId = item.quiz;
-      const quizId = item.quiz_data.id;
-      const quizTitle = item.quiz_data.title;
-      const quizSummary = item.quiz_data.summary;
-
-      $("#quiz-title").val(quizTitle);
-      $("#quiz-summary").val(quizSummary);
-    }
-    else {
-      $("#quiz-title").val("");
-      $("#quiz-summary").val("");
-    }
-  });
-
-  $("#quizFormStep1").submit(function () {
-    event.preventDefault();
-    let url = `/courses/create-quiz/${quizTopicId}/`;
-    if (activeQuizId) {
-      url = `/courses/update-quiz/${activeQuizId}/`;
-    }
-    let data = {
-      'title': $("#quiz-title").val(),
-      'summary': $("#quiz-summary").val(),
     };
-    
-    $.ajax({
-      type: "POST",
-      url: url,
-      headers : { "X-CSRFToken": "{{ csrf_token }}" },
-      data: JSON.stringify(data),
 
-      success: function (data) {
-        console.log(data);
-        fetchTopicsList();
+    function remove_assignment_attachment(btn) {
+      console.log(btn)
+      const mediaId = $(btn).data("media-id");
+      console.log("removing", mediaId)
+      const option = $("#assignment-attachments option[value='" + mediaId + "']").first();
+      option.remove();
+      // Find the closest parent card and remove it
+      $(btn).closest(".col-md-4").remove();
+    };
 
-        activeQuizId = data.data.id;
-        console.log("activeQuizId", activeQuizId)
-        console.log("topic item id", data.data.topic_item)
-        $("#back-quiz-step2").attr({
-          "data-topic-id": quizTopicId,
-          "data-topic-item-id": data.data.topic_item,
-        });
-        $("#save-quiz-step2").attr({
-          "data-topic-id": quizTopicId,
-          "data-topic-item-id": data.data.topic_item,
-        });
-        $("#quiz-add-question-btn").attr({
-          "data-quiz-id": activeQuizId,
-        });
 
-        fetchQuizQuestions(activeQuizId);
+    quizTopicId = "";
+    activeQuizId = "";
+    const quizModalStep1 = document.getElementById("quizModalStep1");
+    quizModalStep1.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedTopicId = button.getAttribute("data-topic-id");
+      quizTopicId = selectedTopicId;
+      //get state object
+      const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+      const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+      activeQuizId = "";
+      console.log(topics_state)
+      console.log(item);
+      if (item) {
+        activeQuizId = item.quiz;
+        const quizId = item.quiz_data.id;
+        const quizTitle = item.quiz_data.title;
+        const quizSummary = item.quiz_data.summary;
 
-        $("#quizModalStep1").modal("hide");
-        $("#quizModalStep2").modal("show");
-      },
-      error: function (xhr, status, error) {
-        console.error(error);
+        $("#quiz-title").val(quizTitle);
+        $("#quiz-summary").val(quizSummary);
+      }
+      else {
+        $("#quiz-title").val("");
+        $("#quiz-summary").val("");
       }
     });
 
-  });
-
-  const quizModalStep3 = document.getElementById("quizModalStep3");
-  quizModalStep3.addEventListener("show.bs.modal", (event) => {
-    const button = event.relatedTarget;
-    const selectedTopicId = button.getAttribute("data-topic-id");
-    quizTopicId = selectedTopicId;
-    //get state object
-    const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
-    const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
-    activeQuizId = "";
-    console.log(topics_state)
-    console.log(item);
-    if (item) {
-      activeQuizId = item.quiz;
-      const quizId = item.quiz_data.id;
-      
-      const quizTimeLimit = item.quiz_data.time_limit_hours;
-      const quizTimeLimitUnit = item.quiz_data.time_limit_unit;
-      const quizHideTimeDisplay = item.quiz_data.hide_time_display;
-      const quizFeedbackMode = item.quiz_data.feedback_mode;
-      const quizMaxAttemptsAllowed = item.quiz_data.max_attempts_allowed;
-      const quizPassingPercentage = item.quiz_data.passing_percentage;
-      const quizMaxQuestions = item.quiz_data.max_questions;
-      const quizAutoStart = item.quiz_data.auto_start;
-      const quizHideQuestionNo = item.quiz_data.hide_question_no;
-      const quizShortAnsCharLimit = item.quiz_data.short_ans_char_limit;
-      const quizLongAnsCharLimit = item.quiz_data.long_ans_char_limit;
-
-      if (quizTimeLimitUnit == "S") {
-        $("#quiz-time_limit").val(quizTimeLimit * 60 * 60);
+    $("#quizFormStep1").submit(function () {
+      event.preventDefault();
+      let url = `/courses/create-quiz/${quizTopicId}/`;
+      if (activeQuizId) {
+        url = `/courses/update-quiz/${activeQuizId}/`;
       }
-      else if (quizTimeLimitUnit == "M") {
-        $("#quiz-time_limit").val(quizTimeLimit * 60);
-      }
-      else if (quizTimeLimitUnit == "H") {
-        $("#quiz-time_limit").val(quizTimeLimit);
-      }
-      else if (quizTimeLimitUnit == "D") {
-        $("#quiz-time_limit").val(quizTimeLimit / 24);
-      }
-      else if (quizTimeLimitUnit == "W") {
-        $("#quiz-time_limit").val(quizTimeLimit / 24 / 7);
-      }
+      let data = {
+        'title': $("#quiz-title").val(),
+        'summary': $("#quiz-summary").val(),
+      };
+
+      $.ajax({
+        type: "POST",
+        url: url,
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+        data: JSON.stringify(data),
+
+        success: function (data) {
+          console.log(data);
+          fetchTopicsList();
+
+          activeQuizId = data.data.id;
+          console.log("activeQuizId", activeQuizId)
+          console.log("topic item id", data.data.topic_item)
+          $("#back-quiz-step2").attr({
+            "data-topic-id": quizTopicId,
+            "data-topic-item-id": data.data.topic_item,
+          });
+          $("#save-quiz-step2").attr({
+            "data-topic-id": quizTopicId,
+            "data-topic-item-id": data.data.topic_item,
+          });
+          $("#quiz-add-question-btn").attr({
+            "data-quiz-id": activeQuizId,
+          });
+
+          fetchQuizQuestions(activeQuizId);
+
+          $("#quizModalStep1").modal("hide");
+          $("#quizModalStep2").modal("show");
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+        }
+      });
+
+    });
+
+    const quizModalStep3 = document.getElementById("quizModalStep3");
+    quizModalStep3.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget;
+      const selectedTopicId = button.getAttribute("data-topic-id");
+      quizTopicId = selectedTopicId;
+      //get state object
+      const top = topics_state.find(topic => topic.topic_id == selectedTopicId);
+      const item = top.topic_items.find(item => item.id == button.getAttribute("data-topic-item-id"));
+      activeQuizId = "";
+      console.log(topics_state)
+      console.log(item);
+      if (item) {
+        activeQuizId = item.quiz;
+        const quizId = item.quiz_data.id;
+
+        const quizTimeLimit = item.quiz_data.time_limit_hours;
+        const quizTimeLimitUnit = item.quiz_data.time_limit_unit;
+        const quizHideTimeDisplay = item.quiz_data.hide_time_display;
+        const quizFeedbackMode = item.quiz_data.feedback_mode;
+        const quizMaxAttemptsAllowed = item.quiz_data.max_attempts_allowed;
+        const quizPassingPercentage = item.quiz_data.passing_percentage;
+        const quizMaxQuestions = item.quiz_data.max_questions;
+        const quizAutoStart = item.quiz_data.auto_start;
+        const quizHideQuestionNo = item.quiz_data.hide_question_no;
+        const quizShortAnsCharLimit = item.quiz_data.short_ans_char_limit;
+        const quizLongAnsCharLimit = item.quiz_data.long_ans_char_limit;
+
+        if (quizTimeLimitUnit == "S") {
+          $("#quiz-time_limit").val(quizTimeLimit * 60 * 60);
+        }
+        else if (quizTimeLimitUnit == "M") {
+          $("#quiz-time_limit").val(quizTimeLimit * 60);
+        }
+        else if (quizTimeLimitUnit == "H") {
+          $("#quiz-time_limit").val(quizTimeLimit);
+        }
+        else if (quizTimeLimitUnit == "D") {
+          $("#quiz-time_limit").val(quizTimeLimit / 24);
+        }
+        else if (quizTimeLimitUnit == "W") {
+          $("#quiz-time_limit").val(quizTimeLimit / 24 / 7);
+        }
 
 
-      $("#quiz-time_limit_unit").val(quizTimeLimitUnit);
-      $("#quiz-hide_time_display").prop('checked', quizHideTimeDisplay);
+        $("#quiz-time_limit_unit").val(quizTimeLimitUnit);
+        $("#quiz-hide_time_display").prop('checked', quizHideTimeDisplay);
 
-      if (quizFeedbackMode == "D") {
+        if (quizFeedbackMode == "D") {
+          $("#quiz-defaultRadio").prop("checked", true);
+          $("#quiz-revealModeRadio").prop("checked", false);
+          $("#quiz-retryModeRadio").prop("checked", false);
+        }
+        else if (quizFeedbackMode == "R") {
+          $("#quiz-defaultRadio").prop("checked", false);
+          $("#quiz-revealModeRadio").prop("checked", true);
+          $("#quiz-retryModeRadio").prop("checked", false);
+        }
+        else if (quizFeedbackMode == "T") {
+          $("#quiz-defaultRadio").prop("checked", false);
+          $("#quiz-revealModeRadio").prop("checked", false);
+          $("#quiz-retryModeRadio").prop("checked", true);
+        }
+
+        $(`input[name="quiz-max_attempts_allowed-js"]`).val(quizMaxAttemptsAllowed);
+        $("#percentage-label").text(quizMaxAttemptsAllowed);
+        $("#quiz-passing_percentage").val(quizPassingPercentage);
+        $("#quiz-max_questions").val(quizMaxQuestions);
+        $("#quiz-auto_start").prop('checked', quizAutoStart);
+        $("#quiz-hide_question_no").prop('checked', quizHideQuestionNo);
+        $("#quiz-short_ans_char_limit").val(quizShortAnsCharLimit);
+        $("#quiz-long_ans_char_limit").val(quizLongAnsCharLimit);
+
+      }
+      else {
+        $("#quiz-time_limit").val("0");
+        $("#quiz-time_limit_unit").val("W");
+        $("#quiz-hide_time_display").prop('checked', false);
+
         $("#quiz-defaultRadio").prop("checked", true);
         $("#quiz-revealModeRadio").prop("checked", false);
         $("#quiz-retryModeRadio").prop("checked", false);
-      }
-      else if (quizFeedbackMode == "R") {
-        $("#quiz-defaultRadio").prop("checked", false);
-        $("#quiz-revealModeRadio").prop("checked", true);
-        $("#quiz-retryModeRadio").prop("checked", false);
-      }
-      else if (quizFeedbackMode == "T") {
-        $("#quiz-defaultRadio").prop("checked", false);
-        $("#quiz-revealModeRadio").prop("checked", false);
-        $("#quiz-retryModeRadio").prop("checked", true);
+
+        $(`input[name="quiz-max_attempts_allowed-js"]`).val("1");
+        $("#percentage-label").text("1");
+        $("#quiz-passing_percentage").val("80");
+        $("#quiz-max_questions").val("10");
+        $("#quiz-auto_start").prop('checked', false);
+        $("#quiz-hide_question_no").prop('checked', false);
+        $("#quiz-short_ans_char_limit").val("200");
+        $("#quiz-long_ans_char_limit").val("500");
       }
 
-      $(`input[name="quiz-max_attempts_allowed-js"]`).val(quizMaxAttemptsAllowed);
-      $("#percentage-label").text(quizMaxAttemptsAllowed);
-      $("#quiz-passing_percentage").val(quizPassingPercentage);
-      $("#quiz-max_questions").val(quizMaxQuestions);
-      $("#quiz-auto_start").prop('checked', quizAutoStart);
-      $("#quiz-hide_question_no").prop('checked', quizHideQuestionNo);
-      $("#quiz-short_ans_char_limit").val(quizShortAnsCharLimit);
-      $("#quiz-long_ans_char_limit").val(quizLongAnsCharLimit);
+    });
 
+    function secondsToHHMMSS(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+
+      const formattedHours = String(hours).padStart(2, '0');
+      const formattedMinutes = String(minutes).padStart(2, '0');
+      const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
     }
-    else {
-      $("#quiz-time_limit").val("0");
-      $("#quiz-time_limit_unit").val("W");
-      $("#quiz-hide_time_display").prop('checked', false);
-      
-      $("#quiz-defaultRadio").prop("checked", true);
-      $("#quiz-revealModeRadio").prop("checked", false);
-      $("#quiz-retryModeRadio").prop("checked", false);
 
-      $(`input[name="quiz-max_attempts_allowed-js"]`).val("1");
-      $("#percentage-label").text("1");
-      $("#quiz-passing_percentage").val("80");
-      $("#quiz-max_questions").val("10");
-      $("#quiz-auto_start").prop('checked', false);
-      $("#quiz-hide_question_no").prop('checked', false);
-      $("#quiz-short_ans_char_limit").val("200");
-      $("#quiz-long_ans_char_limit").val("500");
-    }
-  
-  });
-
-  function secondsToHHMMSS(seconds) {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    const remainingSeconds = seconds % 60;
-
-    const formattedHours = String(hours).padStart(2, '0');
-    const formattedMinutes = String(minutes).padStart(2, '0');
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-}
-
-    $("#save-quiz-step3").click(function() {
+    $("#save-quiz-step3").click(function () {
       event.preventDefault();
       const url = `/courses/update-quiz/${activeQuizId}/`;
       let data = {
@@ -1432,25 +1437,25 @@
 
       let quizTimeLimitUnit = data['time_limit_unit'];
       if (quizTimeLimitUnit == "S") {
-        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val()); 
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val());
       }
       else if (quizTimeLimitUnit == "M") {
-        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60); 
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60);
       }
       else if (quizTimeLimitUnit == "H") {
-        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60); 
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60);
       }
       else if (quizTimeLimitUnit == "D") {
-        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24); 
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24);
       }
       else if (quizTimeLimitUnit == "W") {
-        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24 * 7); 
+        data['time_limit'] = secondsToHHMMSS($("#quiz-time_limit").val() * 60 * 60 * 24 * 7);
       }
-      
+
       $.ajax({
         type: "POST",
         url: url,
-        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
         success: function (data) {
@@ -1487,7 +1492,7 @@
         $("#question-randomize_options").prop('checked', question.randomize_options);
         $("#question-points").val(question.points);
         $("#question-display_points").prop('checked', question.display_points);
-        
+
         selectQuestionType(question.type, question);
 
       }
@@ -1496,13 +1501,13 @@
           url: `/courses/create-question/${quizId}/`,
           type: "POST",
           headers: { "X-CSRFToken": "{{ csrf_token }}" },
-          data: JSON.stringify({title: "New Question"}),
+          data: JSON.stringify({ title: "New Question" }),
           success: function (data) {
             console.log(data);
             fetchQuizQuestions(quizId);
             quizQuestionId = data.data.id;
             options_state = [];
-            selectQuestionType("TF", {tf_correct_answer: true});
+            selectQuestionType("TF", { tf_correct_answer: true });
             $("#question-title").val("New Question");
             $("#question-answer_required").prop('checked', false);
             $("#question-randomize_options").prop('checked', false);
@@ -1569,11 +1574,11 @@
         data["fb_question_title"] = $("#question-FB-question_title").text();
         data["fb_correct_answer"] = $("#question-FB-correct_answer").text();
       }
-      
+
       $.ajax({
         type: "POST",
         url: url,
-        headers : { "X-CSRFToken": "{{ csrf_token }}" },
+        headers: { "X-CSRFToken": "{{ csrf_token }}" },
         data: JSON.stringify(data),
 
         success: function (data) {
@@ -1594,7 +1599,7 @@
 
 
 
-    
+
   </script>
 </body>
 
