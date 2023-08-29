@@ -37,6 +37,19 @@ urlpatterns = [
         name="index",
     ),
     path(
+        "contact/",
+        TemplateView.as_view(template_name="sitePages/contactUs.html"),
+        name="contact_us",
+    ),
+    path("media-library/", include("media_library.urls", namespace="media_library")),
+    path("courses/", include("courses.urls", namespace="courses")),
+    path("", include("users.urls", namespace="users")),
+    path("quizzes/", include("quizzes.urls", namespace="quizzes")),
+]
+
+# For checking static files in developement only
+urlpatterns += [
+    path(
         "dashboard/analytics/",
         TemplateView.as_view(template_name="dashboard/instructor/analytics.html"),
         name="analytics",
@@ -45,11 +58,6 @@ urlpatterns = [
         "dashboard/announcements/",
         TemplateView.as_view(template_name="dashboard/instructor/announcements.html"),
         name="announcements",
-    ),
-    path(
-        "dashboard/my-courses/",
-        TemplateView.as_view(template_name="dashboard/instructor/myCourses.html"),
-        name="my_courses",
     ),
     path(
         "dashboard/quiz-attempts/",
@@ -61,10 +69,31 @@ urlpatterns = [
         TemplateView.as_view(template_name="dashboard/instructor/withdrawals.html"),
         name="withdrawals",
     ),
-    path("media-library/", include("media_library.urls", namespace="media_library")),
-    path("courses/", include("courses.urls", namespace="courses")),
-    path("", include("users.urls", namespace="users")),
-    path("quizzes/", include("quizzes.urls", namespace="quizzes")),
+    path(
+        "course-details/",
+        TemplateView.as_view(template_name="sitePages/courseDetails.html"),
+        name="course_details",
+    ),
+    path(
+        "course-list/",
+        TemplateView.as_view(template_name="sitePages/courseList.html"),
+        name="course_list",
+    ),
+    path(
+        "course-assignment/",
+        TemplateView.as_view(template_name="courseContents/assignment.html"),
+        name="course_assignment",
+    ),
+    path(
+        "course-lesson/",
+        TemplateView.as_view(template_name="courseContents/lesson.html"),
+        name="course_lesson",
+    ),
+    path(
+        "course-quiz/",
+        TemplateView.as_view(template_name="courseContents/quiz.html"),
+        name="course_quiz",
+    ),
 ]
 
 if settings.DEBUG:

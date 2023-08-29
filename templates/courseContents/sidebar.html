@@ -19,6 +19,7 @@
         </div>
     </div>
     <div class="sidebartab1Content">
+        {% with url_name=request.resolver_match.url_name %}
         <!--Topics card-->
         <div class="card text-start border-0">
             <div class="card-body p-0">
@@ -36,16 +37,24 @@
                         <table class="table table-striped m-0">
                             <tbody>
                                 <tr>
-                                    <td class="py-3 px-4 text-muted"><i class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson
+                                    <td class="py-3 px-4 {% if url_name == 'course_lesson' %}bg-primary{% endif %}">
+                                        <a href="{% url 'course_lesson' %}" class="{% if url_name == 'course_lesson' %}text-white{% else %}text-muted{% endif %}">
+                                            <i class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson
+                                        </a>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-white bg-primary"><i
-                                            class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
+                                    <td class="py-3 px-4 {% if url_name == 'course_assignment' %}bg-primary{% endif %}">
+                                        <a href="{% url 'course_assignment' %}" class="{% if url_name == 'course_assignment' %}text-white{% else %}text-muted{% endif %}">
+                                            <i class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 px-4 text-muted"><i
-                                            class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz
+                                    <td class="py-3 px-4 {% if url_name == 'course_quiz' %}bg-primary{% endif %}">
+                                        <a href="{% url 'course_quiz' %}" class="{% if url_name == 'course_quiz' %}text-white{% else %}text-muted{% endif %}">
+                                            <i class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -54,6 +63,7 @@
                 </div>
             </div>
         </div>
+        {% endwith %}
     </div>
     <div class="sidebartab2Content">
         Q&A section
