@@ -27,14 +27,14 @@
             {% include 'courseContents/sidebar.html' %}
 
             <div class="content flex-fill position-relative col-lg-8">
-                <button class="toggleSidebar position-absolute btn text-primary shadow-sm"
+                <button class="toggleSidebar position-absolute btn text-primary rounded-0 rounded-end shadow-sm"
                     style="left: 0px; width: 50px; background: white;">
                     <i class="fas fa-exchange"></i>
                 </button>
                 <div class="container">
                     <!--Content Header-->
                     <div class="p-3 rounded" style="background: #031f42; color: white;">
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
@@ -46,6 +46,11 @@
                                 <i class="far fa-file-alt text-warning"></i>
                                 &nbsp;
                                 <small style="font-weight: 500;">lesson name</small>
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-warning btn-sm px-3 py-2">
+                                    <i class="fas fa-check-circle"></i> Mark as Complete 
+                                </button>
                             </div>
                         </div>
                     </div>
