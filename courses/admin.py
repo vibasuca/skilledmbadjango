@@ -1,7 +1,11 @@
 from django.contrib import admin
+from django.contrib.admin import *
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from .models import *
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
 
 
 def approve_course(modeladmin, request, queryset):
@@ -54,7 +58,36 @@ class CourseListFilter(admin.SimpleListFilter):
 
 class CourseAdmin(admin.ModelAdmin):
     actions = [approve_course, disapprove_course]
-    list_filter = [CourseListFilter]
+    list_filter = [CourseListFilter, "published_at", "approved_at"]
+
+    change_form_template = "custom_change_form.html"
+
+    def response_change(self, request, obj):
+        opts = self.model._meta
+        pk_value = obj._get_pk_val()
+        preserved_filters = self.get_preserved_filters(request)
+
+        if "_approve_course" in request.POST or "_disapprove_course" in request.POST:
+            # handle the action on your obj
+            if "_approve_course" in request.POST:
+                obj.approved_at = timezone.now()
+                obj.save()
+            if "_disapprove_course" in request.POST:
+                obj.approved_at = None
+                obj.save()
+
+            ####################################
+            redirect_url = reverse(
+                "admin:%s_%s_change" % (opts.app_label, opts.model_name),
+                args=(pk_value,),
+                current_app=self.admin_site.name,
+            )
+            redirect_url = add_preserved_filters(
+                {"preserved_filters": preserved_filters, "opts": opts}, redirect_url
+            )
+            return HttpResponseRedirect(redirect_url)
+        else:
+            return super().response_change(request, obj)
 
 
 admin.site.register(Course, CourseAdmin)
