@@ -11,6 +11,10 @@
     .activeTab {
         display: block;
     }
+
+    .tab-link:hover {
+        color: #0071dc !important;
+    }
 </style>
 
 <link rel="stylesheet" href="{% static 'css/courseContent.css' %}" />
@@ -43,7 +47,7 @@
                 <div class="container">
                     <!--Content Header-->
                     <div class="p-3 rounded" style="background: #031f42; color: white;">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center">
                             <div>
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
@@ -64,19 +68,18 @@
                         </div>
                     </div>
                     <!--Main Content-->
-                    <!--Page Title-->
-                    <div class="d-flex gap-4 border-bottom mt-5 justify-content-center">
+                    <div class="d-flex flex-wrap gap-4 border-bottom mt-5 justify-content-center">
                         <span class="tab-link flex-1 px-4 py-2"
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab1">
-                            <i class="far fa-copy"></i> Overview
+                            <i class="far fa-copy"></i>&nbsp;Overview
                         </span>
                         <span class="tab-link flex-1 px-4 py-2"
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab2">
-                            <i class="far fa-paperclip"></i> Exercise Files
+                            <i class="far fa-paperclip"></i>&nbsp;Exercise&nbsp;Files
                         </span>
                         <span class="tab-link flex-1 px-4 py-2"
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab3">
-                            <i class="far fa-comment-alt-lines"></i> Comments
+                            <i class="far fa-comment-alt-lines"></i>&nbsp;Comments
                         </span>
                     </div>
                     <div id="tab1" class="tab-content">
@@ -149,8 +152,80 @@
 
                         </div>
                     </div>
-                    <div id="tab2" class="tab-content">
-                        tab2
+                    <div id="tab2" class="tab-content containr">
+                        <div class="fw-bold fs-5 my-4 mt-5">Exercise Files</div>
+                        <div class="row my-5">
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <div id="tab3" class="tab-content">
                         tab3
