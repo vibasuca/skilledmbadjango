@@ -214,11 +214,11 @@
 
 
     $("#attachments-btn-js").click(function () {
-      $("#mediaModal").data("target", "attachments");
+      $("#mediaModal").attr("data-target", "attachments");
     });
 
     $(".remove-course-attachments-js").click(function() {
-      const mediaId = $(this).data("media-id");
+      const mediaId = $(this).attr("data-media-id");
       const option = $("#attachments-input-js option[value='" + mediaId + "']").first();
       option.remove();
       // Find the closest parent card and remove it
