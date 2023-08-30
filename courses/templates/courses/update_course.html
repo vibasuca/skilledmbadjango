@@ -1308,23 +1308,23 @@
     });
 
     $("#lesson-feature_image-btn").click(function () {
-      $("#mediaModal").data("target", "lesson_feature_image");
+      $("#mediaModal").attr("data-target", "lesson_feature_image");
       $('#mediaModal').modal('show');
     });
 
     $("#lesson-attachments-btn").click(function () {
-      $("#mediaModal").data("target", "lesson_attachments");
+      $("#mediaModal").attr("data-target", "lesson_attachments");
       $('#mediaModal').modal('show');
     });
 
     $("#assignment-attachments-btn").click(function () {
-      $("#mediaModal").data("target", "assignment_attachments");
+      $("#mediaModal").attr("data-target", "assignment_attachments");
       $('#mediaModal').modal('show');
     });
 
     function remove_lesson_attachment(btn) {
       console.log(btn)
-      const mediaId = $(btn).data("media-id");
+      const mediaId = $(btn).attr("data-media-id");
       console.log("removing", mediaId)
       const option = $("#lesson-attachments option[value='" + mediaId + "']").first();
       option.remove();
@@ -1334,7 +1334,7 @@
 
     function remove_assignment_attachment(btn) {
       console.log(btn)
-      const mediaId = $(btn).data("media-id");
+      const mediaId = $(btn).attr("data-media-id");
       console.log("removing", mediaId)
       const option = $("#assignment-attachments option[value='" + mediaId + "']").first();
       option.remove();
@@ -1653,7 +1653,7 @@
       });
 
       $("#questionTypesContainer").on("click", ".questionTypeJS", function () {
-        const questionType = $(this).data("question-type");
+        const questionType = $(this).attr("data-question-type");
         const context = question ? question : {};
         console.log("question, context", question, context)
         selectQuestionType(questionType, context);
@@ -1668,7 +1668,7 @@
         url = `/courses/update-question/${quizQuestionId}/`;
       }
       let data = {
-        'type': $("#selectedTypeJS .questionTypeJS").data("question-type"),
+        'type': $("#selectedTypeJS .questionTypeJS").attr("data-question-type"),
         'title': $("#question-title").val(),
         'answer_required': $("#question-answer_required").prop('checked'),
         'randomize_options': $("#question-randomize_options").prop('checked'),
