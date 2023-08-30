@@ -222,7 +222,7 @@
 
         // Event listener for updating media
         $(document).on("click", ".update-media-btn", function () {
-            const mediaId = $(this).data("media-id");
+            const mediaId = $(this).attr("data-media-id");
             const newData = {
                 title: $(`#title-${mediaId}`).val(),
                 description: $(`#description-${mediaId}`).val(),

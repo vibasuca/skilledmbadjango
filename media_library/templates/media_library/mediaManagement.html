@@ -259,16 +259,16 @@
                     // On selecting image
                     $(document).on("click", ".image-grid-item", function () {
                         const media = {
-                            id: $(this).data("media-id"),
-                            file: $(this).data("media-url"),
-                            title: $(this).data("media-title"),
-                            description: $(this).data("media-description"),
-                            alt_text: $(this).data("media-alt-text"),
-                            caption: $(this).data("media-caption"),
-                            size: $(this).data("media-size"),
+                            id: $(this).attr("data-media-id"),
+                            file: $(this).attr("data-media-url"),
+                            title: $(this).attr("data-media-title"),
+                            description: $(this).attr("data-media-description"),
+                            alt_text: $(this).attr("data-media-alt-text"),
+                            caption: $(this).attr("data-media-caption"),
+                            size: $(this).attr("data-media-size"),
                         }
 
-                        if (["thumbnail", "lesson_feature_image", "option_image"].includes($("#mediaModal").data("target"))) {
+                        if (["thumbnail", "lesson_feature_image", "option_image"].includes($("#mediaModal").attr("data-target"))) {
                             clearSelection();
                             selectedMedia.push(media);
                             $(this).append(`
@@ -280,7 +280,7 @@
                             `)
                             $("#use-media-btn-js").prop("disabled", false);
                         }
-                        else if (["attachments", "lesson_attachments", "assignment_attachments"].includes($("#mediaModal").data("target"))) {
+                        else if (["attachments", "lesson_attachments", "assignment_attachments"].includes($("#mediaModal").attr("data-target"))) {
                             if (isCtrlKeyDown) {
                                 // If media is already selected the unselect it
                                 if (selectedMedia.some(obj => obj.id === media.id)) {
@@ -310,20 +310,20 @@
                                 // select all media between last selected media and current media
                                 if (selectedMedia.length > 0) {
                                     const lastSelectedMedia = selectedMedia[selectedMedia.length - 1];
-                                    const lastSelectedMediaIndex = $(`.image-grid-item[data-media-id=${lastSelectedMedia.id}]`).data("media-index");
-                                    const currentMediaIndex = $(this).data("media-index");
+                                    const lastSelectedMediaIndex = $(`.image-grid-item[data-media-id=${lastSelectedMedia.id}]`).attr("data-media-index");
+                                    const currentMediaIndex = $(this).attr("data-media-index");
                                     const start = Math.min(lastSelectedMediaIndex, currentMediaIndex);
                                     const end = Math.max(lastSelectedMediaIndex, currentMediaIndex);
                                     for (let i = start; i <= end; i++) {
                                         const element = $(`#gridItem${i}`);
                                         const newMedia = {
-                                            id: element.data("media-id"),
-                                            file: element.data("media-url"),
-                                            title: element.data("media-title"),
-                                            description: element.data("media-description"),
-                                            alt_text: element.data("media-alt-text"),
-                                            caption: element.data("media-caption"),
-                                            size: element.data("media-size"),
+                                            id: element.attr("data-media-id"),
+                                            file: element.attr("data-media-url"),
+                                            title: element.attr("data-media-title"),
+                                            description: element.attr("data-media-description"),
+                                            alt_text: element.attr("data-media-alt-text"),
+                                            caption: element.attr("data-media-caption"),
+                                            size: element.attr("data-media-size"),
                                         }
                                         if (!selectedMedia.includes(newMedia)) {
                                             selectedMedia.push(newMedia);
@@ -435,7 +435,7 @@
 
         // Event listener for updating media
         $(document).on("click", ".update-media-btn", function () {
-            const mediaId = $(this).data("media-id");
+            const mediaId = $(this).attr("data-media-id");
             const newData = {
                 title: $(`#title-${mediaId}`).val(),
                 description: $(`#description-${mediaId}`).val(),

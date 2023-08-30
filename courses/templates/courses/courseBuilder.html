@@ -173,7 +173,7 @@
 
     // Event listener for updating media
     $(document).on("click", ".update-topic-btn", function () {
-      const topicId = $(this).data("topic-id");
+      const topicId = $(this).attr("data-topic-id");
       const newData = {
         title: $(`#title-${topicId}`).val(),
         summary: $(`#summary-${topicId}`).val(),
@@ -192,7 +192,7 @@
 
     $(".create-lesson-button").click(
       function (e) {
-        activeTopicId = $(this).data("topic-id");
+        activeTopicId = $(this).attr("data-topic-id");
         console.log(activeTopicId);
       }
     );
