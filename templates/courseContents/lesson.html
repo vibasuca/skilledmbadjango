@@ -68,21 +68,22 @@
                         </div>
                     </div>
                     <!--Main Content-->
-                    <div class="d-flex flex-wrap gap-4 border-bottom mt-5 justify-content-center">
+                    <div class="d-flex flex-wrap gap-3 border-bottom mt-5 justify-content-center">
                         <span class="tab-link flex-1 px-4 py-2"
-                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab1">
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="overview">
                             <i class="far fa-copy"></i>&nbsp;Overview
                         </span>
                         <span class="tab-link flex-1 px-4 py-2"
-                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab2">
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="exercise_files">
                             <i class="far fa-paperclip"></i>&nbsp;Exercise&nbsp;Files
                         </span>
                         <span class="tab-link flex-1 px-4 py-2"
-                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="tab3">
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="comments">
                             <i class="far fa-comment-alt-lines"></i>&nbsp;Comments
                         </span>
                     </div>
-                    <div id="tab1" class="tab-content">
+                    <!--overview-->
+                    <div id="overview" class="tab-content">
                         <div class="py-5">
                             <h1><b>Lorem ipsum dolor sit amet</b></h1>
                             <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel
@@ -143,16 +144,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-outline-primary px-3 py-2">
-                                    Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
-                                </button>
-                            </div>
-
                         </div>
                     </div>
-                    <div id="tab2" class="tab-content containr">
+                    <!--exercise_files-->
+                    <div id="exercise_files" class="tab-content containr">
                         <div class="fw-bold fs-5 my-4 mt-5">Exercise Files</div>
                         <div class="row my-5">
                             <div class="col-md-4 mb-4">
@@ -227,10 +222,20 @@
                         </div>
 
                     </div>
-                    <div id="tab3" class="tab-content">
+                    <!--comments-->
+                    <div id="comments" class="tab-content">
                         <div class="container">
-                            comment
+                            <div class="fw-bold fs-5 my-4 mt-5">Join the conversation</div>
+                            comment system
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-between gap-3 my-4">
+                        <button class="btn btn-outline-primary px-3 py-2">
+                            <i class="fas fa-arrow-left"></i> &nbsp;&nbsp; Previous
+                        </button>
+                        <button class="btn btn-outline-primary px-3 py-2">
+                            Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -247,7 +252,7 @@
     $(document).ready(function () {
         const urlParams = new URLSearchParams(window.location.search);
         const pageTab = urlParams.get("page_tab");
-        const activeTab = pageTab || "tab1";
+        const activeTab = pageTab || "overview";
         $("#" + activeTab).show().addClass("activeTab");
         $(".tab-link[data-tab='" + activeTab + "']").addClass("activeTab text-primary border-bottom border-2");
         $(".tab-link").click(function () {
