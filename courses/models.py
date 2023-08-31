@@ -91,12 +91,8 @@ class Course(models.Model):
         default=False, help_text="Enable Q&A section for your course"
     )
     language = models.CharField(max_length=1, choices=LANGUAGE_CHOICES, default="E")
-    category = models.ForeignKey(
-        CourseCategory,
-        on_delete=models.CASCADE,
-        related_name="courses",
-        null=True,
-        blank=True,
+    categories = models.ManyToManyField(
+        CourseCategory, related_name="courses", blank=True
     )
     price = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True, default=0
@@ -289,3 +285,45 @@ class TopicItem(models.Model):
         elif self.quiz:
             return f"Quiz: {self.quiz.title}"
         return "Unknown Topic Item"
+
+
+class Enrollment(models.Model):
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="enrollments"
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="enrollments")
+    completed_lessons = models.ManyToManyField(
+        Lesson, related_name="completed_by_enrollments", blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ("course", "user")
+
+    def get_percentage_completed(self):
+        total_lessons_count = self.course.get_lessons_count()
+        if not total_lessons_count:
+            return 0
+        percentage = self.completed_lessons.all().count() / total_lessons_count * 100
+        return round(percentage, 2)
+
+    def __str__(self):
+        return f"{self.user.username} enrolled in {self.course.title}"
+
+
+class Announcement(models.Model):
+    course = models.ForeignKey(
+        Course, on_delete=models.CASCADE, related_name="announcements"
+    )
+    title = models.CharField(max_length=255)
+    summary = models.TextField(blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="announcements"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ("-created_at",)
+
+    def __str__(self):
+        return self.title

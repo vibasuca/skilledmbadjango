@@ -199,6 +199,9 @@ class Option(models.Model):
 
 
 class Attempt(models.Model):
+    enrollment = models.ForeignKey(
+        "courses.Enrollment", on_delete=models.CASCADE, related_name="quiz_attempts"
+    )
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="attempts")
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="quiz_attempts"

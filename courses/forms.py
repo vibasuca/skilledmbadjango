@@ -16,7 +16,7 @@ class CourseForm(forms.ModelForm):
             "is_public",
             "enable_qa",
             "language",
-            "category",
+            "categories",
             "price",
             "discount_price",
             "thumbnail",

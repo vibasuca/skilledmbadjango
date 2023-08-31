@@ -57,26 +57,23 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#" class="hover-underline-animation">Home</a>
+                        <a href="{% url 'index' %}" class="hover-underline-animation">Home</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="#" class="hover-underline-animation">Courses</a>
                     </li>
-                    <li class="breadcrumb-item">Art & Design</li>
+                    <li class="breadcrumb-item">{{course.title}}</li>
                 </ol>
             </nav>
             <div class="p-lg-5">
-                <div class="text-primary fw-bold mb-3">
-                    {{course.category.title}}
-                </div>
                 <h2>
                     {{course.title}}
                 </h2>
                 <div class="d-flex gap-3 align-items-center justify-content-start flex-wrap py-3">
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
+                        <img src="{% if course.user.profile_pic %}{{ course.user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
                             class="img-fluid rounded-circle">
-                        <b>{{ user.get_full_name }}</b>
+                        <b>{{ course.user.get_full_name }}</b>
                     </div>
                     {% for instructor in course.instructors.all %}
                     <div class="d-flex gap-3 align-items-center justify-content-start">
@@ -99,7 +96,9 @@
                         <small>2 <span class="text-secondary">(1 ratings)</span></small>
                     </span>
                     <div>
-                        63 already enrolled
+                        {% if course.enrollments.all.count %}
+                            {{course.enrollments.all.count}} already enrolled
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -114,14 +113,16 @@
         <div class="row">
             <div class="col-lg-8 pt-3 p-lg-5">
 
+                {% if enrollment %}
                 <h5>Course Progress</h5>
                 <div class="d-flex align-items-center gap-3 mt-4 mb-5">
-                    <div class="progress flex-fill" role="progressbar" aria-label="course progress" aria-valuenow="25"
+                    <div class="progress flex-fill" role="progressbar" aria-label="course progress" aria-valuenow="{{ enrollment.get_percentage_completed }}"
                         aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
-                        <div class="progress-bar" style="width: 25%;"></div>
+                        <div class="progress-bar" style="width: {{ enrollment.get_percentage_completed }}%;"></div>
                     </div>
-                    <span class="text-muted text-center" style="width: auto;">25 % Complete</span>
+                    <span class="text-muted text-center" style="width: auto;">{{ enrollment.get_percentage_completed }} % Complete</span>
                 </div>
+                {% endif %}
 
                 {% if course.description %}
                 <h5>About This Course</h5>
@@ -257,91 +258,35 @@
                 </div>
                 {% endif %}
 
+                {% if course.attachments.all %}
                 <!--Resources-->
                 <div class="card border-0 mb-5">
-                    <!--empty-->
                     <h5>Resources</h5>
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-center">
-                            <img src="{% static 'images/addon-empty-state.svg' %}" alt="404">
-                        </div>
-                        <div class="text-center">
-                            No Attachment Found
-                        </div>
-                    </div>
                     <!--non-empty-->
-                    <div class="row">
+                    <div class="row mt-4">
+                        {% for attachment in course.attachments.all %}
                         <div class="col-md-6 mb-4">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div class="p-3" style="max-width: 90%;">
                                             <div class="text-truncate mb-2" style="max-width: 100%;">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                                                dolores ipsa quas libero eaque repellat, doloremque expedita
-                                                autem!
-                                                Ipsa totam impedit natus doloremque quidem, perferendis
-                                                voluptatem
-                                                blanditiis nulla. Inventore, delectus.
+                                                {{ attachment.file.url|get_filename }}
                                             </div>
-                                            <small class="text-muted">Size: 121.45 KB</small>
+                                            <small class="text-muted">Size: {{ attachment.get_size }}</small>
                                         </div>
-                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
-                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a href="{{ attachment.file.url }}" download="{{ attachment.file.url|get_filename }}" class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                              aria-expanded="false">
                                             <i class="fal fa-sm fa-cloud-download-alt"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="p-3" style="max-width: 90%;">
-                                            <div class="text-truncate mb-2" style="max-width: 100%;">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                                                dolores ipsa quas libero eaque repellat, doloremque expedita
-                                                autem!
-                                                Ipsa totam impedit natus doloremque quidem, perferendis
-                                                voluptatem
-                                                blanditiis nulla. Inventore, delectus.
-                                            </div>
-                                            <small class="text-muted">Size: 121.45 KB</small>
-                                        </div>
-                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
-                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fal fa-sm fa-cloud-download-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="p-3" style="max-width: 90%;">
-                                            <div class="text-truncate mb-2" style="max-width: 100%;">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                                                dolores ipsa quas libero eaque repellat, doloremque expedita
-                                                autem!
-                                                Ipsa totam impedit natus doloremque quidem, perferendis
-                                                voluptatem
-                                                blanditiis nulla. Inventore, delectus.
-                                            </div>
-                                            <small class="text-muted">Size: 121.45 KB</small>
-                                        </div>
-                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
-                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fal fa-sm fa-cloud-download-alt"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
+                {% endif %}
                 <!--Question & Answer-->
                 <div class="mb-5">
                     <div class="d-flex align-items-center justify-content-between">
@@ -438,14 +383,14 @@
                             <div class="d-flex flex-column flex-md-row">
                                 <div class="instructor-image-grid-item rounded">
                                     <div class="instructor-image-background"
-                                        style="background-image: url('https://placehold.co/150x250')">
+                                        style="background-image: url('{% if course.user.profile_pic %}{{ course.user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}')">
                                     </div>
                                 </div>
                                 <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
                                     <div style="width: 100%;">
                                         <div class="mb-2 d-flex flex-column gap-2">
-                                            <span class="fw-bold">Owen Christ</span>
-                                            <small class="text-muted">Content writer</small>
+                                            <span class="fw-bold">{{course.user.get_full_name}}</span>
+                                            <small class="text-muted">{{course.user.job_title}}</small>
                                         </div>
                                         <div class="mb-2 d-flex flex-column">
                                             <span class="greet-text">
@@ -464,26 +409,68 @@
                                         </div>
                                         <small class="d-flex gap-3 my-2 text-muted"
                                             style="font-weight: 500; font-size: 13px;">
-                                            <span><i class="far fa-play-circle"></i>&nbsp;&nbsp;15 Courses</span>
+                                            <span><i class="far fa-play-circle"></i>&nbsp;&nbsp;{{course.user.get_approved_course_count}} Course{{course.user.get_approved_course_count|pluralize:"s"}}</span>
                                             <span><i class="far fa-comment-alt"></i>&nbsp;&nbsp;3 Reviews</span>
                                             <span><i class="far fa-user"></i>&nbsp;&nbsp;78 Students</span>
                                         </small>
                                         <small>
-                                            <span class="text-muted">She loves science and majored in biology at Arizona
-                                                State University, where she also earned her teaching credential and
-                                                Master
-                                                of Education degree. Mrs. Emilee is excited to begin the best year
-                                                ever.</span>
+                                            <span class="text-muted">{{course.user.bio}}</span>
                                         </small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% for instructor in course.instructors.all %}
+                    <div class="card mb-4" style="max-width: 950px">
+                        <div class="card-body">
+                            <div class="d-flex flex-column flex-md-row">
+                                <div class="instructor-image-grid-item rounded">
+                                    <div class="instructor-image-background"
+                                        style="background-image: url('{% if instructor.profile_pic %}{{ instructor.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}')">
+                                    </div>
+                                </div>
+                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2 d-flex flex-column gap-2">
+                                            <span class="fw-bold">{{instructor.get_full_name}}</span>
+                                            <small class="text-muted">{{instructor.job_title}}</small>
+                                        </div>
+                                        <div class="mb-2 d-flex flex-column">
+                                            <span class="greet-text">
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fas fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <i class="fal fa-star fa-sm"
+                                                    style="color: #ffa600; font-size: 14px"></i>
+                                                <small class="text-muted" style="font-size: 15px">(2/5)</small>
+                                            </span>
+                                        </div>
+                                        <small class="d-flex gap-3 my-2 text-muted"
+                                            style="font-weight: 500; font-size: 13px;">
+                                            <span><i class="far fa-play-circle"></i>&nbsp;&nbsp;{{instructor.get_approved_course_count}} Course{{instructor.get_approved_course_count|pluralize:"s"}}</span>
+                                            <span><i class="far fa-comment-alt"></i>&nbsp;&nbsp;3 Reviews</span>
+                                            <span><i class="far fa-user"></i>&nbsp;&nbsp;78 Students</span>
+                                        </small>
+                                        <small>
+                                            <span class="text-muted">{{instructor.bio}}</span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
                 <!--Announcements-->
                 <div class="mb-5">
                     <h5>Announcements</h5>
+                    {% for announcement in course.announcements.all %}
                     <div class="card mt-3">
                         <div class="card-body">
                             <div class="d-flex align-items-cente gap-3 gap-lg-4">
@@ -492,16 +479,25 @@
                                     <i class="far fa-bell"></i>
                                 </div>
                                 <div class="d-flex flex-column gap-2" style="font-size: 14px;">
-                                    <b>somethingg interesting offer</b>
-                                    <div class="text-muted">Posted by Om Dahale 2 days ago</div>
+                                    <b>{{announcement.title}}</b>
+                                    <div class="text-muted">Posted by {{announcement.user.get_full_name}} {{announcement.created_at|timesince}} ago</div>
                                 </div>
                             </div>
                             <div class="mt-4 text-muted" style="font-size: 14px;">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate magnam
-                                neque aspernatur natus laboriosam?
+                                {{announcement.summary}}
                             </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <b>No announcements posted yet.</b>
+                            <div class="mt-2 text-muted" style="font-size: 14px;">
+                                The instructor hasn't added any announcements to this course yet. Announcements are used to inform you of updates or additions to this course.
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
                 <!--Student Feedback-->
                 <div class="mb-5">
@@ -828,10 +824,20 @@
                             <div class="card-body d-flex flex-column align-items-center gap-3">
                                 <div style="width: 100%;">
                                     <div class="d-grid gap-2">
-                                        <a href="{% url 'course_lesson' %}" class="btn btn-primary py-3" type="button"
+                                        {% if enrollment %}
+                                        <a href="{% url 'course_lesson' %}" class="btn btn-primary py-3"
+                                            style="background: #0071dc;">
+                                            <b>Continue to Lesson</b>
+                                        </a>
+                                        {% else %}
+                                        <form id="enroll-form" method="POST" action="{% url 'courses:enroll_course' course.pk %}">
+                                            {% csrf_token %}
+                                        </form>
+                                        <button class="btn btn-primary py-3" type="submit" form="enroll-form"
                                             style="background: #0071dc;">
                                             <b>Enroll Now</b>
-                                        </a>
+                                        </button>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div style="width: 100%;">
@@ -860,37 +866,35 @@
                             </div>
                         </div>
                     </div>
+                    {% if course.categories.all %}
                     <div class="card bg-white mb-4">
                         <div class="card-body p-4">
                             <h5>Course categories</h5>
                             <div class="d-flex flex-column gap-4">
                                 <ul class="list-group">
+                                    {% for cat in course.categories.all %}
                                     <li class="list-group-item border-0 px-0 text-muted"
-                                        style="font-size: 16px; font-weight: 500;">Art & Design</li>
-                                    <li class="list-group-item border-0 px-0 text-muted"
-                                        style="font-size: 16px; font-weight: 500;">Business</li>
-                                    <li class="list-group-item border-0 px-0 text-muted"
-                                        style="font-size: 16px; font-weight: 500;">Data Science</li>
-                                    <li class="list-group-item border-0 px-0 text-muted"
-                                        style="font-size: 16px; font-weight: 500;">Development</li>
-                                    <li class="list-group-item border-0 px-0 text-muted"
-                                        style="font-size: 16px; font-weight: 500;">Finance</li>
+                                        style="font-size: 16px; font-weight: 500;">{{cat.title}}</li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+                    {% if related_courses %}
                     <div class="card bg-white mb-4">
                         <div class="card-body p-4">
                             <h5>Related Courses</h5>
                             <br>
                             <ul class="list-group list-group-flush">
+                                {% for rel_course in related_courses %}
                                 <li class="list-group-item px-0">
                                     <div class="card border-0" style="max-width: 950px">
                                         <div class="card-body p-0">
                                             <div class="d-flex flex-column flex-md-row">
                                                 <div class="instructor-image-grid-item rounded" style="height: 120px;">
                                                     <div class="image-background"
-                                                        style="background-image: url('https://placehold.co/150x250');">
+                                                        style="background-image: url('{% if rel_course.thumbnail %}{{ rel_course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
                                                         <div class="position-absolute p-2" style="top: 0px;">
                                                             <span class="badge" style="background: #0071dc;">-15%</span>
                                                         </div>
@@ -899,11 +903,19 @@
                                                 <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
                                                     <div style="width: 100%;">
                                                         <div class="mb-2 d-flex flex-column gap-2">
-                                                            <small class="fw-bold">Decision-Making Alignment</small>
+                                                            <small class="fw-bold">{{rel_course.title}}</small>
                                                             <div class="text-muted">
-                                                                <b class="fs-5">₹100</b><b>.96</b>
-                                                                <s class="text-muted">₹00</s><s
-                                                                    class="text-muted">.00</s>
+                                                                {% if rel_course.price %}
+                                                                    {% if rel_course.discount_price %}
+                                                                        <b class="fs-5">₹{{rel_course.discount_price|get_price_whole}}</b><b>.{{rel_course.discount_price|get_price_fraction}}</b>
+                                                                        <s class="text-muted">₹{{rel_course.price|get_price_whole}}</s>
+                                                                        <s class="text-muted">.{{rel_course.price|get_price_fraction}}</s>
+                                                                    {% else %}
+                                                                    <b class="fs-5">₹{{rel_course.price|get_price_whole}}</b><b>.{{rel_course.price|get_price_fraction}}</b>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <b class="fs-5">Free</b>
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -912,65 +924,11 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="list-group-item px-0">
-                                    <div class="card border-0" style="max-width: 950px">
-                                        <div class="card-body p-0">
-                                            <div class="d-flex flex-column flex-md-row">
-                                                <div class="instructor-image-grid-item rounded" style="height: 120px;">
-                                                    <div class="image-background"
-                                                        style="background-image: url('https://placehold.co/150x250');">
-                                                        <div class="position-absolute p-2" style="top: 0px;">
-                                                            <span class="badge" style="background: #0071dc;">-15%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
-                                                    <div style="width: 100%;">
-                                                        <div class="mb-2 d-flex flex-column gap-2">
-                                                            <small class="fw-bold">Decision-Making Alignment</small>
-                                                            <div class="text-muted">
-                                                                <b class="fs-5">₹100</b><b>.96</b>
-                                                                <s class="text-muted">₹00</s><s
-                                                                    class="text-muted">.00</s>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item px-0">
-                                    <div class="card border-0" style="max-width: 950px">
-                                        <div class="card-body p-0">
-                                            <div class="d-flex flex-column flex-md-row">
-                                                <div class="instructor-image-grid-item rounded" style="height: 120px;">
-                                                    <div class="image-background"
-                                                        style="background-image: url('https://placehold.co/150x250');">
-                                                        <div class="position-absolute p-2" style="top: 0px;">
-                                                            <span class="badge" style="background: #0071dc;">-15%</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
-                                                    <div style="width: 100%;">
-                                                        <div class="mb-2 d-flex flex-column gap-2">
-                                                            <small class="fw-bold">Decision-Making Alignment</small>
-                                                            <div class="text-muted">
-                                                                <b class="fs-5">₹100</b><b>.96</b>
-                                                                <s class="text-muted">₹00</s><s
-                                                                    class="text-muted">.00</s>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

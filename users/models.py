@@ -31,3 +31,6 @@ class User(AbstractUser):
     )
     is_student = models.BooleanField(default=True)
     is_instructor = models.BooleanField(default=False)
+
+    def get_approved_course_count(self):
+        return self.courses.exclude(approved_at=None).count()

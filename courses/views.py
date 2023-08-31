@@ -1,4 +1,5 @@
 import json
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -20,10 +21,29 @@ def index(request):
 
 def course_details(request, pk, slug):
     course = get_object_or_404(Course, pk=pk, approved_at__isnull=False)
+    related_courses = course.user.courses.exclude(pk=course.pk).exclude(
+        approved_at=None
+    )[:3]
+    enrollment = None
+    if request.user.is_authenticated:
+        enrollment = Enrollment.objects.filter(course=course, user=request.user).first()
     context = {
         "course": course,
+        "related_courses": related_courses,
+        "enrollment": enrollment,
     }
     return render(request, "sitePages/courseDetails.html", context)
+
+
+@login_required
+def enroll_course(request, course_pk):
+    course = get_object_or_404(Course, pk=course_pk, approved_at__isnull=False)
+    if request.method != "POST":
+        return redirect("courses:course_details", pk=course.pk, slug=course.slug)
+
+    Enrollment.objects.get_or_create(course=course, user=request.user)
+    messages.success(request, "You have successfully enrolled in this course.")
+    return redirect("courses:course_details", pk=course.pk, slug=course.slug)
 
 
 @login_required

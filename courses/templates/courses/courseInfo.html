@@ -191,23 +191,33 @@
         </p>
         {% endcomment %}
 
-        <div class="form-outline mb-4">
-          <label class="form-label my-2 fw-bold" for="category"
+        {% comment %} <div class="form-outline mb-4">
+          <label class="form-label my-2 fw-bold" for="course-categories"
             >Choose a category</label
           >
           <select
             class="category-select-single form-select p-3 mb-2"
-            id="category"
-            name="category"
+            id="course-categories"
+            name="categories"
             aria-label="Select Category"
           >
             {% for category in categories %}
             <option 
               value="{{ category.id }}"
-              {% if category == course.category %}
+              {% if category in course.categories %}
               selected
               {% endif %}
               >{{ category.title }}</option>
+            {% endfor %}
+          </select>
+        </div> {% endcomment %}
+
+        <div class="form-outline mb-3">
+          <label class="form-label my-2 fw-bold">Choose a category</label>
+          <select id="course-categories" class="form-select p-3 mb-2" aria-label="Default select example"
+            multiple="multiple" name="categories">
+            {% for category in categories %}
+            <option value={{ category.id }} {% if category in course.categories.all %} selected {% endif %}>{{ category.title }}</option>
             {% endfor %}
           </select>
         </div>
