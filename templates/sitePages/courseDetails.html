@@ -999,10 +999,9 @@
     $(document).ready(function () {
         let rating = 0;
         $(".star-rating i").on("mouseover", function () {
-            let clicked = false;
             var allStars = $(this).parent().find("i.fa-star");
             var hoveredIndex = allStars.index($(event.target));
-
+            rating = hoveredIndex + 1;
             allStars.each(function (index) {
                 if (index <= hoveredIndex) {
                     $(this).removeClass("fal").addClass("fas");
@@ -1010,18 +1009,7 @@
                     $(this).removeClass("fas").addClass("fal");
                 }
             });
-
-            $(this).on("click", function () {
-                clicked = true;
-                rating = hoveredIndex + 1;
-                console.log("clicked and rating: " + rating);
-            });
-            
-            $(".star-rating").on("mouseleave", function () {
-                if(!clicked) {
-                    $(".star-rating i").removeClass("fas").addClass("fal");
-                }
-            });
+            console.log("rating: " + rating);
         });
     });
     
