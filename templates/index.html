@@ -241,7 +241,7 @@
                         <div class="card-body p-0">
                             <div class="d-flex flex-column">
                                 <div>
-                                    <a href="{% url 'course_details' %}" class="text-dark">
+                                    <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-dark">
                                         <div class="grid-thumbnail-container rounded" style="height: 200px;">
                                             <div class="image-background"
                                                 style="background-image: url('{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
