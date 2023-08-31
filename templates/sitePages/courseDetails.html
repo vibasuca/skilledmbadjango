@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static my_extras %}
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
@@ -67,29 +67,26 @@
             </nav>
             <div class="p-lg-5">
                 <div class="text-primary fw-bold mb-3">
-                    Design Tools
+                    {{course.category.title}}
                 </div>
                 <h2>
-                    Adobe Illustrator CC – Essentials Training Course
+                    {{course.title}}
                 </h2>
                 <div class="d-flex gap-3 align-items-center justify-content-start flex-wrap py-3">
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="https://placehold.co/35x35" alt="testi" style="width: 35px;"
+                        <img src="{% if user.profile_pic %}{{ user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
                             class="img-fluid rounded-circle">
-                        <b>Sarah</b>
+                        <b>{{ user.get_full_name }}</b>
                     </div>
+                    {% for instructor in course.instructors.all %}
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="https://placehold.co/35x35" alt="testi" style="width: 35px;"
+                        <img src="{% if instructor.profile_pic %}{{ instructor.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
                             class="img-fluid rounded-circle">
-                        <b>Sarah</b>
+                        <b>{{instructor.get_full_name}}</b>
                     </div>
+                    {% endfor %}
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="https://placehold.co/35x35" alt="testi" style="width: 35px;"
-                            class="img-fluid rounded-circle">
-                        <b>Sarah</b>
-                    </div>
-                    <div class="d-flex gap-3 align-items-center justify-content-start">
-                        Last Update November 25, 2020
+                        Last Update {{course.updated_at|timesince}} ago
                     </div>
                 </div>
                 <div class="d-flex gap-3 align-items-center justify-content-start">
@@ -116,130 +113,140 @@
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-8 pt-3 p-lg-5">
+                {% if course.description %}
                 <h5>About This Course</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
-                    <p>
-                        Are you frustrated trying to teach yourself Adobe Illustrator?! This course will quickly allow
-                        you to
-                        start getting paid for your Illustrator skills.
-                    </p>
-                    <p>
-                        Whether you’re brand new to Illustrator, or have played around with it but need more guidance,
-                        this
-                        course will help you feel confident and comfortable using the industry-standard vector-based
-                        graphic
-                        application.
-                        This course was designed for the complete beginner, with practice files and fun projects to get
-                        you
-                        taking action. Throughout this Illustrator CC course, you’ll be designing your own real-world
-                        projects that are professional and inspire you to do even more!
-                    </p>
+                    {{course.description|safe}}
                 </div>
+                {% endif %}
+                {% if course.tags.all %}
                 <!--tags-->
                 <div>
-                    <i class="far fa-tags text-muted"></i>&nbsp;&nbsp;<b class="fw-bold text-muted">Adobe, Design,
-                        Graphic, Illustrator</b>
+                    <i class="far fa-tags text-muted"></i>&nbsp;&nbsp;
+                    <b class="fw-bold text-muted">
+                        {% for tag in course.tags.all %}
+                            {{tag.title}}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </b>
                 </div>
+                {% endif %}
+
+                {% if course.what_will_i_learn %}
                 <!--Learning Objectives-->
                 <div class="card my-5">
                     <div class="card-body p-4">
                         <h5>Learning Objectives</h5>
                         <div class="row text-muted" style="font-size: 15px;">
-                            <div class="col-lg-6 p-3 d-flex gap-2">
-                                <i class="fal text-success fa-check-circle"></i>
-                                <span>With the skills learned in this course, you'll have a highly-desired skill that
-                                    can
-                                    help
-                                    you get jobs and make money as a graphic designer.</span>
-                            </div>
-                            <div class="col-lg-6 p-3 d-flex gap-2">
-                                <i class="fal text-success fa-check-circle"></i>
-                                <span>Adobe Illustrator is the industry-standard application when it comes to graphic
-                                    design,
-                                    so it's important for you to learn it if you want to be a professional
-                                    designer.</span>
-                            </div>
+                            {% for line in course.get_what_will_i_learn_lines %}
+                                {% if line %}
+                                    <div class="col-lg-6 p-3 d-flex gap-2">
+                                        <i class="fal text-success fa-check-circle"></i>
+                                        <span>{{line}}</span>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
+                {% endif %}
+
+                {% if course.requirements %}
                 <h5>Requirements</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
-                    <div class="mb-3 d-flex gap-2">
-                        <i class="far fa-check text-primary"></i>
-                        <span>Any version of Adobe Illustrator, preferably the CC (Creative Cloud) version.</span>
-                    </div>
-                    <div class="mb-3 d-flex gap-2">
-                        <i class="far fa-check text-primary"></i>
-                        <span>No prior knowledge or experience with Illustrator is required.</span>
-                    </div>
+                    {% for line in course.get_requirements_lines %}
+                        {% if line %}
+                            <div class="mb-3 d-flex gap-2">
+                                <i class="far fa-check text-primary"></i>
+                                <span>{{line}}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
+                {% endif %}
+
                 <br>
+
+                {% if course.target_audience %}
                 <h5>Target Audience</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
-                    <div class="mb-3 d-flex gap-2">
-                        <i class="far fa-long-arrow-right"></i>
-                        <span>Any version of Adobe Illustrator, preferably the CC (Creative Cloud) version.</span>
-                    </div>
-                    <div class="mb-3 d-flex gap-2">
-                        <i class="far fa-long-arrow-right"></i>
-                        <span>No prior knowledge or experience with Illustrator is required.</span>
-                    </div>
+                    {% for line in course.get_target_audience_lines %}
+                        {% if line %}
+                            <div class="mb-3 d-flex gap-2">
+                                <i class="far fa-long-arrow-right"></i>
+                                <span>{{line}}</span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
+                {% endif %}
                 <hr>
                 <br>
+
+                {% if course.topics.all %}
                 <!--Curriculum-->
                 <div class="mb-5">
                     <div class="d-flex justify-content-between">
                         <h5>Curriculum</h5>
                         <div class="d-flex gap-5 overflow-auto pb-3 ps-5" style="max-width: 50%; font-size: 14px;">
-                            <span style="font-weight: 500;">1 Lesson</span>
-                            <span>8h 30m</span>
+                            <span style="font-weight: 500;">{{course.get_lessons_count}} Lesson{{course.get_lessons_count|pluralize:"s"}}</span>
+                            <span>
+                                {% if course.duration|get_timedelta_hours %}
+                                    {{course.duration|get_timedelta_hours}}h
+                                {% endif  %}
+                                {% if course.duration|get_timedelta_minutes %}
+                                    {{course.duration|get_timedelta_minutes}}m
+                                {% endif  %}
+                            </span>
                         </div>
                     </div>
                     <div class="my-3">
+                        {% for topic in course.topics.all %}
                         <!--Topic card-->
                         <div class="card text-start mb-3">
                             <div class="card-body p-0">
                                 <div class="section p-3 px-4 text-primary d-flex align-items-center gap-3"
-                                    style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+                                    style="cursor: pointer;" data-bs-toggle="collapse" href="#topic-card{{forloop.counter}}">
                                     <i class="fas fa-plus"></i>
-                                    <span style="font-weight: 500;">Section 1: What to Expect</span>
+                                    <span style="font-weight: 500;">{{topic.title}}</span>
                                     <i class="fad fa-info-circle text-muted"></i>
                                 </div>
-                                <div class="collapse" id="card1">
+                                <div class="collapse" id="topic-card{{forloop.counter}}">
                                     <div class="mt-0">
                                         <!--content in here-->
                                         <table class="table table-striped m-0">
                                             <tbody>
+                                                {% for topic_item in topic.items.all %}
                                                 <tr>
-                                                    <td class="py-3 px-4 text-muted"><i
-                                                            class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</td>
-                                                    <td class="text-end py-3 px-4 text-muted"><i
-                                                            class="far fa-lock-alt"></i>
+                                                    <td class="py-3 px-4 text-muted">
+                                                        {% if topic_item.lesson %}
+                                                        <i class="far fa-file-alt"></i>&nbsp;&nbsp;
+                                                        {{topic_item.lesson.title}}
+                                                        {% elif topic_item.assignment %}
+                                                        <i class="far fa-file-edit"></i>&nbsp;&nbsp;
+                                                        {{topic_item.assignment.title}}
+                                                        {% elif topic_item.quiz %}
+                                                        <i class="far fa-question-circle"></i>&nbsp;&nbsp;
+                                                        {{topic_item.quiz.title}}
+                                                        {% endif %}
                                                     </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="py-3 px-4 text-muted"><i
-                                                            class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</td>
+                                                    {% if not topic_item.lesson.enable_preview %}
                                                     <td class="text-end py-3 px-4 text-muted"><i
-                                                            class="far fa-lock-alt"></i>
+                                                        class="far fa-lock-alt"></i>
                                                     </td>
+                                                    {% endif %}
                                                 </tr>
-                                                <tr>
-                                                    <td class="py-3 px-4 text-muted"><i
-                                                            class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</td>
-                                                    <td class="text-end py-3 px-4 text-muted"><i
-                                                            class="far fa-lock-alt"></i>
-                                                    </td>
-                                                </tr>
+                                                {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
+                {% endif %}
+
                 <!--Instructors-->
                 <div class="mb-5">
                     <h5>Your Instructors</h5>
@@ -431,15 +438,24 @@
                     style="top: -275px !important; z-index: 1; transition: all 0.25s ease-in-out;">
                     <div class="card text-start bg-white mb-4">
                         <div class="image-grid-item rounded-top">
-                            {% comment %}
-                            <div class="image-background" style="background-image: url('https://placehold.co/150x250')">
+                            <div class="image-background" style="background-image: url('{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}')">
                             </div>
-                            {% endcomment %}
-                            <video class="image-background" src="https://placehold.co/1920x1080.mp4" controls></video>
+                            {% comment %} <video class="image-background" src="https://placehold.co/1920x1080.mp4" controls></video> {% endcomment %}
                         </div>
                         <div class="card-body tips p-4">
                             <h1 class="text-muted mb-4">
-                                <b>Free</b>
+                                <b>
+                                    {% if course.price %}
+                                        {% if course.discount_price %}
+                                            <span class="text-decoration-line-through">₹{{course.price}}</span>
+                                            ₹{{course.discount_price}}
+                                        {% else %}
+                                            ₹{{course.price}}
+                                        {% endif %}
+                                    {% else %}
+                                        Free
+                                    {% endif %}
+                                </b>
                             </h1>
                             <ul class="list-group list-group-flush" style="font-size: 14px;">
                                 <li class="list-group-item px-0">
@@ -448,27 +464,37 @@
                                             <i class="far fa-sliders-h text-muted"></i>&nbsp;
                                             <b>Level</b>
                                         </div>
-                                        <div>Beginner</div>
+                                        <div>{{course.get_difficulty_level_display}}</div>
                                     </div>
                                 </li>
+                                {% if course.duration %}
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
                                         <div>
                                             <i class="far fa-clock text-muted"></i>&nbsp;
                                             <b>Duration</b>
                                         </div>
-                                        <div>8.5 hours</div>
+                                        <div>
+                                            {% if course.duration|get_timedelta_hours %}
+                                                {{course.duration|get_timedelta_hours}} hour{{course.duration|get_timedelta_hours|pluralize:"s"}} 
+                                            {% endif  %}
+                                            {% if course.duration|get_timedelta_minutes %}
+                                                {{course.duration|get_timedelta_minutes}} minute{{course.duration|get_timedelta_minutes|pluralize:"s"}}
+                                            {% endif  %}
+                                        </div>
                                     </div>
                                 </li>
+                                {% endif %}
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
                                         <div>
                                             <i class="far fa-play-circle text-muted"></i>&nbsp;
                                             <b>Lectures</b>
                                         </div>
-                                        <div>1 lecture</div>
+                                        <div>{{course.get_lessons_count}} lecture{{course.get_lessons_count|pluralize:"s"}}</div>
                                     </div>
                                 </li>
+                                {% comment %} 
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
                                         <div>
@@ -477,29 +503,34 @@
                                         </div>
                                         <div>Design Tools</div>
                                     </div>
-                                </li>
+                                </li> 
+                                {% endcomment %}
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
                                         <div>
                                             <i class="far fa-globe text-muted"></i>&nbsp;
                                             <b>Langauge</b>
                                         </div>
-                                        <div>English</div>
+                                        <div>{{course.get_language_display}}</div>
                                     </div>
                                 </li>
                             </ul>
                             <br>
+
+                            {% if course.materials_included %}
                             <h5>Material Includes</h5>
                             <div class="text-muted py-3" style="font-size: 15px;">
-                                <div class="mb-3 d-flex gap-2">
-                                    <i class="far fa-long-arrow-right text-primary"></i>
-                                    <span>Tutorial Booklets</span>
-                                </div>
-                                <div class="mb-3 d-flex gap-2">
-                                    <i class="far fa-long-arrow-right text-primary"></i>
-                                    <span>Instruction Videos</span>
-                                </div>
+                                {% for line in course.get_materials_included_lines %}
+                                    {% if line %}
+                                        <div class="mb-3 d-flex gap-2">
+                                            <i class="far fa-long-arrow-right text-primary"></i>
+                                            <span>{{line}}</span>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
+                            {% endif %}
+                            
                             <div class="card-body d-flex flex-column align-items-center gap-3">
                                 <div style="width: 100%;">
                                     <div class="d-grid gap-2">

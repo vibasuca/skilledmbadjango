@@ -4,6 +4,9 @@ from . import views
 app_name = "courses"
 
 urlpatterns = [
+    # Main site
+    path("<int:pk>/<str:slug>/", views.course_details, name="course_details"),
+    # Dashboard
     path("my-courses/", views.list_courses_published, name="list_courses_published"),
     path(
         "my-courses/pending-courses/",

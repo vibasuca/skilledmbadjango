@@ -98,7 +98,9 @@ class Course(models.Model):
         null=True,
         blank=True,
     )
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True, default=0)
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True, default=0
+    )
     discount_price = models.DecimalField(
         max_digits=10, decimal_places=2, null=True, blank=True, default=0
     )
@@ -149,6 +151,25 @@ class Course(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+    def get_materials_included_lines(self):
+        text = self.materials_included.replace("\r", "")
+        return text.split("\n")
+
+    def get_what_will_i_learn_lines(self):
+        text = self.what_will_i_learn.replace("\r", "")
+        return text.split("\n")
+
+    def get_requirements_lines(self):
+        text = self.requirements.replace("\r", "")
+        return text.split("\n")
+
+    def get_target_audience_lines(self):
+        text = self.target_audience.replace("\r", "")
+        return text.split("\n")
+
+    def get_lessons_count(self):
+        return Lesson.objects.filter(topic_item__topic__course=self).count()
 
     def __str__(self):
         return f"{self.user.username}'s course: {self.title}"

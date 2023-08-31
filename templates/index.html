@@ -235,7 +235,7 @@
                                                 {% endif %}
                                             </div>
                                             <div class="my-1">
-                                                <a href="{% url 'course_details' %}" class="text-dark">
+                                                <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-dark">
                                                     <b>{{course.title}}</b>
                                                 </a>
                                             </div>

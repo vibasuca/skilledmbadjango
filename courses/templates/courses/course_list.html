@@ -79,12 +79,14 @@
     <div class="card mb-4" style="max-width: 950px">
       <div class="card-body">
         <div class="d-flex flex-column flex-md-row align-items-center">
-          <div class="image-grid-item rounded">
-            <div
-              class="image-background"
-              style="background-image: url('{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}')"
-            ></div>
-          </div>
+          <a href="{% url 'courses:course_details' course.pk course.slug %}">
+            <div class="image-grid-item rounded">
+              <div
+                class="image-background"
+                style="background-image: url('{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}')"
+              ></div>
+            </div>
+          </a>
           <div
             class="px-md-3 py-lg-0 py-3 d-flex align-content-center flex-wrap"
             style="width: 100%"

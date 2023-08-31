@@ -43,10 +43,10 @@
         </button>
       </div>
       <div class="d-flex align-items-center gap-2 gap-lg-4">
-        <button class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline">
+        <a class="btn btn-light text-muted border border-2 px-lg-4 px-3 py-2 d-none d-lg-inline" href="{% url 'courses:course_details' course.pk course.slug %}">
           <i class="fal fa-glasses"></i>
           <span class="d-none d-lg-inline">&nbsp;&nbsp;&nbsp;Preview</span>
-        </button>
+        </a>
         <button class="btn btn-primary px-lg-4 px-3 py-2 d-none d-lg-inline" type="submit" form="courseForm"
           name="submit_for_review">
           <span class="d-none d-lg-inline"><b>Submit for Review</b></span>
@@ -69,10 +69,10 @@
     <div class="modal-dialog" style="bottom: 0%">
       <div class="modal-content p-3">
         <div class="d-flex flex-column gap-3">
-          <button class="btn btn-light border border-2 text-muted px-3 py-2">
+          <a class="btn btn-light border border-2 text-muted px-3 py-2" href="{% url 'courses:course_details' course.pk course.slug %}">
             <i class="fal fa-glasses"></i>
             <span>&nbsp;&nbsp;&nbsp;Preview</span>
-          </button>
+          </a>
           <button class="btn btn-primary px-3 py-2">
             <span><b>Submit for Review</b></span>
           </button>

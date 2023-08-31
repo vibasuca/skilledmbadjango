@@ -11,13 +11,22 @@ from .serializers import *
 
 
 def index(request):
-    published = Course.objects.exclude(approved_at=None)
+    approved_courses = Course.objects.exclude(approved_at=None)
     context = {
-        "courses": published,
+        "courses": approved_courses,
     }
     return render(request, "index.html", context)
 
 
+def course_details(request, pk, slug):
+    course = get_object_or_404(Course, pk=pk, approved_at__isnull=False)
+    context = {
+        "course": course,
+    }
+    return render(request, "sitePages/courseDetails.html", context)
+
+
+@login_required
 def list_courses_published(request):
     published = request.user.courses.exclude(approved_at=None)
     pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
@@ -31,6 +40,7 @@ def list_courses_published(request):
     return render(request, "courses/course_list.html", context)
 
 
+@login_required
 def list_courses_pending(request):
     published = request.user.courses.exclude(approved_at=None)
     pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
@@ -44,6 +54,7 @@ def list_courses_pending(request):
     return render(request, "courses/course_list.html", context)
 
 
+@login_required
 def list_courses_draft(request):
     published = request.user.courses.exclude(approved_at=None)
     pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
