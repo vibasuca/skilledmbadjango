@@ -899,12 +899,14 @@
                                         <div class="card-body p-0">
                                             <div class="d-flex flex-column flex-md-row">
                                                 <div class="instructor-image-grid-item rounded" style="height: 120px;">
-                                                    <div class="image-background"
-                                                        style="background-image: url('{% if rel_course.thumbnail %}{{ rel_course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
-                                                        <div class="position-absolute p-2" style="top: 0px;">
-                                                            <span class="badge" style="background: #0071dc;">-15%</span>
+                                                        <a href="{% url 'courses:course_details' rel_course.pk rel_course.slug %}" class="text-dark">
+                                                        <div class="image-background"
+                                                            style="background-image: url('{% if rel_course.thumbnail %}{{ rel_course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                            <div class="position-absolute p-2" style="top: 0px;">
+                                                                <span class="badge" style="background: #0071dc;">-15%</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </a>
                                                 </div>
                                                 <div class="px-md-3 py-lg-0 py-3 d-flex flex-wrap" style="width: 100%">
                                                     <div style="width: 100%;">
