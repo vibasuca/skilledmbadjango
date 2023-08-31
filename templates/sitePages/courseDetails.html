@@ -113,6 +113,16 @@
     <div class="container py-4">
         <div class="row">
             <div class="col-lg-8 pt-3 p-lg-5">
+
+                <h5>Course Progress</h5>
+                <div class="d-flex align-items-center gap-3 mt-4 mb-5">
+                    <div class="progress flex-fill" role="progressbar" aria-label="course progress" aria-valuenow="25"
+                        aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+                        <div class="progress-bar" style="width: 25%;"></div>
+                    </div>
+                    <span class="text-muted text-center" style="width: auto;">25 % Complete</span>
+                </div>
+
                 {% if course.description %}
                 <h5>About This Course</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
@@ -247,6 +257,178 @@
                 </div>
                 {% endif %}
 
+                <!--Resources-->
+                <div class="card border-0 mb-5">
+                    <!--empty-->
+                    <h5>Resources</h5>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="{% static 'images/addon-empty-state.svg' %}" alt="404">
+                        </div>
+                        <div class="text-center">
+                            No Attachment Found
+                        </div>
+                    </div>
+                    <!--non-empty-->
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="p-3" style="max-width: 90%;">
+                                            <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                autem!
+                                                Ipsa totam impedit natus doloremque quidem, perferendis
+                                                voluptatem
+                                                blanditiis nulla. Inventore, delectus.
+                                            </div>
+                                            <small class="text-muted">Size: 121.45 KB</small>
+                                        </div>
+                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="p-3" style="max-width: 90%;">
+                                            <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                autem!
+                                                Ipsa totam impedit natus doloremque quidem, perferendis
+                                                voluptatem
+                                                blanditiis nulla. Inventore, delectus.
+                                            </div>
+                                            <small class="text-muted">Size: 121.45 KB</small>
+                                        </div>
+                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="p-3" style="max-width: 90%;">
+                                            <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                autem!
+                                                Ipsa totam impedit natus doloremque quidem, perferendis
+                                                voluptatem
+                                                blanditiis nulla. Inventore, delectus.
+                                            </div>
+                                            <small class="text-muted">Size: 121.45 KB</small>
+                                        </div>
+                                        <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Question & Answer-->
+                <div class="mb-5">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h5>Question & Answer</h5>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qaModal">
+                            Ask a new question
+                        </button>
+
+                        <!-- Q&A Modal -->
+                        <div class="modal fade" id="qaModal" tabindex="-1" aria-labelledby="qaModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="qaModalLabel">Ask a Question</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <textarea class="form-control" name="question" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <div class="modal-footer d-flex gap-4 justify-content-center">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary">Post Question</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <!--Question 1-->
+                        <div class="d-flex align-items-cente gap-3">
+                            <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                <img src="https://placehold.co/35x35" alt="testi" style="width: 100%;"
+                                    class="img-fluid rounded-circle">
+                            </div>
+                            <div class="d-flex flex-column gap-3" style="font-size: 14px; width: 100%;">
+                                <div>
+                                    <b>Om Dahale</b>
+                                    <span class="text-muted">36 seconds ago</span>
+                                </div>
+                                <div class="p-3 rounded" style="background: #f8f8f8;">
+                                    how to do this?
+                                </div>
+                                <!--Answer 1-->
+                                <div class="d-flex align-items-cente gap-3">
+                                    <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                        class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                        <img src="https://placehold.co/35x35" alt="testi" style="width: 100%;"
+                                            class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="d-flex flex-column gap-3" style="font-size: 14px; width: 100%;">
+                                        <div>
+                                            <b>Om Dahale</b>
+                                            <span class="text-muted">36 seconds ago</span>
+                                        </div>
+                                        <div class="p-3 rounded" style="background: #f8f8f8;">
+                                            how to do what?
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--Answer 2-->
+                                <div class="d-flex align-items-cente gap-3">
+                                    <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                        class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                        <img src="https://placehold.co/35x35" alt="testi" style="width: 100%;"
+                                            class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="d-flex flex-column gap-3" style="font-size: 14px; width: 100%;">
+                                        <div>
+                                            <b>Om Dahale</b>
+                                            <span class="text-muted">36 seconds ago</span>
+                                        </div>
+                                        <div class="p-3 rounded" style="background: #f8f8f8;">
+                                            i don't know, ask the expert
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-end mt-4">
+                                    <button class="btn btn-warning">Add an answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!--Instructors-->
                 <div class="mb-5">
                     <h5>Your Instructors</h5>
@@ -295,6 +477,28 @@
                                         </small>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Announcements-->
+                <div class="mb-5">
+                    <h5>Announcements</h5>
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-cente gap-3 gap-lg-4">
+                                <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                    class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                    <i class="far fa-bell"></i>
+                                </div>
+                                <div class="d-flex flex-column gap-2" style="font-size: 14px;">
+                                    <b>somethingg interesting offer</b>
+                                    <div class="text-muted">Posted by Om Dahale 2 days ago</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-muted" style="font-size: 14px;">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum voluptate magnam
+                                neque aspernatur natus laboriosam?
                             </div>
                         </div>
                     </div>
@@ -429,6 +633,96 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!--Write a review-->
+                <div class="d-flex align-items-center justify-content-between">
+                    <h5>Reviews (1)</h5>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reviewModal">
+                        Write review
+                    </button>
+
+                    <!-- Review Modal -->
+                    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="reviewModalLabel">Write review</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3 d-flex flex-column star-rating">
+                                        <span class="greet-text">
+                                            <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 25px"></i>
+                                            <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 25px"></i>
+                                            <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 25px"></i>
+                                            <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 25px"></i>
+                                            <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 25px"></i>
+                                        </span>
+                                    </div>
+
+                                    <textarea class="form-control" name="question" cols="30" rows="10"></textarea>
+                                </div>
+                                <div class="modal-footer d-flex gap-4 justify-content-center">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary">Post Review</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="mb-5">
+                    <div class="card-body">
+                        <div class="d-flex align-items-cente gap-3 gap-lg-4">
+                            <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                <img src="https://placehold.co/35x35" alt="testi" style="width: 100%;"
+                                    class="img-fluid rounded-circle">
+                            </div>
+                            <div class="d-flex flex-column gap-2" style="font-size: 14px;">
+                                <b>Om Dahale</b>
+                                <div class="text-muted">8 mins ago</div>
+                            </div>
+                        </div>
+                        <div class="my-2 d-flex flex-column">
+                            <span class="greet-text">
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                            </span>
+                        </div>
+                        <div class="text-muted" style="font-size: 14px;">Thik thak laga ye course mujhe</div>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <div class="card-body">
+                        <div class="d-flex align-items-cente gap-3 gap-lg-4">
+                            <div style="width: 50px; height: 50px; font-size: 25px; background: #f1f3f8;"
+                                class="rounded-circle d-flex align-items-center justify-content-center text-primary">
+                                <img src="https://placehold.co/35x35" alt="testi" style="width: 100%;"
+                                    class="img-fluid rounded-circle">
+                            </div>
+                            <div class="d-flex flex-column gap-2" style="font-size: 14px;">
+                                <b>Om Dahale</b>
+                                <div class="text-muted">8 mins ago</div>
+                            </div>
+                        </div>
+                        <div class="my-2 d-flex flex-column">
+                            <span class="greet-text">
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fas fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                                <i class="fal fa-star fa-sm" style="color: #ffa600; font-size: 14px"></i>
+                            </span>
+                        </div>
+                        <div class="text-muted" style="font-size: 14px;">Thik thak laga ye course mujhe</div>
                     </div>
                 </div>
             </div>
@@ -728,6 +1022,18 @@
     $(".section").click(function () {
         $(this).children(".fas").toggleClass("fa-plus fa-minus");
     });
+
+    $(document).ready(function () {
+        // When hovering over .star-rating
+        $(".star-rating").hover(function () {
+            // Convert each child i element with class fa-star to fa-star fal
+            $(this).find("i.fa-star").removeClass("fas").addClass("fal");
+        }, function () {
+            // Revert back to original class when the hover is removed
+            $(this).find("i.fa-star").removeClass("fal").addClass("fas");
+        });
+    });
+
 </script>
 
 {% endblock content %}

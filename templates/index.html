@@ -3,6 +3,32 @@
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
+<style>
+    .grid-thumbnail-container {
+        flex: 0 0 200px;
+        position: relative;
+        overflow: hidden;
+        background-color: rgb(218, 218, 218);
+        cursor: pointer;
+        min-width: 150px;
+        width: 100%;
+    }
+
+    .image-background:hover {
+        background-size: 120%;
+    }
+
+    .image-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 1s ease;
+    }
+</style>
 <!-- Hero Banner Section -->
 <div class="container-fluid title-content">
     <div class="py-3" style="font-size: 14px;">
@@ -210,29 +236,38 @@
             </div>
             <div class="row py-4">
                 {% for course in courses %}
-                    <div class="col-lg-3 mb-4">
-                        <div class="card mb-4 border-0">
-                            <div class="card-body p-0">
-                                <div class="d-flex flex-column">
-                                    <div>
-                                        <div class="thumbnail-preview">
-                                            <img class="img-fluid" style="width: 100%;"
-                                                src="{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}"
-                                                alt="thumbnail">
+                <div class="col-lg-3 mb-4">
+                    <div class="card mb-4 border-0">
+                        <div class="card-body p-0">
+                            <div class="d-flex flex-column">
+                                <div>
+                                    <a href="{% url 'course_details' %}" class="text-dark">
+                                        <div class="grid-thumbnail-container rounded" style="height: 200px;">
+                                            <div class="image-background"
+                                                style="background-image: url('{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                <div class="position-absolute p-2" style="top: 0px;">
+                                                    <span class="badge" style="background: #0071dc;">-15%</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
-                                        <div style="width: 100%;">
-                                            <div class="mb-2">
-                                                {% if course.difficulty_level == "A" %}
-                                                    <span class="alert alert-warning py-1 px-2 " style="font-size: 12px;">All Levels</span>
-                                                {% elif course.difficulty_level == "B" %}
-                                                    <span class="alert alert-info py-1 px-2 " style="font-size: 12px;">Beginner</span>
-                                                {% elif course.difficulty_level == "I" %}
-                                                    <span class="alert alert-success py-1 px-2 " style="font-size: 12px;">Intermediate</span>
-                                                {% elif course.difficulty_level == "E" %}
-                                                    <span class="alert alert-danger py-1 px-2 " style="font-size: 12px;">Expert</span>
-                                                {% endif %}
+                                    </a>
+                                </div>
+                                <div class="py-3 d-flex align-content-center flex-wrap" style="width: 100%;">
+                                    <div style="width: 100%;">
+                                        <div class="mb-2">
+                                            {% if course.difficulty_level == "A" %}
+                                            <span class="alert alert-warning py-1 px-2 " style="font-size: 12px;">All
+                                                Levels</span>
+                                            {% elif course.difficulty_level == "B" %}
+                                            <span class="alert alert-info py-1 px-2 "
+                                                style="font-size: 12px;">Beginner</span>
+                                            {% elif course.difficulty_level == "I" %}
+                                            <span class="alert alert-success py-1 px-2 "
+                                                style="font-size: 12px;">Intermediate</span>
+                                            {% elif course.difficulty_level == "E" %}
+                                            <span class="alert alert-danger py-1 px-2 "
+                                                style="font-size: 12px;">Expert</span>
+                                            {% endif %}
                                             </div>
                                             <div class="my-1">
                                                 <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-dark">
@@ -257,12 +292,12 @@
                                                     {% endif %}
                                                 </b>
                                             </small>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
