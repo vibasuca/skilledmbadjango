@@ -997,11 +997,9 @@
     });
 
     $(document).ready(function () {
-        let rating = 0;
         $(".star-rating i").on("mouseover", function () {
             var allStars = $(this).parent().find("i.fa-star");
-            var hoveredIndex = allStars.index($(event.target));
-            rating = hoveredIndex + 1;
+            var hoveredIndex = allStars.index($(this));
             allStars.each(function (index) {
                 if (index <= hoveredIndex) {
                     $(this).removeClass("fal").addClass("fas");
@@ -1009,10 +1007,33 @@
                     $(this).removeClass("fas").addClass("fal");
                 }
             });
-            console.log("rating: " + rating);
+
+            var clicked = false;
+
+            $(this).on("click", function () {
+                clicked = true;
+                $(this).parent().data("rated", hoveredIndex + 1);
+            });
+
+            $(this).on("mouseleave", function () {
+                if (!clicked) {
+                    var rated = $(this).parent().data("rated");
+                    if (rated) {
+                        allStars.each(function (index) {
+                            if (index < rated) {
+                                $(this).removeClass("fal").addClass("fas");
+                            } else {
+                                $(this).removeClass("fas").addClass("fal");
+                            }
+                        });
+                    } else {
+                        allStars.removeClass("fas").addClass("fal");
+                    }
+                }
+            });
         });
     });
-    
+
 </script>
 
 {% endblock content %}
