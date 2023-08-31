@@ -3,6 +3,19 @@
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
+<style>
+    .tab-content {
+        display: none;
+    }
+
+    .activeTab {
+        display: block;
+    }
+
+    .tab-link:hover {
+        color: #0071dc !important;
+    }
+</style>
 
 <link rel="stylesheet" href="{% static 'css/courseContent.css' %}" />
 
@@ -34,7 +47,7 @@
                 <div class="container">
                     <!--Content Header-->
                     <div class="p-3 rounded" style="background: #031f42; color: white;">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex flex-wrap gap-3 justify-content-between align-items-center">
                             <div>
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
@@ -49,37 +62,93 @@
                             </div>
                             <div>
                                 <button class="btn btn-outline-warning btn-sm px-3 py-2">
-                                    <i class="fas fa-check-circle"></i> Mark as Complete 
+                                    <i class="fas fa-check-circle"></i> Mark as Complete
                                 </button>
                             </div>
                         </div>
                     </div>
                     <!--Main Content-->
-                    <div class="py-5">
-                        <h1><b>Lorem ipsum dolor sit amet</b></h1>
-                        <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel
-                            pulvinar diam. Mauris blandit quam convallis diam
-                            pretium semper. Vivamus metus arcu, varius ac consectetur ac, rutrum iaculis dui. Vivamus
-                            porta, augue efficitur malesuada auctor, dolor augue facilisis erat, eu finibus dolor urna
-                            at dolor. Aliquam sollicitudin arcu eu fringilla dapibus. In efficitur sollicitudin tempus.
-                            Duis nec elit arcu. Curabitur ultrices lacus sed libero pharetra, non elementum elit
-                            euismod. </p>
-                        <h2>Pellentesque justo leo, vestibulum sed quam et</h2>
-                        <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui non
-                            ligula tincidunt volutpat ac eu elit. Nullam
-                            gravida venenatis elit, et vestibulum tortor rhoncus in. In hac habitasse platea dictumst.
-                            Mauris nec tellus justo. Nullam at dictum leo. Nam fringilla velit at orci cursus elementum.
-                            Curabitur et porttitor sapien. Etiam scelerisque imperdiet mauris eu rutrum. Maecenas
-                            consequat erat nisi, non sodales lorem sollicitudin a. Ut aliquet tempus rutrum.br <br>
+                    <div class="d-flex flex-wrap gap-3 border-bottom mt-5 justify-content-center">
+                        <span class="tab-link flex-1 px-4 py-2"
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="overview">
+                            <i class="far fa-copy"></i>&nbsp;Overview
+                        </span>
+                        <span class="tab-link flex-1 px-4 py-2"
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="exercise_files">
+                            <i class="far fa-paperclip"></i>&nbsp;Exercise&nbsp;Files
+                        </span>
+                        <span class="tab-link flex-1 px-4 py-2"
+                            style="border-color: #0071dc !important; cursor: pointer;" data-tab="comments">
+                            <i class="far fa-comment-alt-lines"></i>&nbsp;Comments
+                        </span>
+                    </div>
+                    <!--overview-->
+                    <div id="overview" class="tab-content">
+                        <div class="py-5">
+                            <h1><b>Lorem ipsum dolor sit amet</b></h1>
+                            <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel
+                                pulvinar diam. Mauris blandit quam convallis diam
+                                pretium semper. Vivamus metus arcu, varius ac consectetur ac, rutrum iaculis dui.
+                                Vivamus
+                                porta, augue efficitur malesuada auctor, dolor augue facilisis erat, eu finibus dolor
+                                urna
+                                at dolor. Aliquam sollicitudin arcu eu fringilla dapibus. In efficitur sollicitudin
+                                tempus.
+                                Duis nec elit arcu. Curabitur ultrices lacus sed libero pharetra, non elementum elit
+                                euismod. </p>
+                            <h2>Pellentesque justo leo, vestibulum sed quam et</h2>
+                            <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui
+                                non
+                                ligula tincidunt volutpat ac eu elit. Nullam
+                                gravida venenatis elit, et vestibulum tortor rhoncus in. In hac habitasse platea
+                                dictumst.
+                                Mauris nec tellus justo. Nullam at dictum leo. Nam fringilla velit at orci cursus
+                                elementum.
+                                Curabitur et porttitor sapien. Etiam scelerisque imperdiet mauris eu rutrum. Maecenas
+                                consequat erat nisi, non sodales lorem sollicitudin a. Ut aliquet tempus rutrum.br <br>
 
-                            Maecenas suscipit auctor enim, et ultrices velit rhoncus eu. Nulla facilisi. Etiam mollis
-                            est sed laoreet interdum. Ut orci mauris, fringilla egestas facilisis quis, mollis sit amet
-                            eros. Fusce molestie ullamcorper egestas. Sed id turpis eu dolor efficitur semper.
-                            Pellentesque luctus lacus eget luctus commodo. Nullam vitae facilisis dui. Suspendisse
-                            potenti. Nunc euismod vehicula lectus at laoreet. Curabitur et commodo mauris. Sed pulvinar,
-                            massa vel semper facilisis, mi magna consequat metus, ut aliquam lorem tellus commodo est.
-                            Nunc fringilla risus eget tristique finibus. Donec elementum in mi eget vestibulum.</p>
+                                Maecenas suscipit auctor enim, et ultrices velit rhoncus eu. Nulla facilisi. Etiam
+                                mollis
+                                est sed laoreet interdum. Ut orci mauris, fringilla egestas facilisis quis, mollis sit
+                                amet
+                                eros. Fusce molestie ullamcorper egestas. Sed id turpis eu dolor efficitur semper.
+                                Pellentesque luctus lacus eget luctus commodo. Nullam vitae facilisis dui. Suspendisse
+                                potenti. Nunc euismod vehicula lectus at laoreet. Curabitur et commodo mauris. Sed
+                                pulvinar,
+                                massa vel semper facilisis, mi magna consequat metus, ut aliquam lorem tellus commodo
+                                est.
+                                Nunc fringilla risus eget tristique finibus. Donec elementum in mi eget vestibulum.</p>
 
+                            <div class="row my-5">
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div class="p-3" style="max-width: 90%;">
+                                                    <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                        dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                        autem!
+                                                        Ipsa totam impedit natus doloremque quidem, perferendis
+                                                        voluptatem
+                                                        blanditiis nulla. Inventore, delectus.
+                                                    </div>
+                                                    <small class="text-muted">Size: 121.45 KB</small>
+                                                </div>
+                                                <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--exercise_files-->
+                    <div id="exercise_files" class="tab-content containr">
+                        <div class="fw-bold fs-5 my-4 mt-5">Exercise Files</div>
                         <div class="row my-5">
                             <div class="col-md-4 mb-4">
                                 <div class="card">
@@ -88,8 +157,56 @@
                                             <div class="p-3" style="max-width: 90%;">
                                                 <div class="text-truncate mb-2" style="max-width: 100%;">
                                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                                                    dolores ipsa quas libero eaque repellat, doloremque expedita autem!
-                                                    Ipsa totam impedit natus doloremque quidem, perferendis voluptatem
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
+                                                    blanditiis nulla. Inventore, delectus.
+                                                </div>
+                                                <small class="text-muted">Size: 121.45 KB</small>
+                                            </div>
+                                            <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
+                                                    dolores ipsa quas libero eaque repellat, doloremque expedita
+                                                    autem!
+                                                    Ipsa totam impedit natus doloremque quidem, perferendis
+                                                    voluptatem
                                                     blanditiis nulla. Inventore, delectus.
                                                 </div>
                                                 <small class="text-muted">Size: 121.45 KB</small>
@@ -104,12 +221,21 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-outline-primary px-3 py-2">
-                                Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
-                            </button>
+                    </div>
+                    <!--comments-->
+                    <div id="comments" class="tab-content">
+                        <div class="container">
+                            <div class="fw-bold fs-5 my-4 mt-5">Join the conversation</div>
+                            comment system
                         </div>
-
+                    </div>
+                    <div class="d-flex justify-content-between gap-3 my-4">
+                        <button class="btn btn-outline-primary px-3 py-2">
+                            <i class="fas fa-arrow-left"></i> &nbsp;&nbsp; Previous
+                        </button>
+                        <button class="btn btn-outline-primary px-3 py-2">
+                            Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -122,6 +248,24 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
+
+    $(document).ready(function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageTab = urlParams.get("page_tab");
+        const activeTab = pageTab || "overview";
+        $("#" + activeTab).show().addClass("activeTab");
+        $(".tab-link[data-tab='" + activeTab + "']").addClass("activeTab text-primary border-bottom border-2");
+        $(".tab-link").click(function () {
+            const tabId = $(this).data("tab");
+            history.pushState({}, "", "?page_tab=" + tabId);
+            $(".tab-content").hide().removeClass("activeTab");
+            $(".tab-link").removeClass("activeTab text-primary text-muted border-bottom border-2");
+            $("#" + tabId).show().addClass("activeTab");
+            $(this).addClass("activeTab text-primary border-bottom border-2");
+            $(".tab-link:not(.activeTab)").addClass("text-muted");
+        });
+        $(".tab-link:not(.activeTab)").addClass("text-muted");
+    });
 
     const windowWidth = $(window).width();
 

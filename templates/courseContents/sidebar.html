@@ -27,8 +27,7 @@
                     style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
                     <div class="d-flex align-items-center justify-content-between gap-3">
                         <small style="font-weight: 500;">Section 1: What to Expect</small>
-                        <i class="fad fa-info-circle text-muted" data-bs-toggle="tooltip" data-bs-placement="top"
-                            data-bs-title="Tooltip on top"></i>
+                        <i class="fad fa-info-circle text-muted"></i>
                     </div>
                     <i class="fal fa-minus"></i>
                 </div>
@@ -44,10 +43,11 @@
                                             <div class="py-2 px-4 d-flex justify-content-between align-items-center">
                                                 <span><i class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</span>
                                                 <span>
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     {% if url_name == 'course_lesson' %}
+                                                    <i class="far fa-circle text-light"></i>
                                                     <i class="fas fa-check-circle text-light"></i>
                                                     {% else %}
+                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     <i class="fas fa-check-circle text-success"></i>
                                                     {% endif %}
                                                 </span>
@@ -60,12 +60,13 @@
                                         <a href="{% url 'course_assignment' %}"
                                             class="{% if url_name == 'course_assignment' %}text-white{% else %}text-muted{% endif %}">
                                             <div class="py-2 px-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="far fa-file-alt"></i>&nbsp;&nbsp;Assignment</span>
+                                                <span><i class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</span>
                                                 <span>
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     {% if url_name == 'course_assignment' %}
+                                                    <i class="far fa-circle text-light"></i>
                                                     <i class="fas fa-check-circle text-light"></i>
                                                     {% else %}
+                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     <i class="fas fa-check-circle text-success"></i>
                                                     {% endif %}
                                                 </span>
@@ -78,12 +79,13 @@
                                         <a href="{% url 'course_quiz' %}"
                                             class="{% if url_name == 'course_quiz' %}text-white{% else %}text-muted{% endif %}">
                                             <div class="py-2 px-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="far fa-file-alt"></i>&nbsp;&nbsp;Quiz</span>
+                                                <span><i class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</span>
                                                 <span>
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     {% if url_name == 'course_quiz' %}
+                                                    <i class="far fa-circle text-light"></i>
                                                     <i class="fas fa-check-circle text-light"></i>
                                                     {% else %}
+                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
                                                     <i class="fas fa-check-circle text-success"></i>
                                                     {% endif %}
                                                 </span>
