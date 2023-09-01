@@ -71,11 +71,6 @@ urlpatterns += [
         name="withdrawals",
     ),
     path(
-        "course-details/",
-        TemplateView.as_view(template_name="sitePages/courseDetails.html"),
-        name="course_details",
-    ),
-    path(
         "course-list/",
         TemplateView.as_view(template_name="sitePages/courseList.html"),
         name="course_list",
@@ -94,6 +89,26 @@ urlpatterns += [
         "course-quiz/",
         TemplateView.as_view(template_name="courseContents/quiz.html"),
         name="course_quiz",
+    ),
+    path(
+        "dashboard/",
+        TemplateView.as_view(template_name="dashboard/student/dashboard.html"),
+        name="dashboard",
+    ),
+    path(
+        "enrolled-courses/",
+        TemplateView.as_view(template_name="dashboard/student/enrolled_courses.html"),
+        name="enrolled_courses",
+    ),
+    path(
+        "reviews/",
+        TemplateView.as_view(template_name="dashboard/student/reviews.html"),
+        name="reviews",
+    ),
+    path(
+        "wishlist/",
+        TemplateView.as_view(template_name="dashboard/student/wishlist.html"),
+        name="wishlist",
     ),
 ]
 
