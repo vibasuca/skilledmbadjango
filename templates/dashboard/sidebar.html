@@ -13,26 +13,26 @@
 
         {% with url_name=request.resolver_match.url_name %}
         <ul class="list-group p-3">
-            <li class="list-group-item d-flex align-items-center gap-3">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'dashboard' %}active{% endif %}">
                 <i class="fal fa-layer-group fs-5"></i>
-                <a href="https://skilledmba.com/dashboard/">Dashboard</a>
+                <a href="{% url 'dashboard' %}">Dashboard</a>
             </li>
             <li
                 class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'account_profile' %}active{% endif %}">
                 <i class="fal fa-user fs-5"></i>
                 <a href="{% url 'account_profile' %}">My Profile</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'enrolled_courses' %}active{% endif %}">
                 <i class="fal fa-book-open fs-5"></i>
-                <a href="https://skilledmba.com/dashboard/enrolled-courses">Enrolled Courses</a>
+                <a href="{% url 'enrolled_courses' %}">Enrolled Courses</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'wishlist' %}active{% endif %}">
                 <i class="fal fa-heart fs-5"></i>
-                <a href="https://skilledmba.com/dashboard/wishlist">Wishlist</a>
+                <a href="{% url 'wishlist' %}">Wishlist</a>
             </li>
-            <li class="list-group-item d-flex align-items-center gap-3">
+            <li class="list-group-item d-flex align-items-center gap-3 {% if url_name == 'reviews' %}active{% endif %}">
                 <i class="fal fa-star fs-5"></i>
-                <a href="https://skilledmba.com/dashboard/reviews">Reviews</a>
+                <a href="{% url 'reviews' %}">Reviews</a>
             </li>
             <li class="list-group-item d-flex align-items-center gap-3">
                 <i class="fal fa-question fs-5"></i>
