@@ -20,7 +20,9 @@ def index(request):
 
 
 def course_details(request, pk, slug):
-    course = get_object_or_404(Course, pk=pk, approved_at__isnull=False)
+    course = get_object_or_404(Course, pk=pk)
+    if course.approved_at is None and course.user != request.user:
+        raise Http404()
     related_courses = course.user.courses.exclude(pk=course.pk).exclude(
         approved_at=None
     )[:3]
@@ -37,7 +39,9 @@ def course_details(request, pk, slug):
 
 @login_required
 def enroll_course(request, course_pk):
-    course = get_object_or_404(Course, pk=course_pk, approved_at__isnull=False)
+    course = get_object_or_404(Course, pk=course_pk)
+    if course.approved_at is None and course.user != request.user:
+        raise Http404()
     if request.method != "POST":
         return redirect("courses:course_details", pk=course.pk, slug=course.slug)
 
