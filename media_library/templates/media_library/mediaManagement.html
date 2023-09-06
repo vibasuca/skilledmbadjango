@@ -60,10 +60,10 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs ps-3">
         <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#libraryTab">Media Library</a>
+            <a class="nav-link active" data-toggle="tab" href="#libraryTab" id="media-lib-tab-btn">Media Library</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Upload Media</a>
+            <a class="nav-link" data-toggle="tab" href="#uploadTab">Upload Media</a>
         </li>
     </ul>
 
@@ -99,11 +99,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="visibility:hidden; opacity:0" id="dropzone">
-                            <div id="textnode">Drop anywhere!</div>
-                        </div>
-                        <div class="border mb-3 p-1 d-none d-lg-block" style="background: rgb(247, 247, 247);">
-                            <div style="border: 3px solid rgb(194, 194, 194); border-style: dotted; height: 300px;" class="rounded p-3 d-flex justify-content-center align-items-center">
+                        <div id="dropzone" class="border mb-3 p-1 d-none d-lg-block" style="visibility:hidden; opacity:0; background: rgb(247, 247, 247);">
+                            <div id="textnode" style="border: 3px solid rgb(194, 194, 194); border-style: dotted; height: 100%" class="rounded p-3 d-flex justify-content-center align-items-center">
                                 Drag Media Here
                             </div>
                         </div>
@@ -167,6 +164,29 @@
                 </div>
             </div>
         </div>
+        <div id="uploadTab" class="tab-pane">
+            <div class="center-container">
+                {% comment %} <button class="center-content">Upload media</button> {% endcomment %}
+                <button id="fileButton" class="center-content btn btn-primary">Upload media</button>
+                <input type="file" id="fileInput" accept=".jpg, .jpeg, .png, .gif, .bmp, .mp4, .avi, .mov, .mkv, .wmv, .mp3, .wav, .ogg, .flac, .aac, .zip, .rar, .txt, .csv, .log, .md, .pdf" style="display: none;">
+            </div>
+            <style>
+                .center-container {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 400px;
+                }
+                .center-container .center-content {
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    background-color: #0074d9;
+                    color: #ffffff;
+                    border: none;
+                    cursor: pointer;
+                }
+            </style>
+        </div>
     </div>
 </div>
 
@@ -175,6 +195,41 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        const fileButton = document.getElementById("fileButton");
+        const fileInput = document.getElementById("fileInput");
+        fileButton.addEventListener("click", () => {
+            fileInput.click(); // Trigger the hidden file input
+        });
+
+        fileInput.addEventListener("change", () => {
+            const file = fileInput.files[0];
+            if (file) {
+                const formData = new FormData();
+                formData.append("file", file);
+    
+                $.ajax({
+                    url: "{% url 'media_library:upload_media' %}",
+                    type: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log(data)
+                        $("#media-lib-tab-btn").click();
+                        fetchMediaList();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+
+            }
+
+        });
 
         var selectedMedia = [];
 

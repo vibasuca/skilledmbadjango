@@ -110,7 +110,7 @@ def update_course(request, pk):
                 instance.published_at = None
             instance.approved_at = None
             instance.save()
-
+            messages.success(request, "Course updated successfully.")
             return redirect("courses:update_course", pk=instance.pk)
     else:
         form = CourseForm(instance=course)
