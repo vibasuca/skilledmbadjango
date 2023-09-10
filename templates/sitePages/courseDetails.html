@@ -240,11 +240,11 @@
                                                         {{topic_item.quiz.title}}
                                                         {% endif %}
                                                     </td>
-                                                    {% if not topic_item.lesson.enable_preview %}
-                                                    <td class="text-end py-3 px-4 text-muted"><i
-                                                        class="far fa-lock-alt"></i>
+                                                    <td class="text-end py-3 px-4 text-muted">
+                                                        {% if not topic_item.lesson.enable_preview %}
+                                                            <i class="far fa-lock-alt"></i>
+                                                        {% endif %}
                                                     </td>
-                                                    {% endif %}
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>

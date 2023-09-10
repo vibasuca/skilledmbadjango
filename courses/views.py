@@ -122,6 +122,7 @@ def update_course(request, pk):
     context = {
         "form": form,
         "course": course,
+        "user_courses": request.user.courses.exclude(pk__in=[course.pk]),
         "categories": CourseCategory.objects.all(),
         "tags": CourseTag.objects.all(),
     }
