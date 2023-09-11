@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static my_extras %}
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
@@ -25,12 +25,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#" class="hover-underline-animation">Home</a>
+                    <a href="{% url 'index' %}" class="hover-underline-animation">Home</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="hover-underline-animation">Courses</a>
                 </li>
-                <li class="breadcrumb-item">Art & Design</li>
+                <li class="breadcrumb-item">{{course.title}}</li>
             </ol>
         </nav>
     </div>
@@ -73,10 +73,10 @@
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="overview">
                             <i class="far fa-copy"></i>&nbsp;Overview
                         </span>
-                        <span class="tab-link flex-1 px-4 py-2"
+                        {% comment %} <span class="tab-link flex-1 px-4 py-2"
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="exercise_files">
                             <i class="far fa-paperclip"></i>&nbsp;Exercise&nbsp;Files
-                        </span>
+                        </span> {% endcomment %}
                         <span class="tab-link flex-1 px-4 py-2"
                             style="border-color: #0071dc !important; cursor: pointer;" data-tab="comments">
                             <i class="far fa-comment-alt-lines"></i>&nbsp;Comments
@@ -85,64 +85,29 @@
                     <!--overview-->
                     <div id="overview" class="tab-content">
                         <div class="py-5">
-                            <h1><b>Lorem ipsum dolor sit amet</b></h1>
-                            <p class="text-muted my-4" style="font-size: 14px;">consectetur adipiscing elit. Fusce vel
-                                pulvinar diam. Mauris blandit quam convallis diam
-                                pretium semper. Vivamus metus arcu, varius ac consectetur ac, rutrum iaculis dui.
-                                Vivamus
-                                porta, augue efficitur malesuada auctor, dolor augue facilisis erat, eu finibus dolor
-                                urna
-                                at dolor. Aliquam sollicitudin arcu eu fringilla dapibus. In efficitur sollicitudin
-                                tempus.
-                                Duis nec elit arcu. Curabitur ultrices lacus sed libero pharetra, non elementum elit
-                                euismod. </p>
-                            <h2>Pellentesque justo leo, vestibulum sed quam et</h2>
-                            <p class="text-muted my-4" style="font-size: 14px;">feugiat tempus purus. Maecenas non dui
-                                non
-                                ligula tincidunt volutpat ac eu elit. Nullam
-                                gravida venenatis elit, et vestibulum tortor rhoncus in. In hac habitasse platea
-                                dictumst.
-                                Mauris nec tellus justo. Nullam at dictum leo. Nam fringilla velit at orci cursus
-                                elementum.
-                                Curabitur et porttitor sapien. Etiam scelerisque imperdiet mauris eu rutrum. Maecenas
-                                consequat erat nisi, non sodales lorem sollicitudin a. Ut aliquet tempus rutrum.br <br>
-
-                                Maecenas suscipit auctor enim, et ultrices velit rhoncus eu. Nulla facilisi. Etiam
-                                mollis
-                                est sed laoreet interdum. Ut orci mauris, fringilla egestas facilisis quis, mollis sit
-                                amet
-                                eros. Fusce molestie ullamcorper egestas. Sed id turpis eu dolor efficitur semper.
-                                Pellentesque luctus lacus eget luctus commodo. Nullam vitae facilisis dui. Suspendisse
-                                potenti. Nunc euismod vehicula lectus at laoreet. Curabitur et commodo mauris. Sed
-                                pulvinar,
-                                massa vel semper facilisis, mi magna consequat metus, ut aliquam lorem tellus commodo
-                                est.
-                                Nunc fringilla risus eget tristique finibus. Donec elementum in mi eget vestibulum.</p>
-
+                            <h1><b>{{lesson.title}}</b></h1>
+                            {{ lesson.content|safe }}
                             <div class="row my-5">
+                                {% for attachment in lesson.attachments.all %}
                                 <div class="col-md-4 mb-4">
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="p-3" style="max-width: 90%;">
                                                     <div class="text-truncate mb-2" style="max-width: 100%;">
-                                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio
-                                                        dolores ipsa quas libero eaque repellat, doloremque expedita
-                                                        autem!
-                                                        Ipsa totam impedit natus doloremque quidem, perferendis
-                                                        voluptatem
-                                                        blanditiis nulla. Inventore, delectus.
+                                                        {{attachment.file.url|get_filename}}
                                                     </div>
-                                                    <small class="text-muted">Size: 121.45 KB</small>
+                                                    <small class="text-muted">Size: {{ attachment.get_size }}</small>
                                                 </div>
-                                                <button class="btn btn-outline-primary border rounded-circle px-2 py-1"
-                                                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <a href="{{ attachment.file.url }}" download="{{ attachment.file.url|get_filename }}" class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                    aria-expanded="false">
                                                     <i class="fal fa-sm fa-cloud-download-alt"></i>
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -230,12 +195,12 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between gap-3 my-4">
-                        <button class="btn btn-outline-primary px-3 py-2">
+                        <a class="btn btn-outline-primary px-3 py-2" href="{{ lesson.topic_item.get_prev_item|get_topic_item_url }}">
                             <i class="fas fa-arrow-left"></i> &nbsp;&nbsp; Previous
-                        </button>
-                        <button class="btn btn-outline-primary px-3 py-2">
+                        </a>
+                        <a class="btn btn-outline-primary px-3 py-2" href="{{ lesson.topic_item.get_next_item|get_topic_item_url }}">
                             Next &nbsp;&nbsp; <i class="fas fa-arrow-right"></i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

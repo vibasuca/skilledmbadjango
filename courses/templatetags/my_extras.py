@@ -91,3 +91,18 @@ def get_continue_lesson_url(course):
         )
     elif topic_item.quiz:
         return reverse("courses:quiz_details", kwargs={"pk": topic_item.quiz.pk})
+
+
+@register.filter
+def get_topic_item_url(topic_item):
+    if topic_item is None:
+        return "#"
+
+    if topic_item.lesson:
+        return reverse("courses:lesson_details", kwargs={"pk": topic_item.lesson.pk})
+    elif topic_item.assignment:
+        return reverse(
+            "courses:assignment_details", kwargs={"pk": topic_item.assignment.pk}
+        )
+    elif topic_item.quiz:
+        return reverse("courses:quiz_details", kwargs={"pk": topic_item.quiz.pk})
