@@ -831,7 +831,7 @@
                                 <div style="width: 100%;">
                                     <div class="d-grid gap-2">
                                         {% if enrollment %}
-                                        <a href="{% url 'course_lesson' %}" class="btn btn-primary py-3"
+                                        <a href="{{ course|get_continue_lesson_url }}" class="btn btn-primary py-3"
                                             style="background: #0071dc;">
                                             <b>Continue to Lesson</b>
                                         </a>

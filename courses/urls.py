@@ -7,6 +7,9 @@ urlpatterns = [
     # Main site
     path("<int:pk>/<str:slug>/", views.course_details, name="course_details"),
     path("enroll-course/<int:course_pk>/", views.enroll_course, name="enroll_course"),
+    path("lessons/<int:pk>/", views.lesson_details, name="lesson_details"),
+    path("assignments/<int:pk>/", views.assignment_details, name="assignment_details"),
+    path("quizzes/<int:pk>/", views.quiz_details, name="quiz_details"),
     # Dashboard
     path("my-courses/", views.list_courses_published, name="list_courses_published"),
     path(

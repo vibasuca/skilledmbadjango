@@ -37,6 +37,43 @@ def course_details(request, pk, slug):
     return render(request, "sitePages/courseDetails.html", context)
 
 
+# lesson view
+def lesson_details(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "lesson": lesson,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/lesson.html", context)
+
+
+def assignment_details(request, pk):
+    assignment = get_object_or_404(Assignment, pk=pk)
+    course = assignment.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "assignment": assignment,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/assignment.html", context)
+
+
+def quiz_details(request, pk):
+    quiz = get_object_or_404(Quiz, pk=pk)
+    course = quiz.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "quiz": quiz,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/quiz.html", context)
+
+
 @login_required
 def enroll_course(request, course_pk):
     course = get_object_or_404(Course, pk=course_pk)

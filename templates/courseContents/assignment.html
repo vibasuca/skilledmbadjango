@@ -25,7 +25,7 @@
 
     <div>
         <div class="row">
-            {% include 'courseContents/sidebar.html' %}
+            {% include 'courseContents/sidebar.html' with course=course topic_item=assignment.topic_item enrollment=enrollment %}
 
             <div class="content flex-fill position-relative col-lg-8">
                 <button class="toggleSidebar position-absolute btn text-primary rounded-0 rounded-end shadow-sm"
