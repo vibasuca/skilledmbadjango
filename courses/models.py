@@ -241,6 +241,14 @@ class Assignment(models.Model):
     class Meta:
         ordering = ("-created_at",)
 
+    def get_time_limit_display(self):
+        if self.time_limit_unit == "W":
+            return self.time_limit.days // 7
+        elif self.time_limit_unit == "D":
+            return self.time_limit.days
+        elif self.time_limit_unit == "H":
+            return self.time_limit.total_seconds() // 3600
+
     def __str__(self):
         return self.title
 
