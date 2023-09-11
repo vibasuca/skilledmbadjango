@@ -30,7 +30,11 @@
                         <small style="font-weight: 500;">{{topic.title}}</small>
                         <i class="fad fa-info-circle text-muted"></i>
                     </div>
-                    <i class="fal fa-minus"></i>
+                    {% if topic_item.topic == topic %}
+                        <i class="fal fa-minus"></i>
+                    {% else %}
+                        <i class="fal fa-plus"></i>
+                    {% endif %}
                 </div>
                 <div class="collapse {% if topic_item.topic == topic %}show{% endif %}" id="card{{forloop.counter}}">
                     <div class="mt-0">

@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a href="#" class="hover-underline-animation">Courses</a>
                 </li>
-                <li class="breadcrumb-item">Art & Design</li>
+                <li class="breadcrumb-item">{{course.title}}</li>
             </ol>
         </nav>
     </div>
@@ -46,44 +46,47 @@
                             <div>
                                 <i class="far fa-question-circle text-warning"></i>
                                 &nbsp;
-                                <small style="font-weight: 500;">quiz name</small>
+                                <small style="font-weight: 500;">{{ quiz.title }}</small>
                             </div>
                         </div>
                     </div>
                     <!--Main Content-->
                     <div class="py-5">
                         <h3 class="fw-bold">
-                            ‘ls’ Command in Unix/Linux
+                            {{quiz.title}}
                         </h3>
                         <b>
-                            <span class="text-muted">Course: </span>Linux Foundation Course
+                            <span class="text-muted">Course: </span>{{course.title}}
                         </b>
                         <div class="card my-5 px-3 py-4 border-0" style="background-color: #f4f9ff;">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between gap-5 flex-wrap">
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-muted">Questions</span>
-                                        <span>2</span>
+                                        <span>{{quiz.get_questions_count}}</span>
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-muted">Allowed Attemtps</span>
-                                        <span>10</span>
+                                        <span>{{quiz.max_attempts_allowed}}</span>
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-muted">Attempted</span>
-                                        <span>8</span>
+                                        <span>0</span>
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-muted">Attempts Remaining</span>
-                                        <span>5</span>
+                                        <span>{{quiz.max_attempts_allowed}}</span>
                                     </div>
                                     <div class="d-flex flex-column gap-2">
                                         <span class="text-muted">Passing Grade</span>
-                                        <span>7</span>
+                                        <span>{{quiz.passing_percentage}} %</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+                        {% comment %}                         
                         <div class="card-body p-0 table-responsive border rounded">
                             <table class="table m-0 align-middle">
                                 <thead>
@@ -152,7 +155,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div> 
+                        {% endcomment %}
+
+                        {% comment %} 
 
                         <div class="d-flex py-4 my-4 justify-content-between border-top border-bottom gap-5 flex-wrap">
                             <div class="d-flex gap-5">
@@ -356,6 +362,8 @@
                                 <label for="shortAnswer">Answer</label>
                             </div>
                         </div>
+
+                        {% endcomment %}
 
                         <div class="d-flex justify-content-start my-5">
                             <button class="btn btn-primary px-3 py-2">
