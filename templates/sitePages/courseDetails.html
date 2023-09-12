@@ -71,14 +71,14 @@
                 </h2>
                 <div class="d-flex gap-3 align-items-center justify-content-start flex-wrap py-3">
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="{% if course.user.profile_pic %}{{ course.user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
-                            class="img-fluid rounded-circle">
+                        <img src="{% if course.user.profile_pic %}{{ course.user.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}"
+                            alt="testi" style="width: 35px;" class="img-fluid rounded-circle">
                         <b>{{ course.user.get_full_name }}</b>
                     </div>
                     {% for instructor in course.instructors.all %}
                     <div class="d-flex gap-3 align-items-center justify-content-start">
-                        <img src="{% if instructor.profile_pic %}{{ instructor.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}" alt="testi" style="width: 35px;"
-                            class="img-fluid rounded-circle">
+                        <img src="{% if instructor.profile_pic %}{{ instructor.profile_pic.url }}{% else %}{% static 'images/profile-photo.png' %}{% endif %}"
+                            alt="testi" style="width: 35px;" class="img-fluid rounded-circle">
                         <b>{{instructor.get_full_name}}</b>
                     </div>
                     {% endfor %}
@@ -97,7 +97,7 @@
                     </span>
                     <div>
                         {% if course.enrollments.all.count %}
-                            {{course.enrollments.all.count}} already enrolled
+                        {{course.enrollments.all.count}} already enrolled
                         {% endif %}
                     </div>
                 </div>
@@ -116,13 +116,32 @@
                 {% if enrollment %}
                 <h5>Course Progress</h5>
                 <div class="d-flex align-items-center gap-3 mt-4 mb-5">
-                    <div class="progress flex-fill" role="progressbar" aria-label="course progress" aria-valuenow="{{ enrollment.get_percentage_completed }}"
-                        aria-valuemin="0" aria-valuemax="100" style="height: 10px;">
+                    <div class="progress flex-fill" role="progressbar" aria-label="course progress"
+                        aria-valuenow="{{ enrollment.get_percentage_completed }}" aria-valuemin="0" aria-valuemax="100"
+                        style="height: 10px;">
                         <div class="progress-bar" style="width: {{ enrollment.get_percentage_completed }}%;"></div>
                     </div>
-                    <span class="text-muted text-center" style="width: auto;">{{ enrollment.get_percentage_completed }} % Complete</span>
+                    <span class="text-muted text-center" style="width: auto;">{{ enrollment.get_percentage_completed }}
+                        % Complete</span>
                 </div>
                 {% endif %}
+
+                <h5 class="mb-4">Course Prerequisites</h5>
+                <div class="alert alert-warning mb-4 d-flex gap-3">
+                    <div><i class="fal fa-exclamation-triangle"></i></div>
+                    <div>
+                        Please note that this course has the following prerequisites which must be completed before it can be accessed
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body d-flex gap-3 align-items-center">
+                        <div>
+                            <img class="rounded" style="max-width: 100px;" src="https://placehold.co/600x400" alt="course prerequisite">
+                        </div>
+                        <span style="font-weight: 500;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga culpa impedit consequuntur magni nesciunt eligendi!</span>
+                    </div>
+                </div>
+
 
                 {% if course.description %}
                 <h5>About This Course</h5>
@@ -136,7 +155,7 @@
                     <i class="far fa-tags text-muted"></i>&nbsp;&nbsp;
                     <b class="fw-bold text-muted">
                         {% for tag in course.tags.all %}
-                            {{tag.title}}{% if not forloop.last %}, {% endif %}
+                        {{tag.title}}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </b>
                 </div>
@@ -149,12 +168,12 @@
                         <h5>Learning Objectives</h5>
                         <div class="row text-muted" style="font-size: 15px;">
                             {% for line in course.get_what_will_i_learn_lines %}
-                                {% if line %}
-                                    <div class="col-lg-6 p-3 d-flex gap-2">
-                                        <i class="fal text-success fa-check-circle"></i>
-                                        <span>{{line}}</span>
-                                    </div>
-                                {% endif %}
+                            {% if line %}
+                            <div class="col-lg-6 p-3 d-flex gap-2">
+                                <i class="fal text-success fa-check-circle"></i>
+                                <span>{{line}}</span>
+                            </div>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -165,12 +184,12 @@
                 <h5>Requirements</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
                     {% for line in course.get_requirements_lines %}
-                        {% if line %}
-                            <div class="mb-3 d-flex gap-2">
-                                <i class="far fa-check text-primary"></i>
-                                <span>{{line}}</span>
-                            </div>
-                        {% endif %}
+                    {% if line %}
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-check text-primary"></i>
+                        <span>{{line}}</span>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -181,12 +200,12 @@
                 <h5>Target Audience</h5>
                 <div class="text-muted py-3" style="font-size: 15px;">
                     {% for line in course.get_target_audience_lines %}
-                        {% if line %}
-                            <div class="mb-3 d-flex gap-2">
-                                <i class="far fa-long-arrow-right"></i>
-                                <span>{{line}}</span>
-                            </div>
-                        {% endif %}
+                    {% if line %}
+                    <div class="mb-3 d-flex gap-2">
+                        <i class="far fa-long-arrow-right"></i>
+                        <span>{{line}}</span>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -199,14 +218,15 @@
                     <div class="d-flex justify-content-between">
                         <h5>Curriculum</h5>
                         <div class="d-flex gap-5 overflow-auto pb-3 ps-5" style="max-width: 50%; font-size: 14px;">
-                            <span style="font-weight: 500;">{{course.get_lessons_count}} Lesson{{course.get_lessons_count|pluralize:"s"}}</span>
+                            <span style="font-weight: 500;">{{course.get_lessons_count}}
+                                Lesson{{course.get_lessons_count|pluralize:"s"}}</span>
                             <span>
                                 {% if course.duration|get_timedelta_hours %}
-                                    {{course.duration|get_timedelta_hours}}h
-                                {% endif  %}
+                                {{course.duration|get_timedelta_hours}}h
+                                {% endif %}
                                 {% if course.duration|get_timedelta_minutes %}
-                                    {{course.duration|get_timedelta_minutes}}m
-                                {% endif  %}
+                                {{course.duration|get_timedelta_minutes}}m
+                                {% endif %}
                             </span>
                         </div>
                     </div>
@@ -216,7 +236,8 @@
                         <div class="card text-start mb-3">
                             <div class="card-body p-0">
                                 <div class="section p-3 px-4 text-primary d-flex align-items-center gap-3"
-                                    style="cursor: pointer;" data-bs-toggle="collapse" href="#topic-card{{forloop.counter}}">
+                                    style="cursor: pointer;" data-bs-toggle="collapse"
+                                    href="#topic-card{{forloop.counter}}">
                                     <i class="fas fa-plus"></i>
                                     <span style="font-weight: 500;">{{topic.title}}</span>
                                     <i class="fad fa-info-circle text-muted"></i>
@@ -242,7 +263,7 @@
                                                     </td>
                                                     {% if not topic_item.lesson.enable_preview %}
                                                     <td class="text-end py-3 px-4 text-muted"><i
-                                                        class="far fa-lock-alt"></i>
+                                                            class="far fa-lock-alt"></i>
                                                     </td>
                                                     {% endif %}
                                                 </tr>
@@ -275,8 +296,10 @@
                                             </div>
                                             <small class="text-muted">Size: {{ attachment.get_size }}</small>
                                         </div>
-                                        <a href="{{ attachment.file.url }}" download="{{ attachment.file.url|get_filename }}" class="btn btn-outline-primary border rounded-circle px-2 py-1"
-                                              aria-expanded="false">
+                                        <a href="{{ attachment.file.url }}"
+                                            download="{{ attachment.file.url|get_filename }}"
+                                            class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                            aria-expanded="false">
                                             <i class="fal fa-sm fa-cloud-download-alt"></i>
                                         </a>
                                     </div>
@@ -409,7 +432,9 @@
                                         </div>
                                         <small class="d-flex gap-3 my-2 text-muted"
                                             style="font-weight: 500; font-size: 13px;">
-                                            <span><i class="far fa-play-circle"></i>&nbsp;&nbsp;{{course.user.get_approved_course_count}} Course{{course.user.get_approved_course_count|pluralize:"s"}}</span>
+                                            <span><i
+                                                    class="far fa-play-circle"></i>&nbsp;&nbsp;{{course.user.get_approved_course_count}}
+                                                Course{{course.user.get_approved_course_count|pluralize:"s"}}</span>
                                             <span><i class="far fa-comment-alt"></i>&nbsp;&nbsp;3 Reviews</span>
                                             <span><i class="far fa-user"></i>&nbsp;&nbsp;78 Students</span>
                                         </small>
@@ -453,7 +478,9 @@
                                         </div>
                                         <small class="d-flex gap-3 my-2 text-muted"
                                             style="font-weight: 500; font-size: 13px;">
-                                            <span><i class="far fa-play-circle"></i>&nbsp;&nbsp;{{instructor.get_approved_course_count}} Course{{instructor.get_approved_course_count|pluralize:"s"}}</span>
+                                            <span><i
+                                                    class="far fa-play-circle"></i>&nbsp;&nbsp;{{instructor.get_approved_course_count}}
+                                                Course{{instructor.get_approved_course_count|pluralize:"s"}}</span>
                                             <span><i class="far fa-comment-alt"></i>&nbsp;&nbsp;3 Reviews</span>
                                             <span><i class="far fa-user"></i>&nbsp;&nbsp;78 Students</span>
                                         </small>
@@ -480,7 +507,8 @@
                                 </div>
                                 <div class="d-flex flex-column gap-2" style="font-size: 14px;">
                                     <b>{{announcement.title}}</b>
-                                    <div class="text-muted">Posted by {{announcement.user.get_full_name}} {{announcement.created_at|timesince}} ago</div>
+                                    <div class="text-muted">Posted by {{announcement.user.get_full_name}}
+                                        {{announcement.created_at|timesince}} ago</div>
                                 </div>
                             </div>
                             <div class="mt-4 text-muted" style="font-size: 14px;">
@@ -493,7 +521,8 @@
                         <div class="card-body">
                             <b>No announcements posted yet.</b>
                             <div class="mt-2 text-muted" style="font-size: 14px;">
-                                The instructor hasn't added any announcements to this course yet. Announcements are used to inform you of updates or additions to this course.
+                                The instructor hasn't added any announcements to this course yet. Announcements are used
+                                to inform you of updates or additions to this course.
                             </div>
                         </div>
                     </div>
@@ -734,22 +763,24 @@
                     style="top: -275px !important; z-index: 1; transition: all 0.25s ease-in-out;">
                     <div class="card text-start bg-white mb-4">
                         <div class="image-grid-item rounded-top">
-                            <div class="image-background" style="background-image: url('{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}')">
+                            <div class="image-background"
+                                style="background-image: url('{% if course.thumbnail %}{{course.thumbnail.file.url}}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}')">
                             </div>
-                            {% comment %} <video class="image-background" src="https://placehold.co/1920x1080.mp4" controls></video> {% endcomment %}
+                            {% comment %} <video class="image-background" src="https://placehold.co/1920x1080.mp4"
+                                controls></video> {% endcomment %}
                         </div>
                         <div class="card-body tips p-4">
                             <h1 class="text-muted mb-4">
                                 <b>
                                     {% if course.price %}
-                                        {% if course.discount_price %}
-                                            <span class="text-decoration-line-through">₹{{course.price}}</span>
-                                            ₹{{course.discount_price}}
-                                        {% else %}
-                                            ₹{{course.price}}
-                                        {% endif %}
+                                    {% if course.discount_price %}
+                                    <span class="text-decoration-line-through">₹{{course.price}}</span>
+                                    ₹{{course.discount_price}}
                                     {% else %}
-                                        Free
+                                    ₹{{course.price}}
+                                    {% endif %}
+                                    {% else %}
+                                    Free
                                     {% endif %}
                                 </b>
                             </h1>
@@ -772,11 +803,13 @@
                                         </div>
                                         <div>
                                             {% if course.duration|get_timedelta_hours %}
-                                                {{course.duration|get_timedelta_hours}} hour{{course.duration|get_timedelta_hours|pluralize:"s"}} 
-                                            {% endif  %}
+                                            {{course.duration|get_timedelta_hours}}
+                                            hour{{course.duration|get_timedelta_hours|pluralize:"s"}}
+                                            {% endif %}
                                             {% if course.duration|get_timedelta_minutes %}
-                                                {{course.duration|get_timedelta_minutes}} minute{{course.duration|get_timedelta_minutes|pluralize:"s"}}
-                                            {% endif  %}
+                                            {{course.duration|get_timedelta_minutes}}
+                                            minute{{course.duration|get_timedelta_minutes|pluralize:"s"}}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </li>
@@ -787,10 +820,11 @@
                                             <i class="far fa-play-circle text-muted"></i>&nbsp;
                                             <b>Lectures</b>
                                         </div>
-                                        <div>{{course.get_lessons_count}} lecture{{course.get_lessons_count|pluralize:"s"}}</div>
+                                        <div>{{course.get_lessons_count}}
+                                            lecture{{course.get_lessons_count|pluralize:"s"}}</div>
                                     </div>
                                 </li>
-                                {% comment %} 
+                                {% comment %}
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
                                         <div>
@@ -799,7 +833,7 @@
                                         </div>
                                         <div>Design Tools</div>
                                     </div>
-                                </li> 
+                                </li>
                                 {% endcomment %}
                                 <li class="list-group-item px-0">
                                     <div class="d-flex align-items-center justify-content-between py-2">
@@ -817,16 +851,16 @@
                             <h5>Material Includes</h5>
                             <div class="text-muted py-3" style="font-size: 15px;">
                                 {% for line in course.get_materials_included_lines %}
-                                    {% if line %}
-                                        <div class="mb-3 d-flex gap-2">
-                                            <i class="far fa-long-arrow-right text-primary"></i>
-                                            <span>{{line}}</span>
-                                        </div>
-                                    {% endif %}
+                                {% if line %}
+                                <div class="mb-3 d-flex gap-2">
+                                    <i class="far fa-long-arrow-right text-primary"></i>
+                                    <span>{{line}}</span>
+                                </div>
+                                {% endif %}
                                 {% endfor %}
                             </div>
                             {% endif %}
-                            
+
                             <div class="card-body d-flex flex-column align-items-center gap-3">
                                 <div style="width: 100%;">
                                     <div class="d-grid gap-2">
@@ -836,7 +870,8 @@
                                             <b>Continue to Lesson</b>
                                         </a>
                                         {% else %}
-                                        <form id="enroll-form" method="POST" action="{% url 'courses:enroll_course' course.pk %}">
+                                        <form id="enroll-form" method="POST"
+                                            action="{% url 'courses:enroll_course' course.pk %}">
                                             {% csrf_token %}
                                         </form>
                                         <button class="btn btn-primary py-3" type="submit" form="enroll-form"
@@ -899,11 +934,13 @@
                                         <div class="card-body p-0">
                                             <div class="d-flex flex-column flex-md-row">
                                                 <div class="instructor-image-grid-item rounded" style="height: 120px;">
-                                                        <a href="{% url 'courses:course_details' rel_course.pk rel_course.slug %}" class="text-dark">
+                                                    <a href="{% url 'courses:course_details' rel_course.pk rel_course.slug %}"
+                                                        class="text-dark">
                                                         <div class="image-background"
                                                             style="background-image: url('{% if rel_course.thumbnail %}{{ rel_course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
                                                             <div class="position-absolute p-2" style="top: 0px;">
-                                                                <span class="badge" style="background: #0071dc;">-15%</span>
+                                                                <span class="badge"
+                                                                    style="background: #0071dc;">-15%</span>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -914,15 +951,19 @@
                                                             <small class="fw-bold">{{rel_course.title}}</small>
                                                             <div class="text-muted">
                                                                 {% if rel_course.price %}
-                                                                    {% if rel_course.discount_price %}
-                                                                        <b class="fs-5">₹{{rel_course.discount_price|get_price_whole}}</b><b>.{{rel_course.discount_price|get_price_fraction}}</b>
-                                                                        <s class="text-muted">₹{{rel_course.price|get_price_whole}}</s>
-                                                                        <s class="text-muted">.{{rel_course.price|get_price_fraction}}</s>
-                                                                    {% else %}
-                                                                    <b class="fs-5">₹{{rel_course.price|get_price_whole}}</b><b>.{{rel_course.price|get_price_fraction}}</b>
-                                                                    {% endif %}
+                                                                {% if rel_course.discount_price %}
+                                                                <b
+                                                                    class="fs-5">₹{{rel_course.discount_price|get_price_whole}}</b><b>.{{rel_course.discount_price|get_price_fraction}}</b>
+                                                                <s
+                                                                    class="text-muted">₹{{rel_course.price|get_price_whole}}</s>
+                                                                <s
+                                                                    class="text-muted">.{{rel_course.price|get_price_fraction}}</s>
                                                                 {% else %}
-                                                                    <b class="fs-5">Free</b>
+                                                                <b
+                                                                    class="fs-5">₹{{rel_course.price|get_price_whole}}</b><b>.{{rel_course.price|get_price_fraction}}</b>
+                                                                {% endif %}
+                                                                {% else %}
+                                                                <b class="fs-5">Free</b>
                                                                 {% endif %}
                                                             </div>
                                                         </div>
