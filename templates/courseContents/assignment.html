@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static my_extras %}
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
@@ -13,19 +13,19 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#" class="hover-underline-animation">Home</a>
+                    <a href="{% url 'index' %}" class="hover-underline-animation">Home</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="hover-underline-animation">Courses</a>
                 </li>
-                <li class="breadcrumb-item">Art & Design</li>
+                <li class="breadcrumb-item">{{course.title}}</li>
             </ol>
         </nav>
     </div>
 
     <div>
         <div class="row">
-            {% include 'courseContents/sidebar.html' %}
+            {% include 'courseContents/sidebar.html' with course=course topic_item=assignment.topic_item enrollment=enrollment %}
 
             <div class="content flex-fill position-relative col-lg-8">
                 <button class="toggleSidebar position-absolute btn text-primary rounded-0 rounded-end shadow-sm"
@@ -40,65 +40,83 @@
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
                                 <small style="font-weight: 500;">
-                                    <a href="#" class="text-light">Go to course home</a>
+                                    <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-light">Go to course home</a>
                                 </small>
                             </div>
                             <div>
                                 <i class="far fa-file-edit text-warning"></i>
                                 &nbsp;
-                                <small style="font-weight: 500;">assignment name</small>
+                                <small style="font-weight: 500;">{{assignment.title}}</small>
                             </div>
                         </div>
                     </div>
                     <!--Main Content-->
                     <div class="py-5">
                         <h5 class="mb-5">
-                            Exploring the ls Command in Unix/Linux
+                            {{assignment.title}}
                         </h5>
 
                         <div class="d-flex py-4 my-4 justify-content-between border-top border-bottom gap-5 flex-wrap">
                             <div class="d-flex gap-5">
                                 <div>
                                     <span class="text-muted">Duration:</span>
-                                    <b>1 Week</b>
+                                    <b>{{assignment.get_time_limit_display}} {{assignment.get_time_limit_unit_display}}</b>
                                 </div>
+                                {% comment %} 
                                 <div>
                                     <span class="text-muted">Deadline:</span>
                                     <b>5 Days, 21 Hours</b>
-                                </div>
+                                </div> 
+                                {% endcomment %}
                             </div>
                             <div class="d-flex gap-5">
                                 <div>
                                     <span class="text-muted">Total Marks:</span>
-                                    <b>10</b>
+                                    <b>{{assignment.total_points}}</b>
                                 </div>
                                 <div>
                                     <span class="text-muted">Passing Mark:</span>
-                                    <b>5</b>
+                                    <b>{{assignment.min_pass_points}}</b>
                                 </div>
                             </div>
                         </div>
 
                         <!--Main Content pre-start assignment-->
-                        {% comment %}
                         <div class="mb-4 fw-bold">Description</div>
                         <div class="text-muted mb-5">
-                            <p>In this assignment, you will explore the ‘ls’ command, a fundamental command in
-                                Unix/Linux operating systems. The ‘ls’ command is used to list files and directories in
-                                a directory. It provides various options and functionalities to customize the output.
-                                This assignment will help you become familiar with its usage and some of its most
-                                commonly used options.</p>
+                            <p>{{ assignment.summary|safe }}</p>
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <button class="btn btn-primary px-3 py-2">
-                                Start Assignment Submit
-                            </button>
-                            <button class="btn btn-outline-primary px-3 py-2">
-                                Skip to Next
-                            </button>
+                        <div class="row my-5">
+                            {% for attachment in assignment.attachments.all %}
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="p-3" style="max-width: 90%;">
+                                                <div class="text-truncate mb-2" style="max-width: 100%;">
+                                                    {{attachment.file.url|get_filename}}
+                                                </div>
+                                                <small class="text-muted">Size: {{ attachment.get_size }}</small>
+                                            </div>
+                                            <a href="{{ attachment.file.url }}" download="{{ attachment.file.url|get_filename }}" class="btn btn-outline-primary border rounded-circle px-2 py-1"
+                                                aria-expanded="false">
+                                                <i class="fal fa-sm fa-cloud-download-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endcomment %}
+
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-outline-primary px-3 py-2" href="{{assignment.topic_item.get_next_item|get_topic_item_url}}">
+                                Skip To Next
+                            </a>
+                        </div>
+
+                        <hr class="my-5">
 
                         <!--Main Content post-start assignment-->
                         <div class="mb-4 fw-bold">Assignment Submission</div>
@@ -120,22 +138,7 @@
                             </button>
                         </div>
 
-                        <hr class="my-5">
-
-                        <div class="mb-4 fw-bold">Description</div>
-                        <div class="text-muted mb-5">
-                            <p>In this assignment, you will explore the ‘ls’ command, a fundamental command in
-                                Unix/Linux operating systems. The ‘ls’ command is used to list files and directories in
-                                a directory. It provides various options and functionalities to customize the output.
-                                This assignment will help you become familiar with its usage and some of its most
-                                commonly used options.</p>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button class="btn btn-outline-primary px-3 py-2">
-                                Skip To Next
-                            </button>
-                        </div>
+                        
                         <!--post-start assignment till here-->
 
                     </div>

@@ -120,6 +120,9 @@ class Quiz(models.Model):
         verbose_name = "quiz"
         verbose_name_plural = "quizzes"
 
+    def get_questions_count(self):
+        return min(self.questions.count(), self.max_questions)
+
     def __str__(self):
         return self.title
 
