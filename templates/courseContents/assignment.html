@@ -223,6 +223,11 @@
     $(document).ready(function onDocumentReady() {
 
         $("#assignmentInput").on("change", function () {
+            if (this.files.length > 1) {
+                showToastr('error', 'Max 1 upload', 'Only 1 file can be uploaded..');
+                // Clear the file input (optional)
+                $(this).val("");
+            }
             if (this.files.length > 0) {
                 var fileSize = this.files[0].size;
                 var maxSize = 2 * 1024 * 1024;
