@@ -132,6 +132,29 @@
                             }
                         </style>
 
+                        <div class="card mb-4 border-0 p-4" style="background-color: #f0f1f6;">
+                            <div class="card-body">
+                                <p class="text-muted mb-4">Attach assignment files (Max: 1 file)</p>
+                                <div class="d-flex gap-4">
+                                    <div>
+                                        <div class="mb-3 d-none">  
+                                            <input id="myInput" class="form-control" type="file" multiple>
+                                        </div>
+                                        <button onclick="$('#myInput').click();" class="btn btn-primary px-3 py-2">
+                                            Choose File
+                                        </button>
+                                    </div>
+                                    <div class="text-muted">
+                                        <p>
+                                            File support: <b>Any standard Image, Document, Presentation, Sheet, PDF or
+                                                Text file is allowed</b>
+                                        </p>
+                                        <p>Total File Size: Max <b>2 MB</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="d-flex justify-content-between">
                             <button class="btn btn-primary px-3 py-2">
                                 Submit Assignment
