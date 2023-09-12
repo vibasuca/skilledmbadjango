@@ -5,6 +5,7 @@ app_name = "courses"
 
 urlpatterns = [
     # Main site
+    path("", views.course_list, name="course_list"),
     path("<int:pk>/<str:slug>/", views.course_details, name="course_details"),
     path("enroll-course/<int:course_pk>/", views.enroll_course, name="enroll_course"),
     path("lessons/<int:pk>/", views.lesson_details, name="lesson_details"),

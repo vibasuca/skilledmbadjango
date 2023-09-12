@@ -167,6 +167,13 @@ class Course(models.Model):
     def get_lessons_count(self):
         return Lesson.objects.filter(topic_item__topic__course=self).count()
 
+    def get_percent_off(self):
+        if self.price and self.discount_price:
+            off = round((self.price - self.discount_price) / self.price * 100, 1)
+            if off % 1 == 0:  # is integer for Decimal
+                return int(off)
+            return off
+
     def __str__(self):
         return f"{self.user.username}'s course: {self.title}"
 

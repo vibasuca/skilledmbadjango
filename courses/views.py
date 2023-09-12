@@ -19,6 +19,14 @@ def index(request):
     return render(request, "index.html", context)
 
 
+def course_list(request):
+    approved_courses = Course.objects.exclude(approved_at=None)
+    context = {
+        "courses": approved_courses,
+    }
+    return render(request, "sitePages/courseList.html", context)
+
+
 def course_details(request, pk, slug):
     course = get_object_or_404(Course, pk=pk)
     if course.approved_at is None and course.user != request.user:

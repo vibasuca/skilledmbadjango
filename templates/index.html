@@ -245,9 +245,11 @@
                                         <div class="grid-thumbnail-container rounded" style="height: 200px;">
                                             <div class="image-background"
                                                 style="background-image: url('{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                {% if course.get_percent_off %}
                                                 <div class="position-absolute p-2" style="top: 0px;">
-                                                    <span class="badge" style="background: #0071dc;">-15%</span>
+                                                    <span class="badge" style="background: #0071dc;">-{{course.get_percent_off}}%</span>
                                                 </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </a>
