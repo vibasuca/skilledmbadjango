@@ -52,7 +52,7 @@
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
                                 <small style="font-weight: 500;">
-                                    <a href="#" class="text-light">Go to course home</a>
+                                    <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-light">Go to course home</a>
                                 </small>
                             </div>
                             <div>
@@ -61,9 +61,14 @@
                                 <small style="font-weight: 500;">{{lesson.title}}</small>
                             </div>
                             <div>
-                                <button class="btn btn-outline-warning btn-sm px-3 py-2">
-                                    <i class="fas fa-check-circle"></i> Mark as Complete
-                                </button>
+                                {% if lesson not in enrollment.completed_lessons.all %}
+                                <form method="POST" action="{% url 'courses:mark_lesson_complete' lesson.pk %}">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-warning btn-sm px-3 py-2">
+                                        <i class="fas fa-check-circle"></i> Mark as Complete
+                                    </button>
+                                </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

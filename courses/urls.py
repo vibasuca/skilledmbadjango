@@ -8,6 +8,11 @@ urlpatterns = [
     path("<int:pk>/<str:slug>/", views.course_details, name="course_details"),
     path("enroll-course/<int:course_pk>/", views.enroll_course, name="enroll_course"),
     path("lessons/<int:pk>/", views.lesson_details, name="lesson_details"),
+    path(
+        "lessons/<int:pk>/mark-complete/",
+        views.mark_lesson_complete,
+        name="mark_lesson_complete",
+    ),
     path("assignments/<int:pk>/", views.assignment_details, name="assignment_details"),
     path("quizzes/<int:pk>/", views.quiz_details, name="quiz_details"),
     # Dashboard

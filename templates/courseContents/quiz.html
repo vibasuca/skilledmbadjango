@@ -13,7 +13,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#" class="hover-underline-animation">Home</a>
+                    <a href="{% url 'index' %}" class="hover-underline-animation">Home</a>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="#" class="hover-underline-animation">Courses</a>
@@ -40,7 +40,7 @@
                                 <i class="far fa-home text-warning"></i>
                                 &nbsp;
                                 <small style="font-weight: 500;">
-                                    <a href="#" class="text-light">Go to course home</a>
+                                    <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-light">Go to course home</a>
                                 </small>
                             </div>
                             <div>

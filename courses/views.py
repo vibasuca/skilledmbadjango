@@ -37,7 +37,7 @@ def course_details(request, pk, slug):
     return render(request, "sitePages/courseDetails.html", context)
 
 
-# lesson view
+@login_required
 def lesson_details(request, pk):
     lesson = get_object_or_404(Lesson, pk=pk)
     course = lesson.topic_item.topic.course
@@ -50,6 +50,18 @@ def lesson_details(request, pk):
     return render(request, "courseContents/lesson.html", context)
 
 
+@require_POST
+@login_required
+def mark_lesson_complete(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    enrollment.completed_lessons.add(lesson)
+    messages.success(request, "Lesson marked as completed")
+    return redirect("courses:lesson_details", pk=lesson.pk)
+
+
+@login_required
 def assignment_details(request, pk):
     assignment = get_object_or_404(Assignment, pk=pk)
     course = assignment.topic_item.topic.course
@@ -62,6 +74,7 @@ def assignment_details(request, pk):
     return render(request, "courseContents/assignment.html", context)
 
 
+@login_required
 def quiz_details(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
     course = quiz.topic_item.topic.course
