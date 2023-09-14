@@ -22,6 +22,7 @@ Markdown==3.4.4
 moviepy==1.0.3
 numpy==1.24.4
 oauthlib==3.2.2
+opencv-python-headless==4.8.0.76
 packaging==23.1
 Pillow==10.0.0
 proglog==0.1.10
