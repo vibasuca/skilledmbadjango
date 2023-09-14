@@ -46,8 +46,8 @@ class CreateLessonSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["feature_image"].queryset = self.context["user"].media.all()
-        self.fields["attachments"].queryset = self.context["user"].media.all()
+        # self.fields["feature_image"].queryset = self.context["user"].media.all()
+        # self.fields["attachments"].queryset = self.context["user"].media.all()
 
     def create(self, validated_data):
         topic = self.context["topic"]
@@ -77,8 +77,8 @@ class UpdateLessonSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["feature_image"].queryset = self.context["user"].media.all()
-        self.fields["attachments"].queryset = self.context["user"].media.all()
+        # self.fields["feature_image"].queryset = self.context["user"].media.all()
+        # self.fields["attachments"].queryset = self.context["user"].media.all()
 
     def update(self, instance, validated_data):
         # Shift sort order of others if necessary
@@ -232,7 +232,7 @@ class CreateAssignmentSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["attachments"].queryset = self.context["user"].media.all()
+        # self.fields["attachments"].queryset = self.context["user"].media.all()
 
     def create(self, validated_data):
         topic = self.context["topic"]
@@ -267,7 +267,7 @@ class UpdateAssignmentSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["attachments"].queryset = self.context["user"].media.all()
+        # self.fields["attachments"].queryset = self.context["user"].media.all()
 
     def update(self, instance, validated_data):
         # Shift sort order of others if necessary
@@ -436,7 +436,7 @@ class CreateOptionSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["image"].queryset = self.context["user"].media.all()
+        # self.fields["image"].queryset = self.context["user"].media.all()
 
     def create(self, validated_data):
         question = self.context["question"]
@@ -465,7 +465,7 @@ class UpdateOptionSerializer(serializers.ModelSerializer):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["image"].queryset = self.context["user"].media.all()
+        # self.fields["image"].queryset = self.context["user"].media.all()
 
     def update(self, instance, validated_data):
         # Shift sort order of others if necessary

@@ -174,6 +174,22 @@ class Course(models.Model):
                 return int(off)
             return off
 
+    def can_user_read(self, user):
+        if self.user == user:
+            return True
+        is_course_instructor = self.instructors.filter(pk__in=[user.pk]).exists()
+        if is_course_instructor:
+            return True
+        return self.approved_at != None
+
+    def can_user_write(self, user):
+        if self.user == user:
+            return True
+        is_course_instructor = self.instructors.filter(pk__in=[user.pk]).exists()
+        if is_course_instructor:
+            return True
+        return False
+
     def __str__(self):
         return f"{self.user.username}'s course: {self.title}"
 
