@@ -111,10 +111,6 @@ a {
   width: 100%;
 }
 
-.modal-backdrop {
-  z-index: 99 !important;
-}
-
 .modal-dialog {
   z-index: 999 !important;
 }
@@ -280,7 +276,9 @@ footer a:hover {
 }
 
 .modal-backdrop {
-  z-index: 1 !important;
+  z-index: 1 !important; /* 99 */
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .hero-banner h1 {
