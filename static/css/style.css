@@ -325,7 +325,7 @@ footer a:hover {
 
 .underSvg::after {
   content: "";
-  background-image: url("https://edumall.thememove.com/main/wp-content/themes/edumall/assets/svg/headline-curve.svg");
+  background-image: url('../svg/headline-curve.svg');
   background-repeat: repeat-x;
   background-size: 91px 15px;
   width: 91px;
