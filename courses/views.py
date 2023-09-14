@@ -38,6 +38,56 @@ def course_details(request, pk, slug):
 
 
 @login_required
+def lesson_details(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "lesson": lesson,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/lesson.html", context)
+
+
+@require_POST
+@login_required
+def mark_lesson_complete(request, pk):
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    enrollment.completed_lessons.add(lesson)
+    messages.success(request, "Lesson marked as completed")
+    return redirect("courses:lesson_details", pk=lesson.pk)
+
+
+@login_required
+def assignment_details(request, pk):
+    assignment = get_object_or_404(Assignment, pk=pk)
+    course = assignment.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "assignment": assignment,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/assignment.html", context)
+
+
+@login_required
+def quiz_details(request, pk):
+    quiz = get_object_or_404(Quiz, pk=pk)
+    course = quiz.topic_item.topic.course
+    enrollment = get_object_or_404(Enrollment, course=course, user=request.user)
+    context = {
+        "quiz": quiz,
+        "course": course,
+        "enrollment": enrollment,
+    }
+    return render(request, "courseContents/quiz.html", context)
+
+
+@login_required
 def enroll_course(request, course_pk):
     course = get_object_or_404(Course, pk=course_pk)
     if course.approved_at is None and course.user != request.user:
@@ -122,6 +172,7 @@ def update_course(request, pk):
     context = {
         "form": form,
         "course": course,
+        "user_courses": request.user.courses.exclude(pk__in=[course.pk]),
         "categories": CourseCategory.objects.all(),
         "tags": CourseTag.objects.all(),
     }

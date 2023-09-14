@@ -241,6 +241,14 @@ class Assignment(models.Model):
     class Meta:
         ordering = ("-created_at",)
 
+    def get_time_limit_display(self):
+        if self.time_limit_unit == "W":
+            return self.time_limit.days // 7
+        elif self.time_limit_unit == "D":
+            return self.time_limit.days
+        elif self.time_limit_unit == "H":
+            return self.time_limit.total_seconds() // 3600
+
     def __str__(self):
         return self.title
 
@@ -276,6 +284,44 @@ class TopicItem(models.Model):
 
     class Meta:
         ordering = ("topic", "sort_order")
+
+    def get_next_item(self):
+        next_item = (
+            self.topic.items.exclude(sort_order__lt=self.sort_order)
+            .exclude(pk__in=[self.pk])
+            .first()
+        )
+        if next_item is not None:
+            return next_item
+
+        next_topic = (
+            self.topic.course.topics.exclude(sort_order__lt=self.topic.sort_order)
+            .exclude(pk__in=[self.topic.pk])
+            .first()
+        )
+        if next_topic is None:
+            return
+
+        return next_topic.items.first()
+
+    def get_prev_item(self):
+        prev_item = (
+            self.topic.items.exclude(sort_order__gt=self.sort_order)
+            .exclude(pk__in=[self.pk])
+            .last()
+        )
+        if prev_item is not None:
+            return prev_item
+
+        prev_topic = (
+            self.topic.course.topics.exclude(sort_order__gt=self.topic.sort_order)
+            .exclude(pk__in=[self.topic.pk])
+            .last()
+        )
+        if prev_topic is None:
+            return
+
+        return prev_topic.items.last()
 
     def __str__(self):
         if self.lesson:

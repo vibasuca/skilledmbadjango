@@ -23,80 +23,86 @@
         <!--Topics card-->
         <div class="card text-start border-0">
             <div class="card-body p-0">
+                {% for topic in course.topics.all %}
                 <div class="section p-3 text-primary d-flex align-items-center justify-content-between gap-3"
-                    style="cursor: pointer;" data-bs-toggle="collapse" href="#card1">
+                    style="cursor: pointer;" data-bs-toggle="collapse" href="#card{{forloop.counter}}">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        <small style="font-weight: 500;">Section 1: What to Expect</small>
+                        <small style="font-weight: 500;">{{topic.title}}</small>
                         <i class="fad fa-info-circle text-muted"></i>
                     </div>
-                    <i class="fal fa-minus"></i>
+                    {% if topic_item.topic == topic %}
+                        <i class="fal fa-minus"></i>
+                    {% else %}
+                        <i class="fal fa-plus"></i>
+                    {% endif %}
                 </div>
-                <div class="collapse show" id="card1">
+                <div class="collapse {% if topic_item.topic == topic %}show{% endif %}" id="card{{forloop.counter}}">
                     <div class="mt-0">
                         <!--content in here-->
                         <table class="table table-striped m-0">
                             <tbody>
+                                {% for ti in topic.items.all %}
                                 <tr>
-                                    <td class="{% if url_name == 'course_lesson' %}bg-primary{% endif %}">
-                                        <a href="{% url 'course_lesson' %}"
-                                            class="{% if url_name == 'course_lesson' %}text-white{% else %}text-muted{% endif %}">
-                                            <div class="py-2 px-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="far fa-file-alt"></i>&nbsp;&nbsp;Lesson</span>
-                                                <span>
-                                                    {% if url_name == 'course_lesson' %}
-                                                    <i class="far fa-circle text-light"></i>
-                                                    <i class="fas fa-check-circle text-light"></i>
-                                                    {% else %}
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
-                                                    <i class="fas fa-check-circle text-success"></i>
-                                                    {% endif %}
-                                                </span>
-                                            </div>
-                                        </a>
+                                    <td class="{% if ti == topic_item %}bg-primary{% endif %}">
+                                        {% if ti.lesson %}
+                                            <a href="{% url 'courses:lesson_details' ti.lesson.pk %}"
+                                                class="{% if ti == topic_item %}text-white{% else %}text-muted{% endif %}">
+                                                <div class="py-2 px-4 d-flex justify-content-between align-items-center">
+                                                    <span><i class="far fa-file-alt"></i>&nbsp;&nbsp;{{ti.lesson.title}}</span>
+                                                    <span>
+                                                        {% if ti == topic_item %}
+                                                            {% if ti.lesson in enrollment.completed_lessons.all %}
+                                                                <i class="fas fa-check-circle text-light"></i>
+                                                            {% else %}
+                                                                <i class="far fa-circle text-light"></i>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {% if ti.lesson in enrollment.completed_lessons.all %}
+                                                                <i class="fas fa-check-circle text-success"></i>
+                                                            {% else %}
+                                                                <i class="far fa-circle" style="color: #a6a6a6;"></i>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        {% elif ti.assignment %}
+                                            <a href="{% url 'courses:assignment_details' ti.assignment.pk %}"
+                                                class="{% if ti == topic_item %}text-white{% else %}text-muted{% endif %}">
+                                                <div class="py-2 px-4 d-flex justify-content-between align-items-center">
+                                                    <span><i class="far fa-file-edit"></i>&nbsp;&nbsp;{{ti.assignment.title}}</span>
+                                                    <span>
+                                                        {% if ti == topic_item %}
+                                                        <i class="far fa-circle text-light"></i>
+                                                        {% else %}
+                                                        <i class="far fa-circle" style="color: #a6a6a6;"></i>
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        {% elif ti.quiz %}
+                                            <a href="{% url 'courses:quiz_details' ti.quiz.pk %}"
+                                                class="{% if ti == topic_item %}text-white{% else %}text-muted{% endif %}">
+                                                <div class="py-2 px-4 d-flex justify-content-between align-items-center">
+                                                    <span><i class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</span>
+                                                    <span>
+                                                        {% if ti == topic_item %}
+                                                        <i class="far fa-circle text-light"></i>
+                                                        {% else %}
+                                                        <i class="far fa-circle" style="color: #a6a6a6;"></i>
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="{% if url_name == 'course_assignment' %}bg-primary{% endif %}">
-                                        <a href="{% url 'course_assignment' %}"
-                                            class="{% if url_name == 'course_assignment' %}text-white{% else %}text-muted{% endif %}">
-                                            <div class="py-2 px-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="far fa-file-edit"></i>&nbsp;&nbsp;Assignment</span>
-                                                <span>
-                                                    {% if url_name == 'course_assignment' %}
-                                                    <i class="far fa-circle text-light"></i>
-                                                    <i class="fas fa-check-circle text-light"></i>
-                                                    {% else %}
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
-                                                    <i class="fas fa-check-circle text-success"></i>
-                                                    {% endif %}
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="{% if url_name == 'course_quiz' %}bg-primary{% endif %}">
-                                        <a href="{% url 'course_quiz' %}"
-                                            class="{% if url_name == 'course_quiz' %}text-white{% else %}text-muted{% endif %}">
-                                            <div class="py-2 px-4 d-flex justify-content-between align-items-center">
-                                                <span><i class="far fa-question-circle"></i>&nbsp;&nbsp;Quiz</span>
-                                                <span>
-                                                    {% if url_name == 'course_quiz' %}
-                                                    <i class="far fa-circle text-light"></i>
-                                                    <i class="fas fa-check-circle text-light"></i>
-                                                    {% else %}
-                                                    <i class="far fa-circle" style="color: #a6a6a6;"></i>
-                                                    <i class="fas fa-check-circle text-success"></i>
-                                                    {% endif %}
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </td>
-                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
         {% endwith %}
