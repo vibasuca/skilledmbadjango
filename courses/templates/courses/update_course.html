@@ -1455,6 +1455,8 @@
         const quizPassingPercentage = item.quiz_data.passing_percentage;
         const quizMaxQuestions = item.quiz_data.max_questions;
         const quizAutoStart = item.quiz_data.auto_start;
+        const quizQuestionLayout = item.quiz_data.question_layout;
+        const quizQuestionOrder = item.quiz_data.question_order;
         const quizHideQuestionNo = item.quiz_data.hide_question_no;
         const quizShortAnsCharLimit = item.quiz_data.short_ans_char_limit;
         const quizLongAnsCharLimit = item.quiz_data.long_ans_char_limit;
@@ -1500,6 +1502,8 @@
         $("#quiz-passing_percentage").val(quizPassingPercentage);
         $("#quiz-max_questions").val(quizMaxQuestions);
         $("#quiz-auto_start").prop('checked', quizAutoStart);
+        $("#quiz-question_layout").val(quizQuestionLayout);
+        $("#quiz-question_order").val(quizQuestionOrder);
         $("#quiz-hide_question_no").prop('checked', quizHideQuestionNo);
         $("#quiz-short_ans_char_limit").val(quizShortAnsCharLimit);
         $("#quiz-long_ans_char_limit").val(quizLongAnsCharLimit);
@@ -1519,6 +1523,8 @@
         $("#quiz-passing_percentage").val("80");
         $("#quiz-max_questions").val("10");
         $("#quiz-auto_start").prop('checked', false);
+        $("#quiz-question_layout").val("S");
+        $("#quiz-question_order").val("R");
         $("#quiz-hide_question_no").prop('checked', false);
         $("#quiz-short_ans_char_limit").val("200");
         $("#quiz-long_ans_char_limit").val("500");
@@ -1551,6 +1557,8 @@
         'passing_percentage': $("#quiz-passing_percentage").val(),
         'max_questions': $("#quiz-max_questions").val(),
         'auto_start': $("#quiz-auto_start").prop('checked'),
+        'question_layout': $("#quiz-question_layout").val(),
+        'question_order': $("#quiz-question_order").val(),
         'hide_question_no': $("#quiz-hide_question_no").prop('checked'),
         'short_ans_char_limit': $("#quiz-short_ans_char_limit").val(),
         'long_ans_char_limit': $("#quiz-long_ans_char_limit").val(),

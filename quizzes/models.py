@@ -25,6 +25,16 @@ FEEDBACK_MODE_CHOICES = (
     ),  # Reattempt quiz any number of times. Define Attempts Allowed below.
 )
 
+QUESTION_LAYOUT_CHOICES = (
+    ("S", "Single Question"),
+    ("B", "Question Below Each Other"),
+)
+
+QUESTION_ORDER_CHOICES = (
+    ("R", "Random"),
+    ("S", "Sorting"),
+)
+
 ANSWER_STATUS_CHOICES = (
     ("C", "Correct"),
     ("I", "Incorrect"),
@@ -92,6 +102,12 @@ class Quiz(models.Model):
     auto_start = models.BooleanField(
         default=False,
         help_text="If you enable this option, the quiz will start automatically after the page is loaded.",
+    )
+    question_layout = models.CharField(
+        max_length=1, choices=QUESTION_LAYOUT_CHOICES, default="S"
+    )
+    question_order = models.CharField(
+        max_length=1, choices=QUESTION_ORDER_CHOICES, default="R"
     )
     hide_question_no = models.BooleanField(default=False)
     short_ans_char_limit = models.PositiveIntegerField(
