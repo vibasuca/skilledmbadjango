@@ -17,6 +17,7 @@ urlpatterns = [
     path("assignments/<int:pk>/", views.assignment_details, name="assignment_details"),
     path("quizzes/<int:pk>/", views.quiz_details, name="quiz_details"),
     # Dashboard
+    path("dashboard/", views.dashboard, name="dashboard"),
     path("my-courses/", views.list_courses_published, name="list_courses_published"),
     path(
         "my-courses/pending-courses/",

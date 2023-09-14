@@ -108,6 +108,25 @@ def enroll_course(request, course_pk):
     return redirect("courses:course_details", pk=course.pk, slug=course.slug)
 
 
+def dashboard(request):
+    course_ids = request.user.get_courses().values_list("id", flat=True)
+    total_students = (
+        Enrollment.objects.filter(course_id__in=course_ids)
+        .values("user")
+        .distinct()
+        .count()
+    )
+    context = {
+        "enrolled_courses_count": request.user.enrollments.count(),
+        "active_courses_count": request.user.enrollments.count(),
+        "completed_courses_count": 0,
+        "total_students_count": total_students,
+        "total_courses_count": len(course_ids),
+        "total_earnings": "0.00",
+    }
+    return render(request, "dashboard/student/dashboard.html", context)
+
+
 @login_required
 def list_courses_published(request):
     published = request.user.get_courses().exclude(approved_at=None)

@@ -191,7 +191,7 @@ ACCOUNT_FORMS = {
     "login": "users.forms.CustomLoginForm",
 }
 
-# LOGIN_REDIRECT_URL = "shop:home"
+LOGIN_REDIRECT_URL = "courses:dashboard"
 
 RECAPTCHA_PUBLIC_KEY = config["RECAPTCHA_PUBLIC_KEY"]
 RECAPTCHA_PRIVATE_KEY = config["RECAPTCHA_PRIVATE_KEY"]
