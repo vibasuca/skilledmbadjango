@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     # 3rd Party
     "rest_framework",
+    "crispy_forms",
+    "crispy_bootstrap5",
     "captcha",
     "allauth",
     "allauth.account",
@@ -193,3 +195,6 @@ ACCOUNT_FORMS = {
 
 RECAPTCHA_PUBLIC_KEY = config["RECAPTCHA_PUBLIC_KEY"]
 RECAPTCHA_PRIVATE_KEY = config["RECAPTCHA_PRIVATE_KEY"]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
