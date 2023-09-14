@@ -91,11 +91,6 @@ urlpatterns += [
         name="course_quiz",
     ),
     path(
-        "dashboard/",
-        TemplateView.as_view(template_name="dashboard/student/dashboard.html"),
-        name="dashboard",
-    ),
-    path(
         "enrolled-courses/",
         TemplateView.as_view(template_name="dashboard/student/enrolled_courses.html"),
         name="enrolled_courses",

@@ -19,9 +19,17 @@ def index(request):
     return render(request, "index.html", context)
 
 
+def course_list(request):
+    approved_courses = Course.objects.exclude(approved_at=None)
+    context = {
+        "courses": approved_courses,
+    }
+    return render(request, "sitePages/courseList.html", context)
+
+
 def course_details(request, pk, slug):
     course = get_object_or_404(Course, pk=pk)
-    if course.approved_at is None and course.user != request.user:
+    if not course.can_user_read(request.user):
         raise Http404()
     related_courses = course.user.courses.exclude(pk=course.pk).exclude(
         approved_at=None
@@ -90,7 +98,7 @@ def quiz_details(request, pk):
 @login_required
 def enroll_course(request, course_pk):
     course = get_object_or_404(Course, pk=course_pk)
-    if course.approved_at is None and course.user != request.user:
+    if not course.can_user_read(request.user):
         raise Http404()
     if request.method != "POST":
         return redirect("courses:course_details", pk=course.pk, slug=course.slug)
@@ -100,11 +108,32 @@ def enroll_course(request, course_pk):
     return redirect("courses:course_details", pk=course.pk, slug=course.slug)
 
 
+def dashboard(request):
+    course_ids = request.user.get_courses().values_list("id", flat=True)
+    total_students = (
+        Enrollment.objects.filter(course_id__in=course_ids)
+        .values("user")
+        .distinct()
+        .count()
+    )
+    context = {
+        "enrolled_courses_count": request.user.enrollments.count(),
+        "active_courses_count": request.user.enrollments.count(),
+        "completed_courses_count": 0,
+        "total_students_count": total_students,
+        "total_courses_count": len(course_ids),
+        "total_earnings": "0.00",
+    }
+    return render(request, "dashboard/student/dashboard.html", context)
+
+
 @login_required
 def list_courses_published(request):
-    published = request.user.courses.exclude(approved_at=None)
-    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
-    draft = request.user.courses.filter(published_at=None)
+    published = request.user.get_courses().exclude(approved_at=None)
+    pending = (
+        request.user.get_courses().exclude(published_at=None).filter(approved_at=None)
+    )
+    draft = request.user.get_courses().filter(published_at=None)
     context = {
         "courses": published,
         "publish_count": published.count(),
@@ -116,9 +145,11 @@ def list_courses_published(request):
 
 @login_required
 def list_courses_pending(request):
-    published = request.user.courses.exclude(approved_at=None)
-    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
-    draft = request.user.courses.filter(published_at=None)
+    published = request.user.get_courses().exclude(approved_at=None)
+    pending = (
+        request.user.get_courses().exclude(published_at=None).filter(approved_at=None)
+    )
+    draft = request.user.get_courses().filter(published_at=None)
     context = {
         "courses": pending,
         "publish_count": published.count(),
@@ -130,9 +161,11 @@ def list_courses_pending(request):
 
 @login_required
 def list_courses_draft(request):
-    published = request.user.courses.exclude(approved_at=None)
-    pending = request.user.courses.exclude(published_at=None).filter(approved_at=None)
-    draft = request.user.courses.filter(published_at=None)
+    published = request.user.get_courses().exclude(approved_at=None)
+    pending = (
+        request.user.get_courses().exclude(published_at=None).filter(approved_at=None)
+    )
+    draft = request.user.get_courses().filter(published_at=None)
     context = {
         "courses": draft,
         "publish_count": published.count(),
@@ -152,7 +185,9 @@ def create_course(request):
 
 @login_required
 def update_course(request, pk):
-    course = get_object_or_404(Course, user=request.user, pk=pk)
+    course = get_object_or_404(Course, pk=pk)
+    if not course.can_user_write(request.user):
+        raise Http404()
 
     if request.method == "POST":
         form = CourseForm(request.POST, instance=course)
@@ -169,10 +204,16 @@ def update_course(request, pk):
     else:
         form = CourseForm(instance=course)
 
+    exclude = [course.pk] + list(
+        course.prerequisite_courses.values_list("id", flat=True)
+    )
+    user_courses = request.user.courses.exclude(pk__in=exclude).exclude(
+        approved_at=None
+    )
     context = {
         "form": form,
         "course": course,
-        "user_courses": request.user.courses.exclude(pk__in=[course.pk]),
+        "user_courses": user_courses,
         "categories": CourseCategory.objects.all(),
         "tags": CourseTag.objects.all(),
     }
@@ -192,7 +233,9 @@ def create_topic(request, course_pk):
         }
     }
     """
-    course = get_object_or_404(Course, user=request.user, pk=course_pk)
+    course = get_object_or_404(Course, pk=course_pk)
+    if not course.can_user_write(request.user):
+        raise Http404()
     serializer = CreateTopicSerializer(data=request.POST, context={"course": course})
     if serializer.is_valid():
         topic = serializer.save()
@@ -213,7 +256,9 @@ def update_topic(request, pk):
         }
     }
     """
-    topic = get_object_or_404(Topic, pk=pk, course__user=request.user)
+    topic = get_object_or_404(Topic, pk=pk)
+    if not topic.course.can_user_write(request.user):
+        raise Http404()
     serializer = UpdateTopicSerializer(instance=topic, data=request.POST)
     if serializer.is_valid():
         topic = serializer.save()
@@ -223,7 +268,9 @@ def update_topic(request, pk):
 
 @login_required
 def list_topics(request, course_pk):
-    course = get_object_or_404(Course, user=request.user, pk=course_pk)
+    course = get_object_or_404(Course, pk=course_pk)
+    if not course.can_user_write(request.user):
+        raise Http404()
     topics = course.topics.all()
     topics = topics.values("id", "title", "summary", "sort_order")
     return JsonResponse({"topics": list(topics)})
@@ -242,7 +289,9 @@ def create_lesson(request, topic_pk):
         }
     }
     """
-    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    if not topic.course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = CreateLessonSerializer(
         data=data, context={"topic": topic, "user": request.user}
@@ -255,7 +304,9 @@ def create_lesson(request, topic_pk):
 
 @login_required
 def list_topic_items(request, topic_pk):
-    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    if not topic.course.can_user_write(request.user):
+        raise Http404()
     topic_items = topic.items.all()
     serializer = ListTopicItemSerializer(topic_items, many=True)
     return JsonResponse({"data": serializer.data})
@@ -275,7 +326,10 @@ def update_lesson(request, pk):
     }
     """
     user = request.user
-    lesson = get_object_or_404(Lesson, pk=pk, topic_item__topic__course__user=user)
+    lesson = get_object_or_404(Lesson, pk=pk)
+    course = lesson.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = UpdateLessonSerializer(
         instance=lesson, data=data, context={"user": user}
@@ -299,7 +353,9 @@ def create_assignment(request, topic_pk):
         }
     }
     """
-    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    if not topic.course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = CreateAssignmentSerializer(
         data=data, context={"topic": topic, "user": request.user}
@@ -324,9 +380,10 @@ def update_assignment(request, pk):
     }
     """
     user = request.user
-    assignment = get_object_or_404(
-        Assignment, pk=pk, topic_item__topic__course__user=user
-    )
+    assignment = get_object_or_404(Assignment, pk=pk)
+    course = assignment.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = UpdateAssignmentSerializer(
         instance=assignment, data=data, context={"user": user}
@@ -350,7 +407,9 @@ def create_quiz(request, topic_pk):
         }
     }
     """
-    topic = get_object_or_404(Topic, course__user=request.user, pk=topic_pk)
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    if not topic.course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = CreateQuizSerializer(data=data, context={"topic": topic})
     if serializer.is_valid():
@@ -375,7 +434,10 @@ def update_quiz(request, pk):
     }
     """
     user = request.user
-    quiz = get_object_or_404(Quiz, pk=pk, topic_item__topic__course__user=user)
+    quiz = get_object_or_404(Quiz, pk=pk)
+    course = quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = UpdateQuizSerializer(instance=quiz, data=data)
     if serializer.is_valid():
@@ -399,9 +461,10 @@ def create_question(request, quiz_pk):
         }
     }
     """
-    quiz = get_object_or_404(
-        Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
-    )
+    quiz = get_object_or_404(Quiz, pk=quiz_pk)
+    course = quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = CreateQuestionSerializer(data=data, context={"quiz": quiz})
     if serializer.is_valid():
@@ -425,9 +488,10 @@ def update_question(request, pk):
         }
     }
     """
-    question = get_object_or_404(
-        Question, pk=pk, quiz__topic_item__topic__course__user=request.user
-    )
+    question = get_object_or_404(Question, pk=pk)
+    course = question.quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = UpdateQuestionSerializer(instance=question, data=data)
     if serializer.is_valid():
@@ -438,9 +502,10 @@ def update_question(request, pk):
 
 @login_required
 def list_questions(request, quiz_pk):
-    quiz = get_object_or_404(
-        Quiz, pk=quiz_pk, topic_item__topic__course__user=request.user
-    )
+    quiz = get_object_or_404(Quiz, pk=quiz_pk)
+    course = quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     questions = quiz.questions.all()
     serializer = ListQuestionSerializer(questions, many=True)
     return JsonResponse({"data": list(serializer.data)})
@@ -459,9 +524,10 @@ def create_option(request, question_pk):
         }
     }
     """
-    question = get_object_or_404(
-        Question, pk=question_pk, quiz__topic_item__topic__course__user=request.user
-    )
+    question = get_object_or_404(Question, pk=question_pk)
+    course = question.quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = CreateOptionSerializer(
         data=data, context={"question": question, "user": request.user}
@@ -485,9 +551,10 @@ def update_option(request, pk):
         }
     }
     """
-    option = get_object_or_404(
-        Option, pk=pk, question__quiz__topic_item__topic__course__user=request.user
-    )
+    option = get_object_or_404(Option, pk=pk)
+    course = option.question.quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     data = json.loads(request.body)
     serializer = UpdateOptionSerializer(
         instance=option, data=data, context={"user": request.user}
@@ -500,9 +567,10 @@ def update_option(request, pk):
 
 @login_required
 def list_options(request, question_pk):
-    question = get_object_or_404(
-        Question, pk=question_pk, quiz__topic_item__topic__course__user=request.user
-    )
+    question = get_object_or_404(Question, pk=question_pk)
+    course = question.quiz.topic_item.topic.course
+    if not course.can_user_write(request.user):
+        raise Http404()
     options = question.options.all()
     serializer = ListOptionSerializer(options, many=True)
     return JsonResponse({"data": serializer.data})

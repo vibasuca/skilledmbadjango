@@ -14,7 +14,7 @@
         {% with url_name=request.resolver_match.url_name %}
         <ul class="list-group p-3">
             <li class="list-group-item p-0 {% if url_name == 'dashboard' %}active{% endif %}">
-                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'dashboard' %}">
+                <a class="p-3 d-flex align-items-center gap-3" href="{% url 'courses:dashboard' %}">
                     <i class="text-primary fal fa-layer-group fs-5"></i>Dashboard
                 </a>
             </li>

@@ -76,6 +76,7 @@ def list_media(request):
         {
             "id": media.id,
             "file": media.file.url,
+            "thumbnail": media.thumbnail.url,
             "title": media.title,
             "description": media.description,
             "alt_text": media.alt_text,
@@ -125,6 +126,7 @@ def read_media(request, media_id):
         {
             "id": media.id,
             "file": media.file.url,
+            "thumbnail": media.thumbnail.url,
             "title": media.title,
             "description": media.description,
             "alt_text": media.alt_text,

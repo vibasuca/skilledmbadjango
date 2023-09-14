@@ -298,6 +298,7 @@
                                     class="image-grid-item" 
                                     data-media-id="${media.id}"
                                     data-media-url="${media.file}"
+                                    data-media-thumbnail="${media.thumbnail}"
                                     data-media-title="${media.title}"
                                     data-media-description="${media.description}"
                                     data-media-alt-text="${media.alt_text}"
@@ -307,7 +308,7 @@
                                     id="gridItem${index}"
                                 >
                                     <div class="image-background"
-                                        style="background-image: url('${media.file}');">
+                                        style="background-image: url('${media.thumbnail}');">
 
                                         
                                     </div>
@@ -324,6 +325,7 @@
                         const media = {
                             id: $(this).attr("data-media-id"),
                             file: $(this).attr("data-media-url"),
+                            thumbnail: $(this).attr("data-media-thumbnail"),
                             title: $(this).attr("data-media-title"),
                             description: $(this).attr("data-media-description"),
                             alt_text: $(this).attr("data-media-alt-text"),
@@ -382,6 +384,7 @@
                                         const newMedia = {
                                             id: element.attr("data-media-id"),
                                             file: element.attr("data-media-url"),
+                                            thumbnail: element.attr("data-media-thumbnail"),
                                             title: element.attr("data-media-title"),
                                             description: element.attr("data-media-description"),
                                             alt_text: element.attr("data-media-alt-text"),
@@ -436,7 +439,7 @@
 
                         $("#media-form-container-js").removeClass("d-none");
                         $("#sidebar-form").html(generateFormHtml(media));
-                        $("#thumbnailPreviewJS").attr("src", media.file);
+                        $("#thumbnailPreviewJS").attr("src", media.thumbnail);
                     });
 
 
@@ -630,7 +633,7 @@
 
                 // Append the new option element to the select element
                 selectElement.append(newOption);
-                $("#thumbnailInputPreviewJS").attr("src", selectedMedia[0].file);
+                $("#thumbnailInputPreviewJS").attr("src", selectedMedia[0].thumbnail);
 
                 clearSelection();
                 $("#mediaModal").modal("hide");
@@ -685,7 +688,7 @@
 
                 // Append the new option element to the select element
                 selectElement.append(newOption);
-                $("#lesson-feature-image-preview").attr("src", selectedMedia[0].file);
+                $("#lesson-feature-image-preview").attr("src", selectedMedia[0].thumbnail);
 
                 clearSelection();
                 $("#mediaModal").modal("hide");
@@ -777,7 +780,7 @@
 
                 // Append the new option element to the select element
                 selectElement.append(newOption);
-                $("#question-option-image-preview").attr("src", selectedMedia[0].file);
+                $("#question-option-image-preview").attr("src", selectedMedia[0].thumbnail);
 
                 clearSelection();
                 $("#mediaModal").modal("hide");

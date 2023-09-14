@@ -33,4 +33,9 @@ class User(AbstractUser):
     is_instructor = models.BooleanField(default=False)
 
     def get_approved_course_count(self):
-        return self.courses.exclude(approved_at=None).count()
+        return self.get_courses().exclude(approved_at=None).count()
+
+    def get_courses(self):
+        courses = self.courses.all()
+        courses = courses | self.courses_as_instructor.all()
+        return courses

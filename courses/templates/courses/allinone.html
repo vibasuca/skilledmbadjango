@@ -192,8 +192,12 @@
           <label for="id_prerequisite_courses" class="form-label my-2 fw-bold">Select course</label><br>
           <select name="prerequisite_courses" id="id_prerequisite_courses" multiple="multiple"
             class="course-prerequisites-multiple form-select">
+            {% for pr_course in course.prerequisite_courses.all %}
+            <option value={{ pr_course.id }} selected>
+              {{ pr_course.title }}</option>
+            {% endfor %}
             {% for pr_course in user_courses %}
-            <option value={{ pr_course.id }} {% if pr_course in course.prerequisite_courses.all %} selected {% endif %}>
+            <option value={{ pr_course.id }}>
               {{ pr_course.title }}</option>
             {% endfor %}
           </select>
