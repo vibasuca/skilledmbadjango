@@ -111,10 +111,6 @@ a {
   width: 100%;
 }
 
-.modal-backdrop {
-  z-index: 99 !important;
-}
-
 .modal-dialog {
   z-index: 999 !important;
 }
@@ -280,7 +276,9 @@ footer a:hover {
 }
 
 .modal-backdrop {
-  z-index: 1 !important;
+  z-index: 1 !important; /* 99 */
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .hero-banner h1 {
@@ -327,7 +325,7 @@ footer a:hover {
 
 .underSvg::after {
   content: "";
-  background-image: url("https://edumall.thememove.com/main/wp-content/themes/edumall/assets/svg/headline-curve.svg");
+  background-image: url('../svg/headline-curve.svg');
   background-repeat: repeat-x;
   background-size: 91px 15px;
   width: 91px;

@@ -582,7 +582,7 @@
                         </span>
                     </div>
                     
-                    <div class="collapse show" id="topic-${topic.id}">
+                    <div class="collapse" id="topic-${topic.id}">
                         <div class="card card-body">
 
                             <div class="topicItems-${topic.id}"></div>
@@ -644,7 +644,7 @@
                     <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
+                        style="cursor: grab;">
                             <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Lesson: ${item.lesson_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#lessonModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
@@ -660,7 +660,7 @@
                     <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
+                        style="cursor: grab;">
                             <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Assignment: ${item.assignment_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#assignmentModal" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
@@ -676,7 +676,7 @@
                     <div class="card bg-white text-start mb-3" data-topic-id="${topic.id}" data-topic-item-id="${item.id}">
                       <div class="card-body p-0">
                         <div class="section p-2 d-flex align-items-center justify-content-between"
-                        style="cursor: pointer;">
+                        style="cursor: grab;">
                             <span class="fs-6 topic-item-SortHandle"><i class="fal fa-bars"></i>&nbsp;&nbsp;Quiz: ${item.quiz_data.title}</span>
                             <span class="d-flex gap-2 px-2">
                               <button type="button" class="btn btn-sm editTopicButton" data-bs-toggle="modal" data-bs-target="#quizModalStep1" data-topic-id="${topic.id}" data-topic-item-id="${item.id}"><i class="fas fa-edit text-muted"></i></button>
