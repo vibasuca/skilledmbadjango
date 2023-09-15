@@ -75,11 +75,6 @@
 
   <!-- Page Content -->
   <div class="container my-3">
-    <div class="card">
-      <div class="card-body text-muted">
-        <b style="font-weight: 500;">You do not have any courses yet.</b>
-      </div>
-    </div>
     {% for course in courses %}
     <div class="card mb-4" style="max-width: 950px">
       <div class="card-body">
@@ -187,6 +182,12 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    {% empty %}
+    <div class="card">
+      <div class="card-body text-muted">
+        <b style="font-weight: 500;">You do not have any courses yet.</b>
       </div>
     </div>
     {% endfor %}
