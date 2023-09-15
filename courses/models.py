@@ -175,7 +175,7 @@ class Course(models.Model):
             return off
 
     def can_user_read(self, user):
-        if self.user == user:
+        if self.user == user or user.is_superuser:
             return True
         is_course_instructor = self.instructors.filter(pk__in=[user.pk]).exists()
         if is_course_instructor:

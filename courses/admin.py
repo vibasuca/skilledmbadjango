@@ -6,6 +6,7 @@ from .models import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.admin.templatetags.admin_urls import add_preserved_filters
+from django.utils.html import format_html
 
 
 def approve_course(modeladmin, request, queryset):
@@ -59,6 +60,7 @@ class CourseListFilter(admin.SimpleListFilter):
 class CourseAdmin(admin.ModelAdmin):
     actions = [approve_course, disapprove_course]
     list_filter = [CourseListFilter, "published_at", "approved_at"]
+    list_display = ("id", "title", "status", "view_preview")
 
     change_form_template = "custom_change_form.html"
 
@@ -88,6 +90,17 @@ class CourseAdmin(admin.ModelAdmin):
             return HttpResponseRedirect(redirect_url)
         else:
             return super().response_change(request, obj)
+
+    def view_preview(self, obj):
+        url = reverse("courses:course_details", args=[obj.pk, obj.slug])
+        return format_html("<a href='{}'>View</a>", url)
+
+    def status(self, obj):
+        if obj.approved_at is not None:
+            return "APPROVED"
+        elif obj.published_at is not None:
+            return "PENDING"
+        return "DRAFT"
 
 
 admin.site.register(Course, CourseAdmin)
