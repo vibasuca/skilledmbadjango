@@ -574,22 +574,18 @@
                           <div class="d-flex gap-3 align-items-center">
                             <div style="width: 47%;">
                               <label class="form-label my-2 fw-bold">Question Layout</label>
-                              <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                              <select id="quiz-question_layout" class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
                                 aria-label="Default select example">
-                                <option selected>Set Question Layout View</option>
-                                <option>Single Question</option>
-                                <option value="1">Question Pagination</option>
-                                <option value="2">Question Below Each Other</option>
+                                <option value="S" selected>Single Question</option>
+                                <option value="B">Question Below Each Other</option>
                               </select>
                             </div>
                             <div style="width: 47%;">
                               <label class="form-label my-2 fw-bold">Questions Order</label>
-                              <select class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
+                              <select id="quiz-question_order" class="form-select p-3 mb-2 border-0" style="background-color: #f8f8f8;"
                                 aria-label="Default select example">
-                                <option selected>Random</option>
-                                <option>Sorting</option>
-                                <option value="1">Ascending</option>
-                                <option value="2">Descending</option>
+                                <option value="R" selected>Random</option>
+                                <option value="S">Sorting</option>
                               </select>
                             </div>
                           </div>

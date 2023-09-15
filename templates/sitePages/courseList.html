@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static my_extras %}
 {% block title %}Skilled MBA{% endblock title %}
 
 {% block content %}
@@ -59,6 +59,7 @@
 <div class="container-fluid bg-white">
     <div class="main-content py-5">
 
+        {% comment %} 
         <div class="container mb-5 animate-me">
             <div class="d-flex justify-content-between my-3">
                 <h3 style="width: 50%;"> <mark class="underSvg">Courses</mark></h3>
@@ -506,6 +507,8 @@
             </div>
         </div>
 
+        {% endcomment %}
+
         <!--filters-->
         <div class="container animate-me">
             <div class="d-flex gap-4 flex-column-reverse flex-lg-row">
@@ -762,51 +765,72 @@
                 <div class="col-lg-9">
                     <div class="d-flex justify-content-between mb-5">
                         <b class="text-muted" style="font-weight: 400;">
-                            We found <span style="font-weight: 600;">23</span> courses available for you
+                            We found <span style="font-weight: 600;">{{courses.count}}</span> courses available for you
                         </b>
                         <div class="d-flex gap-3 align-items-center">
                             <span>see</span>
-                            <button class="btn p-0 border-0 text-primary"><i class="fas fa-th"></i></button>
-                            <button class="btn p-0 border-0"><i class="fa fa-bars"></i></button>
+                            <button id="grid-view-btn-js" class="btn p-0 border-0"><i class="fas fa-th"></i></button>
+                            <button id="list-view-btn-js" class="btn p-0 border-0 text-muted"><i class="fa fa-bars"></i></button>
                         </div>
                     </div>
                     <!--list view-->
-                    <div>
+                    <div id="list-view-js" class="d-none">
+                        {% for course in courses %}
                         <div class="list-view-card mb-4">
                             <div class="card border-0">
                                 <div class="card-body p-0">
                                     <div class="d-flex flex-column flex-md-row">
-                                        <div class="list-thumbnail-container rounded" style="height: 200px;">
-                                            <div class="image-background"
-                                                style="background-image: url('https://placehold.co/150x250');">
-                                                <div class="position-absolute p-2" style="top: 0px;">
-                                                    <span class="badge" style="background: #0071dc;">-15%</span>
+                                        <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-dark">
+                                            <div class="list-thumbnail-container rounded" style="height: 200px;">
+                                                <div class="image-background"
+                                                    style="background-image: url('{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                    {% if course.get_percent_off %}
+                                                    <div class="position-absolute p-2" style="top: 0px;">
+                                                        <span class="badge" style="background: #0071dc;">-{{course.get_percent_off}}%</span>
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </a>
                                         <div class="py-lg-0 px-md-3 px-0 p-3 d-flex flex-wrap" style="width: 100%">
                                             <div style="width: 100%;">
                                                 <div class="d-flex justify-content-between">
-                                                    <small class="text-primary">Decision-Making Alignment</small>
-                                                    <div class="text-muted">
-                                                        <b class="fs-5">₹100</b><b>.96</b>
-                                                        <s class="text-muted">₹00</s><s class="text-muted">.00</s>
+                                                    {% comment %} <small class="text-primary">Decision-Making Alignment</small> {% endcomment %}
+                                                    <div class="text-muted mb-2">
+                                                        {% if course.price %}
+                                                            {% if course.discount_price %}
+                                                                <b class="fs-5">₹{{course.discount_price|get_price_whole}}</b><b>.{{course.discount_price|get_price_fraction}}</b>
+                                                                <s class="text-muted">₹{{course.price}}</s>
+                                                            {% else %}
+                                                                <b class="fs-5">₹{{course.price|get_price_fraction}}</b><b>.{{course.price|get_price_fraction}}</b>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <b class="fs-5">Free</b>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-column gap-2">
-                                                    <b>Course name loremm ipsum</b>
+                                                    <b>{{course.title}}</b>
                                                     <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
-                                                        <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8 Hours</span>
+                                                        {% if course.duration %}
+                                                        <span>
+                                                            <i class="far fa-sliders-h"></i>&nbsp;&nbsp;
+                                                            {% if course.duration|get_timedelta_hours %}
+                                                                {{course.duration|get_timedelta_hours}} hour{{course.duration|get_timedelta_hours|pluralize:"s"}} 
+                                                            {% endif  %}
+                                                            {% if course.duration|get_timedelta_minutes %}
+                                                                {{course.duration|get_timedelta_minutes}} minute{{course.duration|get_timedelta_minutes|pluralize:"s"}}
+                                                            {% endif  %}
+                                                        </span>
+                                                        {% endif %}
                                                         <span><i
-                                                                class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
+                                                                class="far fa-clock"></i>&nbsp;&nbsp;{{course.get_difficulty_level_display}}</span>
                                                     </div>
-                                                    <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor sit
-                                                        amet, consectetur adipisicing elit. Obcaecati illo, aliquid quae
-                                                        dolore laboriosam debitis corporis</p>
+                                                    <p style="font-size: 14px;" class="text-muted">{{course.description|striptags|truncatechars:150}}</p>
                                                     <div class="d-flex gap-3">
-                                                        <button class="btn btn-primary px-4">
+                                                        <a href="{% url 'courses:course_details' course.pk course.slug %}" class="btn btn-primary px-4">
                                                             Get Enrolled
-                                                        </button>
+                                                        </a>
                                                         <button class="btn btn-light border">
                                                             <i class="fal fa-heart text-primary"></i>
                                                         </button>
@@ -818,93 +842,68 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="list-view-card mb-4">
-                            <div class="card border-0">
-                                <div class="card-body p-0">
-                                    <div class="d-flex flex-column flex-md-row">
-                                        <div class="list-thumbnail-container rounded" style="height: 200px;">
-                                            <div class="image-background"
-                                                style="background-image: url('https://placehold.co/150x250');">
-                                                <div class="position-absolute p-2" style="top: 0px;">
-                                                    <span class="badge" style="background: #0071dc;">-15%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="py-lg-0 px-md-3 px-0 p-3 d-flex flex-wrap" style="width: 100%">
-                                            <div style="width: 100%;">
-                                                <div class="d-flex justify-content-between">
-                                                    <small class="text-primary">Decision-Making Alignment</small>
-                                                    <div class="text-muted">
-                                                        <b class="fs-5">₹100</b><b>.96</b>
-                                                        <s class="text-muted">₹00</s><s class="text-muted">.00</s>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column gap-2">
-                                                    <b>Course name loremm ipsum</b>
-                                                    <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
-                                                        <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8 Hours</span>
-                                                        <span><i
-                                                                class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
-                                                    </div>
-                                                    <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor sit
-                                                        amet, consectetur adipisicing elit. Obcaecati illo, aliquid quae
-                                                        dolore laboriosam debitis corporis</p>
-                                                    <div class="d-flex gap-3">
-                                                        <button class="btn btn-primary px-4">
-                                                            Get Enrolled
-                                                        </button>
-                                                        <button class="btn btn-light border">
-                                                            <i class="fal fa-heart text-primary"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <br>
                     <!--grid view-->
-                    <div class="row">
+                    <div class="row" id="grid-view-js">
+                        {% for course in courses %}
                         <div class="col-lg-4 col-md-6 mb-5">
                             <div class="grid-view-card">
                                 <div class="card border-0">
                                     <div class="card-body p-0">
                                         <div class="d-flex flex-column">
-                                            <div class="grid-thumbnail-container rounded" style="height: 200px;">
-                                                <div class="image-background"
-                                                    style="background-image: url('https://placehold.co/150x250');">
-                                                    <div class="position-absolute p-2" style="top: 0px;">
-                                                        <span class="badge" style="background: #0071dc;">-15%</span>
+                                            <a href="{% url 'courses:course_details' course.pk course.slug %}" class="text-dark">
+                                                <div class="grid-thumbnail-container rounded" style="height: 200px;">
+                                                    <div class="image-background"
+                                                        style="background-image: url('{% if course.thumbnail %}{{ course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                        {% if course.get_percent_off %}
+                                                        <div class="position-absolute p-2" style="top: 0px;">
+                                                            <span class="badge" style="background: #0071dc;">-{{course.get_percent_off}}%</span>
+                                                        </div>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
                                             <div class="py-3 d-flex flex-wrap" style="width: 100%">
                                                 <div style="width: 100%;">
-                                                    <div class="d-flex justify-content-between">
-                                                        <small class="text-primary">Decision-Making Alignment</small>
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        {% comment %} <small class="text-primary">Decision-Making Alignment</small> {% endcomment %}
                                                         <div class="text-muted">
-                                                            <b class="fs-5">₹100</b><b>.96</b>
-                                                            <s class="text-muted">₹00</s><s class="text-muted">.00</s>
+                                                            {% if course.price %}
+                                                                {% if course.discount_price %}
+                                                                    <b class="fs-5">₹{{course.discount_price|get_price_whole}}</b><b>.{{course.discount_price|get_price_fraction}}</b>
+                                                                    <s class="text-muted">₹{{course.price}}</s>
+                                                                {% else %}
+                                                                    <b class="fs-5">₹{{course.price|get_price_fraction}}</b><b>.{{course.price|get_price_fraction}}</b>
+                                                                {% endif %}
+                                                            {% else %}
+                                                                <b class="fs-5">Free</b>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-column gap-2">
-                                                        <b>Course name loremm ipsum</b>
+                                                        <b>{{course.title}}</b>
                                                         <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
-                                                            <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8
-                                                                Hours</span>
+                                                            {% if course.duration %}
+                                                                <span>
+                                                                    <i class="far fa-sliders-h"></i>&nbsp;&nbsp;
+                                                                    {% if course.duration|get_timedelta_hours %}
+                                                                        {{course.duration|get_timedelta_hours}} hour{{course.duration|get_timedelta_hours|pluralize:"s"}} 
+                                                                    {% endif  %}
+                                                                    {% if course.duration|get_timedelta_minutes %}
+                                                                        {{course.duration|get_timedelta_minutes}} minute{{course.duration|get_timedelta_minutes|pluralize:"s"}}
+                                                                    {% endif  %}
+                                                                </span>
+                                                            {% endif %}
                                                             <span><i
-                                                                    class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
+                                                                    class="far fa-clock"></i>&nbsp;&nbsp;{{course.get_difficulty_level_display}}</span>
                                                         </div>
-                                                        <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor
-                                                            sit amet, consectetur adipisicing elit. Obcaecati illo,
-                                                            aliquid quae dolore laboriosam debitis corporis</p>
+                                                        <p style="font-size: 14px;" class="text-muted">{{course.description|striptags|truncatechars:150}}</p>
                                                         <div class="d-flex gap-3">
-                                                            <button class="btn btn-primary px-4">
+                                                            <a href="{% url 'courses:course_details' course.pk course.slug %}" class="btn btn-primary px-4">
                                                                 Get Enrolled
-                                                            </button>
+                                                            </a>
                                                             <button class="btn btn-light border">
                                                                 <i class="fal fa-heart text-primary"></i>
                                                             </button>
@@ -917,55 +916,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 mb-5">
-                            <div class="grid-view-card">
-                                <div class="card border-0">
-                                    <div class="card-body p-0">
-                                        <div class="d-flex flex-column">
-                                            <div class="grid-thumbnail-container rounded" style="height: 200px;">
-                                                <div class="image-background"
-                                                    style="background-image: url('https://placehold.co/150x250');">
-                                                    <div class="position-absolute p-2" style="top: 0px;">
-                                                        <span class="badge" style="background: #0071dc;">-15%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="py-3 d-flex flex-wrap" style="width: 100%">
-                                                <div style="width: 100%;">
-                                                    <div class="d-flex justify-content-between">
-                                                        <small class="text-primary">Decision-Making Alignment</small>
-                                                        <div class="text-muted">
-                                                            <b class="fs-5">₹100</b><b>.96</b>
-                                                            <s class="text-muted">₹00</s><s class="text-muted">.00</s>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <b>Course name loremm ipsum</b>
-                                                        <div style="font-size: 14px;" class="d-flex gap-3 text-muted">
-                                                            <span><i class="far fa-sliders-h"></i>&nbsp;&nbsp;8
-                                                                Hours</span>
-                                                            <span><i
-                                                                    class="far fa-clock"></i>&nbsp;&nbsp;Intermediate</span>
-                                                        </div>
-                                                        <p style="font-size: 14px;" class="text-muted">Lorem ipsum dolor
-                                                            sit amet, consectetur adipisicing elit. Obcaecati illo,
-                                                            aliquid quae dolore laboriosam debitis corporis</p>
-                                                        <div class="d-flex gap-3">
-                                                            <button class="btn btn-primary px-4">
-                                                                Get Enrolled
-                                                            </button>
-                                                            <button class="btn btn-light border">
-                                                                <i class="fal fa-heart text-primary"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -1001,6 +952,21 @@
         $("#close-login-cta").click(function () {
             $(".login-cta").hide();
         });
+
+        $("#grid-view-btn-js").click(function() {
+            $("#grid-view-js").removeClass("d-none");
+            $("#list-view-js").addClass("d-none");
+            $(this).removeClass("text-muted");
+            $("#list-view-btn-js").addClass("text-muted");
+        });
+
+        $("#list-view-btn-js").click(function() {
+            $("#list-view-js").removeClass("d-none");
+            $("#grid-view-js").addClass("d-none");
+            $(this).removeClass("text-muted");
+            $("#grid-view-btn-js").addClass("text-muted");
+        });
+
     });
 
 </script>

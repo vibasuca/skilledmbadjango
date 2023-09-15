@@ -42,7 +42,7 @@ def become_instructor(request):
     request.user.is_instructor = True
     request.user.save()
     messages.success(request, "You are now an instructor.")
-    redirect_url = reverse("account_profile")
+    redirect_url = reverse("courses:dashboard")
     return JsonResponse({"success": True, "redirect_url": redirect_url})
 
 

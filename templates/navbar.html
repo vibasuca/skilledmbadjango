@@ -20,7 +20,7 @@
       <div class="d-flex justify-content-between gap-4">
         <div style="font-size: 13px">
           {% if user.is_authenticated %}
-          <a href="{% url 'account_profile' %}">Dashboard</a> &nbsp;&nbsp; | &nbsp;&nbsp;
+          <a href="{% url 'courses:dashboard' %}">Dashboard</a> &nbsp;&nbsp; | &nbsp;&nbsp;
           <a href="{% url 'account_logout' %}">Log out</a>
           {% else %}
           <a data-bs-toggle="modal" href="#loginModal">Log in</a> &nbsp;&nbsp; | &nbsp;&nbsp;

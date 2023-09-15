@@ -938,10 +938,11 @@
                                                         class="text-dark">
                                                         <div class="image-background"
                                                             style="background-image: url('{% if rel_course.thumbnail %}{{ rel_course.thumbnail.file.url }}{% else %}{% static 'images/thumbnail-placeholder.svg' %}{% endif %}');">
+                                                            {% if rel_course.get_percent_off %}
                                                             <div class="position-absolute p-2" style="top: 0px;">
-                                                                <span class="badge"
-                                                                    style="background: #0071dc;">-15%</span>
+                                                                <span class="badge" style="background: #0071dc;">-{{rel_course.get_percent_off}}%</span>
                                                             </div>
+                                                            {% endif %}
                                                         </div>
                                                     </a>
                                                 </div>
